@@ -1,0 +1,47 @@
+---
+import PageIntro from "../../components/PageIntro.astro";
+import { publishedLocales, type LocaleDefinition } from "../../i18n/locales";
+import { localizedPath } from "../../i18n/routes";
+import { translate, type TranslationKey } from "../../i18n/translations";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+export function getStaticPaths() {
+  return publishedLocales.map((locale) => ({ params: { locale: locale.urlPrefix }, props: { locale } }));
+}
+
+interface Props { locale: LocaleDefinition; }
+const { locale } = Astro.props as Props;
+const t = (key: TranslationKey) => translate(locale.id, key);
+const groups = [
+  ["groupLogTitle", "groupLogBody", "groupLogItems"],
+  ["groupUnderstandTitle", "groupUnderstandBody", "groupUnderstandItems"],
+  ["groupTrackTitle", "groupTrackBody", "groupTrackItems"],
+  ["groupReviewTitle", "groupReviewBody", "groupReviewItems"],
+] as const;
+---
+
+<BaseLayout localeId={locale.id} destination="product" title={t("metaProductTitle")} description={t("metaProductDescription")}>
+  <div class="section-shell">
+    <PageIntro eyebrow={t("productEyebrow")} heading={t("productHeading")} body={t("productBody")} />
+  </div>
+  <section class="product-groups section-shell" aria-label={t("currentCapability")}>
+    {groups.map(([titleKey, bodyKey, itemsKey], index) => (
+      <article class="product-group">
+        <div class="product-group__heading">
+          <span aria-hidden="true">0{index + 1}</span>
+          <div>
+            <h2>{t(titleKey)}</h2>
+            <p>{t(bodyKey)}</p>
+          </div>
+        </div>
+        <ul>{t(itemsKey).split("|").map((item) => <li>{item}</li>)}</ul>
+      </article>
+    ))}
+  </section>
+  <aside class="truth-note section-shell" aria-labelledby="truth-heading">
+    <p class="eyebrow">{t("currentCapability")}</p>
+    <h2 id="truth-heading">{t("productTruthHeading")}</h2>
+    <p>{t("productTruthBody")}</p>
+    <a class="button button--text" href={localizedPath(locale.id, "howItWorks")}>{t("seeHow")}</a>
+  </aside>
+</BaseLayout>

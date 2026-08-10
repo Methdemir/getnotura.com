@@ -6,7 +6,7 @@ Status: implemented on `feat/web-w1-foundation`; not deployed
 
 ## Stack and dependencies
 
-W1 uses Astro 7.2.0 in explicit static-output mode, TypeScript's strictest Astro configuration, Node.js 24 for development/CI, and npm with a committed lockfile. Astro is the sole site framework and produces static HTML. There is no React, Vue, client router, component library, CMS, analytics, tracking, or external font service.
+W1 uses Astro 7.2.0 in explicit static-output mode, TypeScript's strictest Astro configuration, Node.js 24 for development/CI, and npm with a committed lockfile. W2 removed the exact npm-version declaration and instead relies on the supported npm range declared in `engines`, matching the CI setup. Astro is the sole site framework and produces static HTML. There is no React, Vue, client router, component library, CMS, analytics, tracking, or external font service.
 
 The development dependencies are intentionally limited:
 

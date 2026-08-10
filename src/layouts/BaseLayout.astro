@@ -2,7 +2,7 @@
 import SiteFooter from "../components/SiteFooter.astro";
 import SiteHeader from "../components/SiteHeader.astro";
 import { getPublishedLocale } from "../i18n/locales";
-import { alternateLinks, localizedPath, type Destination } from "../i18n/routes";
+import { alternateLinks, localizedPath, routeAvailability, type Destination } from "../i18n/routes";
 import { translate } from "../i18n/translations";
 import DocumentLayout from "./DocumentLayout.astro";
 
@@ -17,8 +17,8 @@ interface Props {
 const {
   localeId,
   destination = "home",
-  title = translate(localeId, "metaTitle"),
-  description = translate(localeId, "metaDescription"),
+  title = translate(localeId, "metaHomeTitle"),
+  description = translate(localeId, "metaHomeDescription"),
   robots,
 } = Astro.props;
 const locale = getPublishedLocale(localeId);
@@ -30,7 +30,7 @@ const locale = getPublishedLocale(localeId);
   description={description}
   skipLinkText={translate(localeId, "skipToContent")}
   canonicalPath={localizedPath(localeId, destination)}
-  alternates={alternateLinks(destination)}
+  alternates={alternateLinks(destination, routeAvailability)}
   ogLocale={locale.ogLocale}
   robots={robots}
 >

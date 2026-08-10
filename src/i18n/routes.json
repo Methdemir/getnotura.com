@@ -2,6 +2,7 @@
   "home": { "path": "", "sectionFallback": "home" },
   "product": { "path": "product", "sectionFallback": "home" },
   "howItWorks": { "path": "how-it-works", "sectionFallback": "home" },
+  "features": { "path": "features", "sectionFallback": "product" },
   "learn": { "path": "learn", "sectionFallback": "home" },
   "professionals": { "path": "professionals", "sectionFallback": "home" },
   "support": { "path": "support", "sectionFallback": "home" },

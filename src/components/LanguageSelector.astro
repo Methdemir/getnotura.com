@@ -1,7 +1,7 @@
 ---
 import { getPublishedLocale, publishedLocales } from "../i18n/locales";
 import {
-  foundationRouteAvailability,
+  routeAvailability,
   localeSwitchPath,
   type Destination,
 } from "../i18n/routes";
@@ -30,7 +30,7 @@ const currentLocale = getPublishedLocale(localeId);
             href={localeSwitchPath(
               locale.id,
               destination,
-              foundationRouteAvailability,
+              routeAvailability,
             )}
             lang={locale.htmlLang}
             hreflang={locale.hreflang}

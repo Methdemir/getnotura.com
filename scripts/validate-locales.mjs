@@ -78,6 +78,7 @@ const requiredDestinations = [
   "home",
   "product",
   "howItWorks",
+  "features",
   "learn",
   "professionals",
   "support",

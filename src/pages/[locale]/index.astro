@@ -1,7 +1,12 @@
 ---
-import BaseLayout from "../../layouts/BaseLayout.astro";
+import CaptureComposition from "../../components/CaptureComposition.astro";
+import NutritionComposition from "../../components/NutritionComposition.astro";
+import ProgressComposition from "../../components/ProgressComposition.astro";
+import SectionIntro from "../../components/SectionIntro.astro";
 import { publishedLocales, type LocaleDefinition } from "../../i18n/locales";
+import { localizedPath } from "../../i18n/routes";
 import { translate } from "../../i18n/translations";
+import BaseLayout from "../../layouts/BaseLayout.astro";
 
 export function getStaticPaths() {
   return publishedLocales.map((locale) => ({
@@ -15,12 +20,90 @@ interface Props {
 }
 
 const { locale } = Astro.props;
+const t = (key: Parameters<typeof translate>[1]) => translate(locale.id, key);
+const methods = [
+  { title: t("methodPhoto"), body: t("methodPhotoBody") },
+  { title: t("methodText"), body: t("methodTextBody") },
+  { title: t("methodBarcode"), body: t("methodBarcodeBody") },
+  { title: t("methodManual"), body: t("methodManualBody") },
+];
 ---
 
-<BaseLayout localeId={locale.id} destination="home">
-  <section class="foundation-hero" aria-labelledby="foundation-heading">
-    <p class="eyebrow">{translate(locale.id, "foundationEyebrow")}</p>
-    <h1 id="foundation-heading">{translate(locale.id, "foundationHeading")}</h1>
-    <p class="lede">{translate(locale.id, "foundationBody")}</p>
+<BaseLayout
+  localeId={locale.id}
+  destination="home"
+  title={t("metaHomeTitle")}
+  description={t("metaHomeDescription")}
+>
+  <section class="hero section-shell" aria-labelledby="hero-heading">
+    <div class="hero__copy">
+      <p class="eyebrow">{t("homeEyebrow")}</p>
+      <h1 id="hero-heading">{t("homeHeading")}</h1>
+      <p class="lede">{t("homeBody")}</p>
+      <div class="button-row">
+        <a class="button button--primary" href="#how-notura-works">{t("seeHow")}</a>
+        <a class="button button--text" href={localizedPath(locale.id, "product")}>{t("viewProduct")}</a>
+      </div>
+    </div>
+    <div class="hero__composition" aria-hidden="true">
+      <span class="hero__leaf hero__leaf--one"></span>
+      <span class="hero__leaf hero__leaf--two"></span>
+      <span class="hero__leaf hero__leaf--three"></span>
+      <div class="hero__prompt">
+        <img src="/favicon/notura-symbol.png" alt="" width="96" height="96" />
+        <span>{t("methodText")}</span>
+        <strong>{t("methodPhoto")} · {t("methodBarcode")}</strong>
+      </div>
+    </div>
+  </section>
+
+  <section id="how-notura-works" class="section section--capture">
+    <div class="section-shell split-layout split-layout--wide">
+      <SectionIntro eyebrow={t("captureEyebrow")} heading={t("captureHeading")} body={t("captureBody")} />
+      <CaptureComposition methods={methods} label={t("captureHeading")} />
+    </div>
+  </section>
+
+  <section class="section section--light">
+    <div class="section-shell split-layout split-layout--reverse">
+      <NutritionComposition
+        today={t("today")}
+        estimated={t("estimated")}
+        calories={t("calories")}
+        protein={t("protein")}
+        carbs={t("carbs")}
+        fat={t("fat")}
+      />
+      <SectionIntro eyebrow={t("understandEyebrow")} heading={t("understandHeading")} body={t("understandBody")} />
+    </div>
+  </section>
+
+  <section class="section section--green">
+    <div class="section-shell split-layout">
+      <div>
+        <SectionIntro eyebrow={t("progressEyebrow")} heading={t("progressHeading")} body={t("progressBody")} />
+        <p class="supporting-copy"><strong>{t("periodProgress")}</strong> {t("periodProgressBody")}</p>
+      </div>
+      <ProgressComposition water={t("waterTracking")} weight={t("weightTracking")} progress={t("periodProgress")} />
+    </div>
+  </section>
+
+  <section class="section section--ink">
+    <div class="section-shell boundary-layout">
+      <p class="boundary-layout__label">AI</p>
+      <div>
+        <h2>{t("aiHeading")}</h2>
+        <p>{t("aiBody")}</p>
+        <p class="boundary-layout__footnote">{t("aiFootnote")}</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="closing-section section-shell">
+    <div>
+      <h2>{t("closingHeading")}</h2>
+      <p>{t("closingBody")}</p>
+    </div>
+    <a class="button button--primary" href={localizedPath(locale.id, "howItWorks")}>{t("seeHow")}</a>
   </section>
 </BaseLayout>

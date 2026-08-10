@@ -1,0 +1,28 @@
+---
+interface Props {
+  today: string;
+  estimated: string;
+  calories: string;
+  protein: string;
+  carbs: string;
+  fat: string;
+}
+
+const { today, estimated, calories, protein, carbs, fat } = Astro.props;
+---
+
+<div class="nutrition-composition" aria-label={`${today}: ${estimated}`}>
+  <div class="nutrition-composition__topline">
+    <span>{today}</span>
+    <span>{estimated}</span>
+  </div>
+  <div class="nutrition-composition__calories">
+    <span class="nutrition-composition__ring" aria-hidden="true"></span>
+    <strong>{calories}</strong>
+  </div>
+  <ul>
+    <li><span>{protein}</span><i style="--fill: 72%"></i></li>
+    <li><span>{carbs}</span><i style="--fill: 56%"></i></li>
+    <li><span>{fat}</span><i style="--fill: 42%"></i></li>
+  </ul>
+</div>

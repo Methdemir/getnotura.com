@@ -1,0 +1,44 @@
+---
+import PageIntro from "../../components/PageIntro.astro";
+import { publishedLocales, type LocaleDefinition } from "../../i18n/locales";
+import { localizedPath } from "../../i18n/routes";
+import { translate, type TranslationKey } from "../../i18n/translations";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+export function getStaticPaths() {
+  return publishedLocales.map((locale) => ({ params: { locale: locale.urlPrefix }, props: { locale } }));
+}
+
+interface Props { locale: LocaleDefinition; }
+const { locale } = Astro.props as Props;
+const t = (key: TranslationKey) => translate(locale.id, key);
+const features = [
+  ["featureCaptureTitle", "featureCaptureBody"],
+  ["featureNutritionTitle", "featureNutritionBody"],
+  ["featureTrackingTitle", "featureTrackingBody"],
+  ["featureProgressTitle", "featureProgressBody"],
+] as const;
+---
+
+<BaseLayout localeId={locale.id} destination="features" title={t("metaFeaturesTitle")} description={t("metaFeaturesDescription")}>
+  <div class="section-shell">
+    <PageIntro eyebrow={t("featuresEyebrow")} heading={t("featuresHeading")} body={t("featuresBody")} compact />
+  </div>
+  <section class="feature-overview section-shell" aria-label={t("featuresHeading")}>
+    {features.map(([titleKey, bodyKey], index) => (
+      <article>
+        <span class="feature-overview__index" aria-hidden="true">0{index + 1}</span>
+        <h2>{t(titleKey)}</h2>
+        <p>{t(bodyKey)}</p>
+      </article>
+    ))}
+  </section>
+  <aside class="boundary-note section-shell" aria-labelledby="feature-boundary-heading">
+    <span aria-hidden="true">≈</span>
+    <div><h2 id="feature-boundary-heading">{t("featuresBoundaryHeading")}</h2><p>{t("featuresBoundaryBody")}</p></div>
+  </aside>
+  <section class="closing-section section-shell">
+    <h2>{t("closingHeading")}</h2>
+    <a class="button button--primary" href={localizedPath(locale.id, "product")}>{t("viewProduct")}</a>
+  </section>
+</BaseLayout>

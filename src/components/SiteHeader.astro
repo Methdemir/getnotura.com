@@ -10,28 +10,24 @@ interface Props {
 }
 
 const { localeId, destination = "home" } = Astro.props;
-const futureDestinations = [
-  "product",
-  "howItWorks",
-  "learn",
-  "professionals",
-  "support",
-] as const;
+const navigation = ["product", "howItWorks", "features"] as const;
 ---
 
 <header class="site-header">
   <div class="site-header__inner">
     <BrandLink href={localizedPath(localeId, "home")} label={translate(localeId, "home")} />
-    <nav aria-label={translate(localeId, "futureSectionsLabel")}>
-      <ul class="future-navigation">
-        {
-          futureDestinations.map((item) => (
-            <li>
-              <span>{translate(localeId, item)}</span>
-              <span class="sr-only"> — {translate(localeId, "futureItemUnavailable")}</span>
-            </li>
-          ))
-        }
+    <nav aria-label={translate(localeId, "primaryNavigation")}>
+      <ul class="primary-navigation">
+        {navigation.map((item) => (
+          <li>
+            <a
+              href={localizedPath(localeId, item)}
+              aria-current={destination === item ? "page" : undefined}
+            >
+              {translate(localeId, item)}
+            </a>
+          </li>
+        ))}
       </ul>
     </nav>
     <LanguageSelector localeId={localeId} destination={destination} />

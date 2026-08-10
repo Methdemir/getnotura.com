@@ -7,6 +7,7 @@ const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const dist = path.join(root, "dist");
 const siteOrigin = "https://getnotura.com";
 const locales = JSON.parse(await readFile(path.join(root, "src/i18n/locales.json"), "utf8"));
+const routes = JSON.parse(await readFile(path.join(root, "src/i18n/routes.json"), "utf8"));
 const published = locales.filter((locale) => locale.publicationStatus === "published");
 const reservedPrefixes = new Set(
   locales.filter((locale) => locale.publicationStatus === "reserved").map((locale) => locale.urlPrefix),
@@ -32,13 +33,38 @@ const linkTags = (html, rel) =>
     .map((match) => match[0])
     .filter((tag) => getAttribute(tag, "rel") === rel);
 
+const publishedDestinations = ["home", "product", "howItWorks", "features"];
+const metaTitleKeys = {
+  home: "metaHomeTitle",
+  product: "metaProductTitle",
+  howItWorks: "metaHowTitle",
+  features: "metaFeaturesTitle",
+};
+const destinationPath = (locale, destination) => {
+  const suffix = routes[destination].path;
+  return suffix ? `/${locale.urlPrefix}/${suffix}/` : `/${locale.urlPrefix}/`;
+};
+const dictionaries = new Map(
+  await Promise.all(
+    published.map(async (locale) => [
+      locale.id,
+      JSON.parse(
+        await readFile(path.join(root, "src/i18n/translations", locale.translationFile), "utf8"),
+      ),
+    ]),
+  ),
+);
 const expectedPages = [
-  { path: "/", lang: "en", selfHreflang: "x-default" },
-  ...published.map((locale) => ({
-    path: `/${locale.urlPrefix}/`,
-    lang: locale.htmlLang,
-    selfHreflang: locale.hreflang,
-  })),
+  { path: "/", lang: "en", selfHreflang: "x-default", destination: "home", title: "Notura | Language selection" },
+  ...published.flatMap((locale) =>
+    publishedDestinations.map((destination) => ({
+      path: destinationPath(locale, destination),
+      lang: locale.htmlLang,
+      selfHreflang: locale.hreflang,
+      destination,
+      title: dictionaries.get(locale.id)[metaTitleKeys[destination]],
+    })),
+  ),
 ];
 const pageRecords = [];
 
@@ -52,6 +78,11 @@ for (const expected of expectedPages) {
   const htmlLang = html.match(/<html\b[^>]*lang="([^"]+)"/i)?.[1];
   if (htmlLang !== expected.lang) {
     throw new Error(`Incorrect HTML lang for ${expected.path}: ${htmlLang ?? "missing"}`);
+  }
+
+  const title = html.match(/<title>([^<]+)<\/title>/i)?.[1];
+  if (title !== expected.title) {
+    throw new Error(`Incorrect localized title for ${expected.path}: ${title ?? "missing"}`);
   }
 
   const canonicals = linkTags(html, "canonical");
@@ -70,10 +101,15 @@ for (const expected of expectedPages) {
       getAttribute(tag, "href"),
     ]),
   );
-  const expectedAlternates = new Map([
-    ...published.map((locale) => [locale.hreflang, absolute(`/${locale.urlPrefix}/`)]),
-    ["x-default", absolute("/")],
-  ]);
+  const expectedAlternates = new Map(
+    published.map((locale) => [
+      locale.hreflang,
+      absolute(destinationPath(locale, expected.destination)),
+    ]),
+  );
+  if (expected.destination === "home") {
+    expectedAlternates.set("x-default", absolute("/"));
+  }
 
   if (alternates.size !== expectedAlternates.size) {
     throw new Error(`Incomplete hreflang set for ${expected.path}.`);
@@ -162,6 +198,9 @@ const bannedOutput = [
   /connect\.facebook\.net/i,
   /fonts\.googleapis\.com/i,
   /fonts\.gstatic\.com/i,
+  /play\.google\.com/i,
+  /apps\.apple\.com/i,
+  /googletagmanager/i,
 ];
 for (const pattern of bannedOutput) {
   if (pattern.test(inspectableText)) {
@@ -196,4 +235,4 @@ for (const file of files.filter((candidate) => candidate.endsWith(".html"))) {
   }
 }
 
-console.log(`Build validation passed for ${expectedPages.length} canonical pages, 404, CNAME, reciprocal hreflang, internal links, and zero client JavaScript.`);
+console.log(`Build validation passed for ${expectedPages.length} W2 canonical pages, localized titles, 404, CNAME, reciprocal hreflang, internal links, no store URLs, and zero client JavaScript.`);

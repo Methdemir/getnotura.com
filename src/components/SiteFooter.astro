@@ -13,12 +13,17 @@ const { localeId, destination = "home" } = Astro.props;
 
 <footer class="site-footer">
   <div class="site-footer__inner">
-    <div>
+    <div class="site-footer__brand">
       <strong>Notura</strong>
       <p>{translate(localeId, "footerSummary")}</p>
     </div>
     <nav aria-label={translate(localeId, "footerNavigation")}>
-      <a href={localizedPath(localeId, "home")}>{translate(localeId, "home")}</a>
+      <p class="site-footer__label">{translate(localeId, "footerExplore")}</p>
+      <ul>
+        <li><a href={localizedPath(localeId, "product")}>{translate(localeId, "product")}</a></li>
+        <li><a href={localizedPath(localeId, "howItWorks")}>{translate(localeId, "howItWorks")}</a></li>
+        <li><a href={localizedPath(localeId, "features")}>{translate(localeId, "features")}</a></li>
+      </ul>
     </nav>
     <LanguageSelector localeId={localeId} destination={destination} placement="footer" />
   </div>

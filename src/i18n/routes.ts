@@ -6,8 +6,14 @@ export type RouteAvailabilityKey = `${string}:${Destination}`;
 
 export const destinations = routeData;
 
-export const foundationRouteAvailability = new Set<RouteAvailabilityKey>(
-  publishedLocales.map((locale) => `${locale.id}:home` as RouteAvailabilityKey),
+export const publishedDestinations = ["home", "product", "howItWorks", "features"] as const;
+
+export const routeAvailability = new Set<RouteAvailabilityKey>(
+  publishedLocales.flatMap((locale) =>
+    publishedDestinations.map(
+      (destination) => `${locale.id}:${destination}` as RouteAvailabilityKey,
+    ),
+  ),
 );
 
 export function localizedPath(localeId: string, destination: Destination): string {
@@ -27,7 +33,7 @@ export function reservedLocalizedPath(localeId: string, destination: Destination
 export function localeSwitchPath(
   targetLocaleId: string,
   destination: Destination,
-  availability: ReadonlySet<RouteAvailabilityKey> = foundationRouteAvailability,
+  availability: ReadonlySet<RouteAvailabilityKey> = routeAvailability,
 ): string {
   const locale = getPublishedLocale(targetLocaleId);
   let candidate: Destination = destination;
@@ -53,7 +59,7 @@ export interface AlternateLink {
 
 export function alternateLinks(
   destination: Destination,
-  availability: ReadonlySet<RouteAvailabilityKey> = foundationRouteAvailability,
+  availability: ReadonlySet<RouteAvailabilityKey> = routeAvailability,
 ): AlternateLink[] {
   const equivalents = publishedLocales
     .filter((locale) => availability.has(`${locale.id}:${destination}`))
