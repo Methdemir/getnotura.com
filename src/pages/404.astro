@@ -1,0 +1,40 @@
+---
+import BrandLink from "../components/BrandLink.astro";
+import { publishedLocales } from "../i18n/locales";
+import { localizedPath } from "../i18n/routes";
+import DocumentLayout from "../layouts/DocumentLayout.astro";
+---
+
+<DocumentLayout
+  lang="en"
+  title="Page not found | Notura"
+  description="The requested Notura page could not be found."
+  skipLinkText="Skip to main content"
+  robots="noindex,follow"
+>
+  <header class="neutral-header">
+    <BrandLink href="/" label="Notura language selection" />
+  </header>
+  <main id="main-content" tabindex="-1" class="not-found">
+    <section aria-labelledby="not-found-heading">
+      <p class="eyebrow">404</p>
+      <h1 id="not-found-heading">Page not found</h1>
+      <p>Choose a language to return to Notura.</p>
+      <ul class="language-grid">
+        {
+          publishedLocales.map((locale) => (
+            <li>
+              <a
+                href={localizedPath(locale.id, "home")}
+                lang={locale.htmlLang}
+                hreflang={locale.hreflang}
+              >
+                {locale.nativeName}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+  </main>
+</DocumentLayout>

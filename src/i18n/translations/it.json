@@ -1,0 +1,22 @@
+{
+  "metaTitle": "Notura | Base del sito web",
+  "metaDescription": "Scegli una lingua per visualizzare la base del sito web di Notura.",
+  "skipToContent": "Vai al contenuto principale",
+  "home": "Home",
+  "product": "Prodotto",
+  "howItWorks": "Come funziona",
+  "learn": "Scopri",
+  "professionals": "Per professionisti",
+  "support": "Assistenza",
+  "language": "Lingua",
+  "futureSectionsLabel": "Sezioni previste del sito web",
+  "futureItemUnavailable": "Non ancora disponibile",
+  "foundationEyebrow": "Base del sito web",
+  "foundationHeading": "Notura, nella tua lingua",
+  "foundationBody": "Questa pagina conferma la base tecnica del sito web pubblico di Notura. Le informazioni dettagliate sul prodotto saranno pubblicate in una versione successiva.",
+  "languagePrompt": "Scegli una lingua",
+  "currentLanguage": "Lingua attuale",
+  "changeLanguage": "Cambia lingua",
+  "footerSummary": "Base del sito web pubblico di Notura",
+  "footerNavigation": "Navigazione del piè di pagina"
+}

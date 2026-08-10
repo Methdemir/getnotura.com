@@ -1,0 +1,45 @@
+---
+import { getPublishedLocale, publishedLocales } from "../i18n/locales";
+import {
+  foundationRouteAvailability,
+  localeSwitchPath,
+  type Destination,
+} from "../i18n/routes";
+import { translate } from "../i18n/translations";
+
+interface Props {
+  localeId: string;
+  destination?: Destination;
+  placement?: "header" | "footer";
+}
+
+const { localeId, destination = "home", placement = "header" } = Astro.props;
+const currentLocale = getPublishedLocale(localeId);
+---
+
+<details class:list={["language-selector", `language-selector--${placement}`]}>
+  <summary aria-label={`${translate(localeId, "changeLanguage")}. ${translate(localeId, "currentLanguage")}: ${currentLocale.nativeName}`}>
+    <span aria-hidden="true">{translate(localeId, "language")}</span>
+    <span class="language-selector__current">{currentLocale.nativeName}</span>
+  </summary>
+  <ul aria-label={translate(localeId, "languagePrompt")}>
+    {
+      publishedLocales.map((locale) => (
+        <li>
+          <a
+            href={localeSwitchPath(
+              locale.id,
+              destination,
+              foundationRouteAvailability,
+            )}
+            lang={locale.htmlLang}
+            hreflang={locale.hreflang}
+            aria-current={locale.id === currentLocale.id ? "page" : undefined}
+          >
+            {locale.nativeName}
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</details>

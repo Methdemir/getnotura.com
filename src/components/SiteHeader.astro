@@ -1,0 +1,39 @@
+---
+import { localizedPath, type Destination } from "../i18n/routes";
+import { translate } from "../i18n/translations";
+import BrandLink from "./BrandLink.astro";
+import LanguageSelector from "./LanguageSelector.astro";
+
+interface Props {
+  localeId: string;
+  destination?: Destination;
+}
+
+const { localeId, destination = "home" } = Astro.props;
+const futureDestinations = [
+  "product",
+  "howItWorks",
+  "learn",
+  "professionals",
+  "support",
+] as const;
+---
+
+<header class="site-header">
+  <div class="site-header__inner">
+    <BrandLink href={localizedPath(localeId, "home")} label={translate(localeId, "home")} />
+    <nav aria-label={translate(localeId, "futureSectionsLabel")}>
+      <ul class="future-navigation">
+        {
+          futureDestinations.map((item) => (
+            <li>
+              <span>{translate(localeId, item)}</span>
+              <span class="sr-only"> — {translate(localeId, "futureItemUnavailable")}</span>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+    <LanguageSelector localeId={localeId} destination={destination} />
+  </div>
+</header>

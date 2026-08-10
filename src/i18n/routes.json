@@ -1,0 +1,13 @@
+{
+  "home": { "path": "", "sectionFallback": "home" },
+  "product": { "path": "product", "sectionFallback": "home" },
+  "howItWorks": { "path": "how-it-works", "sectionFallback": "home" },
+  "learn": { "path": "learn", "sectionFallback": "home" },
+  "professionals": { "path": "professionals", "sectionFallback": "home" },
+  "support": { "path": "support", "sectionFallback": "home" },
+  "privacy": { "path": "legal/privacy", "sectionFallback": "home" },
+  "terms": { "path": "legal/terms", "sectionFallback": "home" },
+  "healthAiNotice": { "path": "legal/health-and-ai-notice", "sectionFallback": "home" },
+  "accountDeletion": { "path": "support/account-deletion", "sectionFallback": "support" },
+  "dataRights": { "path": "support/data-rights", "sectionFallback": "support" }
+}

@@ -1,0 +1,45 @@
+---
+import type { AlternateLink } from "../i18n/routes";
+import "../styles/global.css";
+import SeoHead from "../components/SeoHead.astro";
+
+interface Props {
+  lang: string;
+  title: string;
+  description: string;
+  skipLinkText: string;
+  canonicalPath?: string | undefined;
+  alternates?: AlternateLink[] | undefined;
+  ogLocale?: string | undefined;
+  robots?: string | undefined;
+}
+
+const {
+  lang,
+  title,
+  description,
+  skipLinkText,
+  canonicalPath,
+  alternates,
+  ogLocale,
+  robots,
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <SeoHead
+      title={title}
+      description={description}
+      canonicalPath={canonicalPath}
+      alternates={alternates}
+      ogLocale={ogLocale}
+      robots={robots}
+    />
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">{skipLinkText}</a>
+    <slot />
+  </body>
+</html>

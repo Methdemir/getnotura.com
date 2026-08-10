@@ -1,0 +1,25 @@
+{
+  "name": "notura-web",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "packageManager": "npm@11.13.0",
+  "engines": {
+    "node": ">=22.12.0",
+    "npm": ">=9.6.5"
+  },
+  "scripts": {
+    "dev": "node scripts/run-astro.mjs dev",
+    "check": "node scripts/run-astro.mjs check",
+    "build": "node scripts/run-astro.mjs build",
+    "validate:translations": "node scripts/validate-translations.mjs",
+    "validate:locales": "node scripts/validate-locales.mjs",
+    "validate:build": "node scripts/validate-build.mjs",
+    "validate": "npm run validate:translations && npm run validate:locales && npm run check && npm run build && npm run validate:build"
+  },
+  "devDependencies": {
+    "@astrojs/check": "0.9.6",
+    "astro": "7.2.0",
+    "typescript": "5.9.3"
+  }
+}

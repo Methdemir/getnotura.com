@@ -1,0 +1,26 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { publishedLocales, type LocaleDefinition } from "../../i18n/locales";
+import { translate } from "../../i18n/translations";
+
+export function getStaticPaths() {
+  return publishedLocales.map((locale) => ({
+    params: { locale: locale.urlPrefix },
+    props: { locale },
+  }));
+}
+
+interface Props {
+  locale: LocaleDefinition;
+}
+
+const { locale } = Astro.props;
+---
+
+<BaseLayout localeId={locale.id} destination="home">
+  <section class="foundation-hero" aria-labelledby="foundation-heading">
+    <p class="eyebrow">{translate(locale.id, "foundationEyebrow")}</p>
+    <h1 id="foundation-heading">{translate(locale.id, "foundationHeading")}</h1>
+    <p class="lede">{translate(locale.id, "foundationBody")}</p>
+  </section>
+</BaseLayout>

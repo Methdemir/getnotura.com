@@ -1,0 +1,52 @@
+---
+import type { AlternateLink } from "../i18n/routes";
+
+interface Props {
+  title: string;
+  description: string;
+  canonicalPath?: string | undefined;
+  alternates?: AlternateLink[] | undefined;
+  ogLocale?: string | undefined;
+  robots?: string | undefined;
+}
+
+const {
+  title,
+  description,
+  canonicalPath,
+  alternates = [],
+  ogLocale,
+  robots = "index,follow",
+} = Astro.props;
+const siteOrigin = Astro.site ?? new URL("https://getnotura.com");
+const absoluteUrl = (path: string) => new URL(path, siteOrigin).href;
+const canonicalUrl = canonicalPath ? absoluteUrl(canonicalPath) : undefined;
+---
+
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="color-scheme" content="light" />
+<meta name="theme-color" content="#F7F1E6" />
+<meta name="description" content={description} />
+<meta name="robots" content={robots} />
+<title>{title}</title>
+<link rel="icon" type="image/png" href="/favicon/notura-symbol.png" />
+{canonicalUrl && <link rel="canonical" href={canonicalUrl} />}
+{
+  alternates.map((alternate) => (
+    <link
+      rel="alternate"
+      hreflang={alternate.hreflang}
+      href={absoluteUrl(alternate.href)}
+    />
+  ))
+}
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="Notura" />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+{canonicalUrl && <meta property="og:url" content={canonicalUrl} />}
+{ogLocale && <meta property="og:locale" content={ogLocale} />}
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />

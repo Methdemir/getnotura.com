@@ -1,32 +1,21 @@
-# Hayatımın Anlamları
+# Notura Web
 
-Minimalist bir fotoğraf galerisi.
+Static, locale-prefixed public website foundation for Notura, built with Astro and designed for GitHub Pages.
 
-## Özellikler
+## Requirements
 
-- 🎨 Modern ve temiz tasarım
-- 📱 Responsive (mobil uyumlu)
-- ⌨️ Klavye navigasyonu (← → Oklar, Esc)
-- 🖱️ Mouse navigasyonu
-- ✨ Smooth animasyonlar
+- Node.js 24 (Astro requires Node.js 22.12 or newer)
+- npm 9.6.5 or newer
 
-## Kurulum
+## Commands
 
-GitHub Pages ile yayınlamak için:
-
-1. Bu repo'yu fork edin
-2. Settings → Pages → Source olarak "main" seçin
-3. `https://kullaniciadi.github.io/getnotura-com` adresinde canlı olur
-
-## Fotoğraf Ekleme
-
-`index.html` dosyasındaki `images` array'ine yeni fotoğraf adlarını ekleyin:
-
-```javascript
-const images = [
-    'DSC05606.JPG',
-    'yeni-foto.JPG'
-];
+```sh
+npm ci
+npm run check
+npm run build
+npm run validate
 ```
 
-Fotoğraflar klasörün kökünde olmalıdır.
+`npm run validate` checks UI translation completeness, locale and semantic-route configuration, Astro types, the static build, canonicals and reciprocal `hreflang`, internal links, `CNAME`, reserved-locale gating, tracking exclusions, and the zero-client-JavaScript budget.
+
+The production Pages job can deploy only from a push to `main`. Pull requests run the same validation without deployment.

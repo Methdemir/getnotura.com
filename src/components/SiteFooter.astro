@@ -1,0 +1,25 @@
+---
+import { localizedPath, type Destination } from "../i18n/routes";
+import { translate } from "../i18n/translations";
+import LanguageSelector from "./LanguageSelector.astro";
+
+interface Props {
+  localeId: string;
+  destination?: Destination;
+}
+
+const { localeId, destination = "home" } = Astro.props;
+---
+
+<footer class="site-footer">
+  <div class="site-footer__inner">
+    <div>
+      <strong>Notura</strong>
+      <p>{translate(localeId, "footerSummary")}</p>
+    </div>
+    <nav aria-label={translate(localeId, "footerNavigation")}>
+      <a href={localizedPath(localeId, "home")}>{translate(localeId, "home")}</a>
+    </nav>
+    <LanguageSelector localeId={localeId} destination={destination} placement="footer" />
+  </div>
+</footer>

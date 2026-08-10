@@ -1,0 +1,42 @@
+---
+import BrandLink from "../components/BrandLink.astro";
+import { publishedLocales } from "../i18n/locales";
+import { alternateLinks, localizedPath } from "../i18n/routes";
+import DocumentLayout from "../layouts/DocumentLayout.astro";
+---
+
+<DocumentLayout
+  lang="en"
+  title="Notura | Language selection"
+  description="Choose a language for the Notura website."
+  skipLinkText="Skip to language selection"
+  canonicalPath="/"
+  alternates={alternateLinks("home")}
+  ogLocale="en_US"
+>
+  <header class="neutral-header">
+    <BrandLink href="/" label="Notura" />
+  </header>
+  <main id="main-content" tabindex="-1" class="language-entry">
+    <section aria-labelledby="language-heading">
+      <h1 id="language-heading">Notura</h1>
+      <p>Choose your language</p>
+      <ul class="language-grid">
+        {
+          publishedLocales.map((locale) => (
+            <li>
+              <a
+                href={localizedPath(locale.id, "home")}
+                lang={locale.htmlLang}
+                hreflang={locale.hreflang}
+              >
+                {locale.nativeName}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+  </main>
+  <footer class="neutral-footer"><span>Notura</span></footer>
+</DocumentLayout>

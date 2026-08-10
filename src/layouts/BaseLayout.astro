@@ -1,0 +1,42 @@
+---
+import SiteFooter from "../components/SiteFooter.astro";
+import SiteHeader from "../components/SiteHeader.astro";
+import { getPublishedLocale } from "../i18n/locales";
+import { alternateLinks, localizedPath, type Destination } from "../i18n/routes";
+import { translate } from "../i18n/translations";
+import DocumentLayout from "./DocumentLayout.astro";
+
+interface Props {
+  localeId: string;
+  destination?: Destination;
+  title?: string | undefined;
+  description?: string | undefined;
+  robots?: string | undefined;
+}
+
+const {
+  localeId,
+  destination = "home",
+  title = translate(localeId, "metaTitle"),
+  description = translate(localeId, "metaDescription"),
+  robots,
+} = Astro.props;
+const locale = getPublishedLocale(localeId);
+---
+
+<DocumentLayout
+  lang={locale.htmlLang}
+  title={title}
+  description={description}
+  skipLinkText={translate(localeId, "skipToContent")}
+  canonicalPath={localizedPath(localeId, destination)}
+  alternates={alternateLinks(destination)}
+  ogLocale={locale.ogLocale}
+  robots={robots}
+>
+  <SiteHeader localeId={localeId} destination={destination} />
+  <main id="main-content" tabindex="-1">
+    <slot />
+  </main>
+  <SiteFooter localeId={localeId} destination={destination} />
+</DocumentLayout>

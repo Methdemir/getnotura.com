@@ -12,6 +12,10 @@ Thumbs.db
 # Dependencies
 node_modules/
 
+# Astro build output
+.astro/
+dist/
+
 # Logs
 *.log
 npm-debug.log*
