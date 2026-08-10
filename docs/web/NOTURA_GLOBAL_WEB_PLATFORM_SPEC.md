@@ -88,6 +88,29 @@ The repository contains complete 607-key ARB files for:
 
 The web architecture should reserve `/pt/` now, but that locale should remain unpublished or `noindex` until European Portuguese has product ownership, human linguistic QA, and matching support/legal content. `/pt-br/` must not silently stand in for `/pt/`.
 
+### 3.3 Future mobile locale continuity
+
+The mobile application and public website should share one locale vocabulary, while remaining separate products. This is a future product requirement; it is not implemented by this architecture phase.
+
+On first application launch:
+
+1. Read the operating-system/device locale.
+2. If its normalized locale is in the current mobile runtime's supported set, use it automatically.
+3. Otherwise use English.
+4. Do not require a dedicated language-selection onboarding step before the user can continue.
+
+The welcome/login surface should expose a clear but unobtrusive language selector before authentication. A pre-authentication manual choice is explicit user intent: persist it locally, use it across welcome/login and onboarding, and do not replace it merely because the device locale differs. The app must track whether the active local locale came from an automatic device/default resolution or an explicit user choice; the value alone is insufficient for safe reconciliation.
+
+After authentication, reconcile the active local locale with the account's canonical `preferred_locale` as follows:
+
+1. If the user explicitly chose a supported locale before authentication, keep it through the login transition and update `preferred_locale` to that choice after authentication. The deliberate current-session choice wins over an older account value.
+2. Otherwise, if an existing account has a valid supported `preferred_locale`, use that account preference. Resolve it before rendering the authenticated shell so there is one controlled transition rather than a mid-screen language change.
+3. If the account has no valid preference, keep the active supported local locale and write it to `preferred_locale`.
+4. If the remote read/write is unavailable, retain the active local locale, continue without language flicker, and retry reconciliation later. A synchronization failure must not force a fallback or block use.
+5. A later manual language change applies locally immediately and becomes the new canonical `preferred_locale` when synchronization succeeds.
+
+This makes the account preference portable across devices while preserving the user's most recent deliberate choice. Unsupported or legacy remote values must never activate an unsupported locale: treat them as absent, keep a supported active local locale, and use English only when no supported local choice is available.
+
 ## 4. Product positioning
 
 ### 4.1 Consumer promise
@@ -182,7 +205,30 @@ The footer should contain Product, Learn, Professionals, Support, Legal, languag
 - Set the HTML `lang` attribute and localized Open Graph metadata.
 - Preserve user locale choice in first-party local storage only if needed; this preference is functional and should not trigger a tracking banner by itself.
 
-### 6.2 Content model
+Ordinary browser arrivals through search, social media, a typed URL, or an external link remain user-controlled. They must not be forcibly redirected solely from browser language, IP address, or geolocation. A future language suggestion may be dismissible and non-blocking, but it must preserve explicit URLs, canonicals, `hreflang`, and the user's selection.
+
+### 6.2 Mobile app to website locale mapping
+
+App-driven navigation is different from ordinary browser discovery: the app already knows the active locale and should open the matching explicit website URL directly.
+
+The canonical mapping is:
+
+| Mobile locale | Website prefix | Current status |
+|---|---|---|
+| `tr` | `/tr/` | active runtime mapping |
+| `en` | `/en/` | active runtime mapping and fallback |
+| `es` | `/es/` | active runtime mapping |
+| `pt-BR` | `/pt-br/` | active runtime mapping |
+| `de` | `/de/` | active runtime mapping |
+| `fr` | `/fr/` | active runtime mapping |
+| `it` | `/it/` | active runtime mapping |
+| `pt` | `/pt/` | reserved; activate only when European Portuguese becomes a supported, QA-approved mobile runtime locale |
+
+Privacy, terms, Health and AI Notice, account deletion, data rights, support, help/guides, and every other public Notura destination must use this mapping. For example, a Turkish app session opens `/tr/legal/privacy/`, German opens `/de/legal/privacy/`, and English opens `/en/legal/privacy/`.
+
+A future centralized mobile web-link builder should own the locale mapping, base origin, normalized route identifiers, and safe URL composition. Flutter screens should request a semantic destination rather than hardcode localized origins or prefixes. The implementation may resemble a `NoturaWebLinks` service, but this specification does not freeze a Dart class or method signature. Unsupported/invalid locale input maps to English; callers must not substitute `/pt/` for `pt-BR` or advertise the reserved locale.
+
+### 6.3 Content model
 
 Keep interface strings and content separate:
 
@@ -213,7 +259,7 @@ src/
 
 Each content item has a stable cross-locale `translationKey`. A missing translation is absent, not silently replaced with another language. The locale switcher links to the equivalent page when available and otherwise to that locale's nearest section landing page with a clear explanation.
 
-### 6.3 Translation workflow
+### 6.4 Translation workflow
 
 1. English source draft for global content, except jurisdiction-specific legal source text.
 2. Subject-matter and health-safety review.
@@ -326,7 +372,23 @@ The Edge layer hashes a stable fingerprint and stores the AI response plus provi
 
 Edge logs avoid prompt, response, user ID, and image content, but include request ID and locale. The image fingerprint uses a hash input derived from metadata and the first 64 bytes; only the resulting hash is stored. The raw image is sent onward to the AI provider and is not stored in `ai_requests`. A separate saved meal photo can later be uploaded to Supabase Storage.
 
-### 8.4 Supabase regional analysis
+### 8.4 Long-term AI-provider independence
+
+Notura's product architecture must not permanently depend on one AI provider. OpenAI is currently believed/expected to be the production provider, subject to the existing launch gate that verifies remote configuration. The repository also contains a Gemini adapter, but Gemini is not an active processor claim unless production configuration proves it.
+
+For the foreseeable implementation, do not replace or refactor a working OpenAI integration merely to create theoretical abstraction. Preserve the existing practical boundary instead:
+
+- product/domain request and response contracts remain provider-neutral;
+- provider-specific authentication, endpoints, request shapes, response normalization, retry behavior, retention/residency capabilities, and safety controls remain inside server-side adapters;
+- the mobile client invokes Notura operations, not provider brands or provider APIs;
+- provider selection and credentials remain server-side configuration;
+- the processor inventory and private compliance register identify the provider actually active in production.
+
+This boundary must allow a future evidence-based move to OpenAI, another hosted commercial provider, an EU-hosted commercial model, or a privately/self-hosted Notura model when quality, cost, privacy, regulation, latency, infrastructure economics, or available capital justify it. A self-hosted model is an architectural escape hatch, not a current roadmap commitment. It does not authorize model training, GPU deployment, provider migration, Edge changes, or production refactoring in W0.
+
+Any future provider change is a product, security, privacy, legal, and operational change—not merely a configuration toggle. It requires contract/quality evaluation, data-flow and retention/residency verification, processor-inventory update, legal-copy update, migration/rollback planning, and release validation before traffic moves.
+
+### 8.5 Supabase regional analysis
 
 | Layer | Residency finding |
 |---|---|
@@ -339,7 +401,7 @@ Edge logs avoid prompt, response, user ID, and image content, but include reques
 
 No Edge configuration is changed in this phase. A later engineering decision may pin database-intensive and AI functions to `eu-west-1`, but it must assess latency, outage behavior, transfer effects, and whether the AI provider itself has compatible regional processing.
 
-### 8.5 Authentication and future Apple platforms
+### 8.6 Authentication and future Apple platforms
 
 Current flow:
 
@@ -379,6 +441,8 @@ This is architecture, not jurisdiction-specific legal advice. Obtain qualified r
 - Professional terms/DPA only when the professional product and roles exist.
 
 Each document needs controller identity, contact, version, effective date, language status, prior-version archive, and scope (website, mobile app, or both).
+
+Legal information must be provider-factual rather than provider-hardcoded. The Privacy Notice and processor page name the AI provider actually active at publication time, with its verified purpose, data categories, retention, residency, contractual role, and transfer position. Provider entries should be maintainable records derived from the processor inventory so a future migration changes the factual provider record and reviewed legal copy without redesigning the legal-center information architecture. This maintainability does not weaken the launch gate: unknown production configuration may not be converted into a generic or conditional disclosure.
 
 ### 9.2 Jurisdiction layers
 
@@ -538,6 +602,7 @@ Consider a headless CMS only when non-technical editors publish frequently, appr
 10. Review Open Food Facts product-image host allowlisting or proxying; current arbitrary HTTPS acceptance creates variable recipients.
 11. Confirm App Store login and deletion rules again when iOS work begins.
 12. Decide whether strict security headers or server-side redirects eventually justify moving away from GitHub Pages.
+13. Implement and test the future mobile locale-origin tracking, `preferred_locale` reconciliation, and centralized locale-aware web-link builder before relying on app-to-site locale continuity.
 
 ## 19. Acceptance criteria for this architecture phase
 
@@ -545,4 +610,6 @@ Consider a headless CMS only when non-technical editors publish frequently, appr
 - All external-service claims are either repository-verified, live-infrastructure-verified, owner-verified, or explicitly unresolved.
 - Supabase database, Auth, Storage, backups, Edge, and platform processing are not collapsed into one residency claim.
 - The inventory distinguishes active recipients, installed-but-unused capabilities, and on-device processing.
+- The future mobile locale precedence, account reconciliation, app-to-web mapping, browser-routing distinction, and reserved European Portuguese status are explicit.
+- AI-provider independence preserves the current working path while keeping provider disclosure factual and migration possible without redesigning product/legal boundaries.
 - No production website or mobile source is changed, nothing is deployed, and no DNS/Cloudflare/Edge configuration is changed.

@@ -22,6 +22,8 @@ Evidence date: 10 August 2026
 - Verify production Supabase/AI configuration out of band without recording secret values.
 - Record the confirmed `eu-west-1` project region and the unpinned Edge Function state.
 - Decide publication status for European Portuguese.
+- Approve the future mobile locale contract: device-locale first launch, English fallback, pre-authentication manual choice, source-aware `preferred_locale` reconciliation, and a canonical app-to-web prefix mapping.
+- Record AI-provider independence as a boundary principle while retaining the working production integration and the requirement to verify the provider actually active.
 - Assign owners for translation, health review, legal review, and incident/rights requests.
 
 ### Dependencies
@@ -35,6 +37,10 @@ Evidence date: 10 August 2026
 - Active AI provider, paid/unpaid status, endpoint, model, retention, and residency controls are recorded in a private compliance register.
 - Backup/PITR and Supabase log/Storage facts are confirmed or explicitly marked unknown in launch copy.
 - Launch locale list and content owners are signed off.
+- The seven active mobile locale mappings and reserved `/pt/` mapping are unambiguous, and ordinary browser routing remains free of forced language redirects.
+- Provider transparency is generated from factual inventory/configuration records rather than permanent OpenAI- or Gemini-specific legal structure.
+
+The W0 architecture decision set is closed when these documents are approved. Operational facts still awaiting production verification remain launch gates: they must be resolved before provider-specific legal publication and W8 release approval, but they do not require repeating W0 or block W1's static technical foundation.
 
 ### Explicitly out of scope
 
@@ -49,6 +55,7 @@ Evidence date: 10 August 2026
 - Create layouts, metadata component, navigation shell, footer, skip link, locale selector, error page, and foundational styles.
 - Implement explicit locale prefixes and language-neutral `/` entry.
 - Add translation dictionaries, route mapping, `translationKey`, canonical/hreflang generation, and locale validation.
+- Define a shared locale-prefix data contract that future mobile URL builders can consume or mirror without duplicating route rules.
 - Port canonical Notura colors, typography, spacing, logo/symbol assets, and accessible focus/motion tokens.
 - Add CI: build, type/schema checks, internal links, `hreflang` reciprocity, missing translations, and basic accessibility/performance smoke checks.
 
@@ -62,6 +69,7 @@ Evidence date: 10 August 2026
 - A static build succeeds for every enabled locale.
 - No substantive page is served without an explicit locale prefix.
 - Locale switching is keyboard/screen-reader usable and never auto-redirects by IP.
+- Every public destination used by the app has a stable semantic route and locale-prefixed URL for all enabled locales; `/pt/` remains gated.
 - Missing translations fail CI or remain unpublished; there is no silent fallback.
 - Content pages ship with zero client JavaScript unless an exception is documented.
 - Deployment artifact contains `CNAME`; a dry-run artifact is reviewed before changing Pages source.
@@ -259,9 +267,13 @@ Evidence date: 10 August 2026
 
 Re-run on any new network SDK, external script, embedded media, API, CDN, form, analytics tool, or AI model. Record recipient, data, purpose, direction, personal/health classification, geography, retention, notice, contract, and transfer basis before merge.
 
+An AI-provider change additionally requires quality/safety evaluation, verified production configuration, contract and transfer review, inventory/legal-copy updates, migration and rollback planning, and release validation. A provider-neutral architecture never permits provider-ambiguous privacy disclosure.
+
 ### Localization gate
 
 Every new page must declare locale, translation key, canonical, equivalents, and publication status. European Portuguese remains gated until runtime/product ownership is decided.
+
+Every app-linked public route must also declare its semantic destination and canonical mobile-locale-to-web-prefix mapping. App-driven links open the known active locale directly; ordinary browser visitors remain on explicit URLs and are not forcibly redirected by browser language, IP, or geolocation.
 
 ### Health-content gate
 
