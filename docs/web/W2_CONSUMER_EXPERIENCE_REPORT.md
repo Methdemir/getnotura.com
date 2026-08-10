@@ -1,5 +1,17 @@
 # Notura Web W2 Consumer Experience Report
 
+## Public preview indexing gate
+
+W2 is publicly previewable by URL, but it is not the indexed launch. The central
+`siteReleaseStatus` setting in `src/config/site-release.ts` is intentionally set
+to `"preview"`, causing substantive public pages to emit `noindex,follow`.
+The existing 404 retains its explicit `noindex,follow` policy. W8 must
+deliberately change and review this setting before search indexing is enabled.
+
+No `robots.txt` is added for the preview: it is not a substitute for page-level
+`noindex`, and a crawler must be allowed to access pages in order to see that
+directive.
+
 Date: 10 August 2026
 
 Status: implemented on `feat/web-w2-consumer`; not deployed

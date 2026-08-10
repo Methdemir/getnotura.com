@@ -1,5 +1,6 @@
 ---
 import type { AlternateLink } from "../i18n/routes";
+import { defaultRobotsPolicy } from "../config/site-release";
 
 interface Props {
   title: string;
@@ -16,7 +17,7 @@ const {
   canonicalPath,
   alternates = [],
   ogLocale,
-  robots = "index,follow",
+  robots = defaultRobotsPolicy,
 } = Astro.props;
 const siteOrigin = Astro.site ?? new URL("https://getnotura.com");
 const absoluteUrl = (path: string) => new URL(path, siteOrigin).href;
