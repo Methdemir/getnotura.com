@@ -212,6 +212,22 @@ The system's default container-free list. `.methods` puts a drawn icon, a title 
 ### Estimate field (signature)
 The component the world exists for. A stack of hairline-separated rows; each row carries a term, a right-aligned state word, and a `0.7rem` band. Known quantities render as a filled band in their fixed ink over a `rgba(244,239,227,0.12)` track. The unknown renders as a transparent band with a dashed `rgba(244,239,227,0.55)` border and a 135° hatch, labelled "not determined" with an em-dash where the value would be. A hairline-separated caption beneath explains why.
 
+### Authored demonstrations (signature)
+
+The system's way of showing the product without photographing it. Every demonstration is drawn in this stylesheet's own grammar — hairlines, data inks, Plus Jakarta Sans — never in the app's Material vocabulary, which is what keeps it legible as a designed figure. Three exist, and they recur across pages so the site reads as one system:
+
+- **Correction.** Two estimate panels, before and after, with a circular turn between them (pointing down when stacked, right when side by side above 48rem). The "before" panel carries one open hatched band; in the "after" panel that band is filled and every state reads *Corrected*. This is the product's thesis made visible.
+- **Converge.** Six input chips joined by a hairline spine to a single record pill. Above 48rem the spine is a column with stubs reaching it; below, it runs down the left and turns into the pill. Structure only — it asserts nothing numeric.
+- **Span.** One row per record type across 28 days, a filled mark where an entry exists and an open mark where none does. Weight is deliberately sparser than water. Gaps are the point.
+
+Each sits inside a `Demonstration` wrapper that is delimited by hairlines rather than boxed, and that renders the mandatory label beneath it.
+
+### Named Rules
+
+**The Labelled Demonstration Rule.** Every authored demonstration carries its label — rendered by the wrapper, in one place, so a figure cannot ship without it. Demonstrations show structure, relationship and state; they never assert a number, a total or a measurement, because a figure that invents data has stopped being a demonstration and started being a claim.
+
+**The Own-Grammar Rule.** A demonstration is drawn in the website's visual language, never in a simulation of the app's interface chrome. If a figure starts acquiring status bars, tab bars, or device frames, it is drifting toward a fake screenshot and must be pulled back.
+
 ### Icons
 An authored 24px outline set at `1.5` stroke, `currentColor`, round caps and joins. Eight glyphs: camera, gallery, text, saved, manual, barcode, chevron, arrow. No icon font, no unicode glyph, no emoji.
 
@@ -228,6 +244,8 @@ One authored moment: the estimate bands grow from zero width over 900ms on `cubi
 - **Do** keep the display face tight (-0.038em) and genuinely large; the scale distance is the voice.
 - **Do** draw any new icon into the existing 24px / 1.5-stroke set.
 - **Do** keep every interaction native HTML — the build fails on a single emitted `.js` file.
+- **Do** reuse the three demonstrations across pages rather than inventing a fourth; their recurrence is what makes the site read as one system.
+- **Do** let a demonstration carry a section on its own. They are the evidence this site has instead of screenshots, and they deserve full width and a whole bay.
 
 ### Don't:
 - **Don't** put a kicker, eyebrow, or tracked label above a heading.

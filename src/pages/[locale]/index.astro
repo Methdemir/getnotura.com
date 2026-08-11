@@ -1,8 +1,11 @@
 ---
+import CorrectionDemo from "../../components/CorrectionDemo.astro";
+import Demonstration from "../../components/Demonstration.astro";
 import EstimateField from "../../components/EstimateField.astro";
 import Icon from "../../components/Icon.astro";
 import type { IconName } from "../../components/icons";
 import SectionIntro from "../../components/SectionIntro.astro";
+import TimelineDemo from "../../components/TimelineDemo.astro";
 import { publishedLocales, type LocaleDefinition } from "../../i18n/locales";
 import { localizedPath } from "../../i18n/routes";
 import { translate, type TranslationKey } from "../../i18n/translations";
@@ -29,19 +32,6 @@ const methods: Array<{ icon: IconName; title: TranslationKey; body: TranslationK
   { icon: "saved", title: "methodSaved", body: "methodSavedBody" },
   { icon: "manual", title: "methodManual", body: "methodManualBody" },
   { icon: "barcode", title: "methodBarcode", body: "methodBarcodeBody" },
-];
-
-const quantities: Array<{ label: TranslationKey; mark: string }> = [
-  { label: "calories", mark: "var(--brand)" },
-  { label: "protein", mark: "var(--protein)" },
-  { label: "carbs", mark: "var(--carbs)" },
-  { label: "fat", mark: "var(--fat)" },
-];
-
-const records: Array<{ label: TranslationKey; mark: string }> = [
-  { label: "waterTracking", mark: "var(--water)" },
-  { label: "weightTracking", mark: "var(--weight)" },
-  { label: "periodProgress", mark: "var(--brand)" },
 ];
 ---
 
@@ -95,30 +85,34 @@ const records: Array<{ label: TranslationKey; mark: string }> = [
     </div>
   </section>
 
-  <section class="bay" aria-labelledby="understand-heading">
-    <div class="shell split split--halves">
+  <section class="bay bay--field" aria-labelledby="understand-heading">
+    <div class="shell">
       <SectionIntro
         id="understand-heading"
         heading={t("understandHeading")}
         body={t("understandBody")}
       />
-      <ul class="marks">
-        {
-          quantities.map((quantity) => (
-            <li>
-              <i style={`--mark:${quantity.mark}`} aria-hidden="true" />
-              {t(quantity.label)}
-            </li>
-          ))
-        }
-      </ul>
+      <Demonstration
+        tone="field"
+        label={t("demonstrationLabel")}
+        caption={t("adjustNoteHeading")}
+      >
+        <CorrectionDemo
+          protein={t("protein")}
+          carbs={t("carbs")}
+          fat={t("fat")}
+          estimated={t("estimated")}
+          corrected={t("corrected")}
+          notDetermined={t("notDetermined")}
+        />
+      </Demonstration>
     </div>
   </section>
 
-  <section class="bay bay--field" aria-labelledby="explore-heading">
+  <section class="bay" aria-labelledby="explore-heading">
     <div class="shell split split--wide">
       <SectionIntro id="explore-heading" heading={t("exploreHeading")} body={t("exploreBody")} />
-      <div>
+      <div class="pair-set">
         <div class="pair">
           <h3>{t("exploreOfflineTitle")}</h3>
           <p>{t("exploreOfflineBody")}</p>
@@ -131,26 +125,22 @@ const records: Array<{ label: TranslationKey; mark: string }> = [
     </div>
   </section>
 
-  <section class="bay" aria-labelledby="progress-heading">
-    <div class="shell split split--halves">
+  <section class="bay bay--raised" aria-labelledby="progress-heading">
+    <div class="shell">
       <SectionIntro
         id="progress-heading"
         heading={t("progressHeading")}
         body={t("progressBody")}
       />
-      <div>
-        <ul class="marks">
-          {
-            records.map((record) => (
-              <li>
-                <i style={`--mark:${record.mark}`} aria-hidden="true" />
-                {t(record.label)}
-              </li>
-            ))
-          }
-        </ul>
-        <p class="lede" style="margin-block-start:1.75rem">{t("periodProgressBody")}</p>
-      </div>
+      <Demonstration label={t("demonstrationLabel")} caption={t("periodProgress")}>
+        <TimelineDemo
+          progress={t("periodProgress")}
+          water={t("waterTracking")}
+          weight={t("weightTracking")}
+          notDetermined={t("notDetermined")}
+        />
+      </Demonstration>
+      <p class="lede lede--after">{t("periodProgressBody")}</p>
     </div>
   </section>
 

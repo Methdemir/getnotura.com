@@ -1,6 +1,11 @@
 ---
+import CaptureDemo from "../../components/CaptureDemo.astro";
+import Demonstration from "../../components/Demonstration.astro";
+import EstimateField from "../../components/EstimateField.astro";
 import Icon from "../../components/Icon.astro";
+import type { IconName } from "../../components/icons";
 import PageIntro from "../../components/PageIntro.astro";
+import TimelineDemo from "../../components/TimelineDemo.astro";
 import { publishedLocales, type LocaleDefinition } from "../../i18n/locales";
 import { localizedPath } from "../../i18n/routes";
 import { translate, type TranslationKey } from "../../i18n/translations";
@@ -20,11 +25,18 @@ interface Props {
 const { locale } = Astro.props;
 const t = (key: TranslationKey) => translate(locale.id, key);
 
-const features: Array<[TranslationKey, TranslationKey]> = [
-  ["featureCaptureTitle", "featureCaptureBody"],
-  ["featureNutritionTitle", "featureNutritionBody"],
-  ["featureTrackingTitle", "featureTrackingBody"],
-  ["featureProgressTitle", "featureProgressBody"],
+const captureMethods: Array<{ icon: IconName; label: TranslationKey }> = [
+  { icon: "camera", label: "methodPhoto" },
+  { icon: "gallery", label: "methodGallery" },
+  { icon: "text", label: "methodText" },
+  { icon: "saved", label: "methodSaved" },
+  { icon: "manual", label: "methodManual" },
+  { icon: "barcode", label: "methodBarcode" },
+];
+
+const trackingMarks: Array<{ label: TranslationKey; mark: string }> = [
+  { label: "waterTracking", mark: "var(--water)" },
+  { label: "weightTracking", mark: "var(--weight)" },
 ];
 ---
 
@@ -36,20 +48,77 @@ const features: Array<[TranslationKey, TranslationKey]> = [
 >
   <PageIntro heading={t("featuresHeading")} body={t("featuresBody")} />
 
-  <section class="bay shell" aria-label={t("featuresHeading")}>
-    <div class="features">
-      {
-        features.map(([titleKey, bodyKey]) => (
-          <article>
-            <h2>{t(titleKey)}</h2>
-            <p>{t(bodyKey)}</p>
-          </article>
-        ))
-      }
+  <section class="bay" aria-labelledby="feature-capture">
+    <div class="shell split split--wide">
+      <div>
+        <h2 id="feature-capture">{t("featureCaptureTitle")}</h2>
+        <p class="lede lede--tight">{t("featureCaptureBody")}</p>
+      </div>
+      <Demonstration label={t("demonstrationLabel")} caption={t("captureHeading")}>
+        <CaptureDemo
+          methods={captureMethods.map((m) => ({ icon: m.icon, label: t(m.label) }))}
+          destination={t("oneRecord")}
+        />
+      </Demonstration>
     </div>
   </section>
 
-  <section class="bay bay--field" aria-labelledby="feature-boundary-heading">
+  <section class="bay bay--field" aria-labelledby="feature-nutrition">
+    <div class="shell split split--wide split--reverse">
+      <Demonstration tone="field" label={t("demonstrationLabel")} caption={t("estimateLabel")}>
+        <EstimateField
+          protein={t("protein")}
+          carbs={t("carbs")}
+          fat={t("fat")}
+          estimated={t("estimated")}
+          notDetermined={t("notDetermined")}
+          note={t("estimateNote")}
+          label={t("estimateLabel")}
+        />
+      </Demonstration>
+      <div>
+        <h2 id="feature-nutrition">{t("featureNutritionTitle")}</h2>
+        <p class="lede lede--tight">{t("featureNutritionBody")}</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="bay bay--raised" aria-labelledby="feature-tracking">
+    <div class="shell">
+      <div class="split split--halves">
+        <div>
+          <h2 id="feature-tracking">{t("featureTrackingTitle")}</h2>
+          <p class="lede lede--tight">{t("featureTrackingBody")}</p>
+          <ul class="marks">
+            {
+              trackingMarks.map((mark) => (
+                <li>
+                  <i style={`--mark:${mark.mark}`} aria-hidden="true" />
+                  {t(mark.label)}
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+        <div>
+          <h2>{t("featureProgressTitle")}</h2>
+          <p class="lede lede--tight">{t("featureProgressBody")}</p>
+        </div>
+      </div>
+      <div class="bay-gap">
+        <Demonstration label={t("demonstrationLabel")} caption={t("periodProgress")}>
+          <TimelineDemo
+            progress={t("periodProgress")}
+            water={t("waterTracking")}
+            weight={t("weightTracking")}
+            notDetermined={t("notDetermined")}
+          />
+        </Demonstration>
+      </div>
+    </div>
+  </section>
+
+  <section class="bay bay--deep" aria-labelledby="feature-boundary-heading">
     <div class="shell statement">
       <h2 id="feature-boundary-heading">{t("featuresBoundaryHeading")}</h2>
       <p>{t("featuresBoundaryBody")}</p>

@@ -1,6 +1,11 @@
 ---
+import CaptureDemo from "../../components/CaptureDemo.astro";
+import Demonstration from "../../components/Demonstration.astro";
+import EstimateField from "../../components/EstimateField.astro";
 import Icon from "../../components/Icon.astro";
+import type { IconName } from "../../components/icons";
 import PageIntro from "../../components/PageIntro.astro";
+import TimelineDemo from "../../components/TimelineDemo.astro";
 import { publishedLocales, type LocaleDefinition } from "../../i18n/locales";
 import { localizedPath } from "../../i18n/routes";
 import { translate, type TranslationKey } from "../../i18n/translations";
@@ -20,12 +25,16 @@ interface Props {
 const { locale } = Astro.props;
 const t = (key: TranslationKey) => translate(locale.id, key);
 
-const groups: Array<[TranslationKey, TranslationKey, TranslationKey]> = [
-  ["groupLogTitle", "groupLogBody", "groupLogItems"],
-  ["groupUnderstandTitle", "groupUnderstandBody", "groupUnderstandItems"],
-  ["groupTrackTitle", "groupTrackBody", "groupTrackItems"],
-  ["groupReviewTitle", "groupReviewBody", "groupReviewItems"],
+const captureMethods: Array<{ icon: IconName; label: TranslationKey }> = [
+  { icon: "camera", label: "methodPhoto" },
+  { icon: "gallery", label: "methodGallery" },
+  { icon: "text", label: "methodText" },
+  { icon: "saved", label: "methodSaved" },
+  { icon: "manual", label: "methodManual" },
+  { icon: "barcode", label: "methodBarcode" },
 ];
+
+const items = (key: TranslationKey) => t(key).split("|");
 ---
 
 <BaseLayout
@@ -36,24 +45,81 @@ const groups: Array<[TranslationKey, TranslationKey, TranslationKey]> = [
 >
   <PageIntro heading={t("productHeading")} body={t("productBody")} />
 
-  <section class="bay shell ledger" aria-label={t("currentCapability")}>
-    {
-      groups.map(([titleKey, bodyKey, itemsKey]) => (
-        <article class="ledger__group">
-          <div>
-            <h2>{t(titleKey)}</h2>
-            <p>{t(bodyKey)}</p>
-          </div>
+  <section class="bay bay--field" aria-labelledby="group-log">
+    <div class="shell split split--wide">
+      <div>
+        <h2 id="group-log">{t("groupLogTitle")}</h2>
+        <p class="lede lede--tight">{t("groupLogBody")}</p>
+        <ul class="ledger__items ledger__items--field">
+          {items("groupLogItems").map((item) => <li>{item}</li>)}
+        </ul>
+      </div>
+      <Demonstration
+        tone="field"
+        label={t("demonstrationLabel")}
+        caption={t("captureHeading")}
+      >
+        <CaptureDemo
+          methods={captureMethods.map((m) => ({ icon: m.icon, label: t(m.label) }))}
+          destination={t("oneRecord")}
+        />
+      </Demonstration>
+    </div>
+  </section>
+
+  <section class="bay" aria-labelledby="group-understand">
+    <div class="shell split split--wide split--reverse">
+      <Demonstration label={t("demonstrationLabel")} caption={t("estimateLabel")}>
+        <EstimateField
+          tone="light"
+          protein={t("protein")}
+          carbs={t("carbs")}
+          fat={t("fat")}
+          estimated={t("estimated")}
+          notDetermined={t("notDetermined")}
+          note={t("estimateNote")}
+          label={t("estimateLabel")}
+        />
+      </Demonstration>
+      <div>
+        <h2 id="group-understand">{t("groupUnderstandTitle")}</h2>
+        <p class="lede lede--tight">{t("groupUnderstandBody")}</p>
+        <ul class="ledger__items">
+          {items("groupUnderstandItems").map((item) => <li>{item}</li>)}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="bay bay--raised" aria-labelledby="group-track">
+    <div class="shell">
+      <div class="split split--wide">
+        <div>
+          <h2 id="group-track">{t("groupTrackTitle")}</h2>
+          <p class="lede lede--tight">{t("groupTrackBody")}</p>
           <ul class="ledger__items">
-            {t(itemsKey)
-              .split("|")
-              .map((item) => (
-                <li>{item}</li>
-              ))}
+            {items("groupTrackItems").map((item) => <li>{item}</li>)}
           </ul>
-        </article>
-      ))
-    }
+        </div>
+        <div>
+          <h2>{t("groupReviewTitle")}</h2>
+          <p class="lede lede--tight">{t("groupReviewBody")}</p>
+          <ul class="ledger__items">
+            {items("groupReviewItems").map((item) => <li>{item}</li>)}
+          </ul>
+        </div>
+      </div>
+      <div class="bay-gap">
+        <Demonstration label={t("demonstrationLabel")} caption={t("periodProgress")}>
+          <TimelineDemo
+            progress={t("periodProgress")}
+            water={t("waterTracking")}
+            weight={t("weightTracking")}
+            notDetermined={t("notDetermined")}
+          />
+        </Demonstration>
+      </div>
+    </div>
   </section>
 
   <div class="shell">

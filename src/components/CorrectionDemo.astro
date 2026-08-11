@@ -1,0 +1,73 @@
+---
+import Icon from "./Icon.astro";
+
+/**
+ * Demonstrates the product's core move: an estimate is reviewed, and the
+ * correction resolves what the estimate could not determine.
+ *
+ * Proportions are illustrative. No numeric value is asserted.
+ */
+interface Props {
+  protein: string;
+  carbs: string;
+  fat: string;
+  estimated: string;
+  corrected: string;
+  notDetermined: string;
+}
+
+const { protein, carbs, fat, estimated, corrected, notDetermined } = Astro.props;
+
+const before = [
+  { name: protein, fill: "58%", ink: "var(--protein)", state: estimated, open: false },
+  { name: carbs, fill: "41%", ink: "var(--carbs)", state: estimated, open: false },
+  { name: fat, fill: "0%", ink: "var(--fat)", state: notDetermined, open: true },
+];
+
+const after = [
+  { name: protein, fill: "66%", ink: "var(--protein)", state: corrected, open: false },
+  { name: carbs, fill: "52%", ink: "var(--carbs)", state: corrected, open: false },
+  { name: fat, fill: "38%", ink: "var(--fat)", state: corrected, open: false },
+];
+---
+
+<div class="correction">
+  <ol class="correction__panels">
+    <li class="correction__panel">
+      <ul class="estimate__rows">
+        {
+          before.map((band) => (
+            <li class="estimate__row">
+              <span class="estimate__label">
+                {band.name}
+                <span class="estimate__state">{band.state}</span>
+              </span>
+              <span
+                class:list={["estimate__bar", band.open && "estimate__bar--open"]}
+                style={`--fill:${band.fill};--ink-band:${band.ink}`}
+              />
+            </li>
+          ))
+        }
+      </ul>
+    </li>
+    <li class="correction__panel correction__panel--after">
+      <ul class="estimate__rows">
+        {
+          after.map((band) => (
+            <li class="estimate__row">
+              <span class="estimate__label">
+                {band.name}
+                <span class="estimate__state">{band.state}</span>
+              </span>
+              <span class="estimate__bar" style={`--fill:${band.fill};--ink-band:${band.ink}`} />
+            </li>
+          ))
+        }
+      </ul>
+    </li>
+  </ol>
+  <span class="correction__turn" aria-hidden="true">
+    <Icon name="arrow" />
+  </span>
+</div>

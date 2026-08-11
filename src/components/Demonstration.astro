@@ -1,0 +1,23 @@
+---
+/**
+ * Wrapper for every authored product demonstration on the site.
+ *
+ * PRODUCT.md permits stylized demonstrations only if they stay visually
+ * distinguishable from documentary screenshots. That label is rendered here,
+ * in one place, so a demonstration cannot ship without it.
+ */
+interface Props {
+  label: string;
+  caption: string;
+  tone?: "light" | "field";
+}
+
+const { label, caption, tone = "light" } = Astro.props;
+---
+
+<figure class:list={["demo", `demo--${tone}`]} role="group" aria-label={caption}>
+  <div class="demo__stage">
+    <slot />
+  </div>
+  <figcaption class="demo__label">{label}</figcaption>
+</figure>

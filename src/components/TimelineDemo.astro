@@ -1,0 +1,53 @@
+---
+/**
+ * Demonstrates a stretch of days as the product records them: one row per
+ * record type, a filled mark where an entry exists and an open mark where
+ * none does. Weight is deliberately sparser than water, because people
+ * weigh themselves less often than they drink.
+ *
+ * The pattern is fixed and illustrative. No value, total, average or
+ * measurement is asserted anywhere in this figure.
+ */
+interface Props {
+  progress: string;
+  water: string;
+  weight: string;
+  notDetermined: string;
+}
+
+const { progress, water, weight, notDetermined } = Astro.props;
+
+const rows = [
+  {
+    label: progress,
+    ink: "var(--brand)",
+    days: [1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1],
+  },
+  {
+    label: water,
+    ink: "var(--water)",
+    days: [1, 1, 0, 1, 0, 1, 1, 1, 0, 1, 0, 1, 1, 1, 0, 1, 1, 0, 1, 0, 1, 1, 1, 0, 1, 1, 0, 1],
+  },
+  {
+    label: weight,
+    ink: "var(--weight)",
+    days: [1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 1],
+  },
+];
+---
+
+<div class="span">
+  {
+    rows.map((row) => (
+      <div class="span__row">
+        <span class="span__name">{row.label}</span>
+        <ol class="span__marks" style={`--mark:${row.ink}`}>
+          {row.days.map((on) => (
+            <li class:list={["span__mark", !on && "span__mark--open"]} />
+          ))}
+        </ol>
+      </div>
+    ))
+  }
+  <p class="span__note">{notDetermined}</p>
+</div>

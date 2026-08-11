@@ -531,6 +531,291 @@ svg {
   max-width: 30rem;
 }
 
+/* The same field read on the cream ground. */
+
+.estimate--light {
+  max-width: none;
+}
+
+.estimate--light .estimate__row,
+.estimate--light .estimate__note {
+  border-block-start-color: var(--rule);
+}
+
+.estimate--light .estimate__label {
+  color: var(--ink);
+}
+
+.estimate--light .estimate__state,
+.estimate--light .estimate__note {
+  color: var(--ink-soft);
+}
+
+.estimate--light .estimate__bar {
+  background: rgba(22, 33, 26, 0.09);
+}
+
+.estimate--light .estimate__bar--open {
+  background: transparent;
+  background-image: repeating-linear-gradient(
+    135deg,
+    var(--rule-strong) 0 2px,
+    transparent 2px 8px
+  );
+  border-color: var(--rule-strong);
+}
+
+/* ---------- authored demonstrations ---------- */
+
+.demo {
+  margin: 0;
+}
+
+.demo__stage {
+  padding-block: clamp(1.5rem, 3.5vw, 2.5rem);
+  border-block: 1px solid var(--rule);
+}
+
+.demo__label {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding-block-start: 0.85rem;
+  color: var(--ink-soft);
+  font-size: var(--xs);
+  font-weight: 600;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+}
+
+.demo__label::before {
+  width: 1.6rem;
+  height: 1px;
+  background: var(--rule-strong);
+  content: "";
+}
+
+.demo--field .demo__stage {
+  border-block-color: var(--rule-field);
+}
+
+.demo--field .demo__label {
+  color: var(--on-field-soft);
+}
+
+.demo--field .demo__label::before {
+  background: var(--rule-field);
+}
+
+/* correction: estimate resolved by review */
+
+.correction {
+  position: relative;
+}
+
+.correction__panels {
+  display: grid;
+  gap: 3.25rem;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.correction__panel--after .estimate__label {
+  color: var(--on-field);
+}
+
+.correction__turn {
+  position: absolute;
+  z-index: 1;
+  display: grid;
+  width: 2.6rem;
+  height: 2.6rem;
+  inset-block-start: 50%;
+  inset-inline-start: 50%;
+  place-items: center;
+  border: 1px solid var(--rule-field);
+  border-radius: 50%;
+  background: var(--field);
+  color: var(--sage);
+  transform: translate(-50%, -50%) rotate(90deg);
+}
+
+.correction__turn .icon {
+  width: 1.05rem;
+  height: 1.05rem;
+}
+
+/* converge: six inputs, one record */
+
+.converge {
+  position: relative;
+  display: grid;
+  gap: 1.5rem;
+  padding-inline-start: 1.4rem;
+}
+
+/* Stacked: the spine runs down the left and turns into the record. */
+.converge::before {
+  position: absolute;
+  width: 1px;
+  inset-block: 1.8rem 1.5rem;
+  inset-inline-start: 0;
+  background: var(--rule);
+  content: "";
+}
+
+.converge__inputs li::before,
+.converge__node::before {
+  position: absolute;
+  width: 1.4rem;
+  height: 1px;
+  inset-inline-end: 100%;
+  background: var(--rule);
+  content: "";
+}
+
+.converge__node::before {
+  inset-block-start: 50%;
+}
+
+.demo--field .converge::before,
+.demo--field .converge__inputs li::before,
+.demo--field .converge__node::before {
+  background: var(--rule-field);
+}
+
+.converge__inputs {
+  display: grid;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.converge__inputs li {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  padding-block: 0.6rem;
+}
+
+.converge__chip {
+  display: grid;
+  width: 2.35rem;
+  height: 2.35rem;
+  flex: none;
+  place-items: center;
+  border: 1px solid var(--rule-strong);
+  border-radius: 50%;
+  color: var(--brand);
+}
+
+.converge__name {
+  font-size: var(--sm);
+  font-weight: 600;
+}
+
+.converge__spine {
+  display: none;
+}
+
+.converge__node {
+  position: relative;
+  justify-self: start;
+  padding: 0.8rem 1.35rem;
+  border: 1px solid var(--field);
+  border-radius: 2rem;
+  background: var(--field);
+  color: var(--on-field);
+  font-size: var(--sm);
+  font-weight: 600;
+}
+
+.demo--field .converge__chip {
+  border-color: var(--rule-field);
+  color: var(--sage);
+}
+
+.demo--field .converge__node {
+  border-color: var(--sage);
+  background: var(--sage);
+  color: var(--field-deep);
+}
+
+/* span: records across days, gaps kept visible */
+
+.span {
+  display: grid;
+  gap: 1.15rem;
+}
+
+.span__row {
+  display: grid;
+  gap: 0.5rem;
+}
+
+.span__name {
+  font-size: var(--xs);
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.span__marks {
+  display: grid;
+  grid-template-columns: repeat(28, minmax(0, 1fr));
+  gap: clamp(2px, 0.55vw, 5px);
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.span__mark {
+  height: 1.35rem;
+  border-radius: var(--radius-chip);
+  background: var(--mark);
+}
+
+.span__mark--open {
+  background: transparent;
+  box-shadow: inset 0 0 0 1px var(--rule-strong);
+}
+
+.demo--field .span__mark--open {
+  box-shadow: inset 0 0 0 1px var(--rule-field);
+}
+
+.span__note {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding-block-start: 0.9rem;
+  border-block-start: 1px solid var(--rule);
+  color: var(--ink-soft);
+  font-size: var(--xs);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.span__note::before {
+  width: 1.1rem;
+  height: 1.1rem;
+  flex: none;
+  border-radius: var(--radius-chip);
+  box-shadow: inset 0 0 0 1px var(--rule-strong);
+  content: "";
+}
+
+.demo--field .span__note {
+  border-block-start-color: var(--rule-field);
+  color: var(--on-field-soft);
+}
+
+.demo--field .span__note::before {
+  box-shadow: inset 0 0 0 1px var(--rule-field);
+}
+
 /* ---------- sections ---------- */
 
 .bay {
@@ -672,21 +957,37 @@ svg {
   border-color: var(--rule-field);
 }
 
+.pair-set {
+  display: grid;
+}
+
 .pair {
   display: grid;
   gap: 0.6rem;
   padding-block: 1.35rem;
-  border-block-start: 1px solid var(--rule-field);
+  border-block-start: 1px solid var(--rule);
 }
 
 .pair:last-child {
-  border-block-end: 1px solid var(--rule-field);
+  border-block-end: 1px solid var(--rule);
 }
 
 .pair p {
-  color: var(--on-field-soft);
+  color: var(--ink-soft);
   font-size: var(--sm);
   max-width: 34rem;
+}
+
+.bay--field .pair {
+  border-block-color: var(--rule-field);
+}
+
+.bay--field .pair p {
+  color: var(--on-field-soft);
+}
+
+.lede--after {
+  margin-block-start: clamp(1.75rem, 3.5vw, 2.75rem);
 }
 
 /* ---------- ledger (product groups) ---------- */
@@ -728,6 +1029,18 @@ svg {
   border-block-start: 0;
 }
 
+.ledger__items--field li {
+  border-block-start-color: var(--rule-field);
+}
+
+.lede--tight {
+  margin-block: 0.9rem 1.7rem;
+}
+
+.bay-gap {
+  margin-block-start: clamp(3rem, 6.5vw, 5.5rem);
+}
+
 /* ---------- process ---------- */
 
 .process {
@@ -759,6 +1072,18 @@ svg {
   font-size: var(--lede);
   line-height: 1.5;
   max-width: 42rem;
+}
+
+.process--field li {
+  border-block-start-color: var(--rule-field);
+}
+
+.process--field li::before {
+  color: var(--sage);
+}
+
+.process--field p {
+  color: var(--on-field-soft);
 }
 
 /* ---------- feature rows ---------- */
@@ -993,6 +1318,65 @@ svg {
 
   .split--halves {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .correction__panels {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 5.5rem;
+  }
+
+  .correction__turn {
+    transform: translate(-50%, -50%);
+  }
+
+  .converge {
+    grid-template-columns: minmax(0, 1fr) 4rem auto;
+    align-items: center;
+    gap: 0;
+    padding-inline-start: 0;
+  }
+
+  .converge::before,
+  .converge__inputs li::before {
+    content: none;
+  }
+
+  .converge__inputs li::after {
+    position: absolute;
+    width: 4rem;
+    height: 1px;
+    inset-inline-start: 100%;
+    background: var(--rule);
+    content: "";
+  }
+
+  .converge__spine {
+    display: block;
+    width: 1px;
+    height: 100%;
+    justify-self: end;
+    background: var(--rule);
+  }
+
+  .converge__node {
+    position: relative;
+    margin-inline-start: 1.6rem;
+  }
+
+  .converge__node::before {
+    position: absolute;
+    width: 1.6rem;
+    height: 1px;
+    inset-block-start: 50%;
+    inset-inline-end: 100%;
+    background: var(--rule);
+    content: "";
+  }
+
+  .demo--field .converge__inputs li::after,
+  .demo--field .converge__spine,
+  .demo--field .converge__node::before {
+    background: var(--rule-field);
   }
 
   .split--wide {

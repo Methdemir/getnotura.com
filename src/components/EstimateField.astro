@@ -7,9 +7,19 @@ interface Props {
   notDetermined: string;
   note: string;
   label: string;
+  tone?: "field" | "light";
 }
 
-const { protein, carbs, fat, estimated, notDetermined, note, label } = Astro.props;
+const {
+  protein,
+  carbs,
+  fat,
+  estimated,
+  notDetermined,
+  note,
+  label,
+  tone = "field",
+} = Astro.props;
 
 const bands = [
   { name: protein, fill: "64%", ink: "var(--protein)" },
@@ -18,7 +28,7 @@ const bands = [
 ];
 ---
 
-<figure class="estimate" role="group" aria-label={label}>
+<figure class:list={["estimate", tone === "light" && "estimate--light"]} role="group" aria-label={label}>
   <ul class="estimate__rows">
     {
       bands.map((band) => (

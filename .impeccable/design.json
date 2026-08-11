@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-08-11T00:20:00Z",
+  "generatedAt": "2026-08-11T09:40:00Z",
   "title": "Design System: Notura Web",
   "extensions": {
     "colorMeta": {
@@ -104,6 +104,30 @@
       "css": ".ds-lang { position:relative; width:fit-content; } .ds-lang > summary { display:flex; align-items:center; gap:0.5rem; min-height:2.75rem; padding:0.35rem 0.85rem; border:1px solid rgba(22,33,26,0.26); border-radius:2rem; color:#1e4a2e; font:600 0.905rem/1.4 'Plus Jakarta Sans',system-ui,sans-serif; cursor:pointer; list-style:none; } .ds-lang > summary::-webkit-details-marker { display:none; } .ds-chev { width:1rem; height:1rem; fill:none; stroke:currentColor; stroke-width:1.5; stroke-linecap:round; stroke-linejoin:round; transition:transform 180ms cubic-bezier(0.16,1,0.3,1); } .ds-lang[open] .ds-chev { transform:rotate(180deg); } .ds-lang ul { position:absolute; inset-inline-end:0; min-width:14rem; margin:0.5rem 0 0; padding:0.4rem; list-style:none; border:1px solid rgba(22,33,26,0.14); border-radius:0.75rem; background:#fffdf8; box-shadow:0 1.25rem 2.75rem rgba(22,33,26,0.16); } .ds-lang a { display:flex; align-items:center; min-height:2.75rem; padding-inline:0.75rem; border-radius:0.5rem; color:#1e4a2e; font-size:0.905rem; text-decoration:none; } .ds-lang a:hover, .ds-lang a[aria-current=\"page\"] { background:#dcebdc; }"
     },
     {
+      "name": "Correction demonstration",
+      "kind": "custom",
+      "refersTo": "correction",
+      "description": "The product's thesis as a figure: an estimate reviewed, and the unknown resolved. Stacked below 48rem, side by side above it.",
+      "html": "<div class=\"ds-corr\"><div class=\"ds-corr-panel\"><p><span>Carbohydrate</span><em>Estimated</em></p><span class=\"ds-corr-bar\" style=\"--fill:41%;--ink-band:#f2a63b\"></span><p><span>Fat</span><em>Not determined</em></p><span class=\"ds-corr-bar ds-corr-open\"></span></div><span class=\"ds-corr-turn\"><svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M4 12h15.5\"/><path d=\"m13.4 5.6 6.4 6.4-6.4 6.4\"/></svg></span><div class=\"ds-corr-panel\"><p><span>Carbohydrate</span><em>Corrected</em></p><span class=\"ds-corr-bar\" style=\"--fill:52%;--ink-band:#f2a63b\"></span><p><span>Fat</span><em>Corrected</em></p><span class=\"ds-corr-bar\" style=\"--fill:38%;--ink-band:#e86a92\"></span></div></div>",
+      "css": ".ds-corr { position:relative; display:grid; gap:3.25rem; padding:1.5rem; background:#1e4a2e; } .ds-corr-panel p { display:flex; justify-content:space-between; align-items:baseline; gap:1rem; margin:0 0 .5rem; padding-block-start:1rem; border-block-start:1px solid rgba(244,239,227,.22); color:#f4efe3; font:600 .905rem/1.4 'Plus Jakarta Sans',system-ui,sans-serif; } .ds-corr-panel em { color:#b9c9bc; font-style:normal; font-size:.8125rem; font-weight:400; letter-spacing:.02em; } .ds-corr-bar { position:relative; display:block; height:.7rem; margin-block-end:1rem; border-radius:.35rem; background:rgba(244,239,227,.12); overflow:hidden; } .ds-corr-bar::after { content:''; position:absolute; inset:0 auto 0 0; width:var(--fill); border-radius:inherit; background:var(--ink-band); } .ds-corr-open { background:transparent; background-image:repeating-linear-gradient(135deg, rgba(244,239,227,.22) 0 2px, transparent 2px 8px); border:1px dashed rgba(244,239,227,.55); } .ds-corr-open::after { content:none; } .ds-corr-turn { position:absolute; inset-block-start:50%; inset-inline-start:50%; display:grid; place-items:center; width:2.6rem; height:2.6rem; border:1px solid rgba(244,239,227,.22); border-radius:50%; background:#1e4a2e; color:#b7d8be; transform:translate(-50%,-50%) rotate(90deg); } .ds-corr-turn svg { width:1.05rem; height:1.05rem; fill:none; stroke:currentColor; stroke-width:1.5; stroke-linecap:round; stroke-linejoin:round; }"
+    },
+    {
+      "name": "Span demonstration",
+      "kind": "custom",
+      "refersTo": "span",
+      "description": "Records across 28 days, one row per type. A filled mark is an entry, an open mark is a day left incomplete.",
+      "html": "<div class=\"ds-span\"><span class=\"ds-span-name\">Water tracking</span><ol class=\"ds-span-marks\" style=\"--mark:#3ba9f2\"><li></li><li></li><li class=\"ds-span-open\"></li><li></li><li class=\"ds-span-open\"></li><li></li><li></li><li></li><li class=\"ds-span-open\"></li><li></li><li></li><li></li></ol></div>",
+      "css": ".ds-span { display:grid; gap:.5rem; } .ds-span-name { font:600 .8125rem/1.4 'Plus Jakarta Sans',system-ui,sans-serif; letter-spacing:.05em; text-transform:uppercase; color:#16211a; } .ds-span-marks { display:grid; grid-template-columns:repeat(12,minmax(0,1fr)); gap:4px; padding:0; margin:0; list-style:none; } .ds-span-marks li { height:1.35rem; border-radius:.2rem; background:var(--mark); } .ds-span-marks li.ds-span-open { background:transparent; box-shadow:inset 0 0 0 1px rgba(22,33,26,.26); }"
+    },
+    {
+      "name": "Demonstration wrapper",
+      "kind": "custom",
+      "refersTo": "demo",
+      "description": "Delimits every authored demonstration with hairlines and renders the mandatory label, so a figure cannot ship unlabelled.",
+      "html": "<figure class=\"ds-demo\"><div class=\"ds-demo-stage\">…</div><figcaption class=\"ds-demo-label\">Designed demonstration, not a screenshot</figcaption></figure>",
+      "css": ".ds-demo { margin:0; } .ds-demo-stage { padding-block:2rem; border-block:1px solid rgba(22,33,26,.14); } .ds-demo-label { display:flex; align-items:center; gap:.6rem; padding-block-start:.85rem; color:#55645a; font:600 .8125rem/1.4 'Plus Jakarta Sans',system-ui,sans-serif; letter-spacing:.07em; text-transform:uppercase; } .ds-demo-label::before { content:''; width:1.6rem; height:1px; background:rgba(22,33,26,.26); }"
+    },
+    {
       "name": "Truth note",
       "kind": "card",
       "refersTo": "note",
@@ -127,7 +151,9 @@
       { "name": "The Territory Rule", "body": "Green arrives as a full-bleed region or not at all. A green box floating inside a cream section is a violation of the world.", "section": "colors" },
       { "name": "The Two Weight Rule", "body": "Only 400 and 600 exist. Hierarchy comes from size, color and space. Adding a third weight means shipping another font file and must be argued on byte cost.", "section": "typography" },
       { "name": "The No Kicker Rule", "body": "Nothing sits above a heading. No eyebrow, no overline, no small tracked label introducing an h2. The heading carries its own weight.", "section": "typography" },
-      { "name": "The Flat Ground Rule", "body": "Content never lifts. If something needs to separate from its surroundings, it changes plane or gains a hairline — it does not gain a shadow.", "section": "elevation" }
+      { "name": "The Flat Ground Rule", "body": "Content never lifts. If something needs to separate from its surroundings, it changes plane or gains a hairline — it does not gain a shadow.", "section": "elevation" },
+      { "name": "The Labelled Demonstration Rule", "body": "Every authored demonstration carries its label — rendered by the wrapper, in one place, so a figure cannot ship without it. Demonstrations show structure, relationship and state; they never assert a number, a total or a measurement, because a figure that invents data has stopped being a demonstration and started being a claim.", "section": "components" },
+      { "name": "The Own-Grammar Rule", "body": "A demonstration is drawn in the website's visual language, never in a simulation of the app's interface chrome. If a figure starts acquiring status bars, tab bars, or device frames, it is drifting toward a fake screenshot and must be pulled back.", "section": "components" }
     ],
     "dos": [
       "Do commit green at page scale — a full-bleed field, a whole section band, a bleeding hero column.",
@@ -136,7 +162,9 @@
       "Do show an unknown explicitly, with the open hatched band and an em-dash rather than a zero.",
       "Do keep the display face tight (-0.038em) and genuinely large; the scale distance is the voice.",
       "Do draw any new icon into the existing 24px / 1.5-stroke set.",
-      "Do keep every interaction native HTML — the build fails on a single emitted .js file."
+      "Do keep every interaction native HTML — the build fails on a single emitted .js file.",
+      "Do reuse the three demonstrations across pages rather than inventing a fourth; their recurrence is what makes the site read as one system.",
+      "Do let a demonstration carry a section on its own. They are the evidence this site has instead of screenshots, and they deserve full width and a whole bay."
     ],
     "donts": [
       "Don't put a kicker, eyebrow, or tracked label above a heading.",
@@ -145,7 +173,7 @@
       "Don't use a gradient anywhere, including on text.",
       "Don't add a third font weight or a second family without arguing the byte cost.",
       "Don't let a data ink become decoration, or reassign Fat Rose to an error state.",
-      "Don't render a fabricated app screenshot in the hero field or anywhere else."
+      "Don't pass an authored demonstration off as a documentary screenshot. Stylized demonstrations are permitted under PRODUCT.md's product-demonstration rule, but they must read as designed, depict only shipped capabilities, and keep the data inks' fixed meanings."
     ]
   }
 }
