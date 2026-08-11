@@ -1,0 +1,151 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-08-11T00:20:00Z",
+  "title": "Design System: Notura Web",
+  "extensions": {
+    "colorMeta": {
+      "field": {
+        "role": "primary",
+        "displayName": "Field Green",
+        "canonical": "#1e4a2e",
+        "tonalRamp": ["#0a1a10", "#0f2819", "#163722", "#1e4a2e", "#2f5e3e", "#5c8a6c", "#93b89f", "#cfe3d5"]
+      },
+      "brand": {
+        "role": "primary",
+        "displayName": "Brand Green",
+        "canonical": "#2f5e3e",
+        "tonalRamp": ["#0c1c13", "#122c1d", "#1a4029", "#255036", "#2f5e3e", "#5b8a68", "#95b9a1", "#d2e4d8"]
+      },
+      "sage": {
+        "role": "secondary",
+        "displayName": "Sage",
+        "canonical": "#b7d8be",
+        "tonalRamp": ["#1d3324", "#2c4d36", "#3e6b4b", "#568a63", "#7fae8b", "#b7d8be", "#dcebdc", "#f0f7f1"]
+      },
+      "ground": {
+        "role": "neutral",
+        "displayName": "Ground",
+        "canonical": "#f7f1e6",
+        "tonalRamp": ["#211d15", "#3b3427", "#574d3a", "#7d7157", "#a89a7d", "#cfc4ab", "#f7f1e6", "#fffdf8"]
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "Ink",
+        "canonical": "#16211a",
+        "tonalRamp": ["#0a100c", "#16211a", "#243328", "#3a4b3f", "#55645a", "#7d8a82", "#adb7b1", "#dde2df"]
+      },
+      "protein": { "role": "tertiary", "displayName": "Protein Blue", "canonical": "#5b8def", "tonalRamp": ["#0d1d3e", "#14305f", "#1d4585", "#2a5db3", "#3f74d8", "#5b8def", "#93b5f5", "#d3e1fc"] },
+      "carbs": { "role": "tertiary", "displayName": "Carbohydrate Amber", "canonical": "#f2a63b", "tonalRamp": ["#3a2405", "#5a3808", "#7e4f0b", "#a56810", "#cd8420", "#f2a63b", "#f7c67f", "#fdead0"] },
+      "fat": { "role": "tertiary", "displayName": "Fat Rose", "canonical": "#e86a92", "tonalRamp": ["#3c0d1e", "#5c1530", "#812043", "#a82f59", "#cc4674", "#e86a92", "#f2a2bb", "#fbdbe5"] },
+      "water": { "role": "tertiary", "displayName": "Water Blue", "canonical": "#3ba9f2", "tonalRamp": ["#052237", "#083a5c", "#0c5385", "#106fb0", "#1e8ad4", "#3ba9f2", "#87ccf7", "#d3ecfd"] },
+      "weight": { "role": "tertiary", "displayName": "Weight Violet", "canonical": "#8c6de0", "tonalRamp": ["#1d1140", "#2d1b62", "#402789", "#5636ad", "#7050c8", "#8c6de0", "#b9a4ee", "#e4dbf9"] }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Display", "purpose": "The single h1 per page. Capped near 15ch so it always stacks." },
+      "headline": { "displayName": "Headline", "purpose": "Section h2s, capped near 18-20ch." },
+      "lede": { "displayName": "Lede", "purpose": "The paragraph directly beneath a heading, in Ink Soft." },
+      "label": { "displayName": "Label", "purpose": "Uppercase footer group headings only. Never used as a kicker above a heading." }
+    },
+    "shadows": [
+      { "name": "overlay", "value": "0 1.25rem 2.75rem rgba(22, 33, 26, 0.16)", "purpose": "The language-selector dropdown only. The system's single shadow; content never lifts." }
+    ],
+    "motion": [
+      { "name": "band-settle", "value": "900ms cubic-bezier(0.16, 1, 0.3, 1) backwards", "purpose": "The one authored moment: estimate bands grow from zero, staggered 90ms per row, gated on prefers-reduced-motion: no-preference." },
+      { "name": "state-shift", "value": "180ms ease", "purpose": "Button background and chevron rotation only." }
+    ],
+    "breakpoints": [
+      { "name": "narrow", "value": "26rem" },
+      { "name": "md", "value": "48rem" },
+      { "name": "wide", "value": "60rem" }
+    ],
+    "focus": [
+      { "name": "double-ring", "value": "0 0 0 3px #f7f1e6, 0 0 0 6px #1e4a2e", "purpose": "Global :focus-visible treatment on every link, summary and programmatic target." }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary action",
+      "kind": "button",
+      "refersTo": "action-primary",
+      "description": "The page's single primary action, with a trailing drawn arrow.",
+      "html": "<a class=\"ds-action\" href=\"#\">See how Notura works<svg class=\"ds-icon\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M4 12h15.5\"/><path d=\"m13.4 5.6 6.4 6.4-6.4 6.4\"/></svg></a>",
+      "css": ".ds-action { display:inline-flex; align-items:center; justify-content:center; gap:0.55rem; min-height:3.1rem; padding:0.8rem 1.5rem; border-radius:2rem; background:#1e4a2e; color:#f4efe3; font:600 0.905rem/1.4 'Plus Jakarta Sans',system-ui,sans-serif; text-decoration:none; border:1px solid transparent; transition:background-color 180ms ease; } .ds-action:hover { background:#163722; } .ds-action:focus-visible { outline:0; box-shadow:0 0 0 3px #f7f1e6, 0 0 0 6px #1e4a2e; } .ds-icon { width:1.1rem; height:1.1rem; fill:none; stroke:currentColor; stroke-width:1.5; stroke-linecap:round; stroke-linejoin:round; }"
+    },
+    {
+      "name": "Quiet action",
+      "kind": "button",
+      "refersTo": "action-quiet",
+      "description": "The secondary action that sits beside a primary. No fill, no chrome.",
+      "html": "<a class=\"ds-action-quiet\" href=\"#\">Explore the product</a>",
+      "css": ".ds-action-quiet { display:inline-flex; align-items:center; min-height:3.1rem; color:#1e4a2e; font:600 0.905rem/1.4 'Plus Jakarta Sans',system-ui,sans-serif; text-decoration:underline; text-decoration-thickness:0.07em; text-underline-offset:0.24em; } .ds-action-quiet:hover { color:#163722; } .ds-action-quiet:focus-visible { outline:0; border-radius:0.75rem; box-shadow:0 0 0 3px #f7f1e6, 0 0 0 6px #1e4a2e; }"
+    },
+    {
+      "name": "Estimate field",
+      "kind": "custom",
+      "refersTo": "estimate",
+      "description": "The signature component. Known quantities as filled bands in fixed inks; the unknown as an open hatched band with an em-dash.",
+      "html": "<figure class=\"ds-estimate\"><ul><li><span class=\"ds-est-label\">Protein<span class=\"ds-est-state\">Estimated</span></span><span class=\"ds-est-bar\" style=\"--fill:64%;--ink-band:#5b8def\"></span></li><li><span class=\"ds-est-label\">Carbohydrate<span class=\"ds-est-state\">Estimated</span></span><span class=\"ds-est-bar\" style=\"--fill:47%;--ink-band:#f2a63b\"></span></li><li><span class=\"ds-est-label\">Not determined<span class=\"ds-est-state\">&mdash;</span></span><span class=\"ds-est-bar ds-est-open\"></span></li></ul></figure>",
+      "css": ".ds-estimate { max-width:30rem; margin:0; padding:1.5rem; background:#1e4a2e; } .ds-estimate ul { list-style:none; padding:0; margin:0; } .ds-estimate li { display:grid; gap:0.5rem; padding-block:1rem; border-block-start:1px solid rgba(244,239,227,0.22); } .ds-estimate li:first-child { border-block-start:0; padding-block-start:0; } .ds-est-label { display:flex; align-items:baseline; justify-content:space-between; gap:1rem; color:#f4efe3; font:600 0.905rem/1.4 'Plus Jakarta Sans',system-ui,sans-serif; } .ds-est-state { color:#b9c9bc; font-size:0.8125rem; font-weight:400; letter-spacing:0.02em; } .ds-est-bar { position:relative; height:0.7rem; border-radius:0.35rem; background:rgba(244,239,227,0.12); overflow:hidden; } .ds-est-bar::after { content:''; position:absolute; inset:0 auto 0 0; width:var(--fill,50%); border-radius:inherit; background:var(--ink-band,#b7d8be); } .ds-est-open { background:transparent; background-image:repeating-linear-gradient(135deg, rgba(244,239,227,0.22) 0 2px, transparent 2px 8px); border:1px dashed rgba(244,239,227,0.55); } .ds-est-open::after { content:none; }"
+    },
+    {
+      "name": "Ruled method row",
+      "kind": "card",
+      "refersTo": "methods",
+      "description": "The container-free list row that replaces feature cards throughout the system.",
+      "html": "<ul class=\"ds-rows\"><li><svg class=\"ds-icon-lg\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M3.4 5.4v13.2\"/><path d=\"M6.6 5.4v13.2\"/><path d=\"M9.8 5.4v9.4\"/><path d=\"M13 5.4v13.2\"/><path d=\"M16.2 5.4v9.4\"/><path d=\"M20.6 5.4v13.2\"/></svg><h3>Scan a package barcode</h3><p>Look up a packaged product and check the label information that comes back.</p></li></ul>",
+      "css": ".ds-rows { list-style:none; padding:0; margin:0; border-block-start:1px solid rgba(22,33,26,0.14); } .ds-rows li { display:grid; grid-template-columns:1.75rem minmax(0,15rem) minmax(0,1fr); align-items:baseline; gap:1.35rem; padding-block:1.35rem; border-block-end:1px solid rgba(22,33,26,0.14); } .ds-rows h3 { margin:0; color:#1e4a2e; font:600 1.2rem/1.04 'Plus Jakarta Sans',system-ui,sans-serif; letter-spacing:-0.015em; } .ds-rows p { margin:0; color:#55645a; font:400 0.905rem/1.62 'Plus Jakarta Sans',system-ui,sans-serif; } .ds-icon-lg { width:1.35rem; height:1.35rem; fill:none; stroke:#2f5e3e; stroke-width:1.5; stroke-linecap:round; stroke-linejoin:round; }"
+    },
+    {
+      "name": "Language selector",
+      "kind": "nav",
+      "refersTo": "lang-trigger",
+      "description": "Zero-JavaScript native disclosure. Right-anchored in both header and footer so it cannot overflow.",
+      "html": "<details class=\"ds-lang\"><summary>Language<span>English</span><svg class=\"ds-chev\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"m5.5 9 6.5 6.4L18.5 9\"/></svg></summary><ul><li><a href=\"#\" aria-current=\"page\">English</a></li><li><a href=\"#\">Türkçe</a></li></ul></details>",
+      "css": ".ds-lang { position:relative; width:fit-content; } .ds-lang > summary { display:flex; align-items:center; gap:0.5rem; min-height:2.75rem; padding:0.35rem 0.85rem; border:1px solid rgba(22,33,26,0.26); border-radius:2rem; color:#1e4a2e; font:600 0.905rem/1.4 'Plus Jakarta Sans',system-ui,sans-serif; cursor:pointer; list-style:none; } .ds-lang > summary::-webkit-details-marker { display:none; } .ds-chev { width:1rem; height:1rem; fill:none; stroke:currentColor; stroke-width:1.5; stroke-linecap:round; stroke-linejoin:round; transition:transform 180ms cubic-bezier(0.16,1,0.3,1); } .ds-lang[open] .ds-chev { transform:rotate(180deg); } .ds-lang ul { position:absolute; inset-inline-end:0; min-width:14rem; margin:0.5rem 0 0; padding:0.4rem; list-style:none; border:1px solid rgba(22,33,26,0.14); border-radius:0.75rem; background:#fffdf8; box-shadow:0 1.25rem 2.75rem rgba(22,33,26,0.16); } .ds-lang a { display:flex; align-items:center; min-height:2.75rem; padding-inline:0.75rem; border-radius:0.5rem; color:#1e4a2e; font-size:0.905rem; text-decoration:none; } .ds-lang a:hover, .ds-lang a[aria-current=\"page\"] { background:#dcebdc; }"
+    },
+    {
+      "name": "Truth note",
+      "kind": "card",
+      "refersTo": "note",
+      "description": "The one enclosed surface in the system, used for a stated limitation.",
+      "html": "<aside class=\"ds-note\"><h2>Built around current capabilities</h2><p>Notura does not yet link to a public app-store build from this website.</p></aside>",
+      "css": ".ds-note { display:grid; gap:1rem; padding:2rem; border:1px solid rgba(22,33,26,0.26); border-radius:1.35rem; background:#dcebdc; } .ds-note h2 { margin:0; color:#1e4a2e; font:600 1.6rem/1.04 'Plus Jakarta Sans',system-ui,sans-serif; letter-spacing:-0.03em; } .ds-note p { margin:0; max-width:48rem; color:#55645a; font:400 1.0625rem/1.62 'Plus Jakarta Sans',system-ui,sans-serif; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Honest Ledger",
+    "overview": "Notura's site is a cream reading surface cut open by fields of deep forest green. It behaves like a well-set printed record rather than a product brochure: quantities are declared in ruled rows, every rule is a hairline, and nothing is boxed in a card. The green fields are not accents — they are full-bleed territories that take over a third to a half of a viewport and carry the moments where the product states something about itself.\n\nThe system's one non-negotiable idea is that an unknown is displayed, not hidden. The signature component renders known quantities as filled bands in fixed data inks and renders the unknown as an open hatched band labelled \"not determined\". That component is the reason the palette carries five saturated data colors inside an otherwise restrained green-and-cream world.\n\nDensity is generous and editorial. Type does the work that cards and shadows do elsewhere: a display face at up to 85.6px against 17px body copy, hairlines instead of containers, and large quiet gaps between movements. The surface is deliberately flat.",
+    "keyCharacteristics": [
+      "Cream reading ground, deep-green committed fields, no gradient anywhere",
+      "Hairline rules and ruled rows instead of cards and borders",
+      "Five fixed-meaning data inks, used only on data",
+      "One authored motion moment; everything else static",
+      "Zero client JavaScript — every interaction is native HTML"
+    ],
+    "rules": [
+      { "name": "The Fixed Ink Rule", "body": "The five data inks mean protein, carbohydrate, fat, water and weight — nothing else, ever. They never decorate, never fill a background, and never get reassigned to a new category. Fat Rose in particular must never read as an error color.", "section": "colors" },
+      { "name": "The Territory Rule", "body": "Green arrives as a full-bleed region or not at all. A green box floating inside a cream section is a violation of the world.", "section": "colors" },
+      { "name": "The Two Weight Rule", "body": "Only 400 and 600 exist. Hierarchy comes from size, color and space. Adding a third weight means shipping another font file and must be argued on byte cost.", "section": "typography" },
+      { "name": "The No Kicker Rule", "body": "Nothing sits above a heading. No eyebrow, no overline, no small tracked label introducing an h2. The heading carries its own weight.", "section": "typography" },
+      { "name": "The Flat Ground Rule", "body": "Content never lifts. If something needs to separate from its surroundings, it changes plane or gains a hairline — it does not gain a shadow.", "section": "elevation" }
+    ],
+    "dos": [
+      "Do commit green at page scale — a full-bleed field, a whole section band, a bleeding hero column.",
+      "Do separate rows with a single hairline and let the row itself be the container.",
+      "Do use the five data inks only for the quantity they already mean in the app.",
+      "Do show an unknown explicitly, with the open hatched band and an em-dash rather than a zero.",
+      "Do keep the display face tight (-0.038em) and genuinely large; the scale distance is the voice.",
+      "Do draw any new icon into the existing 24px / 1.5-stroke set.",
+      "Do keep every interaction native HTML — the build fails on a single emitted .js file."
+    ],
+    "donts": [
+      "Don't put a kicker, eyebrow, or tracked label above a heading.",
+      "Don't introduce cards, boxed feature grids, or nested containers as page structure.",
+      "Don't add a shadow to content, or any zero-offset colored glow. Neon and glow are recorded off-brand.",
+      "Don't use a gradient anywhere, including on text.",
+      "Don't add a third font weight or a second family without arguing the byte cost.",
+      "Don't let a data ink become decoration, or reassign Fat Rose to an error state.",
+      "Don't render a fabricated app screenshot in the hero field or anywhere else."
+    ]
+  }
+}

@@ -23,3 +23,4 @@ npm-debug.log*
 # Local-only tooling state
 .claude/settings.local.json
 .impeccable/config.local.json
+.impeccable/questions/
