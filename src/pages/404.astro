@@ -12,15 +12,17 @@ import DocumentLayout from "../layouts/DocumentLayout.astro";
   skipLinkText="Skip to main content"
   robots="noindex,follow"
 >
-  <header class="neutral-header">
-    <BrandLink href="/" label="Notura language selection" />
+  <header class="plain-head">
+    <div class="shell">
+      <BrandLink href="/" label="Notura language selection" />
+    </div>
   </header>
-  <main id="main-content" tabindex="-1" class="not-found">
+  <main id="main-content" tabindex="-1" class="entry shell">
     <section aria-labelledby="not-found-heading">
-      <p class="eyebrow">404</p>
+      <p class="entry__code">404</p>
       <h1 id="not-found-heading">Page not found</h1>
       <p>Choose a language to return to Notura.</p>
-      <ul class="language-grid">
+      <ul class="locale-grid">
         {
           publishedLocales.map((locale) => (
             <li>

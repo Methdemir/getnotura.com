@@ -1,11 +1,8 @@
 ---
 import { getPublishedLocale, publishedLocales } from "../i18n/locales";
-import {
-  routeAvailability,
-  localeSwitchPath,
-  type Destination,
-} from "../i18n/routes";
+import { routeAvailability, localeSwitchPath, type Destination } from "../i18n/routes";
 import { translate } from "../i18n/translations";
+import Icon from "./Icon.astro";
 
 interface Props {
   localeId: string;
@@ -17,21 +14,20 @@ const { localeId, destination = "home", placement = "header" } = Astro.props;
 const currentLocale = getPublishedLocale(localeId);
 ---
 
-<details class:list={["language-selector", `language-selector--${placement}`]}>
-  <summary aria-label={`${translate(localeId, "changeLanguage")}. ${translate(localeId, "currentLanguage")}: ${currentLocale.nativeName}`}>
-    <span aria-hidden="true">{translate(localeId, "language")}</span>
-    <span class="language-selector__current">{currentLocale.nativeName}</span>
+<details class:list={["lang", `lang--${placement}`]}>
+  <summary
+    aria-label={`${translate(localeId, "changeLanguage")}. ${translate(localeId, "currentLanguage")}: ${currentLocale.nativeName}`}
+  >
+    <span class="lang__label" aria-hidden="true">{translate(localeId, "language")}</span>
+    <span>{currentLocale.nativeName}</span>
+    <Icon name="chevron" class="lang__chevron" />
   </summary>
-  <ul aria-label={translate(localeId, "languagePrompt")}>
+  <ul class="lang__list" aria-label={translate(localeId, "languagePrompt")}>
     {
       publishedLocales.map((locale) => (
         <li>
           <a
-            href={localeSwitchPath(
-              locale.id,
-              destination,
-              routeAvailability,
-            )}
+            href={localeSwitchPath(locale.id, destination, routeAvailability)}
             lang={locale.htmlLang}
             hreflang={locale.hreflang}
             aria-current={locale.id === currentLocale.id ? "page" : undefined}

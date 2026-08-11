@@ -9,22 +9,37 @@ interface Props {
 }
 
 const { localeId, destination = "home" } = Astro.props;
+const navigation = ["product", "howItWorks", "features"] as const;
 ---
 
-<footer class="site-footer">
-  <div class="site-footer__inner">
-    <div class="site-footer__brand">
-      <strong>Notura</strong>
+<footer class="site-foot">
+  <div class="site-foot__inner shell">
+    <div class="site-foot__brand">
+      <img
+        src="/images/notura-lockup-primary.png"
+        alt="Notura"
+        width="192"
+        height="80"
+        decoding="async"
+        loading="lazy"
+      />
       <p>{translate(localeId, "footerSummary")}</p>
     </div>
-    <nav aria-label={translate(localeId, "footerNavigation")}>
-      <p class="site-footer__label">{translate(localeId, "footerExplore")}</p>
+    <nav aria-labelledby="foot-nav-heading">
+      <h2 id="foot-nav-heading">{translate(localeId, "footerExplore")}</h2>
       <ul>
-        <li><a href={localizedPath(localeId, "product")}>{translate(localeId, "product")}</a></li>
-        <li><a href={localizedPath(localeId, "howItWorks")}>{translate(localeId, "howItWorks")}</a></li>
-        <li><a href={localizedPath(localeId, "features")}>{translate(localeId, "features")}</a></li>
+        {
+          navigation.map((item) => (
+            <li>
+              <a href={localizedPath(localeId, item)}>{translate(localeId, item)}</a>
+            </li>
+          ))
+        }
       </ul>
     </nav>
-    <LanguageSelector localeId={localeId} destination={destination} placement="footer" />
+    <div>
+      <h2>{translate(localeId, "language")}</h2>
+      <LanguageSelector localeId={localeId} destination={destination} placement="footer" />
+    </div>
   </div>
 </footer>
