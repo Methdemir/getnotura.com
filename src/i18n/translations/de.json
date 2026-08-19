@@ -111,5 +111,16 @@
   "featureProgressTitle": "Verlaufsansichten",
   "featureProgressBody": "Sehen Sie Ernährungs- und Tracking-Daten über Tage, Wochen und Monate hinweg.",
   "featuresBoundaryHeading": "Zum Informieren gedacht, nicht zum Diagnostizieren",
-  "featuresBoundaryBody": "Nährwerte können aus Ihrer Eingabe, aus Produktdaten oder aus KI-Schätzungen stammen. Sie sind nützlicher Zusammenhang, keine medizinische Messung und kein garantiertes Ergebnis."
+  "featuresBoundaryBody": "Nährwerte können aus Ihrer Eingabe, aus Produktdaten oder aus KI-Schätzungen stammen. Sie sind nützlicher Zusammenhang, keine medizinische Messung und kein garantiertes Ergebnis.",
+  "metaPrivacyTitle": "Datenschutz | Notura",
+  "metaPrivacyDescription": "Die Datenschutzerklärung von Notura.",
+  "privacyHeading": "Datenschutzerklärung",
+  "privacyComingSoon": "Demnächst verfügbar",
+  "privacyBody": "Wir bereiten diese Seite vor. Bitte schauen Sie bald wieder vorbei.",
+  "metaTermsTitle": "Nutzungsbedingungen | Notura",
+  "metaTermsDescription": "Die Nutzungsbedingungen von Notura.",
+  "termsHeading": "Nutzungsbedingungen",
+  "termsComingSoon": "Demnächst verfügbar",
+  "termsBody": "Wir bereiten diese Seite vor. Bitte schauen Sie bald wieder vorbei.",
+  "footerLegal": "Rechtliches"
 }

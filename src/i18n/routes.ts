@@ -6,7 +6,14 @@ export type RouteAvailabilityKey = `${string}:${Destination}`;
 
 export const destinations = routeData;
 
-export const publishedDestinations = ["home", "product", "howItWorks", "features"] as const;
+export const publishedDestinations = [
+  "home",
+  "product",
+  "howItWorks",
+  "features",
+  "privacy",
+  "terms",
+] as const;
 
 export const routeAvailability = new Set<RouteAvailabilityKey>(
   publishedLocales.flatMap((locale) =>

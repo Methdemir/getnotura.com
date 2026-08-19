@@ -111,5 +111,16 @@
   "featureProgressTitle": "Viste dei progressi",
   "featureProgressBody": "Rivedi le informazioni su alimentazione e monitoraggio su intervalli giornalieri, settimanali e mensili.",
   "featuresBoundaryHeading": "Pensato per informare, non per diagnosticare",
-  "featuresBoundaryBody": "I valori nutrizionali possono derivare da ciò che inserisci, dai dati di prodotto o da stime dell'IA. Sono un contesto utile, non misurazioni mediche né risultati garantiti."
+  "featuresBoundaryBody": "I valori nutrizionali possono derivare da ciò che inserisci, dai dati di prodotto o da stime dell'IA. Sono un contesto utile, non misurazioni mediche né risultati garantiti.",
+  "metaPrivacyTitle": "Privacy | Notura",
+  "metaPrivacyDescription": "L'informativa sulla privacy di Notura.",
+  "privacyHeading": "Informativa sulla privacy",
+  "privacyComingSoon": "Prossimamente",
+  "privacyBody": "Stiamo preparando questa pagina. Torna a trovarci presto.",
+  "metaTermsTitle": "Termini | Notura",
+  "metaTermsDescription": "I termini di utilizzo di Notura.",
+  "termsHeading": "Termini di utilizzo",
+  "termsComingSoon": "Prossimamente",
+  "termsBody": "Stiamo preparando questa pagina. Torna a trovarci presto.",
+  "footerLegal": "Informazioni legali"
 }

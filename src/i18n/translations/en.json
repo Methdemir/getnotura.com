@@ -111,5 +111,16 @@
   "featureProgressTitle": "Progress views",
   "featureProgressBody": "Review food and tracking information across daily, weekly and monthly time ranges.",
   "featuresBoundaryHeading": "Designed to inform, not diagnose",
-  "featuresBoundaryBody": "Nutrition values can come from user input, product data or AI estimates. They are useful context, not medical measurements or guaranteed outcomes."
+  "featuresBoundaryBody": "Nutrition values can come from user input, product data or AI estimates. They are useful context, not medical measurements or guaranteed outcomes.",
+  "metaPrivacyTitle": "Privacy | Notura",
+  "metaPrivacyDescription": "Notura's privacy notice.",
+  "privacyHeading": "Privacy notice",
+  "privacyComingSoon": "Coming soon",
+  "privacyBody": "We are preparing this page. Please check back soon.",
+  "metaTermsTitle": "Terms | Notura",
+  "metaTermsDescription": "Notura's terms of use.",
+  "termsHeading": "Terms of use",
+  "termsComingSoon": "Coming soon",
+  "termsBody": "We are preparing this page. Please check back soon.",
+  "footerLegal": "Legal"
 }

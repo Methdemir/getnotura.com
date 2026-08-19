@@ -111,5 +111,16 @@
   "featureProgressTitle": "İlerleme görünümleri",
   "featureProgressBody": "Yemek ve takip bilgilerini günlük, haftalık ve aylık zaman aralıklarında gözden geçirin.",
   "featuresBoundaryHeading": "Teşhis için değil, bilgilendirmek için tasarlandı",
-  "featuresBoundaryBody": "Besin değerleri kullanıcı girişinden, ürün verisinden veya yapay zekâ tahminlerinden gelebilir. Bunlar işe yarar bağlamdır; tıbbi ölçüm veya garanti edilmiş sonuç değildir."
+  "featuresBoundaryBody": "Besin değerleri kullanıcı girişinden, ürün verisinden veya yapay zekâ tahminlerinden gelebilir. Bunlar işe yarar bağlamdır; tıbbi ölçüm veya garanti edilmiş sonuç değildir.",
+  "metaPrivacyTitle": "Gizlilik | Notura",
+  "metaPrivacyDescription": "Notura'nın gizlilik bildirimi.",
+  "privacyHeading": "Gizlilik bildirimi",
+  "privacyComingSoon": "Yakında",
+  "privacyBody": "Bu sayfayı hazırlıyoruz. Lütfen yakında tekrar kontrol edin.",
+  "metaTermsTitle": "Kullanım Koşulları | Notura",
+  "metaTermsDescription": "Notura'nın kullanım koşulları.",
+  "termsHeading": "Kullanım koşulları",
+  "termsComingSoon": "Yakında",
+  "termsBody": "Bu sayfayı hazırlıyoruz. Lütfen yakında tekrar kontrol edin.",
+  "footerLegal": "Yasal"
 }

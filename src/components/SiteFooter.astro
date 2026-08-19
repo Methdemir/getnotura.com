@@ -10,6 +10,10 @@ interface Props {
 
 const { localeId, destination = "home" } = Astro.props;
 const navigation = ["product", "howItWorks", "features"] as const;
+const legalNavigation = [
+  { destination: "privacy", label: "privacyHeading" },
+  { destination: "terms", label: "termsHeading" },
+] as const;
 ---
 
 <footer class="site-foot">
@@ -32,6 +36,20 @@ const navigation = ["product", "howItWorks", "features"] as const;
           navigation.map((item) => (
             <li>
               <a href={localizedPath(localeId, item)}>{translate(localeId, item)}</a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+    <nav aria-labelledby="foot-legal-heading">
+      <h2 id="foot-legal-heading">{translate(localeId, "footerLegal")}</h2>
+      <ul>
+        {
+          legalNavigation.map((item) => (
+            <li>
+              <a href={localizedPath(localeId, item.destination)}>
+                {translate(localeId, item.label)}
+              </a>
             </li>
           ))
         }
