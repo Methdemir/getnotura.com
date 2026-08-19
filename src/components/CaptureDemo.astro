@@ -1,0 +1,32 @@
+---
+import Icon from "./Icon.astro";
+import type { IconName } from "./icons";
+
+/**
+ * Demonstrates that six separate capture methods converge on one editable
+ * record. Structure only: no data, no numbers, no simulated app chrome.
+ */
+interface Props {
+  methods: Array<{ icon: IconName; label: string }>;
+  destination: string;
+}
+
+const { methods, destination } = Astro.props;
+---
+
+<div class="converge">
+  <ul class="converge__inputs">
+    {
+      methods.map((method) => (
+        <li>
+          <span class="converge__chip">
+            <Icon name={method.icon} />
+          </span>
+          <span class="converge__name">{method.label}</span>
+        </li>
+      ))
+    }
+  </ul>
+  <span class="converge__spine" aria-hidden="true"></span>
+  <p class="converge__node">{destination}</p>
+</div>

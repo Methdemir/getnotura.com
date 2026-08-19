@@ -1,4 +1,7 @@
 ---
+import CorrectionDemo from "../../components/CorrectionDemo.astro";
+import Demonstration from "../../components/Demonstration.astro";
+import Icon from "../../components/Icon.astro";
 import PageIntro from "../../components/PageIntro.astro";
 import { publishedLocales, type LocaleDefinition } from "../../i18n/locales";
 import { localizedPath } from "../../i18n/routes";
@@ -6,42 +9,108 @@ import { translate, type TranslationKey } from "../../i18n/translations";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 
 export function getStaticPaths() {
-  return publishedLocales.map((locale) => ({ params: { locale: locale.urlPrefix }, props: { locale } }));
+  return publishedLocales.map((locale) => ({
+    params: { locale: locale.urlPrefix },
+    props: { locale },
+  }));
 }
 
-interface Props { locale: LocaleDefinition; }
-const { locale } = Astro.props as Props;
+interface Props {
+  locale: LocaleDefinition;
+}
+
+const { locale } = Astro.props;
 const t = (key: TranslationKey) => translate(locale.id, key);
-const steps = [
+
+const opening: Array<[TranslationKey, TranslationKey]> = [
   ["step1Title", "step1Body"],
   ["step2Title", "step2Body"],
-  ["step3Title", "step3Body"],
+];
+
+const closingSteps: Array<[TranslationKey, TranslationKey]> = [
   ["step4Title", "step4Body"],
-] as const;
+];
 ---
 
-<BaseLayout localeId={locale.id} destination="howItWorks" title={t("metaHowTitle")} description={t("metaHowDescription")}>
-  <div class="section-shell">
-    <PageIntro eyebrow={t("howEyebrow")} heading={t("howHeading")} body={t("howBody")} compact />
-  </div>
-  <section class="process section-shell" aria-label={t("howHeading")}>
-    <ol>
-      {steps.map(([titleKey, bodyKey], index) => (
-        <li>
-          <span class="process__number" aria-hidden="true">{index + 1}</span>
-          <div><h2>{t(titleKey)}</h2><p>{t(bodyKey)}</p></div>
-        </li>
-      ))}
+<BaseLayout
+  localeId={locale.id}
+  destination="howItWorks"
+  title={t("metaHowTitle")}
+  description={t("metaHowDescription")}
+>
+  <PageIntro heading={t("howHeading")} body={t("howBody")} />
+
+  <section class="bay shell" aria-label={t("howHeading")}>
+    <ol class="process">
+      {
+        opening.map(([titleKey, bodyKey]) => (
+          <li>
+            <h2>{t(titleKey)}</h2>
+            <p>{t(bodyKey)}</p>
+          </li>
+        ))
+      }
     </ol>
   </section>
-  <aside class="adjust-note">
-    <div class="section-shell split-layout">
-      <div class="adjust-note__symbol" aria-hidden="true"><img src="/favicon/notura-symbol.png" width="96" height="96" alt="" /></div>
-      <div><h2>{t("adjustNoteHeading")}</h2><p>{t("adjustNoteBody")}</p></div>
+
+  <section class="bay bay--field" aria-labelledby="step3-heading">
+    <div class="shell">
+      <ol class="process process--field" style="counter-reset: step 2">
+        <li>
+          <h2 id="step3-heading">{t("step3Title")}</h2>
+          <p>{t("step3Body")}</p>
+        </li>
+      </ol>
+      <div class="bay-gap">
+        <Demonstration
+          tone="field"
+          label={t("demonstrationLabel")}
+          caption={t("adjustNoteHeading")}
+        >
+          <CorrectionDemo
+            protein={t("protein")}
+            carbs={t("carbs")}
+            fat={t("fat")}
+            estimated={t("estimated")}
+            corrected={t("corrected")}
+            notDetermined={t("notDetermined")}
+          />
+        </Demonstration>
+      </div>
     </div>
-  </aside>
-  <section class="closing-section section-shell">
-    <h2>{t("howClosing")}</h2>
-    <a class="button button--primary" href={localizedPath(locale.id, "features")}>{t("exploreFeatures")}</a>
   </section>
+
+  <section class="bay shell" aria-label={t("step4Title")}>
+    <ol class="process" style="counter-reset: step 3">
+      {
+        closingSteps.map(([titleKey, bodyKey]) => (
+          <li>
+            <h2>{t(titleKey)}</h2>
+            <p>{t(bodyKey)}</p>
+          </li>
+        ))
+      }
+    </ol>
+  </section>
+
+  <section class="bay bay--raised" aria-labelledby="adjust-heading">
+    <div class="shell statement">
+      <h2 id="adjust-heading">{t("adjustNoteHeading")}</h2>
+      <p>{t("adjustNoteBody")}</p>
+    </div>
+  </section>
+
+  <div class="shell">
+    <section class="close" aria-labelledby="how-close">
+      <div>
+        <h2 id="how-close">{t("howClosing")}</h2>
+      </div>
+      <div class="action-row">
+        <a class="action action--primary" href={localizedPath(locale.id, "features")}>
+          {t("exploreFeatures")}
+          <Icon name="arrow" />
+        </a>
+      </div>
+    </section>
+  </div>
 </BaseLayout>

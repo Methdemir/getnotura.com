@@ -14,14 +14,16 @@ import DocumentLayout from "../layouts/DocumentLayout.astro";
   alternates={alternateLinks("home")}
   ogLocale="en_US"
 >
-  <header class="neutral-header">
-    <BrandLink href="/" label="Notura" />
+  <header class="plain-head">
+    <div class="shell">
+      <BrandLink href="/" label="Notura" />
+    </div>
   </header>
-  <main id="main-content" tabindex="-1" class="language-entry">
+  <main id="main-content" tabindex="-1" class="entry shell">
     <section aria-labelledby="language-heading">
       <h1 id="language-heading">Notura</h1>
       <p>Choose your language</p>
-      <ul class="language-grid">
+      <ul class="locale-grid">
         {
           publishedLocales.map((locale) => (
             <li>
@@ -38,5 +40,7 @@ import DocumentLayout from "../layouts/DocumentLayout.astro";
       </ul>
     </section>
   </main>
-  <footer class="neutral-footer"><span>Notura</span></footer>
+  <footer class="plain-foot">
+    <div class="shell">Notura</div>
+  </footer>
 </DocumentLayout>

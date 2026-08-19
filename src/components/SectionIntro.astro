@@ -1,15 +1,14 @@
 ---
 interface Props {
-  eyebrow?: string;
   heading: string;
-  body?: string;
+  body?: string | undefined;
+  id?: string | undefined;
 }
 
-const { eyebrow, heading, body } = Astro.props;
+const { heading, body, id } = Astro.props;
 ---
 
-<div class="section-intro">
-  {eyebrow && <p class="eyebrow">{eyebrow}</p>}
-  <h2>{heading}</h2>
+<div class="bay-head">
+  <h2 id={id}>{heading}</h2>
   {body && <p>{body}</p>}
 </div>

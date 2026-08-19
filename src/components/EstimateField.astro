@@ -1,0 +1,56 @@
+---
+interface Props {
+  protein: string;
+  carbs: string;
+  fat: string;
+  estimated: string;
+  notDetermined: string;
+  note: string;
+  label: string;
+  tone?: "field" | "light";
+}
+
+const {
+  protein,
+  carbs,
+  fat,
+  estimated,
+  notDetermined,
+  note,
+  label,
+  tone = "field",
+} = Astro.props;
+
+const bands = [
+  { name: protein, fill: "64%", ink: "var(--protein)" },
+  { name: carbs, fill: "47%", ink: "var(--carbs)" },
+  { name: fat, fill: "36%", ink: "var(--fat)" },
+];
+---
+
+<figure class:list={["estimate", tone === "light" && "estimate--light"]} role="group" aria-label={label}>
+  <ul class="estimate__rows">
+    {
+      bands.map((band) => (
+        <li class="estimate__row">
+          <span class="estimate__label">
+            {band.name}
+            <span class="estimate__state">{estimated}</span>
+          </span>
+          <span
+            class="estimate__bar"
+            style={`--fill:${band.fill};--ink-band:${band.ink}`}
+          />
+        </li>
+      ))
+    }
+    <li class="estimate__row">
+      <span class="estimate__label">
+        {notDetermined}
+        <span class="estimate__state">&mdash;</span>
+      </span>
+      <span class="estimate__bar estimate__bar--open" />
+    </li>
+  </ul>
+  <figcaption class="estimate__note">{note}</figcaption>
+</figure>

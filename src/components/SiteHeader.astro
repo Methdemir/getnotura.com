@@ -13,21 +13,23 @@ const { localeId, destination = "home" } = Astro.props;
 const navigation = ["product", "howItWorks", "features"] as const;
 ---
 
-<header class="site-header">
-  <div class="site-header__inner">
+<header class="masthead">
+  <div class="masthead__inner shell">
     <BrandLink href={localizedPath(localeId, "home")} label={translate(localeId, "home")} />
     <nav aria-label={translate(localeId, "primaryNavigation")}>
-      <ul class="primary-navigation">
-        {navigation.map((item) => (
-          <li>
-            <a
-              href={localizedPath(localeId, item)}
-              aria-current={destination === item ? "page" : undefined}
-            >
-              {translate(localeId, item)}
-            </a>
-          </li>
-        ))}
+      <ul class="nav-list">
+        {
+          navigation.map((item) => (
+            <li>
+              <a
+                href={localizedPath(localeId, item)}
+                aria-current={destination === item ? "page" : undefined}
+              >
+                {translate(localeId, item)}
+              </a>
+            </li>
+          ))
+        }
       </ul>
     </nav>
     <LanguageSelector localeId={localeId} destination={destination} />

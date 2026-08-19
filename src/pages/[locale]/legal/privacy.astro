@@ -1,0 +1,29 @@
+---
+import PageIntro from "../../../components/PageIntro.astro";
+import { publishedLocales, type LocaleDefinition } from "../../../i18n/locales";
+import { translate, type TranslationKey } from "../../../i18n/translations";
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+
+export function getStaticPaths() {
+  return publishedLocales.map((locale) => ({
+    params: { locale: locale.urlPrefix },
+    props: { locale },
+  }));
+}
+
+interface Props {
+  locale: LocaleDefinition;
+}
+
+const { locale } = Astro.props;
+const t = (key: TranslationKey) => translate(locale.id, key);
+---
+
+<BaseLayout
+  localeId={locale.id}
+  destination="privacy"
+  title={t("metaPrivacyTitle")}
+  description={t("metaPrivacyDescription")}
+>
+  <PageIntro heading={t("privacyHeading")} body={`${t("privacyComingSoon")} — ${t("privacyBody")}`} />
+</BaseLayout>

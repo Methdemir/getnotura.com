@@ -1,0 +1,29 @@
+---
+import PageIntro from "../../../components/PageIntro.astro";
+import { publishedLocales, type LocaleDefinition } from "../../../i18n/locales";
+import { translate, type TranslationKey } from "../../../i18n/translations";
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+
+export function getStaticPaths() {
+  return publishedLocales.map((locale) => ({
+    params: { locale: locale.urlPrefix },
+    props: { locale },
+  }));
+}
+
+interface Props {
+  locale: LocaleDefinition;
+}
+
+const { locale } = Astro.props;
+const t = (key: TranslationKey) => translate(locale.id, key);
+---
+
+<BaseLayout
+  localeId={locale.id}
+  destination="terms"
+  title={t("metaTermsTitle")}
+  description={t("metaTermsDescription")}
+>
+  <PageIntro heading={t("termsHeading")} body={`${t("termsComingSoon")} — ${t("termsBody")}`} />
+</BaseLayout>
