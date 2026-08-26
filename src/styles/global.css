@@ -446,6 +446,77 @@ svg {
   max-width: 38rem;
 }
 
+/* ---------- legal documents ---------- */
+
+.legal {
+  padding-block: clamp(2.75rem, 6vw, 5rem);
+}
+
+.legal__head {
+  display: grid;
+  gap: 0.85rem;
+  max-width: 46rem;
+}
+
+.legal__updated {
+  color: var(--ink-soft);
+  font-size: var(--xs);
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.legal__intro {
+  font-size: var(--lede);
+  line-height: 1.5;
+}
+
+.legal__contents {
+  max-width: 46rem;
+  margin-block: clamp(2.5rem, 5vw, 4rem);
+  padding-block: 1.25rem;
+  border-block: 1px solid var(--rule);
+}
+
+.legal__contents ol {
+  display: grid;
+  gap: 0.6rem 1.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+  padding-inline-start: 1.25rem;
+  margin: 0;
+}
+
+.legal__contents a {
+  color: var(--ink);
+  font-size: var(--sm);
+}
+
+.legal__sections {
+  display: grid;
+  gap: 0;
+  max-width: 46rem;
+}
+
+.legal__sections section {
+  scroll-margin-block-start: 2rem;
+  padding-block: clamp(1.75rem, 4vw, 2.75rem);
+  border-block-start: 1px solid var(--rule);
+}
+
+.legal__sections h2 {
+  margin-block-end: 1rem;
+  font-size: var(--h2);
+}
+
+.legal__sections p {
+  max-width: 44rem;
+  color: var(--ink-soft);
+}
+
+.legal__sections p + p {
+  margin-block-start: 0.9rem;
+}
+
 /* ---------- estimate field ---------- */
 
 .estimate {

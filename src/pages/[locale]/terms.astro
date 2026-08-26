@@ -1,4 +1,5 @@
 ---
+import LegalDocument from "../../components/LegalDocument.astro";
 import PageIntro from "../../components/PageIntro.astro";
 import { publishedLocales, type LocaleDefinition } from "../../i18n/locales";
 import { translate, type TranslationKey } from "../../i18n/translations";
@@ -25,5 +26,6 @@ const t = (key: TranslationKey) => translate(locale.id, key);
   title={t("metaTermsTitle")}
   description={t("metaTermsDescription")}
 >
-  <PageIntro heading={t("termsHeading")} body={`${t("termsComingSoon")} — ${t("termsBody")}`} />
+  <PageIntro heading={t("termsHeading")} body={t("metaTermsDescription")} />
+  <LegalDocument localeId={locale.id} page="terms" />
 </BaseLayout>

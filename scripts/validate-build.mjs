@@ -33,12 +33,14 @@ const linkTags = (html, rel) =>
     .map((match) => match[0])
     .filter((tag) => getAttribute(tag, "rel") === rel);
 
-const publishedDestinations = ["home", "product", "howItWorks", "features"];
+const publishedDestinations = ["home", "product", "howItWorks", "features", "privacy", "terms"];
 const metaTitleKeys = {
   home: "metaHomeTitle",
   product: "metaProductTitle",
   howItWorks: "metaHowTitle",
   features: "metaFeaturesTitle",
+  privacy: "metaPrivacyTitle",
+  terms: "metaTermsTitle",
 };
 const destinationPath = (locale, destination) => {
   const suffix = routes[destination].path;
@@ -80,7 +82,10 @@ for (const expected of expectedPages) {
     throw new Error(`Incorrect HTML lang for ${expected.path}: ${htmlLang ?? "missing"}`);
   }
 
-  const title = html.match(/<title>([^<]+)<\/title>/i)?.[1];
+  const title = html
+    .match(/<title>([^<]+)<\/title>/i)?.[1]
+    ?.replaceAll("&#39;", "'")
+    .replaceAll("&amp;", "&");
   if (title !== expected.title) {
     throw new Error(`Incorrect localized title for ${expected.path}: ${title ?? "missing"}`);
   }
@@ -235,4 +240,4 @@ for (const file of files.filter((candidate) => candidate.endsWith(".html"))) {
   }
 }
 
-console.log(`Build validation passed for ${expectedPages.length} W2 canonical pages, localized titles, 404, CNAME, reciprocal hreflang, internal links, no store URLs, and zero client JavaScript.`);
+console.log(`Build validation passed for ${expectedPages.length} canonical pages, localized titles, 404, CNAME, reciprocal hreflang, internal links, no store URLs, and zero client JavaScript.`);

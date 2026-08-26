@@ -1,0 +1,32 @@
+---
+import type { LegalPage } from "../content/legal";
+import { getLegalContentsLabel, getLegalDocument } from "../content/legal";
+
+interface Props {
+  localeId: string;
+  page: LegalPage;
+}
+
+const { localeId, page } = Astro.props;
+const document = getLegalDocument(localeId, page);
+---
+
+<article class="legal shell">
+  <header class="legal__head">
+    <p class="legal__updated">{document.updated}</p>
+    <p class="legal__intro">{document.intro}</p>
+  </header>
+  <nav class="legal__contents" aria-label={getLegalContentsLabel(localeId)}>
+    <ol>
+      {document.sections.map((section) => <li><a href={`#${section.id}`}>{section.heading}</a></li>)}
+    </ol>
+  </nav>
+  <div class="legal__sections">
+    {document.sections.map((section) => (
+      <section id={section.id} aria-labelledby={`${section.id}-heading`}>
+        <h2 id={`${section.id}-heading`}>{section.heading}</h2>
+        {section.paragraphs.map((paragraph) => <p>{paragraph}</p>)}
+      </section>
+    ))}
+  </div>
+</article>
