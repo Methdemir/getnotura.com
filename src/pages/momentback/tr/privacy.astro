@@ -1,0 +1,17 @@
+---
+import MomentBackDocument from "../../../components/momentback/MomentBackDocument.astro";
+import { getMomentBackCopy } from "../../../content/momentback";
+import MomentBackLayout from "../../../layouts/MomentBackLayout.astro";
+
+const locale = "tr" as const;
+const doc = getMomentBackCopy(locale).privacy;
+---
+
+<MomentBackLayout
+  locale={locale}
+  page="privacy"
+  title={doc.meta.title}
+  description={doc.meta.description}
+>
+  <MomentBackDocument document={doc} />
+</MomentBackLayout>

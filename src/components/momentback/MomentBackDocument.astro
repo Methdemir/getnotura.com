@@ -1,0 +1,45 @@
+---
+import type { LegalCopy } from "../../content/momentback";
+
+interface Props {
+  document: LegalCopy;
+}
+
+const { document } = Astro.props;
+---
+
+<article class="mb-doc mb-shell">
+  <div class="mb-doc__head">
+    <h1>{document.heading}</h1>
+    <p>{document.intro}</p>
+    <p class="mb-doc__updated">{document.updated}</p>
+  </div>
+  <div class="mb-doc__body">
+    <nav class="mb-toc" aria-label={document.contentsLabel}>
+      <h2 class="mb-label mb-label--quiet">{document.contentsLabel}</h2>
+      <ol>
+        {
+          document.sections.map((section) => (
+            <li>
+              <a href={`#${section.id}`}>
+                <span>{section.heading}</span>
+              </a>
+            </li>
+          ))
+        }
+      </ol>
+    </nav>
+    <div class="mb-sections">
+      {
+        document.sections.map((section) => (
+          <section id={section.id} aria-labelledby={`${section.id}-heading`}>
+            <h2 id={`${section.id}-heading`}>{section.heading}</h2>
+            {section.paragraphs.map((paragraph) => (
+              <p>{paragraph}</p>
+            ))}
+          </section>
+        ))
+      }
+    </div>
+  </div>
+</article>
