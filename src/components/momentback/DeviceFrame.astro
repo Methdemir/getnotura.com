@@ -1,0 +1,70 @@
+---
+/**
+ * The screenshot slot.
+ *
+ * Real app screenshots are not available yet, so this renders a schematic
+ * viewfinder and says so in its caption. It is deliberately not dressed up as a
+ * product photograph.
+ *
+ * When the screenshots arrive, drop the file into
+ * `public/momentback/screens/` and pass `src` — everything else, including the
+ * frame and the aspect ratio, stays. Nothing else in the page changes.
+ * See docs/web/momentback-screenshot-slots.md.
+ */
+interface Props {
+  /** e.g. "/momentback/screens/camera-ready.png". Omit for the schematic. */
+  src?: string | undefined;
+  alt?: string | undefined;
+  caption: string;
+  state: string;
+  buffered: string;
+  save: string;
+  durations: string[];
+  /** Which duration chip reads as selected in the schematic. */
+  selected?: number | undefined;
+}
+
+const {
+  src,
+  alt = "",
+  caption,
+  state,
+  buffered,
+  save,
+  durations,
+  selected = 1,
+} = Astro.props;
+---
+
+<figure class="mb-device">
+  <div class="mb-device__frame">
+    <div class="mb-device__screen">
+      {
+        src ? (
+          <img src={src} alt={alt} width="1080" height="2340" decoding="async" loading="lazy" />
+        ) : (
+          <div class="mb-view" aria-hidden="true">
+            <div class="mb-view__top">
+              <span class="mb-chip">
+                <span class="mb-dot" />
+                {state} · {buffered}
+              </span>
+            </div>
+            <div class="mb-view__field">
+              <span class="mb-view__focus" />
+            </div>
+            <div class="mb-view__bottom">
+              <ul class="mb-rail">
+                {durations.map((duration, index) => (
+                  <li data-selected={index === selected ? "" : undefined}>{duration}</li>
+                ))}
+              </ul>
+              <span class="mb-save">{save}</span>
+            </div>
+          </div>
+        )
+      }
+    </div>
+  </div>
+  <figcaption class="mb-device__caption">{caption}</figcaption>
+</figure>

@@ -1,0 +1,86 @@
+---
+/**
+ * The one diagram that has to land: a single press reaching backwards and
+ * forwards in time.
+ *
+ * Two drawings of the same thing, because a wide time axis genuinely does not
+ * fit a phone and a horizontally scrolled diagram shows a third of the idea.
+ * Above 52rem the axis runs left to right as an SVG; below it, the same bands
+ * run top to bottom in CSS. Only one is ever displayed, both are hidden from
+ * assistive technology, and the text alternative below covers either.
+ *
+ * No script and no animation: the meaning is in where the bands start and stop.
+ * Colour comes from the app — teal is "held", orange is "committed to a file".
+ */
+interface Labels {
+  caption: string;
+  held: string;
+  event: string;
+  save: string;
+  stop: string;
+  clip: string;
+  now: string;
+  past: string;
+  alt: string;
+}
+
+interface Props {
+  labels: Labels;
+}
+
+const { labels } = Astro.props;
+const ticks = [48, 128, 208, 288, 368, 448, 528, 608, 688];
+---
+
+<figure class="mb-timeline">
+  <div class="mb-timeline__wide">
+    <svg viewBox="0 0 760 300" aria-hidden="true">
+      <!-- moment the thing happens -->
+      <line x1="380" y1="62" x2="380" y2="212" class="mb-tl-tick" stroke-dasharray="3 4" />
+      <circle cx="380" cy="58" r="4.5" class="mb-tl-event" />
+      <text x="368" y="46" text-anchor="end" class="mb-tl-text mb-tl-text--key">{labels.event}</text>
+
+      <!-- the press -->
+      <line x1="470" y1="54" x2="470" y2="230" class="mb-tl-mark" stroke-width="2" />
+      <text x="482" y="46" class="mb-tl-text mb-tl-text--orange">{labels.save}</text>
+
+      <!-- seconds held on the device -->
+      <rect x="110" y="96" width="360" height="34" rx="5" class="mb-tl-band-held" />
+      <text x="110" y="152" class="mb-tl-text mb-tl-text--teal">{labels.held}</text>
+
+      <!-- what SAVE writes -->
+      <text x="640" y="166" text-anchor="middle" class="mb-tl-text mb-tl-text--orange">{labels.stop}</text>
+      <line x1="640" y1="174" x2="640" y2="216" class="mb-tl-mark" stroke-width="2" />
+      <rect x="110" y="180" width="530" height="34" rx="5" class="mb-tl-band-clip" />
+      <text x="110" y="236" class="mb-tl-text mb-tl-text--orange">{labels.clip}</text>
+
+      <!-- time -->
+      <line x1="48" y1="266" x2="712" y2="266" class="mb-tl-axis" />
+      {ticks.map((x) => <line x1={x} y1="262" x2={x} y2="271" class="mb-tl-tick" />)}
+      <text x="48" y="290" class="mb-tl-text mb-tl-text--faint">{labels.past}</text>
+      <text x="712" y="290" text-anchor="end" class="mb-tl-text mb-tl-text--faint">{labels.now}</text>
+    </svg>
+  </div>
+
+  <div class="mb-timeline__tall" aria-hidden="true">
+    <div class="mb-tlv">
+      <div class="mb-tlv__rail">
+        <i class="mb-tlv__held"></i>
+        <i class="mb-tlv__clip"></i>
+        <i class="mb-tlv__event"></i>
+        <i class="mb-tlv__save"></i>
+        <i class="mb-tlv__stop"></i>
+      </div>
+      <p class="mb-tlv__at mb-tlv__at--past">{labels.past}</p>
+      <p class="mb-tlv__at mb-tlv__at--held">{labels.held}</p>
+      <p class="mb-tlv__at mb-tlv__at--event">{labels.event}</p>
+      <p class="mb-tlv__at mb-tlv__at--save">{labels.save}</p>
+      <p class="mb-tlv__at mb-tlv__at--clip">{labels.clip}</p>
+      <p class="mb-tlv__at mb-tlv__at--stop">{labels.stop}</p>
+      <p class="mb-tlv__at mb-tlv__at--now">{labels.now}</p>
+    </div>
+  </div>
+
+  <p class="mb-sr-only">{labels.alt}</p>
+  <figcaption>{labels.caption}</figcaption>
+</figure>

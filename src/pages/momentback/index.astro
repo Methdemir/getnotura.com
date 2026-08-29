@@ -1,0 +1,17 @@
+---
+import MomentBackHome from "../../components/momentback/MomentBackHome.astro";
+import { getMomentBackCopy } from "../../content/momentback";
+import MomentBackLayout from "../../layouts/MomentBackLayout.astro";
+
+const locale = "en" as const;
+const copy = getMomentBackCopy(locale);
+---
+
+<MomentBackLayout
+  locale={locale}
+  page="home"
+  title={copy.home.meta.title}
+  description={copy.home.meta.description}
+>
+  <MomentBackHome locale={locale} />
+</MomentBackLayout>
