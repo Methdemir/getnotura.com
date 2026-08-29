@@ -255,3 +255,76 @@ One authored moment: the estimate bands grow from zero width over 900ms on `cubi
 - **Don't** add a third font weight or a second family without arguing the byte cost.
 - **Don't** let a data ink become decoration, or reassign Fat Rose to an error state.
 - **Don't** pass an authored demonstration off as a documentary screenshot. Stylized product demonstrations are permitted under PRODUCT.md's product-demonstration rule, but they must read as designed, depict only shipped capabilities, and keep the data inks' fixed meanings.
+
+---
+
+## Sub-brand: MomentBack (`/momentback/`)
+
+Everything above describes Notura. MomentBack is a **different product with its own
+design system**, published under the same domain at `/momentback/`, `/momentback/tr/`
+and their legal pages. It shares the domain, the build, the font files and the
+zero-JavaScript rule, and it shares nothing else — not the ground, not the palette,
+not the anti-card or anti-gradient rules. Its stylesheet, `src/styles/momentback.css`,
+is standalone and does not import or extend `global.css`; the Notura pages under
+`/[locale]/` are untouched by it and it is untouched by them.
+
+That separation is deliberate rather than drift, so the detector is configured to skip
+`src/styles/momentback.css` (`.impeccable/config.json` → `detector.ignoreFiles`). This
+section is the design record for that file.
+
+**North star: "The viewfinder is already open."** MomentBack is a camera that holds the
+last seconds it has seen. The surface is the dark of a camera app because that is what
+the product is — a light mode would blow out night framing, so the app has none and
+neither does the site.
+
+### Palette
+
+Taken directly from the app (`lib/src/theme/momentback_theme.dart`), not reinterpreted:
+
+| Token | Value | Meaning |
+| --- | --- | --- |
+| `--mb-ground` | `#0b1719` | The viewfinder ground. Fixed in every system theme. |
+| `--mb-raised` / `--mb-panel` | `#0f2124` / `#16292d` | Sheet and card grounds, in the app's two lifts. |
+| `--mb-cream` | `#fdf4ea` | Ink. `--mb-ink` and `--mb-ink-faint` are its 72% and 50% steps. |
+| `--mb-teal` | `#3fd8c4` | **The moment is being held.** Never decoration. |
+| `--mb-orange` | `#ff8a3d` | **Time is being committed to a file.** Never decoration. |
+| `--mb-on-orange` | `#331402` | Ink on a filled orange surface. |
+
+The two accents never swap roles, on the site or in the app: teal marks the rolling
+buffer and anything still recoverable, orange marks SAVE, STOP and the written clip.
+The low-alpha derivatives (`--mb-teal-dim`, `--mb-orange-dim`, `--mb-rule`,
+`--mb-rule-strong`, and the two hero glows) are tints of exactly these five values.
+
+### What MomentBack does that Notura forbids
+
+Recorded here so the difference is legible as a decision, not an accident:
+
+- **Tracked mono eyebrows above headings.** The app's own chips and rails are instrument
+  readouts; the site's `ui-monospace` labels are the same voice. Notura bans eyebrows.
+- **Two low-opacity radial glows on the body.** A viewfinder is a lit surface. Notura
+  bans gradients and glows outright.
+- **Cards.** `.mb-moments` items are bordered panels. Notura uses hairline rows only.
+- **A second family.** The system mono stack carries every instrument label. No new font
+  file ships; `ui-monospace` costs nothing.
+
+### Type
+
+One family (Plus Jakarta Sans, the two weights already bundled) plus the system mono
+stack. Display `clamp(2.6rem, 1.5rem + 4.6vw, 5.1rem)` at `-0.042em` — tighter and
+slightly smaller than Notura's, because a dark ground makes the same size read heavier.
+Instrument labels are mono, `0.695rem`, `0.19em` tracking, uppercase.
+
+### The signature: the replay timeline
+
+`ReplayTimeline.astro` is the one diagram the page has to land — a single press reaching
+backwards across the held seconds and forwards to STOP. It exists twice: an SVG time
+axis above 52rem and the same bands running down the page below it, because a horizontal
+axis on a phone shows a third of the idea. Both are `aria-hidden`; a visually hidden
+paragraph carries the text alternative for either.
+
+### Screenshot slots
+
+`DeviceFrame.astro` renders a real app screenshot when passed `src`, and a schematic
+viewfinder captioned "Interface diagram — not a screenshot" when not. The schematic is
+never dressed up as a product photograph. See
+`docs/web/momentback-screenshot-slots.md`.

@@ -1,0 +1,172 @@
+---
+import MomentBackMark from "../components/momentback/MomentBackMark.astro";
+import { momentBackRobotsPolicy } from "../config/site-release";
+import {
+  getMomentBackCopy,
+  momentBackAlternates,
+  momentBackContactEmail,
+  momentBackLocaleMeta,
+  momentBackLocales,
+  momentBackPath,
+  type MomentBackLocale,
+  type MomentBackPage,
+} from "../content/momentback";
+import "../styles/momentback.css";
+
+interface Props {
+  locale: MomentBackLocale;
+  page: MomentBackPage;
+  title: string;
+  description: string;
+}
+
+const { locale, page, title, description } = Astro.props;
+const copy = getMomentBackCopy(locale);
+const meta = momentBackLocaleMeta[locale];
+const siteOrigin = Astro.site ?? new URL("https://getnotura.com");
+const absolute = (path: string) => new URL(path, siteOrigin).href;
+const canonicalPath = momentBackPath(locale, page);
+const alternates = momentBackAlternates(page);
+const home = momentBackPath(locale, "home");
+
+const navigation =
+  page === "home"
+    ? [
+        { href: "#how", label: copy.nav.how },
+        { href: "#moments", label: copy.nav.moments },
+        { href: "#faq", label: copy.nav.faq },
+        { href: momentBackPath(locale, "privacy"), label: copy.nav.privacy },
+      ]
+    : [
+        { href: `${home}#how`, label: copy.nav.how },
+        { href: momentBackPath(locale, "privacy"), label: copy.nav.privacy },
+        { href: momentBackPath(locale, "terms"), label: copy.terms.heading },
+      ];
+---
+
+<!doctype html>
+<html lang={meta.htmlLang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="dark" />
+    <meta name="theme-color" content="#0B1719" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="robots" content={momentBackRobotsPolicy} />
+    <link rel="icon" type="image/svg+xml" href="/momentback/mark.svg" />
+    <link rel="canonical" href={absolute(canonicalPath)} />
+    {
+      alternates.map((alternate) => (
+        <link rel="alternate" hreflang={alternate.hreflang} href={absolute(alternate.href)} />
+      ))
+    }
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="MomentBack" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={absolute(canonicalPath)} />
+    <meta property="og:locale" content={meta.ogLocale} />
+    {
+      momentBackLocales
+        .filter((candidate) => candidate !== locale)
+        .map((candidate) => (
+          <meta property="og:locale:alternate" content={momentBackLocaleMeta[candidate].ogLocale} />
+        ))
+    }
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+  </head>
+  <body>
+    <a class="mb-skip" href="#main-content">{copy.skipToContent}</a>
+
+    <header class="mb-head">
+      <div class="mb-head__inner mb-shell">
+        <a class="mb-brand" href={home}>
+          <MomentBackMark class="mb-brand__mark" />
+          MomentBack
+          <span class="mb-brand__sub">Replay Camera</span>
+        </a>
+        <nav class="mb-nav" aria-label={copy.nav.label}>
+          <ul>
+            {
+              navigation.map((item) => (
+                <li>
+                  <a
+                    href={item.href}
+                    aria-current={item.href === canonicalPath ? "page" : undefined}
+                  >
+                    {item.label}
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
+        </nav>
+        <ul class="mb-langs" aria-label={copy.nav.languageLabel}>
+          {
+            momentBackLocales.map((candidate) => (
+              <li>
+                {candidate === locale ? (
+                  <span aria-current="true" lang={momentBackLocaleMeta[candidate].htmlLang}>
+                    {candidate}
+                  </span>
+                ) : (
+                  <a
+                    href={momentBackPath(candidate, page)}
+                    lang={momentBackLocaleMeta[candidate].htmlLang}
+                    hreflang={momentBackLocaleMeta[candidate].hreflang}
+                  >
+                    {candidate}
+                  </a>
+                )}
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </header>
+
+    <main id="main-content" tabindex="-1">
+      <slot />
+    </main>
+
+    <footer class="mb-foot">
+      <div class="mb-shell">
+        <div class="mb-foot__inner">
+          <div class="mb-foot__brand">
+            <a class="mb-brand" href={home}>
+              <MomentBackMark class="mb-brand__mark" />
+              MomentBack
+            </a>
+            <p>{copy.footer.tagline}</p>
+          </div>
+          <nav aria-labelledby="mb-foot-legal">
+            <h2 id="mb-foot-legal">{copy.footer.legalLabel}</h2>
+            <ul>
+              <li><a href={momentBackPath(locale, "privacy")}>{copy.footer.privacy}</a></li>
+              <li><a href={momentBackPath(locale, "terms")}>{copy.footer.terms}</a></li>
+            </ul>
+          </nav>
+          <div>
+            <h2 id="mb-foot-contact">{copy.footer.contactLabel}</h2>
+            <ul aria-labelledby="mb-foot-contact">
+              <li><a href={`mailto:${momentBackContactEmail}`}>{momentBackContactEmail}</a></li>
+              <li><span class="mb-note">{copy.footer.contactNote}</span></li>
+            </ul>
+          </div>
+          <nav aria-labelledby="mb-foot-notura">
+            <h2 id="mb-foot-notura">{copy.footer.noturaLabel}</h2>
+            <ul>
+              <li><a href="/">{copy.footer.noturaLink}</a></li>
+            </ul>
+          </nav>
+        </div>
+        <div class="mb-foot__legal">
+          <p>{copy.footer.rights}</p>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

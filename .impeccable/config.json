@@ -1,7 +1,9 @@
 {
   "detector": {
     "ignoreRules": [],
-    "ignoreFiles": [],
+    "ignoreFiles": [
+      "src/styles/momentback.css"
+    ],
     "ignoreValues": [
       {
         "rule": "overused-font",
