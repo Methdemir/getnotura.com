@@ -1,4 +1,11 @@
 ---
+/**
+ * The arc, in six steps: add, review, adjust, see the pattern, keep the record,
+ * share it if you want. The first four were already here; the last two exist
+ * because PDF reports and Community now ship, and the flow was ending one
+ * movement before the product does.
+ */
+import AppScreen from "../../components/AppScreen.astro";
 import CorrectionDemo from "../../components/CorrectionDemo.astro";
 import Demonstration from "../../components/Demonstration.astro";
 import Icon from "../../components/Icon.astro";
@@ -29,6 +36,8 @@ const opening: Array<[TranslationKey, TranslationKey]> = [
 
 const closingSteps: Array<[TranslationKey, TranslationKey]> = [
   ["step4Title", "step4Body"],
+  ["step5Title", "step5Body"],
+  ["step6Title", "step6Body"],
 ];
 ---
 
@@ -40,17 +49,26 @@ const closingSteps: Array<[TranslationKey, TranslationKey]> = [
 >
   <PageIntro heading={t("howHeading")} body={t("howBody")} />
 
-  <section class="bay shell" aria-label={t("howHeading")}>
-    <ol class="process">
-      {
-        opening.map(([titleKey, bodyKey]) => (
-          <li>
-            <h2>{t(titleKey)}</h2>
-            <p>{t(bodyKey)}</p>
-          </li>
-        ))
-      }
-    </ol>
+  <section class="bay" aria-label={t("howHeading")}>
+    <div class="shell split split--plate">
+      <ol class="process">
+        {
+          opening.map(([titleKey, bodyKey]) => (
+            <li>
+              <h2>{t(titleKey)}</h2>
+              <p>{t(bodyKey)}</p>
+            </li>
+          ))
+        }
+      </ol>
+      <AppScreen
+        src="add-a-meal"
+        alt={t("screenAddMealAlt")}
+        caption={t("screenAddMealCaption")}
+        label={t("screenshotLabel")}
+        tone="light"
+      />
+    </div>
   </section>
 
   <section class="bay bay--field" aria-labelledby="step3-heading">

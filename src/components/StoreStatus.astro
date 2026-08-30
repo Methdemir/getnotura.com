@@ -1,0 +1,64 @@
+---
+/**
+ * Where Notura will be available, stated honestly while it is available nowhere.
+ *
+ * A channel that is not published renders as plain text: a term and its status,
+ * in a hairline row. No anchor, no button, no role, no tabindex, no pointer
+ * cursor. A screen reader meets a list of statements, and there is nothing to
+ * activate, because there is nothing to go to.
+ *
+ * When `store-availability.ts` marks a channel `available` with a URL, that row
+ * — and only that row — becomes a real link. Nothing else about this component
+ * changes on release day.
+ */
+import { storeChannels } from "../config/store-availability";
+import { translate, type TranslationKey } from "../i18n/translations";
+import Icon from "./Icon.astro";
+
+interface Props {
+  localeId: string;
+  /** "line" is the compact hero form; "ledger" is the full closing form. */
+  variant?: "line" | "ledger";
+  tone?: "light" | "field";
+}
+
+const { localeId, variant = "ledger", tone = "light" } = Astro.props;
+const t = (key: TranslationKey) => translate(localeId, key);
+const headingId = `store-${variant}-heading`;
+---
+
+<div
+  class:list={["store", `store--${variant}`, `store--${tone}`]}
+  role="group"
+  aria-labelledby={headingId}
+>
+  {
+    variant === "ledger" ? (
+      <h2 id={headingId} class="store__heading">
+        {t("availabilityHeading")}
+      </h2>
+    ) : (
+      <p id={headingId} class="store__lead">
+        {t("availabilityLine")}
+      </p>
+    )
+  }
+  <ul class="store__rows">
+    {
+      storeChannels.map((channel) => (
+        <li class="store__row">
+          <span class="store__name">{channel.name}</span>
+          {channel.state === "available" && channel.url ? (
+            <a class="store__link" href={channel.url}>
+              {t(channel.statusKey)}
+              <Icon name="arrow" />
+            </a>
+          ) : (
+            <span class="store__state">{t(channel.statusKey)}</span>
+          )}
+        </li>
+      ))
+    }
+  </ul>
+  {variant === "ledger" && <p class="store__note">{t("availabilityNote")}</p>}
+</div>

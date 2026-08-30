@@ -1,46 +1,32 @@
 ---
-import BrandLink from "../components/BrandLink.astro";
-import { publishedLocales } from "../i18n/locales";
-import { alternateLinks, localizedPath } from "../i18n/routes";
-import DocumentLayout from "../layouts/DocumentLayout.astro";
+/**
+ * The neutral root, `/`.
+ *
+ * This used to be a language wall: a page whose only content was seven links,
+ * standing between every arriving visitor and any word about the product. On a
+ * static, zero-JavaScript site there is no redirect and no negotiation
+ * available, so the fix is not to detect a language — it is to stop making the
+ * choice a gate. The root now serves the English home in full, carries
+ * `x-default`, and keeps the language selector in the masthead and the footer
+ * where a visitor can switch in one click at any point.
+ *
+ * `/` and `/en/` therefore render the same body at two self-canonical URLs,
+ * separated by hreflang: `/` is x-default, `/en/` is `en`. Both are emitted by
+ * `alternateLinks("home")` and checked for reciprocity by the build validator.
+ */
+import HomeSurface from "../components/HomeSurface.astro";
+import { translate } from "../i18n/translations";
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const localeId = "en";
 ---
 
-<DocumentLayout
-  lang="en"
-  title="Notura | Language selection"
-  description="Choose a language for the Notura website."
-  skipLinkText="Skip to language selection"
+<BaseLayout
+  localeId={localeId}
+  destination="home"
   canonicalPath="/"
-  alternates={alternateLinks("home")}
-  ogLocale="en_US"
+  title={translate(localeId, "metaHomeTitle")}
+  description={translate(localeId, "metaHomeDescription")}
 >
-  <header class="plain-head">
-    <div class="shell">
-      <BrandLink href="/" label="Notura" />
-    </div>
-  </header>
-  <main id="main-content" tabindex="-1" class="entry shell">
-    <section aria-labelledby="language-heading">
-      <h1 id="language-heading">Notura</h1>
-      <p>Choose your language</p>
-      <ul class="locale-grid">
-        {
-          publishedLocales.map((locale) => (
-            <li>
-              <a
-                href={localizedPath(locale.id, "home")}
-                lang={locale.htmlLang}
-                hreflang={locale.hreflang}
-              >
-                {locale.nativeName}
-              </a>
-            </li>
-          ))
-        }
-      </ul>
-    </section>
-  </main>
-  <footer class="plain-foot">
-    <div class="shell">Notura</div>
-  </footer>
-</DocumentLayout>
+  <HomeSurface localeId={localeId} />
+</BaseLayout>

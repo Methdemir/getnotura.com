@@ -1,0 +1,289 @@
+---
+/**
+ * The home page body, in one place.
+ *
+ * Two URLs render it: `/[locale]/` for each published language, and the neutral
+ * root `/`, which is the x-default entry and serves English. The root used to be
+ * a language wall — a whole page a visitor had to get past before seeing the
+ * product. Sharing this component is what let that page become the product
+ * itself without the home copy existing twice.
+ */
+import AppScreen from "./AppScreen.astro";
+import CommunityDemo from "./CommunityDemo.astro";
+import CorrectionDemo from "./CorrectionDemo.astro";
+import Demonstration from "./Demonstration.astro";
+import Icon from "./Icon.astro";
+import type { IconName } from "./icons";
+import SectionIntro from "./SectionIntro.astro";
+import StoreStatus from "./StoreStatus.astro";
+import { localizedPath } from "../i18n/routes";
+import { translate, type TranslationKey } from "../i18n/translations";
+
+interface Props {
+  localeId: string;
+}
+
+const { localeId } = Astro.props;
+const t = (key: TranslationKey) => translate(localeId, key);
+const items = (key: TranslationKey) => t(key).split("|");
+
+const methods: Array<{ icon: IconName; title: TranslationKey; body: TranslationKey }> = [
+  { icon: "camera", title: "methodPhoto", body: "methodPhotoBody" },
+  { icon: "gallery", title: "methodGallery", body: "methodGalleryBody" },
+  { icon: "text", title: "methodText", body: "methodTextBody" },
+  { icon: "saved", title: "methodSaved", body: "methodSavedBody" },
+  { icon: "manual", title: "methodManual", body: "methodManualBody" },
+  { icon: "barcode", title: "methodBarcode", body: "methodBarcodeBody" },
+];
+
+const reportPoints: Array<[TranslationKey, TranslationKey]> = [
+  ["reportsRangeTitle", "reportsRangeBody"],
+  ["reportsContentTitle", "reportsContentBody"],
+  ["reportsGapsTitle", "reportsGapsBody"],
+  ["reportsDiaryTitle", "reportsDiaryBody"],
+  ["reportsArchiveTitle", "reportsArchiveBody"],
+];
+
+const communityPoints: Array<[TranslationKey, TranslationKey]> = [
+  ["communityFriendsTitle", "communityFriendsBody"],
+  ["communityConsentTitle", "communityConsentBody"],
+  ["communityScopeTitle", "communityScopeBody"],
+  ["communityWindowTitle", "communityWindowBody"],
+  ["communityStopTitle", "communityStopBody"],
+];
+
+const moreGroups: Array<[TranslationKey, TranslationKey]> = [
+  ["moreDayTitle", "moreDayItems"],
+  ["morePatternTitle", "morePatternItems"],
+  ["moreSetupTitle", "moreSetupItems"],
+];
+
+/**
+ * The headline is two parallel clauses, and the parallel is the whole point of
+ * it. Left to `text-wrap: balance` it broke mid-clause — "Record it / your way.
+ * / See it as it is." — which reads as three fragments rather than two halves.
+ * Splitting on the sentence boundary puts each clause on its own line in every
+ * language instead of hoping a character measure lands right in seven of them.
+ *
+ * The split keeps the full stop with the clause it belongs to, so the heading's
+ * accessible name is unchanged. A translation without an internal sentence
+ * break simply yields one clause and wraps normally.
+ */
+const headingClauses = t("homeHeading").split(/(?<=\.)\s+/);
+---
+
+<section class="hero" aria-labelledby="hero-heading">
+  <div class="hero__copy">
+    <h1 id="hero-heading">
+      {headingClauses.map((clause) => <span class="hero__clause">{clause}</span>)}
+    </h1>
+    <p class="lede">{t("homeBody")}</p>
+    <div class="action-row">
+      <a class="action action--primary" href="#capture">
+        {t("seeHow")}
+        <Icon name="arrow" />
+      </a>
+      <a class="action action--quiet" href={localizedPath(localeId, "product")}>
+        {t("viewProduct")}
+      </a>
+    </div>
+    <StoreStatus localeId={localeId} variant="line" />
+  </div>
+  <div class="hero__field">
+    <AppScreen
+      src="add-a-meal"
+      alt={t("screenAddMealAlt")}
+      caption={t("screenAddMealCaption")}
+      label={t("screenshotLabel")}
+      tone="field"
+      priority
+    />
+  </div>
+</section>
+
+<section id="capture" class="bay bay--raised" aria-labelledby="capture-heading">
+  <div class="shell">
+    <SectionIntro id="capture-heading" heading={t("captureHeading")} body={t("captureBody")} />
+    <ul class="methods">
+      {
+        methods.map((method) => (
+          <li>
+            <Icon name={method.icon} />
+            <h3>{t(method.title)}</h3>
+            <p>{t(method.body)}</p>
+          </li>
+        ))
+      }
+    </ul>
+    <p class="lede lede--after">{t("captureNote")}</p>
+  </div>
+</section>
+
+{/*
+  One figure, not two. The correction demonstration already contains a pair of
+  estimate panels, so pairing it with a standalone estimate field said the same
+  thing twice in one bay. The note that field carried is the part worth keeping,
+  and it belongs under the claim it qualifies.
+*/}
+<section class="bay bay--field" aria-labelledby="understand-heading">
+  <div class="shell split split--wide">
+    <div>
+      <SectionIntro
+        id="understand-heading"
+        heading={t("understandHeading")}
+        body={t("understandBody")}
+      />
+      <p class="boundary">{t("estimateNote")}</p>
+    </div>
+    <Demonstration
+      tone="field"
+      label={t("demonstrationLabel")}
+      caption={t("adjustNoteHeading")}
+    >
+      <CorrectionDemo
+        protein={t("protein")}
+        carbs={t("carbs")}
+        fat={t("fat")}
+        estimated={t("estimated")}
+        corrected={t("corrected")}
+        notDetermined={t("notDetermined")}
+      />
+    </Demonstration>
+  </div>
+</section>
+
+<section class="bay" aria-labelledby="reports-heading">
+  <div class="shell split split--plate">
+    <div>
+      <SectionIntro id="reports-heading" heading={t("reportsHeading")} body={t("reportsBody")} />
+      <div class="pair-set">
+        {
+          reportPoints.map(([title, body]) => (
+            <div class="pair">
+              <h3>{t(title)}</h3>
+              <p>{t(body)}</p>
+            </div>
+          ))
+        }
+      </div>
+      <p class="boundary">{t("reportsBoundary")}</p>
+    </div>
+    <AppScreen
+      src="pdf-report"
+      alt={t("screenReportAlt")}
+      caption={t("screenReportCaption")}
+      label={t("screenshotLabel")}
+      tone="light"
+    />
+  </div>
+</section>
+
+<section class="bay bay--field" aria-labelledby="community-heading">
+  <div class="shell split split--plate split--reverse">
+    <AppScreen caption={t("communityScreenCaption")} label={t("demonstrationLabel")} tone="field">
+      <CommunityDemo
+        mealSharing={t("communityMealSharingLabel")}
+        goalSharing={t("communityGoalSharingLabel")}
+        stateOn={t("communityStateOnToday")}
+        stateOff={t("communityStateOff")}
+        friend={t("communityFriendLabel")}
+        sharedMeal={t("communitySharedMealLabel")}
+        expiry={t("communityExpiryLabel")}
+      />
+    </AppScreen>
+    <div>
+      <SectionIntro
+        id="community-heading"
+        heading={t("communityHeading")}
+        body={t("communityBody")}
+      />
+      <div class="pair-set">
+        {
+          communityPoints.map(([title, body]) => (
+            <div class="pair">
+              <h3>{t(title)}</h3>
+              <p>{t(body)}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="bay bay--raised" aria-labelledby="explore-heading">
+  <div class="shell split split--plate">
+    <div>
+      <SectionIntro id="explore-heading" heading={t("exploreHeading")} body={t("exploreBody")} />
+      <div class="pair-set">
+        <div class="pair">
+          <h3>{t("exploreOfflineTitle")}</h3>
+          <p>{t("exploreOfflineBody")}</p>
+        </div>
+        <div class="pair">
+          <h3>{t("exploreQuotaTitle")}</h3>
+          <p>{t("exploreQuotaBody")}</p>
+        </div>
+      </div>
+    </div>
+    <AppScreen
+      src="explore"
+      alt={t("screenExploreAlt")}
+      caption={t("screenExploreCaption")}
+      label={t("screenshotLabel")}
+      tone="light"
+    />
+  </div>
+</section>
+
+{/*
+  The breadth movement. This one runs the full width with no figure beside it:
+  three ruled columns of what the app already does, read as one dense band. A
+  plate here would have squeezed the lists into a narrow column and made the
+  scope look smaller than it is, which is the opposite of the point.
+*/}
+<section class="bay" aria-labelledby="more-heading">
+  <div class="shell">
+    <SectionIntro id="more-heading" heading={t("moreHeading")} body={t("moreBody")} />
+    <div class="ledger ledger--triple">
+      {
+        moreGroups.map(([title, list]) => (
+          <div class="ledger__set">
+            <h3>{t(title)}</h3>
+            <ul class="ledger__items">
+              {items(list).map((item) => (
+                <li>{item}</li>
+              ))}
+            </ul>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<section class="bay bay--deep" aria-labelledby="ai-heading">
+  <div class="shell statement">
+    <h2 id="ai-heading">{t("aiHeading")}</h2>
+    <div>
+      <p>{t("aiBody")}</p>
+      <p class="statement__foot">{t("aiFootnote")}</p>
+    </div>
+  </div>
+</section>
+
+<div class="shell">
+  <section class="close close--store" aria-labelledby="close-heading">
+    <div>
+      <h2 id="close-heading">{t("closingHeading")}</h2>
+      <p>{t("closingBody")}</p>
+      <div class="action-row">
+        <a class="action action--primary" href={localizedPath(localeId, "howItWorks")}>
+          {t("seeHow")}
+          <Icon name="arrow" />
+        </a>
+      </div>
+    </div>
+    <StoreStatus localeId={localeId} variant="ledger" />
+  </section>
+</div>

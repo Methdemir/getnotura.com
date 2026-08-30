@@ -1,0 +1,80 @@
+---
+/**
+ * A single plate of the app, in a fixed portrait frame.
+ *
+ * Two states, one shape. Pass `src` and the plate holds a real screenshot from
+ * a reviewed build; pass none and it holds whatever is slotted in — an authored
+ * schematic drawn in this site's own grammar. The frame, the ratio and the
+ * label position are identical either way, so replacing a schematic with a real
+ * capture is one prop and moves nothing on the page.
+ *
+ * The label is rendered here rather than by the caller, so a plate cannot ship
+ * without saying which of the two it is. That is PRODUCT.md's demonstration
+ * rule enforced in one place.
+ *
+ * `src` is a basename under /images/app/. The component derives the AVIF and
+ * WebP sources and both widths from it, and always states intrinsic dimensions,
+ * so the frame reserves its space before the image arrives.
+ */
+interface Props {
+  /** Basename of the plate under /images/app/, without extension. */
+  src?: string | undefined;
+  /** Required whenever `src` is set. */
+  alt?: string | undefined;
+  /** The short line under the plate naming what is shown. */
+  caption: string;
+  /** "Screenshot from the Notura app" or the designed-demonstration label. */
+  label: string;
+  tone?: "light" | "field";
+  /** Set on the plate above the fold: it is the largest paint on the page. */
+  priority?: boolean | undefined;
+}
+
+const { src, alt, caption, label, tone = "field", priority = false } = Astro.props;
+
+/** The capture frame every plate is cropped to. */
+const WIDTH = 1080;
+const HEIGHT = 1500;
+
+if (src && !alt) {
+  throw new Error(`AppScreen "${src}" is a real screenshot and needs alt text.`);
+}
+
+const source = (extension: string) =>
+  `/images/app/${src}-640.${extension} 640w, /images/app/${src}.${extension} 1080w`;
+// The hero plate is the widest slot at 24rem; the in-section plates are 21rem.
+// Quoting the larger keeps the largest paint sharp and only over-fetches the
+// smaller plates by one step.
+const sizes = "(min-width: 60rem) 24rem, (min-width: 48rem) 40vw, 72vw";
+---
+
+<figure class:list={["plate", `plate--${tone}`]}>
+  <div class="plate__frame">
+    {
+      src ? (
+        <picture>
+          <source type="image/avif" srcset={source("avif")} sizes={sizes} />
+          <source type="image/webp" srcset={source("webp")} sizes={sizes} />
+          <img
+            class="plate__shot"
+            src={`/images/app/${src}.webp`}
+            alt={alt}
+            width={WIDTH}
+            height={HEIGHT}
+            decoding="async"
+            loading={priority ? "eager" : "lazy"}
+            fetchpriority={priority ? "high" : undefined}
+          />
+        </picture>
+      ) : (
+        <div class="plate__drawn">
+          <slot />
+        </div>
+      )
+    }
+  </div>
+  <figcaption class="plate__caption">
+    <span class="plate__what">{caption}</span>
+    <span class="plate__label">{label}</span>
+  </figcaption>
+</figure>

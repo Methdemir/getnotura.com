@@ -1570,3 +1570,509 @@ svg {
     animation-duration: 0.01ms !important;
   }
 }
+
+/* ---------- app screen plates ---------- */
+
+/*
+   One frame, two contents. A real screenshot and an authored schematic occupy
+   exactly the same portrait box at the same ratio, so swapping one for the
+   other on release day moves nothing on the page and shifts no layout.
+*/
+.plate {
+  width: 100%;
+  max-width: 21rem;
+  margin: 0;
+  justify-self: center;
+}
+
+.plate__frame {
+  overflow: hidden;
+  border: 1px solid var(--rule);
+  border-radius: var(--radius-lg);
+  background: var(--ground-raised);
+  aspect-ratio: 1080 / 1500;
+}
+
+.plate--field .plate__frame {
+  border-color: var(--rule-field);
+  background: rgba(244, 239, 227, 0.06);
+}
+
+.plate__shot {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+}
+
+/* The drawn state scrolls nothing and centres its figure in the same box. */
+.plate__drawn {
+  display: grid;
+  height: 100%;
+  align-content: center;
+  padding: clamp(1.15rem, 3.5vw, 1.75rem);
+}
+
+.plate__caption {
+  display: grid;
+  gap: 0.3rem;
+  padding-block-start: 0.9rem;
+}
+
+.plate__what {
+  color: var(--ink);
+  font-size: var(--sm);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.plate__label {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  color: var(--ink-soft);
+  font-size: var(--xs);
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+}
+
+.plate__label::before {
+  width: 1.4rem;
+  height: 1px;
+  flex: none;
+  background: var(--rule-strong);
+  content: "";
+}
+
+.plate--field .plate__what {
+  color: var(--on-field);
+}
+
+.plate--field .plate__label {
+  color: var(--on-field-soft);
+}
+
+.plate--field .plate__label::before {
+  background: var(--rule-field);
+}
+
+/* ---------- community figure ---------- */
+
+.cmty {
+  display: grid;
+  gap: 1.4rem;
+  width: 100%;
+}
+
+.cmty__perms {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.cmty__perm {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 0.3rem 0.85rem;
+  padding-block: 0.85rem;
+  border-block-start: 1px solid var(--rule-field);
+}
+
+.cmty__perm:first-child {
+  border-block-start: 0;
+  padding-block-start: 0;
+}
+
+.cmty__perm-name {
+  color: var(--on-field);
+  font-size: var(--sm);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.cmty__perm-state {
+  grid-column: 1;
+  color: var(--on-field-soft);
+  font-size: var(--xs);
+}
+
+/* A switch drawn in the site's own hairline vocabulary, not Material's. */
+.cmty__switch {
+  position: relative;
+  width: 2.1rem;
+  height: 1.15rem;
+  grid-row: span 2;
+  align-self: center;
+  border: 1px solid var(--rule-field);
+  border-radius: 2rem;
+}
+
+.cmty__switch::after {
+  position: absolute;
+  width: 0.62rem;
+  height: 0.62rem;
+  inset-block-start: 50%;
+  inset-inline-start: 0.2rem;
+  border-radius: 50%;
+  background: var(--on-field-soft);
+  content: "";
+  transform: translateY(-50%);
+}
+
+.cmty__switch--on {
+  border-color: var(--sage);
+  background: var(--sage);
+}
+
+.cmty__switch--on::after {
+  inset-inline-start: auto;
+  inset-inline-end: 0.2rem;
+  background: var(--field-deep);
+}
+
+.cmty__post {
+  display: grid;
+  gap: 0.85rem;
+  padding-block-start: 1.4rem;
+  border-block-start: 1px solid var(--rule-field);
+}
+
+.cmty__who {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  color: var(--on-field);
+  font-size: var(--sm);
+  font-weight: 600;
+}
+
+/* An empty ruled circle: there is no person here to depict. */
+.cmty__avatar {
+  width: 1.9rem;
+  height: 1.9rem;
+  flex: none;
+  border: 1px solid var(--rule-field);
+  border-radius: 50%;
+}
+
+/* The meal is deliberately an open hatch: nothing is invented inside it. */
+.cmty__meal {
+  display: grid;
+  min-height: 5.5rem;
+  align-content: center;
+  padding: 1rem;
+  border: 1px dashed rgba(244, 239, 227, 0.5);
+  border-radius: var(--radius);
+  background-image: repeating-linear-gradient(
+    135deg,
+    var(--rule-field) 0 2px,
+    transparent 2px 8px
+  );
+  color: var(--on-field-soft);
+  font-size: var(--xs);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.cmty__expiry {
+  color: var(--on-field-soft);
+  font-size: var(--xs);
+  line-height: 1.5;
+}
+
+/* ---------- availability ---------- */
+
+/*
+   Nothing in here is interactive while nothing is published. The rows are a
+   term and a status, separated by a hairline — the same ledger grammar the rest
+   of the site uses for stating a fact. A row only becomes an anchor once
+   store-availability.ts marks that channel available.
+*/
+.store {
+  display: grid;
+  gap: 0.75rem;
+  max-width: 26rem;
+}
+
+.store__lead,
+.store__note {
+  color: var(--ink-soft);
+  font-size: var(--sm);
+  line-height: 1.55;
+  max-width: 30rem;
+}
+
+.store__heading {
+  font-size: var(--h2-sm);
+}
+
+.store__rows {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  border-block-start: 1px solid var(--rule);
+}
+
+.store__row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-block: 0.7rem;
+  border-block-end: 1px solid var(--rule);
+}
+
+.store__name {
+  color: var(--ink);
+  font-size: var(--sm);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.store__state {
+  color: var(--ink-soft);
+  font-size: var(--xs);
+  letter-spacing: 0.02em;
+  text-align: end;
+}
+
+.store__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: var(--xs);
+  font-weight: 600;
+}
+
+.store__link .icon {
+  width: 0.95rem;
+  height: 0.95rem;
+}
+
+.store--ledger {
+  gap: 1rem;
+}
+
+.store--ledger .store__note {
+  margin-block-start: 0.15rem;
+}
+
+.store--field .store__lead,
+.store--field .store__note,
+.store--field .store__state {
+  color: var(--on-field-soft);
+}
+
+.store--field .store__name,
+.store--field .store__heading {
+  color: var(--on-field);
+}
+
+.store--field .store__rows,
+.store--field .store__row {
+  border-color: var(--rule-field);
+}
+
+/* ---------- boundary note ---------- */
+
+/*
+   The non-medical line. It sits under a claim rather than in a box, marked by a
+   single rule so it reads as part of the statement it qualifies.
+*/
+.boundary {
+  padding-block-start: 1.1rem;
+  margin-block-start: clamp(1.75rem, 3.5vw, 2.5rem);
+  border-block-start: 1px solid var(--rule);
+  color: var(--ink-soft);
+  font-size: var(--xs);
+  line-height: 1.6;
+  max-width: 34rem;
+}
+
+.bay--field .boundary,
+.bay--deep .boundary {
+  border-block-start-color: var(--rule-field);
+  color: var(--on-field-soft);
+}
+
+/* ---------- three-set ledger ---------- */
+
+.ledger--triple {
+  gap: 0;
+}
+
+.ledger__set {
+  padding-block: clamp(1.5rem, 3.5vw, 2.25rem);
+  border-block-start: 1px solid var(--rule);
+}
+
+.ledger__set:first-child {
+  padding-block-start: 0;
+  border-block-start: 0;
+}
+
+.ledger__set h3 {
+  margin-block-end: 0.9rem;
+}
+
+.bay--field .ledger__set {
+  border-block-start-color: var(--rule-field);
+}
+
+/* ---------- plate splits ---------- */
+
+/*
+   The copy-beside-a-plate composition, used by every section that carries a
+   screen. Below 48rem it stacks with the plate last regardless of DOM order,
+   so a reader on a phone always meets the words before the picture.
+*/
+.split--plate {
+  gap: clamp(2.5rem, 5vw, 4.5rem);
+}
+
+.split--plate > .plate {
+  justify-self: center;
+}
+
+@media (max-width: 47.99rem) {
+  .split--plate.split--reverse > .plate {
+    order: 2;
+  }
+}
+
+@media (min-width: 48rem) {
+  .split--plate {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 19rem);
+    align-items: center;
+  }
+
+  .split--plate.split--reverse {
+    grid-template-columns: minmax(0, 19rem) minmax(0, 1fr);
+  }
+
+  .split--plate.split--reverse > :first-child {
+    order: 0;
+  }
+
+  .close--store {
+    grid-template-columns: minmax(0, 1fr) minmax(16rem, 21rem);
+    align-items: start;
+  }
+
+  .close--store .action-row {
+    justify-content: start;
+  }
+}
+
+@media (min-width: 60rem) {
+  .split--plate {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 21rem);
+    gap: clamp(3.5rem, 7vw, 6.5rem);
+  }
+
+  .split--plate.split--reverse {
+    grid-template-columns: minmax(0, 21rem) minmax(0, 1fr);
+  }
+
+  /* The hero plate sits inside the bleeding green field rather than filling it. */
+  .hero__field {
+    align-items: center;
+  }
+}
+
+.close--store {
+  gap: 2.5rem;
+}
+
+.close--store > div > .action-row {
+  margin-block-start: 1.75rem;
+}
+
+/* ---------- hero recomposed around a real screen ---------- */
+
+/*
+   Each clause of the headline takes its own line, set by the markup rather than
+   by a character measure, so the parallel survives translation. Balancing is
+   turned off here because the break points are already decided.
+*/
+.hero__copy h1 {
+  max-width: 24ch;
+  text-wrap: normal;
+}
+
+.hero__clause {
+  display: block;
+}
+
+.hero__copy .store {
+  padding-block-start: 0.5rem;
+}
+
+/* The plate is the subject of the right column, not an object floating in it. */
+.hero__field .plate {
+  max-width: 24rem;
+}
+
+@media (min-width: 60rem) {
+  .hero__field {
+    padding-inline: clamp(2.5rem, 5vw, 5rem) max(1.25rem, calc((100% - var(--shell)) / 2));
+  }
+}
+
+/* ---------- the breadth band ---------- */
+
+/*
+   Three ruled columns running the full shell. The lists are long on purpose:
+   this is the movement where the product turns out to be bigger than the page
+   has so far implied, so it is given width rather than a figure beside it.
+*/
+@media (min-width: 48rem) {
+  .ledger--triple {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    column-gap: clamp(2rem, 4.5vw, 4rem);
+    border-block-start: 1px solid var(--rule);
+  }
+
+  .ledger__set,
+  .ledger__set:first-child {
+    padding-block: clamp(1.75rem, 3.5vw, 2.5rem) 0;
+    border-block-start: 0;
+  }
+}
+
+@media (max-width: 47.99rem) {
+  .ledger--triple {
+    border-block-start: 1px solid var(--rule);
+  }
+
+  .ledger__set:first-child {
+    padding-block-start: clamp(1.5rem, 3.5vw, 2.25rem);
+    border-block-start: 0;
+  }
+}
+
+/* ---------- language panel, footer placement ---------- */
+
+/*
+   The footer selector sits at the start of a narrow column, so the shared
+   right-anchored panel hung off the left edge of a phone viewport. Anchoring it
+   to the start instead keeps it on screen, and the width cap covers the case
+   where even the start edge leaves too little room.
+*/
+.lang--footer .lang__list {
+  inset-inline: 0 auto;
+  max-width: calc(100vw - 2.5rem);
+}
+
+/* ---------- method rows: room for the title ---------- */
+
+/*
+   Four of the six titles wrapped to two lines at 15rem while a wide gap sat
+   beside them. Widening the term column lets every title hold one line and
+   closes the gap at the same time.
+*/
+@media (min-width: 60rem) {
+  .methods li {
+    grid-template-columns: 1.75rem minmax(0, 17.5rem) minmax(0, 1fr);
+  }
+}

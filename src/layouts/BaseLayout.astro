@@ -12,6 +12,12 @@ interface Props {
   title?: string | undefined;
   description?: string | undefined;
   robots?: string | undefined;
+  /**
+   * Overrides the self-canonical. Only the neutral root `/` uses this: it is
+   * the x-default entry and serves the English home, so it must canonicalise to
+   * itself rather than to `/en/`.
+   */
+  canonicalPath?: string | undefined;
 }
 
 const {
@@ -20,6 +26,7 @@ const {
   title = translate(localeId, "metaHomeTitle"),
   description = translate(localeId, "metaHomeDescription"),
   robots,
+  canonicalPath,
 } = Astro.props;
 const locale = getPublishedLocale(localeId);
 ---
@@ -29,7 +36,7 @@ const locale = getPublishedLocale(localeId);
   title={title}
   description={description}
   skipLinkText={translate(localeId, "skipToContent")}
-  canonicalPath={localizedPath(localeId, destination)}
+  canonicalPath={canonicalPath ?? localizedPath(localeId, destination)}
   alternates={alternateLinks(destination, routeAvailability)}
   ogLocale={locale.ogLocale}
   robots={robots}

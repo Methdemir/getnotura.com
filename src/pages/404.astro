@@ -14,14 +14,17 @@ import DocumentLayout from "../layouts/DocumentLayout.astro";
 >
   <header class="plain-head">
     <div class="shell">
-      <BrandLink href="/" label="Notura language selection" />
+      <BrandLink href="/" label="Notura home" />
     </div>
   </header>
   <main id="main-content" tabindex="-1" class="entry shell">
     <section aria-labelledby="not-found-heading">
       <p class="entry__code">404</p>
       <h1 id="not-found-heading">Page not found</h1>
-      <p>Choose a language to return to Notura.</p>
+      <p>
+        The Notura lockup above returns to the home page. It is also published in
+        these languages:
+      </p>
       <ul class="locale-grid">
         {
           publishedLocales.map((locale) => (

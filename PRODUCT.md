@@ -39,7 +39,7 @@ Notura is **not** a medical device, diagnosis service, or a substitute for a qua
 - The visitor arrives with no way to install the app and no prior Notura vocabulary. Reading is the entire experience.
 - The site is a static build served from GitHub Pages at the apex domain `getnotura.com`, deployed only by a push to `main`.
 - The site is currently URL-previewable but deliberately excluded from search indexing.
-- Seven locales publish at explicit URL prefixes (`/en/`, `/tr/`, `/de/`, `/es/`, `/fr/`, `/it/`, `/pt-br/`). The neutral root `/` is the `x-default` language entry and never redirects. Locale is never inferred from IP or browser language.
+- Seven locales publish at explicit URL prefixes (`/en/`, `/tr/`, `/de/`, `/es/`, `/fr/`, `/it/`, `/pt-br/`). The neutral root `/` is the `x-default` entry and never redirects. Since 30 August 2026 it serves the English home in full rather than a language-selection page: a static, zero-JavaScript site has no redirect and no content negotiation, so the fix for the language wall was to stop gating on the choice, not to guess at it. Locale is still never inferred from IP or browser language, and the selector sits in the masthead and the footer of every page.
 - The mobile app and the website are separate products that share one locale vocabulary.
 
 ## Capabilities and Constraints
@@ -60,19 +60,55 @@ Source of truth: `C:\Users\Metin\Desktop\Projects\Mobile-Portfolio\apps\DietProg
 - Cross-device sync and private food-photo storage.
 - Seven runtime locales: `en`, `tr`, `de`, `es`, `fr`, `it`, `pt-BR`.
 - App navigation is Today · Progress · [+] · Explore · Profile, where `+` is a global add action rather than a tab.
+- **Copy yesterday's entries** into today, from the Today screen.
+- **Reminders**, scheduled on the device: water, breakfast, lunch, dinner, a weight check on chosen days, and a daily check-in.
+- **A visible AI allowance**: the profile shows the plan and both the daily and the monthly counter, so the quota is a stated resource rather than a silent limit.
+- **Data export**: the user's records into a single file they keep or share.
+- Unit system (metric / imperial / automatic) and appearance (light / dark / system) are user settings.
+
+### PDF progress reports and Community — shipped, verified 30 August 2026
+
+Both were previously gated behind `showPreReleaseSurfaces` (`kDebugMode`). **That gate no longer exists**: the symbol is absent from `lib/`, and `cd0d49e feat(community): show community in normal builds` (26 August 2026) was the last step. `CommunityPreviewScreen` survives as dead, unreferenced code and its "Community is not active yet" strings must not be quoted as current.
+
+**PDF progress reports** — `lib/features/reports/`:
+
+- A user-picked date range, floor `today − 59` and ceiling today, validated to a maximum of 60 inclusive days. Default range is the last 30 days. There are **no 1 / 14 / 60 day presets**; 1, 14 and 42 are thresholds in `ReportPresentationPolicy` that decide how much detail the document carries (single day → daily → full → weekly).
+- Sections: energy chart, macronutrients, weight and BMI when weight exists, weekly rhythm, meal distribution, hydration, target comparison, registration coverage, plus a medical disclaimer the renderer emits itself.
+- `includeFoodDiary` is off by default and appends the diary when switched on.
+- `ReportArchive` stores each PDF on the device in a directory keyed by the signed-in user id. Signing out does not delete them; identity is re-checked at the moment of the write so a report cannot land in another account's folder.
+- Reachable from Progress ("Create PDF report") and from Profile ("My PDF reports").
+
+**Community** — `lib/features/community/`:
+
+- Friends are added by email; a request must be accepted before anything is shared.
+- `CommunitySharePreferences` defaults to both permissions off. Meal sharing and daily goal-progress sharing are independent flags.
+- Turning meal sharing on asks for a scope: `today` (local midnight) or `last30Days`.
+- `communityRetention` is 30 days, in one place, read by the visibility query, the cleanup job, the week navigation bound and the product copy.
+- Removing a post from Community is a separate, permanent decision from turning sharing off; re-enabling sharing does not bring a manually removed meal back, and the user's own diary entry is never affected.
+- Comments (max 300 characters) and reactions from friends; blocking ends the friendship both ways and unblocking does not restore it; a blocked-people list exists.
 
 ### Not current — must never be presented as available
 
-- **PDF progress reports** and **community/groups**: both sit behind `showPreReleaseSurfaces`, which is `kDebugMode`, so release builds tree-shake them away entirely.
 - Family sharing, coaching/dietitian features, premium tiers, and professional web tools: architecture and documentation only.
-- **iOS**: no `ios/` directory exists in the mobile repository.
-- **Any distribution at all.** Confirmed by the user: Notura is **not yet distributed** — there is no public store listing. The site must render no download button, no store URL, no platform badge, and no availability claim. The truthful call to action is understanding, e.g. "see how Notura works."
+- **iOS**: no `ios/` directory exists in the mobile repository. `docs/product_roadmap.md` states Android is the priority and iOS a later version, and lists iOS among explicitly deferred post-v1 work. iOS must therefore never be described as imminent or as launching alongside Android.
+- **Pricing**: the roadmap plans a free tier with a paid subscription above it, but no amount, currency or billing period is decided. The site publishes no price and no pricing table. `src/config/store-availability.ts` carries a `pricing` marker set to `undecided` so there is one place for the figures when they exist.
+
+### Distribution posture — user decision, 30 August 2026
+
+Notura is still **not distributed**: there is no public store listing on any platform. The earlier rule — render no store element at all — is replaced by the user's instruction to show visible pre-launch store areas, under these conditions, which are stricter than a badge:
+
+- No fake or placeholder `href`, no "Download now", and no control that looks actionable but does nothing.
+- The platform is named and its status stated in words, translated in all seven locales.
+- The markup is not a link, a button, or anything with a role, so a screen reader meets a statement rather than a control.
+- One central structure — `src/config/store-availability.ts` — drives every surface, so release day is a state change and a URL in one file.
+
+Statuses are per platform and are not equal, because the facts are not equal: Google Play is `coming-soon` (the first release target), the App Store is `planned` ("after the first release"), matching the roadmap rather than implying a parallel launch. `scripts/validate-build.mjs` keeps store hostnames out of the build output for as long as no channel is marked available.
 
 ### Website technical constraints — preserve these
 
 - Astro 7.2.0, `output: "static"`, `trailingSlash: "always"`, TypeScript strictest. No React/Vue, no client router, no component library, no CMS, no backend, no forms, no analytics.
 - **Zero client JavaScript.** [scripts/validate-build.mjs](scripts/validate-build.mjs) fails the build on any emitted `.js` file or any `<script>` tag. Interactive patterns must be native HTML (the language selector uses `<details>`/`<summary>`).
-- The same validator bans Google Analytics, Tag Manager, Facebook pixels, `fonts.googleapis.com`, `fonts.gstatic.com`, `play.google.com`, and `apps.apple.com` from build output.
+- The same validator bans Google Analytics, Tag Manager, Facebook pixels, `fonts.googleapis.com` and `fonts.gstatic.com` from build output outright, and bans `play.google.com` and `apps.apple.com` conditionally — for as long as no channel in `src/config/store-availability.ts` is marked `available`. It also checks that `sitemap.xml` lists every canonical page and only pages that were built, and that `robots.txt` points at it without blocking the site.
 - Fonts are self-hosted Plus Jakarta Sans TTF in **two weights only** (400 Regular, 600 SemiBold) under OFL. No remote font service.
 - Every published page needs a localized title and description, correct `lang`, exactly one self-canonical, reciprocal `hreflang` across all seven locales, `x-default` on the home group only, and one meaningful `h1`. The post-build validator enforces all of it.
 - `pt` (European Portuguese) is **reserved**: no `/pt/` directory may be generated, it must not appear in either language selector, and `/pt-br/` must never be substituted for it.
@@ -85,7 +121,7 @@ Source of truth: `C:\Users\Metin\Desktop\Projects\Mobile-Portfolio\apps\DietProg
 The earlier blanket ban on any fabricated or mocked-up interface imagery was too strict as a design constraint and is replaced by the following. **Authored, clearly stylized product demonstrations are permitted**, provided every one of these holds:
 
 - they are **not presented as literal screenshots** of the shipping app;
-- they **depict only implemented capabilities** — nothing behind the `showPreReleaseSurfaces` gate, nothing planned or conceptual;
+- they **depict only implemented capabilities** — nothing planned or conceptual, and nothing that a current release build does not do;
 - they **invent no product claim and no data presented as real** — no fabricated user metrics, ratings, prices, or results asserted as actual readings;
 - they stay **faithful to Notura's real interaction and visual semantics** — the fixed macro colors keep their meaning, real flows are not rearranged into flows the app does not have, and terminology matches the product;
 - they are **visually distinguishable as designed demonstrations** rather than documentary screenshots.
@@ -117,6 +153,7 @@ Real, privacy-safe screenshots from a reviewed build remain the preferred materi
 
 **Real and usable:**
 
+- **Four privacy-safe app screenshots**, captured 30 August 2026 from a Samsung SM-M215F (Android 12, SDK 31, 1080×2340) running `com.metindemir.diet_ai_app` 1.0.0 (versionCode 1), with the app temporarily switched to English and restored afterwards. Each is cropped to one consistent 1080×1500 window chosen so no personal figure enters the frame; nothing inside the interface was altered. Published as WebP and AVIF at 1080w and 640w under `public/images/app/`: `add-a-meal`, `explore`, `pdf-report`, `depth`.
 - Project-owned brand assets listed above.
 - A source-verified feature inventory drawn from the mobile repository.
 - Seven complete website UI dictionaries (104 keys each) and seven complete app ARB files.
@@ -124,7 +161,9 @@ Real, privacy-safe screenshots from a reviewed build remain the preferred materi
 
 **Absent — future work must not fabricate any of it:**
 
-- **No publishable app screenshots.** No current, privacy-safe, reviewed screenshots were found. Real captures remain the preferred material and should replace authored demonstrations as soon as they exist. What may stand in until then is governed by the product-demonstration rule under Capabilities and Constraints.
+- **Community has no publishable capture.** The build installed on the test device (versionCode 1, installed 22 August 2026) predates `cd0d49e`, so Community is not reachable on it, and the only account available holds real personal data. The Community figure on the site is therefore authored and labelled as such. Replacing it needs a newer build and a safe account — not a redesign: `AppScreen` takes the screenshot instead of the slot.
+- **No screenshot of a day with data.** The signed-in account is the developer's own production account; every screen showing logged food, weight history, targets or profile carries real personal data and is out of bounds. The four published plates were chosen because they carry none.
+- **Screenshots exist in English only.** All seven locales render the same English captures with localized alt text and captions, which is a deliberate maintenance decision rather than an oversight: `src` is a per-call prop, so a locale-specific set can be added later without touching the layout.
 - No vector logo master; only raster PNG exports exist.
 - No dedicated social-preview image.
 - No store listing, download count, rating, or review.

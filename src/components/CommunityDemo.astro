@@ -1,0 +1,56 @@
+---
+/**
+ * Community as it is actually configured: two independent permissions above,
+ * and one post below, carrying the window that will remove it.
+ *
+ * There is no privacy-safe capture of this surface — the build on the test
+ * device predates Community shipping in normal builds, and the only account
+ * available holds real personal data. So this is drawn, in the site's own
+ * hairline grammar rather than a mock of the app's interface, and its wrapper
+ * labels it as a designed figure.
+ *
+ * No name, no face, no photograph and no number is invented here. The avatar is
+ * an empty ruled circle and the meal is an open hatched block, because the
+ * point being made is who can see a thing and for how long — not what it was.
+ */
+interface Props {
+  mealSharing: string;
+  goalSharing: string;
+  stateOn: string;
+  stateOff: string;
+  friend: string;
+  sharedMeal: string;
+  expiry: string;
+}
+
+const { mealSharing, goalSharing, stateOn, stateOff, friend, sharedMeal, expiry } =
+  Astro.props;
+
+const permissions = [
+  { name: mealSharing, state: stateOn, on: true },
+  { name: goalSharing, state: stateOff, on: false },
+];
+---
+
+<div class="cmty">
+  <ul class="cmty__perms">
+    {
+      permissions.map((permission) => (
+        <li class="cmty__perm">
+          <span class="cmty__perm-name">{permission.name}</span>
+          <span class:list={["cmty__switch", permission.on && "cmty__switch--on"]} aria-hidden="true" />
+          <span class="cmty__perm-state">{permission.state}</span>
+        </li>
+      ))
+    }
+  </ul>
+
+  <div class="cmty__post">
+    <p class="cmty__who">
+      <span class="cmty__avatar" aria-hidden="true"></span>
+      {friend}
+    </p>
+    <p class="cmty__meal">{sharedMeal}</p>
+    <p class="cmty__expiry">{expiry}</p>
+  </div>
+</div>

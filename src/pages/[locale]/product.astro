@@ -1,10 +1,20 @@
 ---
+/**
+ * The whole inventory, in one place.
+ *
+ * The home page tells the strongest story; this page is the guarantee behind
+ * it — every current capability written down once, including the ones the home
+ * page only mentions in passing. Five groups, each a ruled ledger rather than a
+ * card grid, because the point of the page is completeness, not persuasion.
+ */
+import AppScreen from "../../components/AppScreen.astro";
 import CaptureDemo from "../../components/CaptureDemo.astro";
 import Demonstration from "../../components/Demonstration.astro";
 import EstimateField from "../../components/EstimateField.astro";
 import Icon from "../../components/Icon.astro";
 import type { IconName } from "../../components/icons";
 import PageIntro from "../../components/PageIntro.astro";
+import StoreStatus from "../../components/StoreStatus.astro";
 import TimelineDemo from "../../components/TimelineDemo.astro";
 import { publishedLocales, type LocaleDefinition } from "../../i18n/locales";
 import { localizedPath } from "../../i18n/routes";
@@ -24,6 +34,7 @@ interface Props {
 
 const { locale } = Astro.props;
 const t = (key: TranslationKey) => translate(locale.id, key);
+const items = (key: TranslationKey) => t(key).split("|");
 
 const captureMethods: Array<{ icon: IconName; label: TranslationKey }> = [
   { icon: "camera", label: "methodPhoto" },
@@ -33,8 +44,6 @@ const captureMethods: Array<{ icon: IconName; label: TranslationKey }> = [
   { icon: "manual", label: "methodManual" },
   { icon: "barcode", label: "methodBarcode" },
 ];
-
-const items = (key: TranslationKey) => t(key).split("|");
 ---
 
 <BaseLayout
@@ -93,7 +102,7 @@ const items = (key: TranslationKey) => t(key).split("|");
 
   <section class="bay bay--raised" aria-labelledby="group-track">
     <div class="shell">
-      <div class="split split--wide">
+      <div class="split split--halves">
         <div>
           <h2 id="group-track">{t("groupTrackTitle")}</h2>
           <p class="lede lede--tight">{t("groupTrackBody")}</p>
@@ -109,7 +118,7 @@ const items = (key: TranslationKey) => t(key).split("|");
           </ul>
         </div>
       </div>
-      <div class="bay-gap">
+      <div class="bay-gap split split--plate">
         <Demonstration label={t("demonstrationLabel")} caption={t("periodProgress")}>
           <TimelineDemo
             progress={t("periodProgress")}
@@ -118,7 +127,34 @@ const items = (key: TranslationKey) => t(key).split("|");
             notDetermined={t("notDetermined")}
           />
         </Demonstration>
+        <AppScreen
+          src="depth"
+          alt={t("screenDepthAlt")}
+          caption={t("screenDepthCaption")}
+          label={t("screenshotLabel")}
+          tone="light"
+        />
       </div>
+    </div>
+  </section>
+
+  <section class="bay" aria-labelledby="group-share">
+    <div class="shell split split--plate">
+      <div>
+        <h2 id="group-share">{t("groupShareTitle")}</h2>
+        <p class="lede lede--tight">{t("groupShareBody")}</p>
+        <ul class="ledger__items">
+          {items("groupShareItems").map((item) => <li>{item}</li>)}
+        </ul>
+        <p class="boundary">{t("reportsBoundary")}</p>
+      </div>
+      <AppScreen
+        src="pdf-report"
+        alt={t("screenReportAlt")}
+        caption={t("screenReportCaption")}
+        label={t("screenshotLabel")}
+        tone="light"
+      />
     </div>
   </section>
 
@@ -128,17 +164,18 @@ const items = (key: TranslationKey) => t(key).split("|");
       <p>{t("productTruthBody")}</p>
     </aside>
 
-    <section class="close" aria-labelledby="product-close">
+    <section class="close close--store" aria-labelledby="product-close">
       <div>
         <h2 id="product-close">{t("closingHeading")}</h2>
         <p>{t("closingBody")}</p>
+        <div class="action-row">
+          <a class="action action--primary" href={localizedPath(locale.id, "howItWorks")}>
+            {t("seeHow")}
+            <Icon name="arrow" />
+          </a>
+        </div>
       </div>
-      <div class="action-row">
-        <a class="action action--primary" href={localizedPath(locale.id, "howItWorks")}>
-          {t("seeHow")}
-          <Icon name="arrow" />
-        </a>
-      </div>
+      <StoreStatus localeId={locale.id} variant="ledger" />
     </section>
   </div>
 </BaseLayout>

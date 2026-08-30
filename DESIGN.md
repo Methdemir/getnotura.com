@@ -111,6 +111,8 @@ The system's one non-negotiable idea is that an unknown is displayed, not hidden
 
 Density is generous and editorial. Type does the work that cards and shadows do elsewhere: a display face at up to 85.6px against 17px body copy, hairlines instead of containers, and large quiet gaps between movements. The surface is deliberately flat.
 
+**What changed on 30 August 2026.** The world above is unchanged; what it is used on is not. The neutral root `/` was a language-selection page and is now the English home, so the first thing any visitor meets is the product. The hero's green field now holds a real screenshot rather than a data figure, and PDF reports and Community — both of which had shipped in the app but appeared nowhere on the site — each own a full bay. See *The screen plate* and *The availability ledger* under Components.
+
 **Key Characteristics:**
 - Cream reading ground, deep-green committed fields, no gradient anywhere
 - Hairline rules and ruled rows instead of cards and borders
@@ -175,6 +177,12 @@ The hero is the exception and the signature: a full-width two-column grid where 
 
 Breakpoints are 26rem (hide the language label), 48rem (navigation moves inline, splits become two columns, footer becomes three), and 60rem (the hero splits into its two columns and method rows go three-column). Below 60rem the hero stacks: copy first, green field beneath it full-bleed.
 
+`.split--plate` is the copy-beside-a-screen composition. Below 48rem it stacks with the plate last whatever the DOM order, so a reader on a phone always meets the words before the picture.
+
+**The Alternating Form Rule.** No two adjacent bays may use the same composition. The home page runs split-bleed hero → ruled list → copy-and-demonstration → copy-and-plate → figure-and-copy → copy-and-plate → three-column ledger → statement → close. The two copy-and-plate bays are separated by a bay that reverses the arrangement and changes ground, and the breadth ledger deliberately carries no figure at all: a plate beside it would narrow the lists and make the product look smaller than it is.
+
+**The Clause Rule.** The home `h1` is two parallel clauses, and the parallel is the whole point of it. It is split on its sentence boundary in the template and each clause is a block, so the pair holds in all seven languages instead of depending on a character measure landing right in each. Balancing is off on that heading; the break points are already decided.
+
 ## Elevation & Depth
 
 The system is flat. There is exactly one shadow in the build and it belongs to a floating overlay, not to content. Depth is carried by tonal territory instead: cream, raised cream, field green, deep field green — four planes, no lift.
@@ -219,6 +227,7 @@ The system's way of showing the product without photographing it. Every demonstr
 - **Correction.** Two estimate panels, before and after, with a circular turn between them (pointing down when stacked, right when side by side above 48rem). The "before" panel carries one open hatched band; in the "after" panel that band is filled and every state reads *Corrected*. This is the product's thesis made visible.
 - **Converge.** Six input chips joined by a hairline spine to a single record pill. Above 48rem the spine is a column with stubs reaching it; below, it runs down the left and turns into the pill. Structure only — it asserts nothing numeric.
 - **Span.** One row per record type across 28 days, a filled mark where an entry exists and an open mark where none does. Weight is deliberately sparser than water. Gaps are the point.
+- **Community.** Two permission rows with a drawn switch above a single post: an empty ruled circle where an avatar would be, an open hatched block where the meal photo would be, and the thirty-day expiry beneath. It exists because no privacy-safe capture of Community is available, and it invents no name, face, photograph or number — what it shows is who can see a thing and for how long, which is the only claim the section makes. It lives inside a screen plate rather than a `Demonstration` wrapper, so it occupies the same frame the real captures do and can be swapped for one.
 
 Each sits inside a `Demonstration` wrapper that is delimited by hairlines rather than boxed, and that renders the mandatory label beneath it.
 
@@ -226,7 +235,30 @@ Each sits inside a `Demonstration` wrapper that is delimited by hairlines rather
 
 **The Labelled Demonstration Rule.** Every authored demonstration carries its label — rendered by the wrapper, in one place, so a figure cannot ship without it. Demonstrations show structure, relationship and state; they never assert a number, a total or a measurement, because a figure that invents data has stopped being a demonstration and started being a claim.
 
-**The Own-Grammar Rule.** A demonstration is drawn in the website's visual language, never in a simulation of the app's interface chrome. If a figure starts acquiring status bars, tab bars, or device frames, it is drifting toward a fake screenshot and must be pulled back.
+**The Own-Grammar Rule.** A demonstration is drawn in the website's visual language, never in a simulation of the app's interface chrome. If a figure starts acquiring status bars, tab bars, or device frames, it is drifting toward a fake screenshot and must be pulled back. The rule's purpose is that nothing drawn may be mistaken for a capture; it is not a rule against captures, which are now the preferred content of the plate below.
+
+### The screen plate (signature)
+
+`AppScreen.astro`. The site's way of showing the real app, and the place a drawn figure stands in until a capture exists.
+
+One portrait frame at a fixed `1080 / 1500` ratio, hairline-bordered, with a two-line caption beneath: what the screen is, then what kind of image it is. It has exactly two states and they occupy identical space:
+
+- **A real screenshot.** Pass `src` and the plate renders AVIF and WebP at 1080w and 640w with stated intrinsic dimensions, captioned "Screenshot from the Notura app". `alt` is required — the component throws without it.
+- **An authored figure.** Pass no `src` and the plate renders its slot instead, captioned with the designed-demonstration label.
+
+Because both states are the same box at the same ratio, replacing a figure with a capture is one prop and shifts no layout. That is the point of the component: the site does not need redesigning as real screenshots arrive.
+
+Four real plates ship today — the add-a-meal sheet, Explore, the PDF report setup, and the settings screen. Each was chosen because it carries no personal data and because it proves a specific claim the page makes beside it. The Community plate is drawn, because no safe capture of that surface exists yet.
+
+**The Plate Crop Rule.** Every capture is cropped to the same 1080×1500 window and nothing inside the interface is ever edited. Cropping is how a personal figure is kept out of frame; painting over one is not. If no crop of a screen is safe, that screen does not ship and the figure is drawn instead.
+
+### The availability ledger
+
+`StoreStatus.astro`. Where Notura will be available, stated while it is available nowhere.
+
+The same ruled-row grammar the rest of the site uses for stating a fact: platform name at the start, status word at the end, hairline between. Deliberately not a badge and deliberately not interactive — an unpublished channel renders as a `span`, with no anchor, role, tabindex or pointer cursor, so a screen reader meets a statement rather than a control that goes nowhere. Two variants, one config: a compact `line` in the hero and a full `ledger` at the close.
+
+**The Unlinked Status Rule.** A store row becomes an anchor only when `store-availability.ts` marks that channel available with a URL. There is no styling for a "disabled link", because there is no link to disable.
 
 ### Icons
 An authored 24px outline set at `1.5` stroke, `currentColor`, round caps and joins. Eight glyphs: camera, gallery, text, saved, manual, barcode, chevron, arrow. No icon font, no unicode glyph, no emoji.
@@ -244,7 +276,8 @@ One authored moment: the estimate bands grow from zero width over 900ms on `cubi
 - **Do** keep the display face tight (-0.038em) and genuinely large; the scale distance is the voice.
 - **Do** draw any new icon into the existing 24px / 1.5-stroke set.
 - **Do** keep every interaction native HTML — the build fails on a single emitted `.js` file.
-- **Do** reuse the three demonstrations across pages rather than inventing a fourth; their recurrence is what makes the site read as one system.
+- **Do** reuse the existing demonstrations across pages rather than inventing another; their recurrence is what makes the site read as one system. A new one has to earn itself the way the Community figure did — by carrying a claim no existing figure carries, and by being the only honest option until a capture exists.
+- **Do** prefer a real screenshot over a drawn figure wherever a privacy-safe one exists. The figures are what the site has *instead of* captures, not a house style to protect.
 - **Do** let a demonstration carry a section on its own. They are the evidence this site has instead of screenshots, and they deserve full width and a whole bay.
 
 ### Don't:

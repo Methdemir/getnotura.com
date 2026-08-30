@@ -1,13 +1,6 @@
 ---
-import CorrectionDemo from "../../components/CorrectionDemo.astro";
-import Demonstration from "../../components/Demonstration.astro";
-import EstimateField from "../../components/EstimateField.astro";
-import Icon from "../../components/Icon.astro";
-import type { IconName } from "../../components/icons";
-import SectionIntro from "../../components/SectionIntro.astro";
-import TimelineDemo from "../../components/TimelineDemo.astro";
+import HomeSurface from "../../components/HomeSurface.astro";
 import { publishedLocales, type LocaleDefinition } from "../../i18n/locales";
-import { localizedPath } from "../../i18n/routes";
 import { translate, type TranslationKey } from "../../i18n/translations";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 
@@ -24,15 +17,6 @@ interface Props {
 
 const { locale } = Astro.props;
 const t = (key: TranslationKey) => translate(locale.id, key);
-
-const methods: Array<{ icon: IconName; title: TranslationKey; body: TranslationKey }> = [
-  { icon: "camera", title: "methodPhoto", body: "methodPhotoBody" },
-  { icon: "gallery", title: "methodGallery", body: "methodGalleryBody" },
-  { icon: "text", title: "methodText", body: "methodTextBody" },
-  { icon: "saved", title: "methodSaved", body: "methodSavedBody" },
-  { icon: "manual", title: "methodManual", body: "methodManualBody" },
-  { icon: "barcode", title: "methodBarcode", body: "methodBarcodeBody" },
-];
 ---
 
 <BaseLayout
@@ -41,131 +25,5 @@ const methods: Array<{ icon: IconName; title: TranslationKey; body: TranslationK
   title={t("metaHomeTitle")}
   description={t("metaHomeDescription")}
 >
-  <section class="hero" aria-labelledby="hero-heading">
-    <div class="hero__copy">
-      <h1 id="hero-heading">{t("homeHeading")}</h1>
-      <p class="lede">{t("homeBody")}</p>
-      <div class="action-row">
-        <a class="action action--primary" href="#capture">
-          {t("seeHow")}
-          <Icon name="arrow" />
-        </a>
-        <a class="action action--quiet" href={localizedPath(locale.id, "product")}>
-          {t("viewProduct")}
-        </a>
-      </div>
-    </div>
-    <div class="hero__field">
-      <EstimateField
-        protein={t("protein")}
-        carbs={t("carbs")}
-        fat={t("fat")}
-        estimated={t("estimated")}
-        notDetermined={t("notDetermined")}
-        note={t("estimateNote")}
-        label={t("estimateLabel")}
-      />
-    </div>
-  </section>
-
-  <section id="capture" class="bay bay--raised" aria-labelledby="capture-heading">
-    <div class="shell">
-      <SectionIntro id="capture-heading" heading={t("captureHeading")} body={t("captureBody")} />
-      <ul class="methods">
-        {
-          methods.map((method) => (
-            <li>
-              <Icon name={method.icon} />
-              <h3>{t(method.title)}</h3>
-              <p>{t(method.body)}</p>
-            </li>
-          ))
-        }
-      </ul>
-    </div>
-  </section>
-
-  <section class="bay bay--field" aria-labelledby="understand-heading">
-    <div class="shell">
-      <SectionIntro
-        id="understand-heading"
-        heading={t("understandHeading")}
-        body={t("understandBody")}
-      />
-      <Demonstration
-        tone="field"
-        label={t("demonstrationLabel")}
-        caption={t("adjustNoteHeading")}
-      >
-        <CorrectionDemo
-          protein={t("protein")}
-          carbs={t("carbs")}
-          fat={t("fat")}
-          estimated={t("estimated")}
-          corrected={t("corrected")}
-          notDetermined={t("notDetermined")}
-        />
-      </Demonstration>
-    </div>
-  </section>
-
-  <section class="bay" aria-labelledby="explore-heading">
-    <div class="shell split split--wide">
-      <SectionIntro id="explore-heading" heading={t("exploreHeading")} body={t("exploreBody")} />
-      <div class="pair-set">
-        <div class="pair">
-          <h3>{t("exploreOfflineTitle")}</h3>
-          <p>{t("exploreOfflineBody")}</p>
-        </div>
-        <div class="pair">
-          <h3>{t("exploreQuotaTitle")}</h3>
-          <p>{t("exploreQuotaBody")}</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="bay bay--raised" aria-labelledby="progress-heading">
-    <div class="shell">
-      <SectionIntro
-        id="progress-heading"
-        heading={t("progressHeading")}
-        body={t("progressBody")}
-      />
-      <Demonstration label={t("demonstrationLabel")} caption={t("periodProgress")}>
-        <TimelineDemo
-          progress={t("periodProgress")}
-          water={t("waterTracking")}
-          weight={t("weightTracking")}
-          notDetermined={t("notDetermined")}
-        />
-      </Demonstration>
-      <p class="lede lede--after">{t("periodProgressBody")}</p>
-    </div>
-  </section>
-
-  <section class="bay bay--deep" aria-labelledby="ai-heading">
-    <div class="shell statement">
-      <h2 id="ai-heading">{t("aiHeading")}</h2>
-      <div>
-        <p>{t("aiBody")}</p>
-        <p class="statement__foot">{t("aiFootnote")}</p>
-      </div>
-    </div>
-  </section>
-
-  <div class="shell">
-    <section class="close" aria-labelledby="close-heading">
-      <div>
-        <h2 id="close-heading">{t("closingHeading")}</h2>
-        <p>{t("closingBody")}</p>
-      </div>
-      <div class="action-row">
-        <a class="action action--primary" href={localizedPath(locale.id, "howItWorks")}>
-          {t("seeHow")}
-          <Icon name="arrow" />
-        </a>
-      </div>
-    </section>
-  </div>
+  <HomeSurface localeId={locale.id} />
 </BaseLayout>

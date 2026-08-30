@@ -57,7 +57,15 @@ const dictionaries = new Map(
   ),
 );
 const expectedPages = [
-  { path: "/", lang: "en", selfHreflang: "x-default", destination: "home", title: "Notura | Language selection" },
+  // The neutral root is the x-default entry and serves the English home, so it
+  // carries the English home title rather than a title of its own.
+  {
+    path: "/",
+    lang: "en",
+    selfHreflang: "x-default",
+    destination: "home",
+    title: dictionaries.get("en").metaHomeTitle,
+  },
   ...published.flatMap((locale) =>
     publishedDestinations.map((destination) => ({
       path: destinationPath(locale, destination),
@@ -203,13 +211,32 @@ const bannedOutput = [
   /connect\.facebook\.net/i,
   /fonts\.googleapis\.com/i,
   /fonts\.gstatic\.com/i,
-  /play\.google\.com/i,
-  /apps\.apple\.com/i,
-  /googletagmanager/i,
 ];
 for (const pattern of bannedOutput) {
   if (pattern.test(inspectableText)) {
     throw new Error(`Forbidden client output matched ${pattern}.`);
+  }
+}
+
+/**
+ * Store URLs are banned for exactly as long as nothing is published.
+ *
+ * The rule used to be absolute, which meant release day would have required
+ * editing this validator as well as the store config — two edits in two places,
+ * one of them easy to forget. Now the single source of truth is
+ * `src/config/store-availability.ts`: a store hostname may appear in the output
+ * only once a channel there is genuinely marked available. A half-finished flip,
+ * where a badge links out but the config still says nothing is published, still
+ * fails the build.
+ */
+const storeConfig = await readFile(path.join(root, "src/config/store-availability.ts"), "utf8");
+const declaresAvailableChannel = /state:\s*"available"/.test(storeConfig);
+const storeHosts = [/play\.google\.com/i, /apps\.apple\.com/i];
+for (const pattern of storeHosts) {
+  if (pattern.test(inspectableText) && !declaresAvailableChannel) {
+    throw new Error(
+      `Output contains ${pattern} but no channel in store-availability.ts is marked available.`,
+    );
   }
 }
 
@@ -240,4 +267,48 @@ for (const file of files.filter((candidate) => candidate.endsWith(".html"))) {
   }
 }
 
-console.log(`Build validation passed for ${expectedPages.length} canonical pages, localized titles, 404, CNAME, reciprocal hreflang, internal links, no store URLs, and zero client JavaScript.`);
+/**
+ * The sitemap must describe pages that exist, and must describe all of them.
+ * A sitemap is the one artefact nobody looks at until a crawler does, so it is
+ * checked here rather than trusted.
+ */
+const sitemapPath = path.join(dist, "sitemap.xml");
+if (!(await exists(sitemapPath))) {
+  throw new Error("Missing generated sitemap.xml.");
+}
+const sitemapXml = await readFile(sitemapPath, "utf8");
+const sitemapLocs = [...sitemapXml.matchAll(/<loc>([^<]+)<\/loc>/g)].map((match) => match[1]);
+const sitemapPaths = new Set(sitemapLocs.map((loc) => new URL(loc).pathname));
+
+for (const loc of sitemapLocs) {
+  const url = new URL(loc);
+  if (url.origin !== siteOrigin) {
+    throw new Error(`Sitemap entry is off-origin: ${loc}`);
+  }
+  if (!(await exists(pageFile(url.pathname)))) {
+    throw new Error(`Sitemap lists a page that was not built: ${loc}`);
+  }
+}
+for (const page of pageRecords) {
+  if (!sitemapPaths.has(page.path)) {
+    throw new Error(`Canonical page missing from sitemap: ${page.path}`);
+  }
+}
+
+const robotsPath = path.join(dist, "robots.txt");
+if (!(await exists(robotsPath))) {
+  throw new Error("Missing generated robots.txt.");
+}
+const robotsTxt = await readFile(robotsPath, "utf8");
+if (!robotsTxt.includes(`Sitemap: ${siteOrigin}/sitemap.xml`)) {
+  throw new Error("robots.txt does not point at the sitemap.");
+}
+if (/^\s*Disallow:\s*\/\s*$/m.test(robotsTxt)) {
+  throw new Error("robots.txt blocks the whole site; indexing is decided by the robots meta tag.");
+}
+
+console.log(
+  `Build validation passed for ${expectedPages.length} canonical pages, localized titles, 404, CNAME, ` +
+    `reciprocal hreflang, internal links, ${sitemapLocs.length} sitemap entries, robots.txt, ` +
+    `no unpublished store URLs, and zero client JavaScript.`,
+);

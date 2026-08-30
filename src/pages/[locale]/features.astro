@@ -1,11 +1,21 @@
 ---
+/**
+ * The four decisions, not a second inventory.
+ *
+ * This page used to restate the product page with different headings — the same
+ * capabilities listed twice, in two places to keep in sync. It now covers only
+ * where Notura chose differently: flexible capture, estimates you can check,
+ * PDF reports, and a Community you control. The full list lives on /product/,
+ * once.
+ */
+import AppScreen from "../../components/AppScreen.astro";
 import CaptureDemo from "../../components/CaptureDemo.astro";
+import CommunityDemo from "../../components/CommunityDemo.astro";
 import Demonstration from "../../components/Demonstration.astro";
 import EstimateField from "../../components/EstimateField.astro";
 import Icon from "../../components/Icon.astro";
 import type { IconName } from "../../components/icons";
 import PageIntro from "../../components/PageIntro.astro";
-import TimelineDemo from "../../components/TimelineDemo.astro";
 import { publishedLocales, type LocaleDefinition } from "../../i18n/locales";
 import { localizedPath } from "../../i18n/routes";
 import { translate, type TranslationKey } from "../../i18n/translations";
@@ -32,11 +42,6 @@ const captureMethods: Array<{ icon: IconName; label: TranslationKey }> = [
   { icon: "saved", label: "methodSaved" },
   { icon: "manual", label: "methodManual" },
   { icon: "barcode", label: "methodBarcode" },
-];
-
-const trackingMarks: Array<{ label: TranslationKey; mark: string }> = [
-  { label: "waterTracking", mark: "var(--water)" },
-  { label: "weightTracking", mark: "var(--weight)" },
 ];
 ---
 
@@ -83,37 +88,39 @@ const trackingMarks: Array<{ label: TranslationKey; mark: string }> = [
     </div>
   </section>
 
-  <section class="bay bay--raised" aria-labelledby="feature-tracking">
-    <div class="shell">
-      <div class="split split--halves">
-        <div>
-          <h2 id="feature-tracking">{t("featureTrackingTitle")}</h2>
-          <p class="lede lede--tight">{t("featureTrackingBody")}</p>
-          <ul class="marks">
-            {
-              trackingMarks.map((mark) => (
-                <li>
-                  <i style={`--mark:${mark.mark}`} aria-hidden="true" />
-                  {t(mark.label)}
-                </li>
-              ))
-            }
-          </ul>
-        </div>
-        <div>
-          <h2>{t("featureProgressTitle")}</h2>
-          <p class="lede lede--tight">{t("featureProgressBody")}</p>
-        </div>
+  <section class="bay bay--raised" aria-labelledby="feature-reports">
+    <div class="shell split split--plate">
+      <div>
+        <h2 id="feature-reports">{t("featureReportsTitle")}</h2>
+        <p class="lede lede--tight">{t("featureReportsBody")}</p>
+        <p class="boundary">{t("reportsBoundary")}</p>
       </div>
-      <div class="bay-gap">
-        <Demonstration label={t("demonstrationLabel")} caption={t("periodProgress")}>
-          <TimelineDemo
-            progress={t("periodProgress")}
-            water={t("waterTracking")}
-            weight={t("weightTracking")}
-            notDetermined={t("notDetermined")}
-          />
-        </Demonstration>
+      <AppScreen
+        src="pdf-report"
+        alt={t("screenReportAlt")}
+        caption={t("screenReportCaption")}
+        label={t("screenshotLabel")}
+        tone="light"
+      />
+    </div>
+  </section>
+
+  <section class="bay bay--field" aria-labelledby="feature-community">
+    <div class="shell split split--plate split--reverse">
+      <AppScreen caption={t("communityScreenCaption")} label={t("demonstrationLabel")} tone="field">
+        <CommunityDemo
+          mealSharing={t("communityMealSharingLabel")}
+          goalSharing={t("communityGoalSharingLabel")}
+          stateOn={t("communityStateOnToday")}
+          stateOff={t("communityStateOff")}
+          friend={t("communityFriendLabel")}
+          sharedMeal={t("communitySharedMealLabel")}
+          expiry={t("communityExpiryLabel")}
+        />
+      </AppScreen>
+      <div>
+        <h2 id="feature-community">{t("featureCommunityTitle")}</h2>
+        <p class="lede lede--tight">{t("featureCommunityBody")}</p>
       </div>
     </div>
   </section>
