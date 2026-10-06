@@ -10,6 +10,42 @@
         "value": "plus jakarta sans",
         "createdAt": "2026-08-11T06:49:43.783Z",
         "reason": "Brand commitment inherited from the Notura mobile app; bundled OFL TTFs, recorded in PRODUCT.md"
+      },
+      {
+        "rule": "design-system-font",
+        "value": "*",
+        "files": [
+          "src/styles/vergi-hesabim.css"
+        ],
+        "createdAt": "2026-10-06T11:38:14.628Z",
+        "reason": "Claude decision: standalone Vergi Hesabım sub-brand stylesheet, tokens from the app's theme, documented in DESIGN.md 'Sub-brand: Vergi Hesabım'; Notura's ramp does not apply (same as momentback.css)"
+      },
+      {
+        "rule": "design-system-radius",
+        "value": "*",
+        "files": [
+          "src/styles/vergi-hesabim.css"
+        ],
+        "createdAt": "2026-10-06T11:38:14.730Z",
+        "reason": "Claude decision: standalone Vergi Hesabım sub-brand stylesheet, tokens from the app's theme, documented in DESIGN.md 'Sub-brand: Vergi Hesabım'; Notura's ramp does not apply (same as momentback.css)"
+      },
+      {
+        "rule": "design-system-color",
+        "value": "*",
+        "files": [
+          "src/styles/vergi-hesabim.css"
+        ],
+        "createdAt": "2026-10-06T11:38:14.841Z",
+        "reason": "Claude decision: standalone Vergi Hesabım sub-brand stylesheet, tokens from the app's theme, documented in DESIGN.md 'Sub-brand: Vergi Hesabım'; Notura's ramp does not apply (same as momentback.css)"
+      },
+      {
+        "rule": "design-system-font-size",
+        "value": "*",
+        "files": [
+          "src/styles/vergi-hesabim.css"
+        ],
+        "createdAt": "2026-10-06T11:38:14.977Z",
+        "reason": "Claude decision: standalone Vergi Hesabım sub-brand stylesheet, tokens from the app's theme, documented in DESIGN.md 'Sub-brand: Vergi Hesabım'; Notura's ramp does not apply (same as momentback.css)"
       }
     ]
   }
