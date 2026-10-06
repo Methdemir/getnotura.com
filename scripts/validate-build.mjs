@@ -307,8 +307,56 @@ if (/^\s*Disallow:\s*\/\s*$/m.test(robotsTxt)) {
   throw new Error("robots.txt blocks the whole site; indexing is decided by the robots meta tag.");
 }
 
+/**
+ * Vergi Hesabım is a Turkish-only product surface outside the Notura locale
+ * matrix, so it is checked on its own: each page exists, is Turkish, carries
+ * exactly one self-canonical and no hreflang set, and is indexable so store and
+ * ad-network reviewers can read the privacy policy.
+ */
+const vergiPages = ["/vergi-hesabim/", "/vergi-hesabim/privacy/"];
+for (const vergiPath of vergiPages) {
+  const file = pageFile(vergiPath);
+  if (!(await exists(file))) {
+    throw new Error(`Missing generated page: ${vergiPath}`);
+  }
+  const html = await readFile(file, "utf8");
+  if (html.match(/<html\b[^>]*lang="([^"]+)"/i)?.[1] !== "tr") {
+    throw new Error(`${vergiPath} must be lang="tr".`);
+  }
+  const canonicals = linkTags(html, "canonical");
+  if (canonicals.length !== 1 || getAttribute(canonicals[0], "href") !== absolute(vergiPath)) {
+    throw new Error(`${vergiPath} must carry exactly one self-canonical.`);
+  }
+  if (linkTags(html, "alternate").length) {
+    throw new Error(`${vergiPath} is Turkish-only and must not declare hreflang alternates.`);
+  }
+  if (!/<meta\b[^>]*name="robots"[^>]*content="index,follow"/i.test(html)) {
+    throw new Error(`${vergiPath} must be index,follow.`);
+  }
+  if ((html.match(/<h1\b/gi) ?? []).length !== 1) {
+    throw new Error(`${vergiPath} must contain exactly one h1.`);
+  }
+}
+
+/**
+ * app-ads.txt is read by ad networks at the domain root. The AdMob line must
+ * appear exactly once; other sellers' lines are allowed alongside it.
+ */
+const appAdsPath = path.join(dist, "app-ads.txt");
+if (!(await exists(appAdsPath))) {
+  throw new Error("Missing app-ads.txt at the site root.");
+}
+const admobLine = "google.com, pub-8687761371122116, DIRECT, f08c47fec0942fa0";
+const appAdsLines = (await readFile(appAdsPath, "utf8")).split(/\r?\n/).map((line) => line.trim());
+if (appAdsLines.filter((line) => line === admobLine).length !== 1) {
+  throw new Error("app-ads.txt must contain the AdMob publisher line exactly once.");
+}
+if (/^\s*Disallow:\s*\/app-ads\.txt/im.test(robotsTxt)) {
+  throw new Error("robots.txt must not block app-ads.txt.");
+}
+
 console.log(
   `Build validation passed for ${expectedPages.length} canonical pages, localized titles, 404, CNAME, ` +
     `reciprocal hreflang, internal links, ${sitemapLocs.length} sitemap entries, robots.txt, ` +
-    `no unpublished store URLs, and zero client JavaScript.`,
+    `no unpublished store URLs, zero client JavaScript, the Vergi Hesabım pages and app-ads.txt.`,
 );

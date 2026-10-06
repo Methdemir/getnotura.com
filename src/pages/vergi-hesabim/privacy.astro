@@ -1,0 +1,94 @@
+---
+import Receipt from "../../components/vergi-hesabim/Receipt.astro";
+import {
+  privacyFootnote,
+  privacyGlance,
+  privacyIntro,
+  privacySections,
+  vergiHesabim,
+} from "../../content/vergi-hesabim";
+import VergiHesabimLayout from "../../layouts/VergiHesabimLayout.astro";
+
+const mailto = `mailto:${vergiHesabim.supportEmail}`;
+const glanceRows = privacyGlance.map((row) => ({ label: row.what, value: row.where, local: row.local }));
+---
+
+<VergiHesabimLayout
+  page="privacy"
+  title="Gizlilik Politikası — Vergi Hesabım | Sarper Studios"
+  description="Vergi Hesabım Android uygulamasının gizlilik politikası: telefonda tutulan bilgiler, isteğe bağlı yapay zekâ yardımı, ses ve konum kullanımı ve Google AdMob reklamları."
+>
+  <article class="vh-doc">
+    <header class="vh-doc__head">
+      <div class="vh-shell vh-doc__head-grid">
+        <div>
+          <h1>Gizlilik Politikası</h1>
+          <p class="vh-doc__product">{vergiHesabim.name} · Android</p>
+          <p class="vh-doc__date">
+            Yürürlük tarihi: <time datetime={vergiHesabim.effectiveDateIso}>{vergiHesabim.effectiveDate}</time>
+          </p>
+        </div>
+        <p class="vh-lede vh-doc__intro">{privacyIntro}</p>
+      </div>
+    </header>
+
+    <div class="vh-shell vh-doc__glance">
+      <Receipt
+        id="bir-bakista"
+        heading="Bir bakışta: bilgileriniz nerede?"
+        headingLevel="h2"
+        rows={glanceRows}
+        total={{ label: "Reklam hedeflemesine giden vergi bilgisi", value: "Yok" }}
+      />
+    </div>
+
+    <div class="vh-shell vh-doc__body">
+      <nav class="vh-toc" aria-labelledby="vh-toc-title">
+        <h2 id="vh-toc-title">İçindekiler</h2>
+        <ol>
+          {privacySections.map((section) => (
+            <li><a href={`#${section.id}`}>{section.heading}</a></li>
+          ))}
+        </ol>
+      </nav>
+
+      <div class="vh-sections">
+        {
+          privacySections.map((section) => (
+            <section id={section.id} aria-labelledby={`${section.id}-baslik`}>
+              <h2 id={`${section.id}-baslik`}>{section.heading}</h2>
+              {section.paragraphs.map((paragraph) => (
+                <p>{paragraph}</p>
+              ))}
+              {section.list && (
+                <ul>
+                  {section.list.map((item) => (
+                    <li>{item}</li>
+                  ))}
+                </ul>
+              )}
+              {section.after?.map((paragraph) => (
+                <p>{paragraph}</p>
+              ))}
+              {section.links && (
+                <p class="vh-sections__links">
+                  {section.links.map((link) => (
+                    <a class="vh-link" href={link.href} rel="noopener">
+                      {link.label}
+                    </a>
+                  ))}
+                </p>
+              )}
+              {section.id === "iletisim" && (
+                <p class="vh-contact">
+                  <a href={mailto}>{vergiHesabim.supportEmail}</a>
+                </p>
+              )}
+            </section>
+          ))
+        }
+        <p class="vh-footnote">{privacyFootnote}</p>
+      </div>
+    </div>
+  </article>
+</VergiHesabimLayout>

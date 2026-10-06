@@ -1,0 +1,54 @@
+---
+/**
+ * The receipt: the one figure this sub-brand owns, taken from the app's own
+ * receipt-style results. Rows are label / value pairs joined by a dotted
+ * leader; the torn zigzag edge is a CSS mask. It states structure only — names
+ * and where things happen — and never a computed amount, because a sum on a
+ * marketing page would be a claim, not a demonstration.
+ */
+interface Row {
+  label: string;
+  value: string;
+  local?: boolean;
+}
+
+interface Props {
+  heading: string;
+  rows: readonly Row[];
+  total?: { label: string; value: string } | undefined;
+  caption?: string | undefined;
+  headingLevel?: "h2" | "h3" | "p";
+  id?: string | undefined;
+}
+
+const { heading, rows, total, caption, headingLevel = "p", id } = Astro.props;
+const Heading = headingLevel;
+const headingId = id ? `${id}-baslik` : undefined;
+---
+
+<figure class="vh-receipt" id={id} aria-labelledby={headingId}>
+  <div class="vh-receipt__sheet">
+    <div class="vh-receipt__paper">
+      <Heading class="vh-receipt__head" id={headingId}>{heading}</Heading>
+      <dl class="vh-receipt__rows">
+        {
+          rows.map((row) => (
+            <div class:list={["vh-receipt__row", { "is-local": row.local }]}>
+              <dt>{row.label}</dt>
+              <dd>{row.value}</dd>
+            </div>
+          ))
+        }
+      </dl>
+      {
+        total && (
+          <p class="vh-receipt__total">
+            <span>{total.label}</span>
+            <span>{total.value}</span>
+          </p>
+        )
+      }
+    </div>
+  </div>
+  {caption && <figcaption class="vh-receipt__caption">{caption}</figcaption>}
+</figure>

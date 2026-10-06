@@ -1,0 +1,129 @@
+---
+import Receipt from "../../components/vergi-hesabim/Receipt.astro";
+import { vergiHesabim, vergiModules, vergiPath } from "../../content/vergi-hesabim";
+import VergiHesabimLayout from "../../layouts/VergiHesabimLayout.astro";
+
+const mailto = `mailto:${vergiHesabim.supportEmail}`;
+const moduleRows = vergiModules.map((module) => ({ label: module.title, value: module.question }));
+---
+
+<VergiHesabimLayout
+  page="home"
+  title="Vergi Hesabım — maaş, KDV, MTV ve tapu hesabı | Sarper Studios"
+  description="Vergi Hesabım, maaş, KDV, araç vergisi, tapu harcı, kira geliri ve gecikme zammını telefonunuzda hesaplayan Android uygulamasıdır. Geliştirici: Sarper Studios."
+>
+  <section class="vh-hero" aria-labelledby="vh-hero-title">
+    <div class="vh-shell vh-hero__grid">
+      <div class="vh-hero__copy">
+        <h1 id="vh-hero-title">Vergi hesabı, telefonunuzda.</h1>
+        <p class="vh-lede">
+          Vergi Hesabım; maaş, KDV, araç vergisi, tapu harcı, kira geliri ve gecikme zammını Türkiye'deki
+          kurallara göre hesaplayan bir Android uygulamasıdır. Hesap için internet gerekmez.
+        </p>
+        <p class="vh-status">
+          <span class="vh-status__dot" aria-hidden="true"></span>
+          Henüz mağazada değil. Google Play sayfası açıldığında bağlantısı burada yer alacak.
+        </p>
+      </div>
+      <div class="vh-hero__figure">
+        <Receipt
+          id="hesaplar-fis"
+          heading="Vergi Hesabım · 6 hesap"
+          rows={moduleRows}
+          total={{ label: "Hesabın yapıldığı yer", value: "Telefonunuz" }}
+          caption="Uygulamadaki altı hesap. Çizimdir, ekran görüntüsü değildir."
+        />
+      </div>
+    </div>
+  </section>
+
+  <section class="vh-bay" id="hesaplar" aria-labelledby="hesaplar-title">
+    <div class="vh-shell vh-split">
+      <h2 id="hesaplar-title">Altı hesap, tek soru: ne kadar?</h2>
+      <ol class="vh-ledger">
+        {
+          vergiModules.map((module) => (
+            <li>
+              <h3>{module.title}</h3>
+              <p>{module.question}</p>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+
+  <section class="vh-bay vh-bay--field" aria-labelledby="nasil-title">
+    <div class="vh-shell">
+      <h2 id="nasil-title">Hesabı telefon yapar. Yardım isteğe bağlıdır.</h2>
+      <div class="vh-pair">
+        <div class="vh-pair__item">
+          <h3><span class="vh-pip vh-pip--local" aria-hidden="true"></span>Yerel hesaplama</h3>
+          <p>
+            Oranlar ve tarifeler uygulamanın içindeki kural dosyalarından okunur, hesap telefonunuzda yapılır.
+            İnternet olmadan da çalışır. Son 10 hesap yalnızca telefonunuzda saklanır ve Geçmiş ekranından
+            silinebilir.
+          </p>
+        </div>
+        <div class="vh-pair__item">
+          <h3><span class="vh-pip" aria-hidden="true"></span>İsteğe bağlı yazarak veya sesle yardım</h3>
+          <p>
+            Durumunuzu yazarak ya da sesle anlatırsanız metin, form alanlarını doldurmak için Supabase üzerinden
+            OpenAI'ye gönderilir. Yapay zekâ hesap yapmaz; sonucu her zaman telefondaki kod hesaplar. Bu özelliği
+            kullanmazsanız hiçbir metniniz telefondan çıkmaz.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="vh-bay" aria-labelledby="reklam-title">
+    <div class="vh-shell vh-split">
+      <h2 id="reklam-title">Ücretsiz, reklamlı ve vergi bilginizden habersiz.</h2>
+      <div class="vh-prose">
+        <p>
+          Uygulama Google AdMob reklamlarıyla ücretsiz sunulur. Maaş, kira, borç tutarlarınız ve hesap sonuçlarınız
+          reklam isteğine eklenmez. Gereken bölgelerde reklam izni Google'ın gizlilik mesajıyla alınır ve uygulama
+          ayarlarından değiştirilebilir.
+        </p>
+        <p>
+          Vergi Hesabım resmî bir kurum uygulaması değildir; Gelir İdaresi Başkanlığı veya başka bir kamu kurumuyla
+          bağlantısı yoktur. Sonuçlar bilgilendirme içindir; beyan ve ödeme öncesinde resmî kaynaklarla kontrol edin.
+        </p>
+        <p><a class="vh-link" href={vergiPath("privacy")}>Gizlilik politikasının tamamını okuyun</a></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="vh-bay vh-bay--raised" aria-labelledby="gelistirici-title">
+    <div class="vh-shell vh-split">
+      <h2 id="gelistirici-title">Geliştirici</h2>
+      <dl class="vh-facts">
+        <div>
+          <dt>Yayıncı</dt>
+          <dd>{vergiHesabim.publisher}</dd>
+        </div>
+        <div>
+          <dt>Uygulama</dt>
+          <dd>{vergiHesabim.name}</dd>
+        </div>
+        <div>
+          <dt>Platform</dt>
+          <dd>Android · mağaza sayfası henüz yok</dd>
+        </div>
+        <div>
+          <dt>Paket adı</dt>
+          <dd><code>{vergiHesabim.androidPackage}</code></dd>
+        </div>
+        <div>
+          <dt>Destek</dt>
+          <dd><a href={mailto}>{vergiHesabim.supportEmail}</a></dd>
+        </div>
+        <div>
+          <dt>Gizlilik</dt>
+          <dd><a href={vergiPath("privacy")}>Gizlilik politikası</a></dd>
+        </div>
+      </dl>
+    </div>
+  </section>
+</VergiHesabimLayout>

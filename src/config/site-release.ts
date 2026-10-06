@@ -20,3 +20,15 @@ export const momentBackReleaseStatus = "public" as const;
 
 export const momentBackRobotsPolicy =
   momentBackReleaseStatus === "public" ? "index,follow" : "noindex,follow";
+
+/**
+ * Vergi Hesabım (Sarper Studios) is a third product surface under this domain,
+ * at /vergi-hesabim/. Its privacy policy must be reachable and readable by
+ * store and ad-network reviewers, so it is public on its own schedule and does
+ * not inherit Notura's preview noindex. Flip to "preview" to pull both pages
+ * out of search.
+ */
+export const vergiHesabimReleaseStatus = "public" as const;
+
+export const vergiHesabimRobotsPolicy =
+  vergiHesabimReleaseStatus === "public" ? "index,follow" : "noindex,follow";

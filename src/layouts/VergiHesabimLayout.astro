@@ -1,0 +1,95 @@
+---
+import SeoHead from "../components/SeoHead.astro";
+import { vergiHesabimRobotsPolicy } from "../config/site-release";
+import { vergiHesabim, vergiPath, type VergiPage } from "../content/vergi-hesabim";
+import "../styles/vergi-hesabim.css";
+
+interface Props {
+  page: VergiPage;
+  title: string;
+  description: string;
+}
+
+const { page, title, description } = Astro.props;
+const canonicalPath = vergiPath(page);
+const home = vergiPath("home");
+const mailto = `mailto:${vergiHesabim.supportEmail}`;
+
+const navigation = [
+  { href: page === "home" ? "#hesaplar" : `${home}#hesaplar`, label: "Hesaplar" },
+  { href: vergiPath("privacy"), label: "Gizlilik" },
+  { href: mailto, label: "Destek" },
+];
+---
+
+<!doctype html>
+<html lang="tr">
+  <head>
+    <SeoHead
+      title={title}
+      description={description}
+      canonicalPath={canonicalPath}
+      ogLocale="tr_TR"
+      robots={vergiHesabimRobotsPolicy}
+      siteName={vergiHesabim.name}
+      iconHref="/vergi-hesabim/icon-192.png"
+      themeColor="#0A2340"
+      colorScheme="light dark"
+    />
+  </head>
+  <body class="vh">
+    <!--
+      THESIS: Vergi Hesabım owns "the receipt you can trust": the sum is worked out on your phone, and the page shows where every piece of your information goes. It refuses the phone-on-gradient app hero and the icon-card feature grid.
+      OWN-WORLD: The app's own navy field (#0A2340) with its mint (#4FD1A2) meaning "stays on your phone"; white receipt paper with a torn zigzag edge, dotted leaders and tabular figures; hairline ledger rows, no cards.
+      STORY: A taxpayer or a store/ad reviewer learns what the app calculates, that calculation is local and AI help is optional, who publishes it, and reaches the privacy policy and support in one tap.
+      FIRST VIEWPORT: Full-bleed navy band; left the name, one-line promise and a plain status line; right a receipt listing the six calculators, printed down out of the band onto the paper ground.
+      FORM: Derived from the shipped app identity (icon, theme, receipt UI) rather than a roll; sub-brand like /momentback/.
+      FINISH: unreviewed and undocumented is unfinished; this build ends with the finish review, the verdict, DESIGN.md, and every shipping raster carrying its provenance
+    -->
+    <a class="vh-skip" href="#icerik">İçeriğe geç</a>
+
+    <header class="vh-head">
+      <div class="vh-shell vh-head__inner">
+        <a class="vh-brand" href={home} aria-current={page === "home" ? "page" : undefined}>
+          <img class="vh-brand__mark" src="/vergi-hesabim/icon-64.png" width="32" height="32" alt="" />
+          <span class="vh-brand__name">{vergiHesabim.name}</span>
+          <span class="vh-brand__by">{vergiHesabim.publisher}</span>
+        </a>
+        <nav class="vh-nav" aria-label="Vergi Hesabım">
+          <ul>
+            {
+              navigation.map((item) => (
+                <li>
+                  <a href={item.href} aria-current={item.href === canonicalPath ? "page" : undefined}>
+                    {item.label}
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main id="icerik" tabindex="-1">
+      <slot />
+    </main>
+
+    <footer class="vh-foot">
+      <div class="vh-shell vh-foot__inner">
+        <div class="vh-foot__brand">
+          <p class="vh-foot__name">{vergiHesabim.name}</p>
+          <p>Türkiye'deki günlük vergi hesapları, telefonunuzda. Resmî bir kurum uygulaması değildir.</p>
+        </div>
+        <nav aria-label="Alt bağlantılar">
+          <ul class="vh-foot__links">
+            <li><a href={home}>Ürün sayfası</a></li>
+            <li><a href={vergiPath("privacy")}>Gizlilik politikası</a></li>
+            <li><a href={mailto}>{vergiHesabim.supportEmail}</a></li>
+          </ul>
+        </nav>
+        <p class="vh-foot__legal">© 2026 {vergiHesabim.publisher}</p>
+      </div>
+    </footer>
+  </body>
+</html>

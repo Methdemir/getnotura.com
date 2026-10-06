@@ -361,3 +361,55 @@ paragraph carries the text alternative for either.
 viewfinder captioned "Interface diagram — not a screenshot" when not. The schematic is
 never dressed up as a product photograph. See
 `docs/web/momentback-screenshot-slots.md`.
+
+---
+
+## Sub-brand: Vergi Hesabım (`/vergi-hesabim/`)
+
+A third product under the same domain: Sarper Studios' Turkish tax calculator
+(Android, package `com.taxai.vergi_hesabi`). Two Turkish-only pages — the product
+page and the privacy policy — plus `public/app-ads.txt` at the domain root for
+AdMob. Like MomentBack it shares the build, the font files and the zero-JavaScript
+rule and nothing else. Its stylesheet, `src/styles/vergi-hesabim.css`, is standalone
+and every rule is scoped under `vh` / `vh-` classes. It reuses `SeoHead` through
+its optional `siteName`, `iconHref`, `themeColor` and `colorScheme` props, whose
+defaults keep Notura's head output unchanged. Copy lives in
+`src/content/vergi-hesabim.ts`, so the surface can move to another domain by
+moving that file, the layout, the component, the stylesheet and the two pages.
+
+**North star: "The receipt you can trust."** The sum is worked out on the phone,
+and the page shows where each piece of information goes.
+
+### Palette
+
+Taken from the app (`lib/ui/theme/app_spacing.dart`, `app_theme.dart`):
+navy `#0a2340` (the committed field: masthead, hero, the "how it works" band, the
+privacy header), navy deep `#06172a` (footer), mint `#4fd1a2` meaning **stays on
+your phone** and nothing else, receipt paper `#ffffff` on a cool `#f3f6f9` ground,
+ink `#14263a` / `#4f6072`, rules `#d3dde6`. The page follows the system theme
+because the app ships a dark theme; in dark the ground drops to `#050e18` so the
+navy still reads as a field, and the paper becomes `#15314d`.
+
+### The signature: the receipt
+
+`src/components/vergi-hesabim/Receipt.astro`. Label / value rows joined by a dotted
+leader, a dashed rule under the heading, a solid rule above the total, tabular
+figures, and a torn zigzag bottom edge made with a CSS mask (the drop shadow sits
+on a wrapper because a filter on the masked sheet is cut away by its own mask).
+On the product page it lists the six calculators and prints down out of the navy
+hero onto the ground; on the privacy page it is the "Bir bakışta" summary of where
+each kind of information goes. Rows marked local carry a mint dot. It states names
+and places only — never a computed amount — and is captioned as a drawing, not a
+screenshot. Below 34rem the leader collapses and values drop beneath their labels.
+
+### Motion
+
+One moment: the receipt prints top edge first (clip-path + 1.25rem drop, 900ms,
+`cubic-bezier(0.16, 1, 0.3, 1)`), inside `prefers-reduced-motion: no-preference`
+with `backwards` fill.
+
+### Rules kept from the floor
+
+No eyebrows, no cards as page structure (hairline ledgers instead), no gradients
+as surfaces (the mask's gradients are geometry, not color). The store status is a
+sentence, never a link or a badge, until a Play listing exists.
