@@ -46,6 +46,42 @@
         ],
         "createdAt": "2026-10-06T11:38:14.977Z",
         "reason": "Claude decision: standalone Vergi Hesabım sub-brand stylesheet, tokens from the app's theme, documented in DESIGN.md 'Sub-brand: Vergi Hesabım'; Notura's ramp does not apply (same as momentback.css)"
+      },
+      {
+        "rule": "design-system-font",
+        "value": "*",
+        "files": [
+          "src/styles/studio.css"
+        ],
+        "createdAt": "2026-10-07T11:36:04.516Z",
+        "reason": "Claude decision: standalone Sarper Studios / 999KB / Jutsu stylesheet, tokens from the studio and the apps' own themes, documented in DESIGN.md 'Sub-brand: Sarper Studios'; Notura's ramp does not apply (same as vergi-hesabim.css)"
+      },
+      {
+        "rule": "design-system-radius",
+        "value": "*",
+        "files": [
+          "src/styles/studio.css"
+        ],
+        "createdAt": "2026-10-07T11:36:04.645Z",
+        "reason": "Claude decision: standalone Sarper Studios / 999KB / Jutsu stylesheet, tokens from the studio and the apps' own themes, documented in DESIGN.md 'Sub-brand: Sarper Studios'; Notura's ramp does not apply (same as vergi-hesabim.css)"
+      },
+      {
+        "rule": "design-system-color",
+        "value": "*",
+        "files": [
+          "src/styles/studio.css"
+        ],
+        "createdAt": "2026-10-07T11:36:04.768Z",
+        "reason": "Claude decision: standalone Sarper Studios / 999KB / Jutsu stylesheet, tokens from the studio and the apps' own themes, documented in DESIGN.md 'Sub-brand: Sarper Studios'; Notura's ramp does not apply (same as vergi-hesabim.css)"
+      },
+      {
+        "rule": "design-system-font-size",
+        "value": "*",
+        "files": [
+          "src/styles/studio.css"
+        ],
+        "createdAt": "2026-10-07T11:36:04.909Z",
+        "reason": "Claude decision: standalone Sarper Studios / 999KB / Jutsu stylesheet, tokens from the studio and the apps' own themes, documented in DESIGN.md 'Sub-brand: Sarper Studios'; Notura's ramp does not apply (same as vergi-hesabim.css)"
       }
     ]
   }

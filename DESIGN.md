@@ -413,3 +413,46 @@ with `backwards` fill.
 No eyebrows, no cards as page structure (hairline ledgers instead), no gradients
 as surfaces (the mask's gradients are geometry, not color). The store status is a
 sentence, never a link or a badge, until a Play listing exists.
+
+## Sub-brand: Sarper Studios (`/`, `/999kb/`, `/jutsu/`)
+
+Since 7 October 2026 the domain root belongs to the publisher, Sarper Studios,
+and every product owns one top-level path: `/notura/`, `/momentback/`,
+`/vergi-hesabim/`, `/999kb/`, `/jutsu/`. Notura moved from the root to `/notura/`;
+its old URLs (`/en/`, `/tr/privacy/`, ...) are static redirect pages generated in
+`astro.config.mjs` and checked by `validate-build.mjs`. `app-ads.txt` stays at the
+domain root, where ad networks read it for every app.
+
+One standalone stylesheet, `src/styles/studio.css`, scoped under `ss` / `ss-`,
+serves the studio page and the 999KB Arcade and Jutsu product pages (English at
+the base path, Turkish under `tr/`, reciprocal hreflang). Copy lives in
+`src/content/studio.ts`; the layouts are `StudioLayout.astro` and
+`AppLayout.astro`, the bodies `components/studio/AppHome.astro` and
+`AppPrivacy.astro`.
+
+**North star: "The shelf, not a product."** The studio page names who publishes
+each app and gets a visitor or a reviewer to the right product page or privacy
+policy in one tap.
+
+### Palette
+
+Studio: warm paper `#f4f1ea`, raised `#ebe6dc`, near-black ink `#16171b` /
+`#57575d`, hairline rules `#d8d1c4`; in dark the ground is `#111215`. The only
+colour on the studio page is the apps' own icons. Product pages swap in the app's
+field and accent through `ss--999kb` (field `#0a0c1e`, mint `#00e5a0`, the four
+launcher tile colours in the hero) and `ss--jutsu` (field `#0e0f13`, orange
+`#f4761e`, from `NjColors`). The product hero is always the app's dark field; the
+reading ground follows the system theme.
+
+### Signatures
+
+- 999KB: a 10 × 10 grid of tiles, one per game, in the launcher icon's colours.
+- Jutsu: the recognition pipeline as a numbered, lit sequence ending in the
+  accent ("effect fires").
+- Privacy pages open with an "at a glance" table: what is kept and where, with a
+  filled pip for "stays on the phone" and a hollow one for "leaves the phone".
+
+### Naming
+
+The public name of the hand-sign app is **Jutsu**. The franchise name and its
+iconography stay off the site until the store name is decided.

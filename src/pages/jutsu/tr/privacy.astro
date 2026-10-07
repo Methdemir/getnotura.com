@@ -1,0 +1,12 @@
+---
+import AppPrivacy from "../../../components/studio/AppPrivacy.astro";
+import { appPages } from "../../../content/studio";
+import AppLayout from "../../../layouts/AppLayout.astro";
+
+const app = appPages["jutsu"];
+const copy = app.copy.tr.privacy;
+---
+
+<AppLayout app={app} locale="tr" page="privacy" title={copy.title} description={copy.description}>
+  <AppPrivacy app={app} locale="tr" />
+</AppLayout>

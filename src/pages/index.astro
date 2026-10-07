@@ -1,32 +1,109 @@
 ---
 /**
- * The neutral root, `/`.
- *
- * This used to be a language wall: a page whose only content was seven links,
- * standing between every arriving visitor and any word about the product. On a
- * static, zero-JavaScript site there is no redirect and no negotiation
- * available, so the fix is not to detect a language — it is to stop making the
- * choice a gate. The root now serves the English home in full, carries
- * `x-default`, and keeps the language selector in the masthead and the footer
- * where a visitor can switch in one click at any point.
- *
- * `/` and `/en/` therefore render the same body at two self-canonical URLs,
- * separated by hreflang: `/` is x-default, `/en/` is `en`. Both are emitted by
- * `alternateLinks("home")` and checked for reciprocity by the build validator.
+ * The domain root: Sarper Studios, the publisher of every product on this
+ * site. Each product owns one top-level path and its own look; this page only
+ * names them and links to each product page and privacy policy. It is also the
+ * "developer website" that store listings and app-ads.txt point at.
  */
-import HomeSurface from "../components/HomeSurface.astro";
-import { translate } from "../i18n/translations";
-import BaseLayout from "../layouts/BaseLayout.astro";
+import { studio, studioApps } from "../content/studio";
+import StudioLayout from "../layouts/StudioLayout.astro";
 
-const localeId = "en";
+const mailto = `mailto:${studio.email}`;
+const principles = [
+  {
+    heading: "Say where information goes",
+    body: "Every app has a privacy policy that opens with a plain table: what it keeps, and where. If something leaves your phone, the policy names who receives it.",
+  },
+  {
+    heading: "Do the work on the phone",
+    body: "Calculations, games and camera recognition run on the device wherever they can, and keep working without a connection.",
+  },
+  {
+    heading: "Keep it small",
+    body: "One app, one job. No accounts unless the job needs one, and no feature that is there to collect data.",
+  },
+];
 ---
 
-<BaseLayout
-  localeId={localeId}
-  destination="home"
+<StudioLayout
+  title="Sarper Studios — independent mobile apps"
+  description="Sarper Studios is an independent mobile app developer in Türkiye. Notura, MomentBack, Vergi Hesabım, 999KB Arcade and Jutsu: product pages, privacy policies and contact."
   canonicalPath="/"
-  title={translate(localeId, "metaHomeTitle")}
-  description={translate(localeId, "metaHomeDescription")}
 >
-  <HomeSurface localeId={localeId} />
-</BaseLayout>
+  <section class="ss-hero ss-hero--studio" aria-labelledby="hero-title">
+    <div class="ss-shell ss-hero__grid">
+      <div>
+        <h1 id="hero-title">Small apps that do one job properly.</h1>
+        <p class="ss-lede">
+          {studio.name} is an independent developer in {studio.location} making focused mobile apps: a
+          nutrition tracker, a replay camera, a tax calculator, a pocket arcade and a hand-sign camera.
+        </p>
+        <p class="ss-status">
+          <span class="ss-status__dot" aria-hidden="true"></span>
+          Five apps, none in the stores yet. Each one's product page and privacy policy is published here.
+        </p>
+      </div>
+      <figure class="ss-studio-figure">
+        {studioApps.map((app) => <img src={app.mark} width="96" height="96" alt={app.name} />)}
+        <figcaption>Notura, MomentBack, Vergi Hesabım, 999KB Arcade, Jutsu.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="ss-bay" id="apps" aria-labelledby="apps-title">
+    <div class="ss-shell">
+      <h2 id="apps-title">Apps</h2>
+      <ul class="ss-apps">
+        {
+          studioApps.map((app) => (
+            <li class="ss-app">
+              <img class="ss-app__mark" src={app.mark} width="52" height="52" alt="" />
+              <div>
+                <h3 class="ss-app__name">
+                  <a href={app.href}>{app.name}</a>
+                </h3>
+                <p class="ss-app__kind">
+                  {app.kind} · {app.status}
+                </p>
+              </div>
+              <p class="ss-app__line">{app.line}</p>
+              <ul class="ss-app__links" aria-label={app.name}>
+                <li><a href={app.href}>Product page</a></li>
+                <li><a href={app.privacyHref}>Privacy policy</a></li>
+              </ul>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <section class="ss-bay" aria-labelledby="how-title">
+    <div class="ss-shell ss-split">
+      <h2 id="how-title">How we build</h2>
+      <ul class="ss-rows">
+        {
+          principles.map((item) => (
+            <li>
+              <h3>{item.heading}</h3>
+              <p>{item.body}</p>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <section class="ss-bay ss-bay--raised" aria-labelledby="contact-title">
+    <div class="ss-shell ss-split">
+      <h2 id="contact-title">Contact</h2>
+      <div class="ss-prose">
+        <p class="ss-contact"><a href={mailto}>{studio.email}</a></p>
+        <p>
+          For support, privacy questions and business enquiries about any of our apps. MomentBack
+          also lists its own support address on its pages.
+        </p>
+      </div>
+    </div>
+  </section>
+</StudioLayout>

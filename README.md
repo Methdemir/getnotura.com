@@ -1,6 +1,16 @@
-# Notura Web
+# getnotura.com
 
-Static, locale-prefixed public website foundation for Notura, built with Astro and designed for GitHub Pages.
+Static website for Sarper Studios and its apps, built with Astro and deployed to GitHub Pages.
+
+| Path | Surface |
+|---|---|
+| `/` | Sarper Studios (publisher page) |
+| `/notura/` | Notura, seven locales (old root URLs such as `/tr/privacy/` redirect here) |
+| `/momentback/` | MomentBack |
+| `/vergi-hesabim/` | Vergi Hesabım |
+| `/999kb/` | 999KB Arcade (English, Turkish under `tr/`) |
+| `/jutsu/` | Jutsu (English, Turkish under `tr/`) |
+| `/app-ads.txt` | AdMob seller declaration for every app |
 
 ## Requirements
 

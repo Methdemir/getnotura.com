@@ -1,0 +1,132 @@
+---
+import { appPath, studio, type AppLocale, type AppPage } from "../../content/studio";
+
+interface Props {
+  app: AppPage;
+  locale: AppLocale;
+}
+
+const { app, locale } = Astro.props;
+const copy = app.copy[locale].home;
+const privacy = appPath(app, locale, "privacy");
+const mailto = `mailto:${studio.email}`;
+const tiles = Array.from({ length: 100 });
+const sequence =
+  locale === "tr"
+    ? [
+        { title: "El bulunur", body: "Kamera karesinde el noktaları" },
+        { title: "İşaret okunur", body: "Parmakların hangi işareti yaptığı" },
+        { title: "Dizi izlenir", body: "Adım adım, doğru sırayla" },
+        { title: "Efekt tetiklenir", body: "Ekranda, kamera görüntüsünün üstünde" },
+      ]
+    : [
+        { title: "Hand found", body: "Hand landmarks in the camera frame" },
+        { title: "Sign read", body: "Which sign your fingers are making" },
+        { title: "Sequence followed", body: "Step by step, in the right order" },
+        { title: "Effect fires", body: "On screen, over the camera image" },
+      ];
+const figureCaption =
+  app.id === "999kb"
+    ? locale === "tr"
+      ? "Her kare bir oyun. Çizimdir, ekran görüntüsü değildir."
+      : "One square per game. An illustration, not a screenshot."
+    : locale === "tr"
+      ? "Tanımanın dört adımı, hepsi telefonda."
+      : "The four steps of recognition, all on the phone.";
+---
+
+<section class="ss-hero ss-hero--field" aria-labelledby="hero-title">
+  <div class="ss-shell ss-hero__grid">
+    <div>
+      <h1 id="hero-title">{copy.heading}</h1>
+      <p class="ss-lede">{copy.lede}</p>
+      <p class="ss-status">
+        <span class="ss-status__dot" aria-hidden="true"></span>
+        {copy.status}
+      </p>
+      <ul class="ss-facts-strip" aria-label={copy.factsHeading}>
+        {
+          copy.facts.map((fact) => (
+            <li>
+              <strong>{fact.value}</strong>
+              <span>{fact.label}</span>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+    <figure>
+      {
+        app.id === "999kb" ? (
+          <ul class="ss-grid100" aria-hidden="true">
+            {tiles.map(() => (
+              <li />
+            ))}
+          </ul>
+        ) : (
+          <ol class="ss-sequence">
+            {sequence.map((step) => (
+              <li>
+                <div>
+                  <strong>{step.title}</strong>
+                  <span>{step.body}</span>
+                </div>
+              </li>
+            ))}
+          </ol>
+        )
+      }
+      <figcaption class="ss-figcaption">{figureCaption}</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section class="ss-bay" id="features" aria-labelledby="features-title">
+  <div class="ss-shell ss-split">
+    <h2 id="features-title">{copy.featuresHeading}</h2>
+    <ul class="ss-features">
+      {
+        copy.features.map((feature) => (
+          <li>
+            <h3>{feature.heading}</h3>
+            <p>{feature.body}</p>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
+
+<section class="ss-bay" aria-labelledby="privacy-title">
+  <div class="ss-shell ss-split">
+    <h2 id="privacy-title">{copy.privacyHeading}</h2>
+    <div class="ss-prose">
+      {copy.privacyBody.map((paragraph) => <p>{paragraph}</p>)}
+      <p><a class="ss-link" href={privacy}>{copy.privacyLink}</a></p>
+    </div>
+  </div>
+</section>
+
+<section class="ss-bay ss-bay--raised" aria-labelledby="developer-title">
+  <div class="ss-shell ss-split">
+    <h2 id="developer-title">{copy.developerHeading}</h2>
+    <dl class="ss-facts">
+      <div>
+        <dt>{copy.developer.publisher}</dt>
+        <dd><a href="/">{studio.name}</a></dd>
+      </div>
+      <div>
+        <dt>{copy.developer.platform}</dt>
+        <dd>{copy.developer.platformValue}</dd>
+      </div>
+      <div>
+        <dt>{copy.developer.contact}</dt>
+        <dd><a href={mailto}>{studio.email}</a></dd>
+      </div>
+      <div>
+        <dt>{copy.developer.privacy}</dt>
+        <dd><a href={privacy}>{app.copy[locale].privacy.heading}</a></dd>
+      </div>
+    </dl>
+  </div>
+</section>

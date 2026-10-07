@@ -1,0 +1,12 @@
+---
+import AppHome from "../../components/studio/AppHome.astro";
+import { appPages } from "../../content/studio";
+import AppLayout from "../../layouts/AppLayout.astro";
+
+const app = appPages["jutsu"];
+const copy = app.copy.en.home;
+---
+
+<AppLayout app={app} locale="en" page="home" title={copy.title} description={copy.description}>
+  <AppHome app={app} locale="en" />
+</AppLayout>

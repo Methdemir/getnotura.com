@@ -1,0 +1,86 @@
+---
+import { studio, type AppLocale, type AppPage } from "../../content/studio";
+
+interface Props {
+  app: AppPage;
+  locale: AppLocale;
+}
+
+const { app, locale } = Astro.props;
+const copy = app.copy[locale].privacy;
+const mailto = `mailto:${studio.email}`;
+const lastSection = copy.sections.at(-1)?.id;
+---
+
+<article>
+  <header class="ss-doc__head">
+    <div class="ss-shell ss-doc__head-grid">
+      <div>
+        <h1>{copy.heading}</h1>
+        <p class="ss-doc__product">{app.name} · Android</p>
+        <p class="ss-doc__date">
+          {copy.effectiveLabel}: <time datetime={copy.effectiveDateIso}>{copy.effectiveDate}</time>
+        </p>
+      </div>
+      <p class="ss-lede ss-doc__intro">{copy.intro}</p>
+    </div>
+  </header>
+
+  <div class="ss-shell">
+    <section class="ss-glance" aria-labelledby="glance-title">
+      <h2 id="glance-title">{copy.glanceHeading}</h2>
+      <table>
+        <tbody>
+          {
+            copy.glance.map((row) => (
+              <tr>
+                <th scope="row">{row.what}</th>
+                <td data-local={String(row.local)}>
+                  <span class="ss-glance__pip" aria-hidden="true" />
+                  {row.where}
+                </td>
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
+    </section>
+  </div>
+
+  <div class="ss-shell ss-doc__body">
+    <nav class="ss-toc" aria-labelledby="toc-title">
+      <h2 id="toc-title">{copy.tocHeading}</h2>
+      <ol>
+        {copy.sections.map((section) => (
+          <li><a href={`#${section.id}`}>{section.heading}</a></li>
+        ))}
+      </ol>
+    </nav>
+
+    <div class="ss-sections">
+      {
+        copy.sections.map((section) => (
+          <section id={section.id} aria-labelledby={`${section.id}-title`}>
+            <h2 id={`${section.id}-title`}>{section.heading}</h2>
+            {section.paragraphs.map((paragraph) => (
+              <p>{paragraph}</p>
+            ))}
+            {section.list && (
+              <ul>
+                {section.list.map((item) => (
+                  <li>{item}</li>
+                ))}
+              </ul>
+            )}
+            {section.id === lastSection && (
+              <p>
+                <a class="ss-link" href={mailto}>{studio.email}</a>
+              </p>
+            )}
+          </section>
+        ))
+      }
+      <p class="ss-footnote">{copy.footnote}</p>
+    </div>
+  </div>
+</article>

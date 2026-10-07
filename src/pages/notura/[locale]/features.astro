@@ -8,18 +8,18 @@
  * PDF reports, and a Community you control. The full list lives on /product/,
  * once.
  */
-import AppScreen from "../../components/AppScreen.astro";
-import CaptureDemo from "../../components/CaptureDemo.astro";
-import CommunityDemo from "../../components/CommunityDemo.astro";
-import Demonstration from "../../components/Demonstration.astro";
-import EstimateField from "../../components/EstimateField.astro";
-import Icon from "../../components/Icon.astro";
-import type { IconName } from "../../components/icons";
-import PageIntro from "../../components/PageIntro.astro";
-import { publishedLocales, type LocaleDefinition } from "../../i18n/locales";
-import { localizedPath } from "../../i18n/routes";
-import { translate, type TranslationKey } from "../../i18n/translations";
-import BaseLayout from "../../layouts/BaseLayout.astro";
+import AppScreen from "../../../components/AppScreen.astro";
+import CaptureDemo from "../../../components/CaptureDemo.astro";
+import CommunityDemo from "../../../components/CommunityDemo.astro";
+import Demonstration from "../../../components/Demonstration.astro";
+import EstimateField from "../../../components/EstimateField.astro";
+import Icon from "../../../components/Icon.astro";
+import type { IconName } from "../../../components/icons";
+import PageIntro from "../../../components/PageIntro.astro";
+import { publishedLocales, type LocaleDefinition } from "../../../i18n/locales";
+import { localizedPath } from "../../../i18n/routes";
+import { translate, type TranslationKey } from "../../../i18n/translations";
+import BaseLayout from "../../../layouts/BaseLayout.astro";
 
 export function getStaticPaths() {
   return publishedLocales.map((locale) => ({

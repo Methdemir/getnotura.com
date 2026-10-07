@@ -32,3 +32,15 @@ export const vergiHesabimReleaseStatus = "public" as const;
 
 export const vergiHesabimRobotsPolicy =
   vergiHesabimReleaseStatus === "public" ? "index,follow" : "noindex,follow";
+
+/**
+ * Sarper Studios — the publisher page at `/` and the 999KB Arcade and Jutsu
+ * product pages. Their privacy policies must be readable by store and
+ * ad-network reviewers, so they are public on their own schedule and do not
+ * inherit Notura's preview noindex. Flip to "preview" to pull them out of
+ * search.
+ */
+export const studioReleaseStatus = "public" as const;
+
+export const studioRobotsPolicy =
+  studioReleaseStatus === "public" ? "index,follow" : "noindex,follow";

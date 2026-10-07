@@ -7,19 +7,19 @@
  * page only mentions in passing. Five groups, each a ruled ledger rather than a
  * card grid, because the point of the page is completeness, not persuasion.
  */
-import AppScreen from "../../components/AppScreen.astro";
-import CaptureDemo from "../../components/CaptureDemo.astro";
-import Demonstration from "../../components/Demonstration.astro";
-import EstimateField from "../../components/EstimateField.astro";
-import Icon from "../../components/Icon.astro";
-import type { IconName } from "../../components/icons";
-import PageIntro from "../../components/PageIntro.astro";
-import StoreStatus from "../../components/StoreStatus.astro";
-import TimelineDemo from "../../components/TimelineDemo.astro";
-import { publishedLocales, type LocaleDefinition } from "../../i18n/locales";
-import { localizedPath } from "../../i18n/routes";
-import { translate, type TranslationKey } from "../../i18n/translations";
-import BaseLayout from "../../layouts/BaseLayout.astro";
+import AppScreen from "../../../components/AppScreen.astro";
+import CaptureDemo from "../../../components/CaptureDemo.astro";
+import Demonstration from "../../../components/Demonstration.astro";
+import EstimateField from "../../../components/EstimateField.astro";
+import Icon from "../../../components/Icon.astro";
+import type { IconName } from "../../../components/icons";
+import PageIntro from "../../../components/PageIntro.astro";
+import StoreStatus from "../../../components/StoreStatus.astro";
+import TimelineDemo from "../../../components/TimelineDemo.astro";
+import { publishedLocales, type LocaleDefinition } from "../../../i18n/locales";
+import { localizedPath } from "../../../i18n/routes";
+import { translate, type TranslationKey } from "../../../i18n/translations";
+import BaseLayout from "../../../layouts/BaseLayout.astro";
 
 export function getStaticPaths() {
   return publishedLocales.map((locale) => ({

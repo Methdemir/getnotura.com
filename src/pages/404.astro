@@ -1,45 +1,35 @@
 ---
-import BrandLink from "../components/BrandLink.astro";
-import { publishedLocales } from "../i18n/locales";
-import { localizedPath } from "../i18n/routes";
-import DocumentLayout from "../layouts/DocumentLayout.astro";
+import { studioApps } from "../content/studio";
+import StudioLayout from "../layouts/StudioLayout.astro";
 ---
 
-<DocumentLayout
-  lang="en"
-  title="Page not found | Notura"
-  description="The requested Notura page could not be found."
-  skipLinkText="Skip to main content"
+<StudioLayout
+  title="Page not found | Sarper Studios"
+  description="The requested page could not be found."
   robots="noindex,follow"
 >
-  <header class="plain-head">
-    <div class="shell">
-      <BrandLink href="/" label="Notura home" />
-    </div>
-  </header>
-  <main id="main-content" tabindex="-1" class="entry shell">
-    <section aria-labelledby="not-found-heading">
-      <p class="entry__code">404</p>
-      <h1 id="not-found-heading">Page not found</h1>
-      <p>
-        The Notura lockup above returns to the home page. It is also published in
-        these languages:
-      </p>
-      <ul class="locale-grid">
-        {
-          publishedLocales.map((locale) => (
-            <li>
-              <a
-                href={localizedPath(locale.id, "home")}
-                lang={locale.htmlLang}
-                hreflang={locale.hreflang}
-              >
-                {locale.nativeName}
-              </a>
-            </li>
-          ))
-        }
-      </ul>
-    </section>
-  </main>
-</DocumentLayout>
+  <section class="ss-entry ss-shell" aria-labelledby="not-found-heading">
+    <p class="ss-entry__code">404</p>
+    <h1 id="not-found-heading">Page not found</h1>
+    <p>This address does not exist. Each app on this site has its own page:</p>
+    <ul class="ss-apps">
+      {
+        studioApps.map((app) => (
+          <li class="ss-app">
+            <img class="ss-app__mark" src={app.mark} width="52" height="52" alt="" />
+            <div>
+              <h2 class="ss-app__name">
+                <a href={app.href}>{app.name}</a>
+              </h2>
+              <p class="ss-app__kind">{app.kind}</p>
+            </div>
+            <p class="ss-app__line">{app.line}</p>
+            <ul class="ss-app__links" aria-label={app.name}>
+              <li><a href={app.privacyHref}>Privacy policy</a></li>
+            </ul>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+</StudioLayout>

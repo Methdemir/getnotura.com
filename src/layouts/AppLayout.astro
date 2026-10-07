@@ -1,0 +1,106 @@
+---
+import SeoHead from "../components/SeoHead.astro";
+import { studioRobotsPolicy } from "../config/site-release";
+import { appPath, studio, type AppLocale, type AppPage } from "../content/studio";
+import "../styles/studio.css";
+
+interface Props {
+  app: AppPage;
+  locale: AppLocale;
+  page: "home" | "privacy";
+  title: string;
+  description: string;
+}
+
+const { app, locale, page, title, description } = Astro.props;
+const copy = app.copy[locale];
+const otherLocale: AppLocale = locale === "en" ? "tr" : "en";
+const home = appPath(app, locale, "home");
+const privacy = appPath(app, locale, "privacy");
+const canonicalPath = appPath(app, locale, page);
+const mailto = `mailto:${studio.email}`;
+const alternates = [
+  { hreflang: "en", href: appPath(app, "en", page) },
+  { hreflang: "tr", href: appPath(app, "tr", page) },
+  { hreflang: "x-default", href: appPath(app, "en", page) },
+];
+const navigation = [
+  { href: page === "home" ? "#features" : `${home}#features`, label: copy.nav.features },
+  { href: privacy, label: copy.nav.privacy },
+  { href: mailto, label: copy.nav.contact },
+];
+---
+
+<!doctype html>
+<html lang={copy.htmlLang}>
+  <head>
+    <SeoHead
+      title={title}
+      description={description}
+      canonicalPath={canonicalPath}
+      alternates={alternates}
+      ogLocale={copy.ogLocale}
+      robots={studioRobotsPolicy}
+      siteName={app.name}
+      iconHref={app.icon}
+      themeColor={app.themeColor}
+      colorScheme="light dark"
+    />
+  </head>
+  <body class={`ss ss--${app.id}`}>
+    <a class="ss-skip" href="#main-content">{copy.skip}</a>
+    <header class="ss-head ss-head--field">
+      <div class="ss-shell ss-head__inner">
+        <a class="ss-brand" href={home} aria-current={page === "home" ? "page" : undefined}>
+          <img class="ss-brand__mark" src={app.icon} width="32" height="32" alt="" />
+          <span class="ss-brand__name">{app.name}</span>
+          <span class="ss-brand__by">{studio.name}</span>
+        </a>
+        <nav class="ss-nav" aria-label={app.name}>
+          <ul>
+            {
+              navigation.map((item) => (
+                <li>
+                  <a href={item.href} aria-current={item.href === canonicalPath ? "page" : undefined}>
+                    {item.label}
+                  </a>
+                </li>
+              ))
+            }
+            <li>
+              <a
+                class="ss-langswitch"
+                href={appPath(app, otherLocale, page)}
+                hreflang={copy.languageSwitch.hreflang}
+                lang={copy.languageSwitch.lang}
+              >
+                {copy.languageSwitch.label}
+              </a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main-content" tabindex="-1">
+      <slot />
+    </main>
+
+    <footer class="ss-foot">
+      <div class="ss-shell ss-foot__inner">
+        <div class="ss-foot__brand">
+          <p class="ss-foot__name">{app.name}</p>
+          <p>{copy.footer.line}</p>
+        </div>
+        <nav aria-label={copy.nav.studio}>
+          <ul class="ss-foot__links">
+            <li><a href={privacy}>{copy.nav.privacy}</a></li>
+            <li><a href={mailto}>{studio.email}</a></li>
+            <li><a href="/">{copy.footer.studioLink}</a></li>
+          </ul>
+        </nav>
+        <p class="ss-foot__legal">{copy.footer.rights}</p>
+      </div>
+    </footer>
+  </body>
+</html>

@@ -42,10 +42,12 @@ const metaTitleKeys = {
   privacy: "metaPrivacyTitle",
   terms: "metaTermsTitle",
 };
-const destinationPath = (locale, destination) => {
+const noturaBase = "/notura";
+const legacyPath = (locale, destination) => {
   const suffix = routes[destination].path;
   return suffix ? `/${locale.urlPrefix}/${suffix}/` : `/${locale.urlPrefix}/`;
 };
+const destinationPath = (locale, destination) => `${noturaBase}${legacyPath(locale, destination)}`;
 const dictionaries = new Map(
   await Promise.all(
     published.map(async (locale) => [
@@ -57,10 +59,10 @@ const dictionaries = new Map(
   ),
 );
 const expectedPages = [
-  // The neutral root is the x-default entry and serves the English home, so it
-  // carries the English home title rather than a title of its own.
+  // Notura's neutral root is the x-default entry and serves the English home,
+  // so it carries the English home title rather than a title of its own.
   {
-    path: "/",
+    path: `${noturaBase}/`,
     lang: "en",
     selfHreflang: "x-default",
     destination: "home",
@@ -121,7 +123,7 @@ for (const expected of expectedPages) {
     ]),
   );
   if (expected.destination === "home") {
-    expectedAlternates.set("x-default", absolute("/"));
+    expectedAlternates.set("x-default", absolute(`${noturaBase}/`));
   }
 
   if (alternates.size !== expectedAlternates.size) {
@@ -339,6 +341,97 @@ for (const vergiPath of vergiPages) {
 }
 
 /**
+ * Notura moved from the domain root to /notura/. Every old published URL must
+ * still exist as a static redirect page pointing at its new home, so the
+ * Notura app's links and anyone's bookmarks keep working.
+ */
+for (const locale of published) {
+  for (const destination of publishedDestinations) {
+    const oldPath = legacyPath(locale, destination);
+    const newPath = destinationPath(locale, destination);
+    const file = pageFile(oldPath);
+    if (!(await exists(file))) {
+      throw new Error(`Missing legacy redirect page: ${oldPath}`);
+    }
+    const html = await readFile(file, "utf8");
+    if (!html.includes(`http-equiv="refresh" content="0;url=${newPath}"`)) {
+      throw new Error(`Legacy page ${oldPath} does not redirect to ${newPath}.`);
+    }
+    if (!/<meta\b[^>]*name="robots"[^>]*content="noindex"/i.test(html)) {
+      throw new Error(`Legacy redirect ${oldPath} must be noindex.`);
+    }
+  }
+}
+
+/**
+ * The domain root is the Sarper Studios page, and 999KB Arcade and Jutsu are
+ * English + Turkish product surfaces with reciprocal hreflang. All are public
+ * so store and ad-network reviewers can read them.
+ */
+const singlePage = async (pagePath, lang) => {
+  const file = pageFile(pagePath);
+  if (!(await exists(file))) {
+    throw new Error(`Missing generated page: ${pagePath}`);
+  }
+  const html = await readFile(file, "utf8");
+  if (html.match(/<html\b[^>]*lang="([^"]+)"/i)?.[1] !== lang) {
+    throw new Error(`${pagePath} must be lang="${lang}".`);
+  }
+  const canonicals = linkTags(html, "canonical");
+  if (canonicals.length !== 1 || getAttribute(canonicals[0], "href") !== absolute(pagePath)) {
+    throw new Error(`${pagePath} must carry exactly one self-canonical.`);
+  }
+  if (!/<meta\b[^>]*name="robots"[^>]*content="index,follow"/i.test(html)) {
+    throw new Error(`${pagePath} must be index,follow.`);
+  }
+  if ((html.match(/<h1\b/gi) ?? []).length !== 1) {
+    throw new Error(`${pagePath} must contain exactly one h1.`);
+  }
+  return html;
+};
+
+const studioHtml = await singlePage("/", "en");
+if (linkTags(studioHtml, "alternate").length) {
+  throw new Error("The studio root is English-only and must not declare hreflang alternates.");
+}
+
+const appBases = ["/999kb/", "/jutsu/"];
+for (const base of appBases) {
+  for (const suffix of ["", "privacy/"]) {
+    const en = `${base}${suffix}`;
+    const tr = `${base}tr/${suffix}`;
+    const expected = new Map([
+      ["en", absolute(en)],
+      ["tr", absolute(tr)],
+      ["x-default", absolute(en)],
+    ]);
+    for (const [pagePath, lang] of [
+      [en, "en"],
+      [tr, "tr"],
+    ]) {
+      const html = await singlePage(pagePath, lang);
+      const alternates = new Map(
+        linkTags(html, "alternate").map((tag) => [getAttribute(tag, "hreflang"), getAttribute(tag, "href")]),
+      );
+      if (alternates.size !== expected.size) {
+        throw new Error(`Incomplete hreflang set for ${pagePath}.`);
+      }
+      for (const [hreflang, href] of expected) {
+        if (alternates.get(hreflang) !== href) {
+          throw new Error(`Invalid ${hreflang} alternate on ${pagePath}.`);
+        }
+      }
+      if (!sitemapPaths.has(pagePath)) {
+        throw new Error(`Product page missing from sitemap: ${pagePath}`);
+      }
+    }
+  }
+}
+if (!sitemapPaths.has("/")) {
+  throw new Error("The studio root is missing from the sitemap.");
+}
+
+/**
  * app-ads.txt is read by ad networks at the domain root. The AdMob line must
  * appear exactly once; other sellers' lines are allowed alongside it.
  */
@@ -358,5 +451,6 @@ if (/^\s*Disallow:\s*\/app-ads\.txt/im.test(robotsTxt)) {
 console.log(
   `Build validation passed for ${expectedPages.length} canonical pages, localized titles, 404, CNAME, ` +
     `reciprocal hreflang, internal links, ${sitemapLocs.length} sitemap entries, robots.txt, ` +
-    `no unpublished store URLs, zero client JavaScript, the Vergi Hesabım pages and app-ads.txt.`,
+    `no unpublished store URLs, zero client JavaScript, the Notura legacy redirects, the studio root, ` +
+    `the Vergi Hesabım, 999KB Arcade and Jutsu pages and app-ads.txt.`,
 );

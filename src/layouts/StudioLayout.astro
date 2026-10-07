@@ -1,0 +1,78 @@
+---
+import SeoHead from "../components/SeoHead.astro";
+import { studioRobotsPolicy } from "../config/site-release";
+import { studio } from "../content/studio";
+import "../styles/studio.css";
+
+interface Props {
+  title: string;
+  description: string;
+  canonicalPath?: string | undefined;
+  robots?: string | undefined;
+}
+
+const { title, description, canonicalPath, robots = studioRobotsPolicy } = Astro.props;
+const mailto = `mailto:${studio.email}`;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <SeoHead
+      title={title}
+      description={description}
+      canonicalPath={canonicalPath}
+      ogLocale="en_US"
+      robots={robots}
+      siteName={studio.name}
+      iconHref="/studio/mark.svg"
+      themeColor="#16171B"
+      colorScheme="light dark"
+    />
+  </head>
+  <body class="ss ss--studio">
+    <!--
+      THESIS: Sarper Studios is the shelf, not a product: it names who publishes each app and gets a visitor or reviewer to the right product page or privacy policy in one tap. It refuses the agency hero with a tagline and a grid of shiny app cards.
+      OWN-WORLD: Warm paper and near-black ink with hairline ledger rows; the only colour on the page is the apps' own icons.
+      STORY: Someone arriving at the bare domain, or a store/ad-network reviewer checking the developer website, learns who the studio is, sees every app with its status, and reaches its page, its privacy policy or the studio's email.
+      FIRST VIEWPORT: Left the studio name as a heading-sized promise and a plain status line; right the five app icons on a shelf.
+      FORM: Standalone stylesheet (studio.css); each product keeps its own world.
+    -->
+    <a class="ss-skip" href="#main-content">Skip to main content</a>
+    <header class="ss-head">
+      <div class="ss-shell ss-head__inner">
+        <a class="ss-brand" href="/">
+          <img class="ss-brand__mark" src="/studio/mark.svg" width="32" height="32" alt="" />
+          <span class="ss-brand__name">{studio.name}</span>
+        </a>
+        <nav class="ss-nav" aria-label="Sarper Studios">
+          <ul>
+            <li><a href="/#apps">Apps</a></li>
+            <li><a href={mailto}>Contact</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main-content" tabindex="-1">
+      <slot />
+    </main>
+
+    <footer class="ss-foot">
+      <div class="ss-shell ss-foot__inner">
+        <div class="ss-foot__brand">
+          <p class="ss-foot__name">{studio.name}</p>
+          <p>Independent mobile apps, made in {studio.location}.</p>
+        </div>
+        <nav aria-label="Footer">
+          <ul class="ss-foot__links">
+            <li><a href="/#apps">Apps</a></li>
+            <li><a href={mailto}>{studio.email}</a></li>
+            <li><a href="/app-ads.txt">app-ads.txt</a></li>
+          </ul>
+        </nav>
+        <p class="ss-foot__legal">© 2026 {studio.name}</p>
+      </div>
+    </footer>
+  </body>
+</html>

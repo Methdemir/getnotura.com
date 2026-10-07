@@ -1,0 +1,34 @@
+---
+/**
+ * Notura's neutral root, `/notura/`. (The domain root `/` is the Sarper Studios
+ * publisher page; Notura moved here, and its old URLs redirect.)
+ *
+ * This used to be a language wall: a page whose only content was seven links,
+ * standing between every arriving visitor and any word about the product. On a
+ * static, zero-JavaScript site there is no redirect and no negotiation
+ * available, so the fix is not to detect a language — it is to stop making the
+ * choice a gate. The root now serves the English home in full, carries
+ * `x-default`, and keeps the language selector in the masthead and the footer
+ * where a visitor can switch in one click at any point.
+ *
+ * `/notura/` and `/notura/en/` therefore render the same body at two
+ * self-canonical URLs, separated by hreflang: `/notura/` is x-default,
+ * `/notura/en/` is `en`. Both are emitted by
+ * `alternateLinks("home")` and checked for reciprocity by the build validator.
+ */
+import HomeSurface from "../../components/HomeSurface.astro";
+import { translate } from "../../i18n/translations";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+const localeId = "en";
+---
+
+<BaseLayout
+  localeId={localeId}
+  destination="home"
+  canonicalPath="/notura/"
+  title={translate(localeId, "metaHomeTitle")}
+  description={translate(localeId, "metaHomeDescription")}
+>
+  <HomeSurface localeId={localeId} />
+</BaseLayout>
