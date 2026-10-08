@@ -77,6 +77,8 @@ export const GET: APIRoute = () => {
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
 ${[
   plainEntry("/"),
+  plainEntry("/mergekin/"),
+  plainEntry("/kimo/"),
   ...entries.map(urlEntry),
   ...Object.values(vergiHesabim.paths).map(plainEntry),
   ...appEntries,

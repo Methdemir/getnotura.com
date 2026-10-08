@@ -1,0 +1,17 @@
+---
+/** Placeholder until the full product page and privacy policy are written. */
+import { studio, studioApps } from "../../content/studio";
+import StudioLayout from "../../layouts/StudioLayout.astro";
+
+const app = studioApps.find((candidate) => candidate.id === "kimo")!;
+---
+
+<StudioLayout title={`${app.name} | ${studio.name}`} description={app.line} canonicalPath={app.href}>
+  <section class="ss-entry ss-shell" aria-labelledby="app-heading">
+    <img class="ss-app__mark" src={app.mark} width="52" height="52" alt="" />
+    <h1 id="app-heading">{app.name}</h1>
+    <p>{app.kind} · {app.status}</p>
+    <p>The product page and privacy policy are coming soon. Questions: <a href={`mailto:${studio.email}`}>{studio.email}</a></p>
+    <p><a class="ss-link" href="/">All Sarper Studios apps</a></p>
+  </section>
+</StudioLayout>

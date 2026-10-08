@@ -30,7 +30,8 @@ export interface StudioApp {
   id: string;
   name: string;
   href: string;
-  privacyHref: string;
+  /** Absent while the app has only a placeholder page. */
+  privacyHref?: string;
   /** One line, English, for the studio index. */
   line: string;
   kind: string;
@@ -90,6 +91,24 @@ export const studioApps: StudioApp[] = [
     kind: "Entertainment · Android",
     status: "Coming soon",
     mark: "/jutsu/icon-64.png",
+  },
+  {
+    id: "mergekin",
+    name: "MERGEKIN: Echo Defense",
+    href: "/mergekin/",
+    line: "A merge-and-defend strategy game. Page coming soon.",
+    kind: "Games · Android",
+    status: "In development",
+    mark: "/studio/mergekin.svg",
+  },
+  {
+    id: "kimo",
+    name: "Kim O?",
+    href: "/kimo/",
+    line: "A guessing game about Turkish pop culture. Page coming soon.",
+    kind: "Games · Android · Turkish",
+    status: "In development",
+    mark: "/studio/kimo.svg",
   },
 ];
 

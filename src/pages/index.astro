@@ -27,7 +27,7 @@ const principles = [
 
 <StudioLayout
   title="Sarper Studios — independent mobile apps"
-  description="Sarper Studios is an independent mobile app developer in Türkiye. Notura, MomentBack, Vergi Hesabım, 999KB Arcade and Jutsu: product pages, privacy policies and contact."
+  description="Sarper Studios is an independent mobile app developer in Türkiye. Notura, MomentBack, Vergi Hesabım, 999KB Arcade, Jutsu, MERGEKIN and Kim O?: product pages, privacy policies and contact."
   canonicalPath="/"
 >
   <section class="ss-hero ss-hero--studio" aria-labelledby="hero-title">
@@ -36,16 +36,17 @@ const principles = [
         <h1 id="hero-title">Small apps that do one job properly.</h1>
         <p class="ss-lede">
           {studio.name} is an independent developer in {studio.location} making focused mobile apps: a
-          nutrition tracker, a replay camera, a tax calculator, a pocket arcade and a hand-sign camera.
+          nutrition tracker, a replay camera, a tax calculator, a pocket arcade, a hand-sign camera and two
+          games in development.
         </p>
         <p class="ss-status">
           <span class="ss-status__dot" aria-hidden="true"></span>
-          Five apps, none in the stores yet. Each one's product page and privacy policy is published here.
+          Seven apps, none in the stores yet. Each one's product page and privacy policy is published here.
         </p>
       </div>
       <figure class="ss-studio-figure">
         {studioApps.map((app) => <img src={app.mark} width="96" height="96" alt={app.name} />)}
-        <figcaption>Notura, MomentBack, Vergi Hesabım, 999KB Arcade, Jutsu.</figcaption>
+        <figcaption>{studioApps.map((app) => app.name).join(", ")}.</figcaption>
       </figure>
     </div>
   </section>
@@ -69,7 +70,7 @@ const principles = [
               <p class="ss-app__line">{app.line}</p>
               <ul class="ss-app__links" aria-label={app.name}>
                 <li><a href={app.href}>Product page</a></li>
-                <li><a href={app.privacyHref}>Privacy policy</a></li>
+                {app.privacyHref && <li><a href={app.privacyHref}>Privacy policy</a></li>}
               </ul>
             </li>
           ))
