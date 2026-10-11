@@ -1,0 +1,136 @@
+---
+import SeoHead from "../components/SeoHead.astro";
+import { mergekinRobotsPolicy } from "../config/site-release";
+import { mergekin, type MergekinPage } from "../content/mergekin";
+import "../styles/mergekin.css";
+
+interface Props {
+  page: MergekinPage;
+  title: string;
+  description: string;
+}
+
+const { page, title, description } = Astro.props;
+const lang = page === "gizlilik" ? "tr" : "en";
+const tr = lang === "tr";
+const canonicalPath = mergekin.paths[page];
+const home = mergekin.paths.home;
+const mailto = `mailto:${mergekin.email}`;
+const policyHref = tr ? mergekin.paths.gizlilik : mergekin.paths.privacy;
+
+/** Only the two policies are translated; each names the other as its alternate. */
+const alternates =
+  page === "home"
+    ? []
+    : [
+        { hreflang: "en", href: mergekin.paths.privacy },
+        { hreflang: "tr", href: mergekin.paths.gizlilik },
+        { hreflang: "x-default", href: mergekin.paths.privacy },
+      ];
+
+const navigation = tr
+  ? [
+      { href: `${home}#how-it-plays`, label: "Oyun", hreflang: "en" },
+      { href: `${home}#heroes`, label: "Kahramanlar", hreflang: "en" },
+      { href: policyHref, label: "Gizlilik" },
+    ]
+  : [
+      { href: page === "home" ? "#how-it-plays" : `${home}#how-it-plays`, label: "How it plays" },
+      { href: page === "home" ? "#heroes" : `${home}#heroes`, label: "Heroes" },
+      { href: page === "home" ? "#battlefields" : `${home}#battlefields`, label: "Maps" },
+      { href: policyHref, label: "Privacy" },
+    ];
+---
+
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <SeoHead
+      title={title}
+      description={description}
+      canonicalPath={canonicalPath}
+      alternates={alternates}
+      ogLocale={tr ? "tr_TR" : "en_US"}
+      robots={mergekinRobotsPolicy}
+      siteName={mergekin.name}
+      iconHref="/mergekin/icon-64.png"
+      themeColor="#120D0B"
+      colorScheme={page === "home" ? "dark" : "dark light"}
+      ogImage={{
+        src: mergekin.ogImage,
+        width: 1200,
+        height: 630,
+        alt: tr
+          ? "MERGEKIN: Echo Defense logosu ve altı kahraman"
+          : "The MERGEKIN: Echo Defense logo above its six heroes",
+      }}
+    />
+    <link rel="apple-touch-icon" href="/mergekin/icon-192.png" />
+    <link rel="preload" href="/mergekin/fonts/Cinzel-Bold.woff" as="font" type="font/woff" crossorigin />
+  </head>
+  <body class:list={["mk", page === "home" ? "mk--home" : "mk--doc"]}>
+    <!--
+      THESIS: MERGEKIN owns "the forge-lit diorama": painted miniature battlefields seen from above, heroes on bronze plinths, a gate that must hold. It refuses the neon mobile-game landing page with a phone on a gradient and a wall of badges.
+      OWN-WORLD: The game's own materials: coal-dark stone, warm bronze trim, ember orange against frost blue (the split crystal of the logo), Cinzel titles and Barlow text, both shipped in the game.
+      STORY: A player (or a store/ad reviewer) sees the logo and the six heroes, learns the loop in four steps, meets the heroes and the four regions, and reaches the privacy policy and the studio's email.
+      FIRST VIEWPORT: The logo over the darkened Ash Forge, one line of promise, a plain store status, and the six tier-III heroes standing on the forge floor.
+      FORM: Standalone stylesheet (mergekin.css); zero client JavaScript; motion is CSS only and stops under prefers-reduced-motion.
+    -->
+    <a class="mk-skip" href="#main-content">{tr ? "İçeriğe geç" : "Skip to main content"}</a>
+    <header class="mk-head">
+      <div class="mk-shell mk-head__inner">
+        <a class="mk-brand" href={home} aria-current={page === "home" ? "page" : undefined}>
+          <img class="mk-brand__mark" src="/mergekin/icon-64.png" width="64" height="64" alt="" />
+          <span class="mk-brand__name">MERGEKIN</span>
+          <span class="mk-brand__by">{mergekin.publisher}</span>
+        </a>
+        <nav class="mk-nav" aria-label="MERGEKIN">
+          <ul>
+            {
+              navigation.map((item) => (
+                <li>
+                  <a
+                    href={item.href}
+                    hreflang={"hreflang" in item ? item.hreflang : undefined}
+                    aria-current={item.href === canonicalPath ? "page" : undefined}
+                  >
+                    {item.label}
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main-content" tabindex="-1">
+      <slot />
+    </main>
+
+    <footer class="mk-foot">
+      <div class="mk-shell mk-foot__inner">
+        <div class="mk-foot__brand">
+          <p class="mk-foot__name">{mergekin.name}</p>
+          <p>
+            {
+              tr
+                ? "Android için birleştirme ve kule savunması oyunu. Sarper Studios, Türkiye."
+                : "A merge and tower-defense game for Android, by Sarper Studios in Türkiye."
+            }
+          </p>
+        </div>
+        <nav aria-label={tr ? "Alt bağlantılar" : "Footer"}>
+          <ul class="mk-foot__links">
+            <li><a href={home} hreflang={tr ? "en" : undefined}>{tr ? "Ürün sayfası (English)" : "Product page"}</a></li>
+            <li><a href={mergekin.paths.privacy} hreflang={tr ? "en" : undefined}>Privacy policy</a></li>
+            <li><a href={mergekin.paths.gizlilik} hreflang={tr ? undefined : "tr"}>Gizlilik politikası</a></li>
+            <li><a href={mailto}>{mergekin.email}</a></li>
+            <li><a href="/">{tr ? "Tüm Sarper Studios uygulamaları" : "All Sarper Studios apps"}</a></li>
+          </ul>
+        </nav>
+        <p class="mk-foot__legal">© 2026 {mergekin.publisher}</p>
+      </div>
+    </footer>
+  </body>
+</html>

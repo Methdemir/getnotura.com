@@ -1,0 +1,58 @@
+---
+/**
+ * One MERGEKIN raster in AVIF/WebP with a PNG or JPEG fallback, all built into
+ * public/mergekin/ from the game's art. `widths` lists the files that exist
+ * for `name` (e.g. shot-x-360 / shot-x-720); a single entry means one file.
+ */
+interface Props {
+  name: string;
+  /** Intrinsic size of the largest file, for width/height and aspect ratio. */
+  width: number;
+  height: number;
+  alt: string;
+  /** Widths built for AVIF/WebP; empty means `${name}.{fmt}` without a width suffix. */
+  widths?: number[];
+  /** Width of the single fallback file (or none: fallback is `${name}.{fallback}`). */
+  fallbackWidth?: number;
+  fallback?: "png" | "jpg";
+  modern?: ("avif" | "webp")[];
+  sizes?: string;
+  class?: string;
+  loading?: "lazy" | "eager";
+  fetchpriority?: "high" | "auto";
+}
+
+const {
+  name,
+  width,
+  height,
+  alt,
+  widths = [],
+  fallbackWidth,
+  fallback = "png",
+  modern = ["avif", "webp"],
+  sizes,
+  class: className,
+  loading = "lazy",
+  fetchpriority,
+} = Astro.props;
+
+const base = "/mergekin/";
+const file = (w: number | undefined, ext: string) => `${base}${name}${w ? `-${w}` : ""}.${ext}`;
+const srcset = (ext: string) =>
+  widths.length ? widths.map((w) => `${file(w, ext)} ${w}w`).join(", ") : file(undefined, ext);
+---
+
+<picture>
+  {modern.map((ext) => <source type={`image/${ext}`} srcset={srcset(ext)} sizes={widths.length ? sizes : undefined} />)}
+  <img
+    class={className}
+    src={file(fallbackWidth, fallback)}
+    width={width}
+    height={height}
+    alt={alt}
+    loading={loading}
+    decoding="async"
+    fetchpriority={fetchpriority}
+  />
+</picture>

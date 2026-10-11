@@ -432,6 +432,120 @@ if (!sitemapPaths.has("/")) {
 }
 
 /**
+ * MERGEKIN: Echo Defense — an English product page (no alternates) and one
+ * privacy policy in English and Turkish at /mergekin/privacy/ and
+ * /mergekin/gizlilik/, with reciprocal hreflang. All carry a share image, and
+ * the policy pages must render the source text from docs/mergekin/.
+ */
+const mergekinHome = await singlePage("/mergekin/", "en");
+if (linkTags(mergekinHome, "alternate").length) {
+  throw new Error("/mergekin/ is English-only and must not declare hreflang alternates.");
+}
+const mergekinExpected = new Map([
+  ["en", absolute("/mergekin/privacy/")],
+  ["tr", absolute("/mergekin/gizlilik/")],
+  ["x-default", absolute("/mergekin/privacy/")],
+]);
+for (const [pagePath, lang] of [
+  ["/mergekin/", "en"],
+  ["/mergekin/privacy/", "en"],
+  ["/mergekin/gizlilik/", "tr"],
+]) {
+  const html = await singlePage(pagePath, lang);
+  if (!/<meta\b[^>]*property="og:image"[^>]*content="https:\/\/getnotura\.com\/mergekin\/og\.jpg"/i.test(html)) {
+    throw new Error(`${pagePath} must carry the MERGEKIN og:image.`);
+  }
+  if (!sitemapPaths.has(pagePath)) {
+    throw new Error(`MERGEKIN page missing from sitemap: ${pagePath}`);
+  }
+  if (pagePath === "/mergekin/") continue;
+  const alternates = new Map(
+    linkTags(html, "alternate").map((tag) => [getAttribute(tag, "hreflang"), getAttribute(tag, "href")]),
+  );
+  if (alternates.size !== mergekinExpected.size) {
+    throw new Error(`Incomplete hreflang set for ${pagePath}.`);
+  }
+  for (const [hreflang, href] of mergekinExpected) {
+    if (alternates.get(hreflang) !== href) {
+      throw new Error(`Invalid ${hreflang} alternate on ${pagePath}.`);
+    }
+  }
+}
+
+/**
+ * The policy text is owned by docs/mergekin/PRIVACY_CONTENT.md. Every
+ * paragraph, heading and table cell of the English and Turkish blocks must
+ * appear, unchanged, in the visible text of its page; the "Notes for Claude"
+ * section must not.
+ */
+const decodeEntities = (text) =>
+  text
+    .replaceAll("&#39;", "'")
+    .replaceAll("&quot;", '"')
+    .replaceAll("&lt;", "<")
+    .replaceAll("&gt;", ">")
+    .replaceAll("&nbsp;", " ")
+    .replace(/&#x([0-9a-f]+);/gi, (_, hex) => String.fromCodePoint(parseInt(hex, 16)))
+    .replace(/&#(\d+);/g, (_, dec) => String.fromCodePoint(Number(dec)))
+    .replaceAll("&amp;", "&");
+const visibleText = (html) =>
+  decodeEntities(
+    html
+      .replace(/<head>[\s\S]*?<\/head>/i, " ")
+      .replace(/<!--[\s\S]*?-->/g, " ")
+      .replace(/<\/(p|h[1-6]|li|th|td|tr|div|section|header|footer|nav|time)>/gi, " ")
+      .replace(/<[^>]+>/g, ""),
+  )
+    .replace(/\s+/g, " ")
+    .trim();
+const privacySource = (await readFile(path.join(root, "docs/mergekin/PRIVACY_CONTENT.md"), "utf8")).replace(
+  /\r\n/g,
+  "\n",
+);
+const policyBlock = (title) => {
+  const start = privacySource.indexOf(`\n## ${title}\n`);
+  if (start < 0) throw new Error(`PRIVACY_CONTENT.md has no "## ${title}" block.`);
+  const rest = privacySource.slice(start + title.length + 5);
+  const end = rest.search(/\n---\n|\n## /);
+  return end < 0 ? rest : rest.slice(0, end);
+};
+for (const [pagePath, title, footnoteLabel] of [
+  ["/mergekin/privacy/", "English", "Footnote:"],
+  ["/mergekin/gizlilik/", "Türkçe", "Dipnot:"],
+]) {
+  const pageText = visibleText(await readFile(pageFile(pagePath), "utf8"));
+  const expectedPieces = [];
+  for (const chunk of policyBlock(title).split(/\n\s*\n/)) {
+    const lines = chunk.split("\n").map((line) => line.trim()).filter(Boolean);
+    if (!lines.length) continue;
+    if (lines[0].startsWith("|")) {
+      for (const row of lines.filter((line) => !/^\|[-|\s]+\|$/.test(line))) {
+        expectedPieces.push(...row.replace(/^\||\|$/g, "").split("|").map((cell) => cell.trim()));
+      }
+      continue;
+    }
+    let text = lines.join(" ");
+    if (text.startsWith("### ")) {
+      text = text.slice(4);
+      if (text === "Intro" || text === "Giriş") continue;
+    }
+    if (text.startsWith(footnoteLabel)) text = text.slice(footnoteLabel.length).trim();
+    expectedPieces.push(text);
+  }
+  if (expectedPieces.length < 30) {
+    throw new Error(`PRIVACY_CONTENT.md (${title}) parsed into too few pieces: ${expectedPieces.length}.`);
+  }
+  for (const piece of expectedPieces) {
+    if (!pageText.includes(piece)) {
+      throw new Error(`${pagePath} does not render this policy text verbatim: "${piece.slice(0, 90)}…"`);
+    }
+  }
+  if (/Notes for Claude|UMP privacy options|Track both in the/.test(pageText)) {
+    throw new Error(`${pagePath} renders the internal notes from PRIVACY_CONTENT.md.`);
+  }
+}
+
+/**
  * app-ads.txt is read by ad networks at the domain root. The AdMob line must
  * appear exactly once; other sellers' lines are allowed alongside it.
  */
@@ -452,5 +566,5 @@ console.log(
   `Build validation passed for ${expectedPages.length} canonical pages, localized titles, 404, CNAME, ` +
     `reciprocal hreflang, internal links, ${sitemapLocs.length} sitemap entries, robots.txt, ` +
     `no unpublished store URLs, zero client JavaScript, the Notura legacy redirects, the studio root, ` +
-    `the Vergi Hesabım, 999KB Arcade and Jutsu pages and app-ads.txt.`,
+    `the Vergi Hesabım, 999KB Arcade, Jutsu and MERGEKIN pages (with the verbatim MERGEKIN policy text) and app-ads.txt.`,
 );

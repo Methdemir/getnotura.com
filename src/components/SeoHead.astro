@@ -18,6 +18,8 @@ interface Props {
   iconHref?: string | undefined;
   themeColor?: string | undefined;
   colorScheme?: string | undefined;
+  /** Absolute-path share image; pages without one keep the plain summary card. */
+  ogImage?: { src: string; width: number; height: number; alt: string } | undefined;
 }
 
 const {
@@ -31,6 +33,7 @@ const {
   iconHref = "/favicon/notura-symbol.png",
   themeColor = "#F7F1E6",
   colorScheme = "light",
+  ogImage,
 } = Astro.props;
 const siteOrigin = Astro.site ?? new URL("https://getnotura.com");
 const absoluteUrl = (path: string) => new URL(path, siteOrigin).href;
@@ -61,6 +64,17 @@ const canonicalUrl = canonicalPath ? absoluteUrl(canonicalPath) : undefined;
 <meta property="og:description" content={description} />
 {canonicalUrl && <meta property="og:url" content={canonicalUrl} />}
 {ogLocale && <meta property="og:locale" content={ogLocale} />}
-<meta name="twitter:card" content="summary" />
+{
+  ogImage && (
+    <>
+      <meta property="og:image" content={absoluteUrl(ogImage.src)} />
+      <meta property="og:image:width" content={String(ogImage.width)} />
+      <meta property="og:image:height" content={String(ogImage.height)} />
+      <meta property="og:image:alt" content={ogImage.alt} />
+    </>
+  )
+}
+<meta name="twitter:card" content={ogImage ? "summary_large_image" : "summary"} />
 <meta name="twitter:title" content={title} />
 <meta name="twitter:description" content={description} />
+{ogImage && <meta name="twitter:image" content={absoluteUrl(ogImage.src)} />}

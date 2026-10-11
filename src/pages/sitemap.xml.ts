@@ -1,5 +1,6 @@
 import type { APIRoute } from "astro";
 import { appPages, appPath, type AppLocale } from "../content/studio";
+import { mergekin } from "../content/mergekin";
 import { vergiHesabim } from "../content/vergi-hesabim";
 import { publishedLocales } from "../i18n/locales";
 import {
@@ -17,8 +18,8 @@ import {
  * Each URL carries its full `xhtml:link` alternate set, so the language
  * relationships a crawler sees here match the `hreflang` tags on the pages.
  *
- * Scope: the Sarper Studios root, Notura, Vergi Hesabım, 999KB Arcade and
- * Jutsu. `/momentback/` is published on its own schedule and is deliberately
+ * Scope: the Sarper Studios root, Notura, Vergi Hesabım, 999KB Arcade,
+ * Jutsu, MERGEKIN and Kim O?. `/momentback/` is published on its own schedule and is deliberately
  * not enumerated here.
  */
 const ORIGIN = "https://getnotura.com";
@@ -72,12 +73,30 @@ const appEntries = Object.values(appPages).flatMap((app) =>
   }),
 );
 
+/** MERGEKIN: an English product page and its policy in English and Turkish. */
+const mergekinPolicyAlternates = [
+  { hreflang: "en", href: mergekin.paths.privacy },
+  { hreflang: "tr", href: mergekin.paths.gizlilik },
+  { hreflang: "x-default", href: mergekin.paths.privacy },
+]
+  .map(
+    (alternate) =>
+      `    <xhtml:link rel="alternate" hreflang="${alternate.hreflang}" href="${absolute(alternate.href)}" />`,
+  )
+  .join("\n");
+const mergekinEntries = [
+  plainEntry(mergekin.paths.home),
+  ...[mergekin.paths.privacy, mergekin.paths.gizlilik].map(
+    (path) => `  <url>\n    <loc>${absolute(path)}</loc>\n${mergekinPolicyAlternates}\n  </url>`,
+  ),
+];
+
 export const GET: APIRoute = () => {
   const body = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
 ${[
   plainEntry("/"),
-  plainEntry("/mergekin/"),
+  ...mergekinEntries,
   plainEntry("/kimo/"),
   ...entries.map(urlEntry),
   ...Object.values(vergiHesabim.paths).map(plainEntry),

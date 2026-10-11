@@ -1,17 +1,341 @@
 ---
-/** Placeholder until the full product page and privacy policy are written. */
-import { studio, studioApps } from "../../content/studio";
-import StudioLayout from "../../layouts/StudioLayout.astro";
+/**
+ * MERGEKIN: Echo Defense — product page. English only; the privacy policy is
+ * published in English and Turkish. Facts: src/content/mergekin.ts.
+ */
+import Art from "../../components/mergekin/Art.astro";
+import { heroes, mergekin, regions, runes, screenshots } from "../../content/mergekin";
+import MergekinLayout from "../../layouts/MergekinLayout.astro";
 
-const app = studioApps.find((candidate) => candidate.id === "mergekin")!;
+const mailto = `mailto:${mergekin.email}`;
+const crestHeight = { gate: 169, marsh: 144, forge: 144, spire: 171 } as const;
+const sigilHeight = { ember: 175, frost: 175, storm: 177 } as const;
+
+const facts = [
+  { label: "Battlefields", value: "16 hand-built maps" },
+  { label: "Regions", value: "4, each closed by a keeper" },
+  { label: "Waves", value: "12 per map" },
+  { label: "Heroes", value: "6, tiers I to III" },
+  { label: "Runes", value: "Ember, Frost, Storm" },
+  { label: "Play", value: "Single-player, works offline" },
+  { label: "Account", value: "None" },
+  { label: "Platform", value: "Android" },
+];
 ---
 
-<StudioLayout title={`${app.name} | ${studio.name}`} description={app.line} canonicalPath={app.href}>
-  <section class="ss-entry ss-shell" aria-labelledby="app-heading">
-    <img class="ss-app__mark" src={app.mark} width="52" height="52" alt="" />
-    <h1 id="app-heading">{app.name}</h1>
-    <p>{app.kind} · {app.status}</p>
-    <p>The product page and privacy policy are coming soon. Questions: <a href={`mailto:${studio.email}`}>{studio.email}</a></p>
-    <p><a class="ss-link" href="/">All Sarper Studios apps</a></p>
+<MergekinLayout
+  page="home"
+  title="MERGEKIN: Echo Defense — merge heroes, hold the road | Sarper Studios"
+  description="MERGEKIN: Echo Defense is a casual merge and tower-defense strategy game for Android. Place six heroes on plinths, merge twins into stronger tiers, choose Ember, Frost or Storm runes and defend 16 hand-built maps. Coming soon to Google Play."
+>
+  <section class="mk-hero" aria-labelledby="hero-title">
+    <div class="mk-hero__backdrop" aria-hidden="true">
+      <Art
+        name="backdrop-forge"
+        width={1600}
+        height={1000}
+        alt=""
+        fallback="jpg"
+        loading="eager"
+        class="mk-hero__backdrop-img"
+      />
+    </div>
+    <div class="mk-embers" aria-hidden="true">
+      {Array.from({ length: 14 }, (_, index) => <span style={`--i:${index}`}></span>)}
+    </div>
+
+    <div class="mk-shell mk-hero__content">
+      <h1 id="hero-title" class="mk-hero__logo">
+        <Art
+          name="logo"
+          widths={[640, 1200]}
+          fallbackWidth={960}
+          width={1200}
+          height={598}
+          sizes="(min-width: 60rem) 36rem, 92vw"
+          alt="MERGEKIN: Echo Defense"
+          loading="eager"
+          fetchpriority="high"
+        />
+      </h1>
+      <p class="mk-hero__promise">Place heroes. Merge them stronger. Hold the road.</p>
+      <p class="mk-lede">
+        A casual merge and tower-defense strategy game for Android. Sixteen hand-built battlefields, six heroes,
+        three runes, and a crystal gate that must not break.
+      </p>
+      <p class="mk-status">
+        <span class="mk-status__pip" aria-hidden="true"></span>
+        <span class="mk-status__text"><strong>Coming soon to Google Play</strong> <span class="mk-status__sub">In development</span></span>
+      </p>
+    </div>
+
+    <div class="mk-hero__roster">
+      <Art
+        name="roster-t3"
+        widths={[800, 1600]}
+        fallbackWidth={1200}
+        width={1600}
+        height={495}
+        sizes="(min-width: 78rem) 72rem, 100vw"
+        alt="The six heroes at tier III: Aren in royal blue with a greatsword, Lumi in forest green with a bow, Vela in violet with a crescent staff, Ket in rust orange with trap gear, Neris in teal with a trident and halo, and Sarper in crimson with a shell launcher."
+        loading="eager"
+      />
+    </div>
   </section>
-</StudioLayout>
+
+  <section class="mk-bay" id="how-it-plays" aria-labelledby="how-title">
+    <div class="mk-shell mk-how">
+      <div class="mk-how__text">
+        <p class="mk-kicker">How it plays</p>
+        <h2 id="how-title">Place, merge, choose a rune, defend.</h2>
+        <ol class="mk-steps">
+          <li class="mk-step">
+            <span class="mk-step__num" aria-hidden="true">1</span>
+            <div>
+              <h3>Place</h3>
+              <p>
+                Between waves, tap a hero card, then an empty plinth beside the road. Every hero costs 25 gold.
+                Move or sell them until the wave starts.
+              </p>
+            </div>
+          </li>
+          <li class="mk-step">
+            <span class="mk-step__num" aria-hidden="true">2</span>
+            <div>
+              <h3>Merge</h3>
+              <p>
+                Two heroes of the same kind and tier become one stronger hero: I + I makes II, II + II makes III.
+                It works mid-fight too, and frees a plinth.
+              </p>
+              <figure class="mk-tiers">
+                <div class="mk-tiers__row">
+                  {
+                    ["t1", "t2", "t3"].map((tier, index) => (
+                      <div class="mk-tiers__step">
+                        <Art name={`bust-aren-${tier}`} width={360} height={360} alt="" class="mk-tiers__img" />
+                        <span class="mk-tiers__label">{["I", "II", "III"][index]}</span>
+                      </div>
+                    ))
+                  }
+                </div>
+                <figcaption>Aren at tier I, II and III.</figcaption>
+              </figure>
+            </div>
+          </li>
+          <li class="mk-step">
+            <span class="mk-step__num" aria-hidden="true">3</span>
+            <div>
+              <h3>Choose a rune</h3>
+              <p>When two I merge into a II, pick the rune that reshapes the hero's power.</p>
+              <ul class="mk-runes">
+                {
+                  runes.map((rune) => (
+                    <li class={`mk-rune mk-rune--${rune.id}`}>
+                      <Art
+                        name={`sigil-${rune.id}`}
+                        width={176}
+                        height={sigilHeight[rune.id]}
+                        alt=""
+                        modern={["webp"]}
+                        class="mk-rune__sigil"
+                      />
+                      <span class="mk-rune__name">{rune.name}</span>
+                      <span class="mk-rune__line">{rune.line}</span>
+                    </li>
+                  ))
+                }
+              </ul>
+            </div>
+          </li>
+          <li class="mk-step">
+            <span class="mk-step__num" aria-hidden="true">4</span>
+            <div>
+              <h3>Defend</h3>
+              <p>
+                Start the wave when you are ready, at 1×, 2× or 3×. Shades follow the road to the gate. Every
+                shade that falls drops <img class="mk-coin" src="/mergekin/coin.png" width="96" height="90" alt="" />1
+                gold, and clearing the wave pays its reward. Let none through for a Perfect.
+              </p>
+            </div>
+          </li>
+        </ol>
+      </div>
+
+      <figure class="mk-phone mk-how__phone">
+        <div class="mk-phone__frame">
+          <Art
+            name="shot-pale-lantern"
+            widths={[360, 720]}
+            fallbackWidth={540}
+            fallback="jpg"
+            width={720}
+            height={1419}
+            sizes="(min-width: 60rem) 20rem, 72vw"
+            alt="Pale Lantern in battle: all six heroes at tier III stand on plinths around a looping marsh road while shades approach the crystal gate."
+            class="mk-phone__screen"
+          />
+        </div>
+        <figcaption>Pale Lantern, with all six heroes merged to tier III.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="mk-bay mk-bay--stone" id="heroes" aria-labelledby="heroes-title">
+    <div class="mk-shell">
+      <p class="mk-kicker">Heroes</p>
+      <h2 id="heroes-title">Six heroes, one road.</h2>
+      <p class="mk-section-lede">
+        Each hero has one job. Where you put them matters as much as how strong they are.
+      </p>
+      <ul class="mk-heroes">
+        {
+          heroes.map((hero) => (
+            <li class="mk-hero-card" style={`--accent:${hero.accent}`}>
+              <Art name={`bust-${hero.id}-t3`} width={360} height={360} alt="" class="mk-hero-card__bust" />
+              <div class="mk-hero-card__text">
+                <h3>{hero.name}</h3>
+                <p class="mk-hero-card__role">
+                  {hero.role} · {hero.colour}
+                </p>
+                <p>{hero.line}</p>
+              </div>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <section class="mk-bay" id="battlefields" aria-labelledby="maps-title">
+    <div class="mk-shell">
+      <p class="mk-kicker">Battlefields</p>
+      <h2 id="maps-title">Sixteen maps across four regions.</h2>
+      <p class="mk-section-lede">
+        Every map is hand-built around its own road, and every map runs twelve waves. Each region opens gently and
+        ends with a keeper wave.
+      </p>
+      <ol class="mk-regions">
+        {
+          regions.map((region) => (
+            <li class={`mk-region mk-region--${region.id}`}>
+              <div class="mk-region__art">
+                <Art name={`region-${region.id}`} width={600} height={900} alt="" fallback="jpg" />
+              </div>
+              <div class="mk-region__body">
+                <div class="mk-region__head">
+                  <Art
+                    name={`crest-${region.id}`}
+                    width={128}
+                    height={crestHeight[region.id]}
+                    alt=""
+                    modern={["webp"]}
+                    class="mk-region__crest"
+                  />
+                  <div>
+                    <p class="mk-region__order">Region {region.order}</p>
+                    <h3>{region.name}</h3>
+                  </div>
+                </div>
+                <p class="mk-region__blurb">{region.blurb}</p>
+                <ul class="mk-region__maps" aria-label={`${region.name} maps`}>
+                  {region.maps.map((map) => <li>{map}</li>)}
+                </ul>
+                <p class="mk-region__keeper">
+                  Keeper: <span>{region.keeper}</span>
+                </p>
+              </div>
+            </li>
+          ))
+        }
+      </ol>
+
+      <div class="mk-shots" role="group" aria-labelledby="shots-title">
+        <h3 id="shots-title" class="mk-shots__title">From the game</h3>
+        <ul class="mk-shots__row">
+          {
+            screenshots.map((shot) => (
+              <li>
+                <figure class="mk-phone mk-phone--small">
+                  <div class="mk-phone__frame">
+                    <Art
+                      name={`shot-${shot.id}`}
+                      widths={[360, 720]}
+                      fallbackWidth={540}
+                      fallback="jpg"
+                      width={720}
+                      height={1419}
+                      sizes="(min-width: 60rem) 15rem, 60vw"
+                      alt={shot.alt}
+                      class="mk-phone__screen"
+                    />
+                  </div>
+                  <figcaption>
+                    {shot.map} <span>· {shot.region}</span>
+                  </figcaption>
+                </figure>
+              </li>
+            ))
+          }
+        </ul>
+        <p class="mk-shots__note">Captured on an Android test phone, with the game set to Turkish.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="mk-bay mk-bay--stone" aria-labelledby="facts-title">
+    <div class="mk-shell mk-split">
+      <div>
+        <p class="mk-kicker">At a glance</p>
+        <h2 id="facts-title">Easy to start, room to get clever.</h2>
+        <p class="mk-section-lede">
+          The first maps teach one idea at a time. Difficulty rises within each region, and every new region opens
+          with room to breathe.
+        </p>
+      </div>
+      <dl class="mk-facts">
+        {
+          facts.map((fact) => (
+            <div class="mk-facts__row">
+              <dt>{fact.label}</dt>
+              <dd>{fact.value}</dd>
+            </div>
+          ))
+        }
+      </dl>
+    </div>
+  </section>
+
+  <section class="mk-bay" id="privacy" aria-labelledby="privacy-title">
+    <div class="mk-shell mk-split">
+      <div>
+        <p class="mk-kicker">Privacy</p>
+        <h2 id="privacy-title">No account. Your progress stays on your phone.</h2>
+      </div>
+      <div class="mk-prose">
+        <p>
+          The game does not ask for your name, email, location, camera, microphone or photos. Ads are optional and
+          rewarded: you choose when to watch one. The privacy policy lists exactly what leaves the device and who
+          receives it.
+        </p>
+        <p class="mk-links">
+          <a class="mk-button" href={mergekin.paths.privacy}>Read the privacy policy</a>
+          <a class="mk-link" href={mergekin.paths.gizlilik} hreflang="tr" lang="tr">Gizlilik politikası (Türkçe)</a>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="mk-bay mk-bay--stone" id="contact" aria-labelledby="contact-title">
+    <div class="mk-shell mk-split">
+      <div>
+        <p class="mk-kicker">Developer</p>
+        <h2 id="contact-title">Made by {mergekin.publisher}.</h2>
+      </div>
+      <div class="mk-prose">
+        <p>An independent studio in Türkiye. For support, privacy questions and press, write to us.</p>
+        <p class="mk-contact"><a href={mailto}>{mergekin.email}</a></p>
+        <p><a class="mk-link" href="/">All Sarper Studios apps</a></p>
+      </div>
+    </div>
+  </section>
+</MergekinLayout>

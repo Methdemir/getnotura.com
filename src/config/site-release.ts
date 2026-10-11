@@ -44,3 +44,15 @@ export const studioReleaseStatus = "public" as const;
 
 export const studioRobotsPolicy =
   studioReleaseStatus === "public" ? "index,follow" : "noindex,follow";
+
+/**
+ * MERGEKIN: Echo Defense (Sarper Studios) at /mergekin/: product page plus an
+ * English and a Turkish privacy policy. The game is not in the store yet, but
+ * store and ad-network reviewers must be able to read the policy, so it is
+ * public on its own schedule. Flip to "preview" to pull the three pages out of
+ * search.
+ */
+export const mergekinReleaseStatus = "public" as const;
+
+export const mergekinRobotsPolicy =
+  mergekinReleaseStatus === "public" ? "index,follow" : "noindex,follow";

@@ -10,6 +10,8 @@ Static website for Sarper Studios and its apps, built with Astro and deployed to
 | `/vergi-hesabim/` | Vergi Hesabım |
 | `/999kb/` | 999KB Arcade (English, Turkish under `tr/`) |
 | `/jutsu/` | Jutsu (English, Turkish under `tr/`) |
+| `/mergekin/` | MERGEKIN: Echo Defense (English; privacy at `privacy/`, Turkish at `gizlilik/`, text from `docs/mergekin/PRIVACY_CONTENT.md`) |
+| `/kimo/` | Kim O? (placeholder) |
 | `/app-ads.txt` | AdMob seller declaration for every app |
 
 ## Requirements

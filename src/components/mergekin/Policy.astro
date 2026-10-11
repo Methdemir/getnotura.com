@@ -1,0 +1,106 @@
+---
+/**
+ * The MERGEKIN privacy policy, rendered from docs/mergekin/PRIVACY_CONTENT.md
+ * via src/content/mergekin.ts. Every sentence comes from that file; only the
+ * page chrome (title, labels, contents heading, language switch) is written here.
+ */
+import { linkify, mergekin, privacyPolicies, type PrivacyLocale } from "../../content/mergekin";
+
+interface Props {
+  locale: PrivacyLocale;
+}
+
+const { locale } = Astro.props;
+const policy = privacyPolicies[locale];
+const tr = locale === "tr";
+const chrome = tr
+  ? {
+      heading: "Gizlilik Politikası",
+      effective: "Yürürlük tarihi",
+      contents: "İçindekiler",
+      other: { label: "Read in English", href: mergekin.paths.privacy, lang: "en" },
+    }
+  : {
+      heading: "Privacy Policy",
+      effective: "Effective",
+      contents: "Contents",
+      other: { label: "Türkçe oku", href: mergekin.paths.gizlilik, lang: "tr" },
+    };
+---
+
+<article class="mk-doc">
+  <header class="mk-doc__head">
+    <div class="mk-shell mk-doc__head-grid">
+      <div>
+        <h1>{chrome.heading}</h1>
+        <p class="mk-doc__product">{mergekin.name} · Android</p>
+        <p class="mk-doc__date">
+          {chrome.effective}: <time datetime={policy.effectiveDateIso}>{policy.effectiveDate}</time>
+        </p>
+        <p class="mk-doc__switch">
+          <a href={chrome.other.href} hreflang={chrome.other.lang} lang={chrome.other.lang}>{chrome.other.label}</a>
+        </p>
+      </div>
+      <div class="mk-doc__intro">
+        {policy.intro.map((paragraph) => <p class="mk-lede">{paragraph}</p>)}
+      </div>
+    </div>
+  </header>
+
+  <div class="mk-shell">
+    <section class="mk-glance" aria-labelledby="glance-title">
+      <h2 id="glance-title">{policy.glanceHeading}</h2>
+      <table>
+        <thead>
+          <tr>
+            <th scope="col">{policy.glanceColumns[0]}</th>
+            <th scope="col">{policy.glanceColumns[1]}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            policy.glance.map((row) => (
+              <tr>
+                <th scope="row">{row.what}</th>
+                <td>{row.where}</td>
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
+    </section>
+  </div>
+
+  <div class="mk-shell mk-doc__body">
+    <nav class="mk-toc" aria-labelledby="toc-title">
+      <h2 id="toc-title">{chrome.contents}</h2>
+      <ol>
+        {policy.sections.map((section) => (
+          <li><a href={`#${section.id}`}>{section.heading}</a></li>
+        ))}
+      </ol>
+    </nav>
+
+    <div class="mk-sections">
+      {
+        policy.sections.map((section) => (
+          <section id={section.id} aria-labelledby={`${section.id}-title`}>
+            <h2 id={`${section.id}-title`}>{section.heading}</h2>
+            {section.paragraphs.map((paragraph) => (
+              <p>
+                {linkify(paragraph).map((piece) =>
+                  piece.href ? (
+                    <a class="mk-link" href={piece.href} rel={piece.href.startsWith("http") ? "noopener" : undefined}>{piece.text}</a>
+                  ) : (
+                    piece.text
+                  ),
+                )}
+              </p>
+            ))}
+          </section>
+        ))
+      }
+      <p class="mk-footnote">{policy.footnote}</p>
+    </div>
+  </div>
+</article>
