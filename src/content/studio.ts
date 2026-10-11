@@ -16,6 +16,10 @@
  *   The public name is "Jutsu": the store name is not final, and the
  *   franchise name stays off this page.
  * When either app changes what it collects, this file changes with it.
+ *
+ * MERGEKIN: Echo Defense has its own sub-brand surface at /mergekin/ (copy in
+ * src/content/mergekin.ts); this list only carries its index row and its mark,
+ * the game's launcher icon (runelegion art_source/brand/icon_v5.png).
  */
 
 export const studio = {
@@ -96,10 +100,11 @@ export const studioApps: StudioApp[] = [
     id: "mergekin",
     name: "MERGEKIN: Echo Defense",
     href: "/mergekin/",
-    line: "A merge-and-defend strategy game. Page coming soon.",
+    privacyHref: "/mergekin/privacy/",
+    line: "Place heroes, merge them stronger and hold the road across sixteen hand-built battlefields.",
     kind: "Games · Android",
     status: "In development",
-    mark: "/studio/mergekin.svg",
+    mark: "/mergekin/icon-192.png",
   },
   {
     id: "kimo",
