@@ -116,7 +116,7 @@ def shot(path):
 
 
 shots = {
-    "pale-lantern": GAME / "artifacts/visual-debts-device/chars-solgunFener-T3-live1.png",
+    "pale-lantern": SHOTS / "perfect-solgunFener-battle.png",
     "stream-mouth": SHOTS / "perfect-dereAgzi-battle.png",
     "dead-lake": SHOTS / "perfect-oluGol-battle.png",
     "cinder-stair": SHOTS / "perfect-curufMerdiveni-battle.png",
