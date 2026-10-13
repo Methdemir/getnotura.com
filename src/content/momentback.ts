@@ -69,6 +69,9 @@ interface RailStep {
 interface Moment {
   title: string;
   body: string;
+  /** Key into momentBackPhotos and basename under /momentback/photos/. */
+  photo: "pets" | "sport" | "weather";
+  alt: string;
 }
 
 interface SpecRow {
@@ -102,6 +105,11 @@ export interface TourStop {
   /** Basename under /momentback/screens/, without width or extension. */
   screen: string;
   alt: string;
+  /**
+   * True when the viewfinder of a real screenshot shows a stock photo laid in
+   * behind the untouched interface. Rendered as a visible note.
+   */
+  illustrative?: boolean;
 }
 
 interface TimelineLabels {
@@ -133,8 +141,11 @@ interface HudLabels {
   /** Instrument readouts along the bottom edge. */
   readouts: string[];
   zoom: string;
-  /** Honest tag that this is a drawing, linking to the real screens. */
-  tag: string;
+  /** Credit for the scene behind the HUD: "Photo" … "interface from the app". */
+  credit: {
+    label: string;
+    note: string;
+  };
   alt: string;
 }
 
@@ -198,6 +209,7 @@ export interface MomentBackCopy {
       body: string;
       legend: string;
       note: string;
+      illustrative: string;
       stops: TourStop[];
     };
     figures: {
@@ -258,8 +270,29 @@ export interface MomentBackCopy {
     noturaLabel: string;
     noturaLink: string;
     rights: string;
+    credits: {
+      label: string;
+      lead: string;
+      subjects: Record<MomentBackPhotoKey, string>;
+    };
   };
 }
+
+export type MomentBackPhotoKey = "hero" | "tour" | "pets" | "sport" | "weather";
+
+/**
+ * Licensed photography. Every photo is from Unsplash and used under the
+ * Unsplash License (free for commercial use, no permission needed); none is an
+ * Unsplash+ image. Credit is not required by the licence and is given anyway:
+ * in the hero, under the tour and in the home page footer.
+ */
+export const momentBackPhotos: Record<MomentBackPhotoKey, { photographer: string; url: string }> = {
+  hero: { photographer: "Rafaëlla Waasdorp", url: "https://unsplash.com/photos/kyV6PvfJWik" },
+  tour: { photographer: "Filip Mavrodiev", url: "https://unsplash.com/photos/RR30mRqOgjo" },
+  pets: { photographer: "Alvan Nee", url: "https://unsplash.com/photos/a8qRcuSZTsE" },
+  sport: { photographer: "Robson Hatsukami Morgan", url: "https://unsplash.com/photos/ISkeH2SLqNU" },
+  weather: { photographer: "Max LaRochelle", url: "https://unsplash.com/photos/uu-Jw5SunYI" },
+};
 
 const contactEmail = "support@getnotura.com";
 
@@ -301,9 +334,12 @@ const en: MomentBackCopy = {
       locked: "Pro",
       readouts: ["1080p · 30 fps", "H.264 · AAC", "Audio on"],
       zoom: "1.0×",
-      tag: "Drawn for this page · real screens below",
+      credit: {
+        label: "Photo",
+        note: "interface from the app",
+      },
       alt:
-        "Illustration of MomentBack's camera screen. A chip at the top counts the seconds being held up to 30, then reads READY · 30s. At the bottom, the replay lengths 15s and 30s, then 60s and 120s with a Pro lock, above the large orange SAVE button.",
+        "MomentBack's camera screen over a photo of a dog running through shallow water at sunset. A chip at the top counts the seconds being held up to 30, then reads READY · 30s. At the bottom, the replay lengths 15s and 30s, then 60s and 120s with a Pro lock, above the large orange SAVE button.",
     },
     rail: {
       label: "The whole app, in three verbs",
@@ -355,12 +391,13 @@ const en: MomentBackCopy = {
     },
     tour: {
       label: "Inside the app",
-      heading: "Six screens, exactly as they ship.",
+      heading: "Six screens from the app.",
       body:
-        "Pick a label to switch the screen. These are real captures, not mockups.",
+        "Pick a label to switch the screen. The interface is always the real app; in the first three, the scene in the viewfinder is a stock photo.",
       legend: "Choose a screen",
       note:
-        "Captured on a Samsung Galaxy M21 (Android 12) from the 2–3 October 2026 test builds, in the app's Turkish interface — MomentBack ships in 11 languages. The phone's status and navigation bars are cropped out; nothing inside the app was altered. The viewfinder is dark in these frames — what they document is the interface.",
+        "Captured on a Samsung Galaxy M21 (Android 12) from the 2–3 October 2026 test builds, in the app's Turkish interface — MomentBack ships in 11 languages. The phone's status and navigation bars are cropped out and no control was altered. The test captures had a dark viewfinder, so in 01–03 a photo by Filip Mavrodiev (Unsplash) is laid in behind the interface.",
+      illustrative: "Interface from the app · scene in the viewfinder is a stock photo",
       stops: [
         {
           id: "ready",
@@ -368,9 +405,10 @@ const en: MomentBackCopy = {
           title: "READY",
           body:
             "The chip — READY · 30s, shown here in Turkish — means the last 30 seconds are held. 15s and 30s are free; 60s and 120s carry a Pro lock.",
-          screen: "camera-ready",
+          screen: "camera-ready-photo",
+          illustrative: true,
           alt:
-            "MomentBack's camera screen in Turkish: a teal HAZIR · 30 sn chip at the top, the 15, 30, 60 and 120 second rail with locks on 60 and 120, and the orange KAYDET button.",
+            "MomentBack's camera screen in Turkish, over a stock photo of a dog jumping at sunset: a teal HAZIR · 30 sn chip at the top, the 15, 30, 60 and 120 second rail with locks on 60 and 120, and the orange KAYDET button.",
         },
         {
           id: "filling",
@@ -378,9 +416,10 @@ const en: MomentBackCopy = {
           title: "Filling",
           body:
             "Right after opening, the chip counts what is really held — 2/30 here. SAVE keeps whatever is already there; it never promises seconds it does not have.",
-          screen: "camera-filling",
+          screen: "camera-filling-photo",
+          illustrative: true,
           alt:
-            "The camera screen moments after opening, with the chip reading 2/30 sn while the replay window fills.",
+            "The camera screen moments after opening, over a stock photo, with the chip reading 2/30 sn while the replay window fills.",
         },
         {
           id: "recording",
@@ -388,9 +427,10 @@ const en: MomentBackCopy = {
           title: "SAVE → STOP",
           body:
             "SAVE kept the last 30 seconds and recording carries on. The chip turns orange and counts the clip; the round STOP button finishes it.",
-          screen: "clip-recording",
+          screen: "clip-recording-photo",
+          illustrative: true,
           alt:
-            "The camera screen after SAVE: an orange KLİP 0:31 chip, a confirmation reading that the last 30 seconds were kept and recording continues, and the round STOP button.",
+            "The camera screen after SAVE, over a stock photo: an orange KLİP 0:31 chip, a confirmation reading that the last 30 seconds were kept and recording continues, and the round STOP button.",
         },
         {
           id: "clips",
@@ -444,16 +484,22 @@ const en: MomentBackCopy = {
           title: "Kids and pets",
           body:
             "The first step, the jump off the sofa, the face they will never make again on request. By the time you have the camera recording, you are filming the aftermath.",
+          photo: "pets",
+          alt: "A corgi leaping across a lawn to catch a frisbee.",
         },
         {
           title: "Sport and speed",
           body:
             "Skateboarding, cycling, fishing, the one run that finally works. Keep the camera up through all of it and decide afterwards which seconds were the good ones.",
+          photo: "sport",
+          alt: "A skateboarder in the air above a skate park bowl at sunset, onlookers in silhouette.",
         },
         {
           title: "Outdoors and the unexpected",
           body:
             "Lightning, wildlife, a wave, something falling over. You cannot predict the instant, so stop trying — hold the camera and reach for SAVE when it is already over.",
+          photo: "weather",
+          alt: "Forked lightning striking behind a line of trees under a lit storm cloud at dusk.",
         },
       ],
     },
@@ -779,6 +825,17 @@ const en: MomentBackCopy = {
     noturaLabel: "Also from us",
     noturaLink: "Notura",
     rights: "© 2026 MomentBack. All rights reserved.",
+    credits: {
+      label: "Photography",
+      lead: "from Unsplash, used under the Unsplash License:",
+      subjects: {
+        hero: "beach",
+        tour: "app tour",
+        pets: "corgi",
+        sport: "skater",
+        weather: "lightning",
+      },
+    },
   },
 };
 
@@ -822,9 +879,12 @@ const tr: MomentBackCopy = {
       locked: "Pro",
       readouts: ["1080p · 30 fps", "H.264 · AAC", "Ses açık"],
       zoom: "1,0×",
-      tag: "Bu sayfa için çizildi · gerçek ekranlar aşağıda",
+      credit: {
+        label: "Fotoğraf",
+        note: "arayüz uygulamadan",
+      },
       alt:
-        "MomentBack kamera ekranının çizimi. Üstteki çip tutulan saniyeleri 30'a kadar sayar, ardından HAZIR · 30 sn yazar. Altta 15 ve 30 saniyelik süreler, Pro kilitli 60 ve 120 saniye ve büyük turuncu KAYDET düğmesi var.",
+        "Gün batımında sığ suda koşan bir köpeğin fotoğrafı üzerinde MomentBack kamera ekranı. Üstteki çip tutulan saniyeleri 30'a kadar sayar, ardından HAZIR · 30 sn yazar. Altta 15 ve 30 saniyelik süreler, Pro kilitli 60 ve 120 saniye ve büyük turuncu KAYDET düğmesi var.",
     },
     rail: {
       label: "Tüm uygulama, üç fiilde",
@@ -876,11 +936,13 @@ const tr: MomentBackCopy = {
     },
     tour: {
       label: "Uygulamanın içi",
-      heading: "Altı ekran, olduğu gibi.",
-      body: "Ekranı değiştirmek için bir etiket seçin. Bunlar gerçek ekran görüntüleri, maket değil.",
+      heading: "Uygulamadan altı ekran.",
+      body:
+        "Ekranı değiştirmek için bir etiket seçin. Arayüz her zaman uygulamanın kendisi; ilk üçünde vizördeki sahne stok fotoğraftır.",
       legend: "Bir ekran seçin",
       note:
-        "Samsung Galaxy M21'de (Android 12), 2–3 Ekim 2026 test sürümlerinden, uygulamanın Türkçe arayüzüyle alındı — MomentBack 11 dilde. Telefonun durum ve gezinme çubukları kırpıldı; uygulamanın içindeki hiçbir şey değiştirilmedi. Bu karelerde vizör karanlık — belgelenen şey arayüz.",
+        "Samsung Galaxy M21'de (Android 12), 2–3 Ekim 2026 test sürümlerinden, uygulamanın Türkçe arayüzüyle alındı — MomentBack 11 dilde. Telefonun durum ve gezinme çubukları kırpıldı, hiçbir kontrol değiştirilmedi. Test görüntülerinde vizör karanlıktı; bu yüzden 01–03'te arayüzün arkasına Filip Mavrodiev'in bir fotoğrafı (Unsplash) yerleştirildi.",
+      illustrative: "Arayüz uygulamadan · vizördeki sahne temsilîdir (stok fotoğraf)",
       stops: [
         {
           id: "ready",
@@ -888,9 +950,10 @@ const tr: MomentBackCopy = {
           title: "HAZIR",
           body:
             "Çip HAZIR · 30 sn diyor: son 30 saniye tutuluyor. 15 sn ve 30 sn ücretsiz; 60 sn ve 120 sn Pro kilidi taşıyor.",
-          screen: "camera-ready",
+          screen: "camera-ready-photo",
+          illustrative: true,
           alt:
-            "MomentBack kamera ekranı: üstte turkuaz HAZIR · 30 sn çipi, 60 ve 120'de kilit bulunan 15, 30, 60, 120 saniye seçimi ve turuncu KAYDET düğmesi.",
+            "Gün batımında zıplayan bir köpeğin stok fotoğrafı üzerinde MomentBack kamera ekranı: üstte turkuaz HAZIR · 30 sn çipi, 60 ve 120'de kilit bulunan 15, 30, 60, 120 saniye seçimi ve turuncu KAYDET düğmesi.",
         },
         {
           id: "filling",
@@ -898,8 +961,9 @@ const tr: MomentBackCopy = {
           title: "Doluyor",
           body:
             "Açtıktan hemen sonra çip gerçekten tutulanı sayar — burada 2/30. KAYDET o an ne varsa saklar; olmayan saniyeleri vaat etmez.",
-          screen: "camera-filling",
-          alt: "Açıldıktan birkaç an sonra kamera ekranı; replay penceresi dolarken çip 2/30 sn gösteriyor.",
+          screen: "camera-filling-photo",
+          illustrative: true,
+          alt: "Açıldıktan birkaç an sonra, stok fotoğraf üzerinde kamera ekranı; replay penceresi dolarken çip 2/30 sn gösteriyor.",
         },
         {
           id: "recording",
@@ -907,9 +971,10 @@ const tr: MomentBackCopy = {
           title: "KAYDET → DURDUR",
           body:
             "KAYDET son 30 saniyeyi korudu, çekim sürüyor. Çip turuncuya döner ve klibi sayar; yuvarlak DURDUR düğmesi klibi bitirir.",
-          screen: "clip-recording",
+          screen: "clip-recording-photo",
+          illustrative: true,
           alt:
-            "KAYDET'ten sonra kamera ekranı: turuncu KLİP 0:31 çipi, son 30 saniyenin korunduğunu ve çekimin sürdüğünü söyleyen onay ve yuvarlak DURDUR düğmesi.",
+            "KAYDET'ten sonra, stok fotoğraf üzerinde kamera ekranı: turuncu KLİP 0:31 çipi, son 30 saniyenin korunduğunu ve çekimin sürdüğünü söyleyen onay ve yuvarlak DURDUR düğmesi.",
         },
         {
           id: "clips",
@@ -963,16 +1028,22 @@ const tr: MomentBackCopy = {
           title: "Çocuk ve evcil hayvan",
           body:
             "İlk adım, koltuktan atlayış, isteyince bir daha asla yapmayacağı o surat. Siz kaydı başlattığınızda artık sonrasını çekiyorsunuzdur.",
+          photo: "pets",
+          alt: "Çimenlerin üzerinden sıçrayarak frizbiyi yakalayan bir corgi.",
         },
         {
           title: "Spor ve hız",
           body:
             "Kaykay, bisiklet, balık tutma, sonunda tutan o tek deneme. Kamerayı boyunca açık tutun, hangi saniyelerin iyi olduğuna sonra karar verin.",
+          photo: "sport",
+          alt: "Gün batımında kaykay parkındaki havuzun üzerinde havada bir kaykaycı; izleyenler siluet hâlinde.",
         },
         {
           title: "Dışarısı ve beklenmedik olan",
           body:
             "Yıldırım, vahşi yaşam, bir dalga, devrilen bir şey. Anı tahmin edemezsiniz; etmeyi bırakın — kamerayı tutun, iş bittikten sonra KAYDET'e uzanın.",
+          photo: "weather",
+          alt: "Alacakaranlıkta aydınlanan fırtına bulutunun altında, ağaçların ardına düşen çatallı yıldırım.",
         },
       ],
     },
@@ -1298,6 +1369,17 @@ const tr: MomentBackCopy = {
     noturaLabel: "Bizden ayrıca",
     noturaLink: "Notura",
     rights: "© 2026 MomentBack. Tüm hakları saklıdır.",
+    credits: {
+      label: "Fotoğraflar",
+      lead: "Unsplash'ten, Unsplash Lisansı ile kullanıldı:",
+      subjects: {
+        hero: "sahil",
+        tour: "uygulama turu",
+        pets: "corgi",
+        sport: "kaykaycı",
+        weather: "yıldırım",
+      },
+    },
   },
 };
 

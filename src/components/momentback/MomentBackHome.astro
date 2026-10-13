@@ -12,17 +12,12 @@ const { locale } = Astro.props;
 const copy = getMomentBackCopy(locale);
 const home = copy.home;
 
-/* Line icons, not photographs: motion, speed, weather. One stroke weight. */
-const momentPaths = [
-  ["M2 19c2.5-9 17.5-9 20 0", "M12 10.4a2.4 2.4 0 1 0 0-4.8 2.4 2.4 0 0 0 0 4.8"],
-  ["M3 8h9M3 12h13M3 16h7", "M16.5 7 21 12l-4.5 5"],
-  ["M13 2 5 13.5h6L10 22l8-11.5h-6z"],
-];
-
+/* Licensed photographs (Unsplash License), one 4:3 crop per moment. */
+const photoBase = "/momentback/photos";
 const moments = home.moments.items.map((moment, index) => ({
   ...moment,
   index: String(index + 1).padStart(2, "0"),
-  paths: momentPaths[index] ?? [],
+  file: `${photoBase}/moment-${moment.photo}`,
 }));
 ---
 
@@ -103,16 +98,30 @@ const moments = home.moments.items.map((moment, index) => ({
       {
         moments.map((moment) => (
           <li>
-            <p class="mb-moments__index" aria-hidden="true">
-              {moment.index}
-            </p>
-            <svg viewBox="0 0 24 24" aria-hidden="true">
-              {moment.paths.map((d) => (
-                <path d={d} />
-              ))}
-            </svg>
-            <h3>{moment.title}</h3>
-            <p>{moment.body}</p>
+            <picture class="mb-moments__photo">
+              <source
+                type="image/avif"
+                srcset={`${moment.file}-640.avif 640w, ${moment.file}-960.avif 960w`}
+                sizes="(min-width: 52rem) 24rem, calc(100vw - 2rem)"
+              />
+              <img
+                src={`${moment.file}-640.webp`}
+                srcset={`${moment.file}-640.webp 640w, ${moment.file}-960.webp 960w`}
+                sizes="(min-width: 52rem) 24rem, calc(100vw - 2rem)"
+                alt={moment.alt}
+                width="640"
+                height="480"
+                loading="lazy"
+                decoding="async"
+              />
+            </picture>
+            <div class="mb-moments__text">
+              <p class="mb-moments__index" aria-hidden="true">
+                {moment.index}
+              </p>
+              <h3>{moment.title}</h3>
+              <p>{moment.body}</p>
+            </div>
           </li>
         ))
       }

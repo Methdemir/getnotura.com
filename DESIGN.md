@@ -337,8 +337,10 @@ band fills (`--mb-teal-dim`, `--mb-orange-dim`) and the HUD chip ground.
 - **Tracked mono instrument labels everywhere** (`0.64–0.78rem`, uppercase, `0.1–0.16em`):
   section labels, the nav, HUD readouts, spec keys, figure captions. Even the header
   carries a ticking `HOLD 00:00` readout on the home page.
-- **A drawn scene with gradients and grain** behind the hero HUD. It is a viewfinder.
-- **Cards** for the moments and the price panel. Notura uses hairline rows only.
+- **Full-bleed licensed photography** behind the hero HUD, under scrims. It is a
+  viewfinder, so it shows a scene.
+- **Photo cards** for the moments and a bordered price panel. Notura uses hairline rows
+  only.
 - **A second voice.** Headlines that matter are set in two voices: Plus Jakarta Sans
   for the statement, an italic high-contrast serif for the answer ("Save the moment." /
   *After it happens.*). The serif is a system stack — `"Bodoni 72", "Bodoni MT", Didot,
@@ -360,16 +362,26 @@ Clips top-left, the buffer chip top-centre, flip and settings top-right, the
 bottom. Every string is the app's string in that locale (`app_en.arb` / `app_tr.arb`:
 READY/HAZIR, SAVE/KAYDET, `{n}/30s`). It draws nothing the app lacks — no REC dot, no
 audio meters, no thirds grid. The focus square and `1.0×` pill stand for tap-to-focus and
-pinch-zoom, which ship. Corner brackets frame the drawing and are site chrome.
+pinch-zoom, which ship; on wide screens the square sits on the dog. Corner brackets frame
+the viewfinder and are site chrome.
 
-The scene is gradients (dusk sky, two ridges, neutral bokeh, SVG-noise grain): no stock
-image, no video, no fake capture. A visible tag says it was drawn for the page and links
-to the real screens; the HUD is `aria-hidden` and a visually hidden paragraph describes it.
+The scene is a licensed photograph (see Photography): a dog running through shallow
+water at golden hour. `<picture>` art-directs it — a wide crop (1280/1920/2400w) from
+48rem up, a portrait crop (640/847w) below, AVIF first, WebP fallback. It is the only
+`loading="eager"` + `fetchpriority="high"` image on the page; at 1920w the AVIF is
+~99 KB. Two scrims carry legibility: top/bottom curtains for the HUD (as the app does)
+and, from 52rem, a left-hand shade under the headline; on a phone the copy sits low and
+the lower half darkens. Measured on text-free renders, the lede holds ≥ 6:1 at its
+brightest background pixel and the headline ≥ 5.9:1. A visible credit on the frame reads
+"Photo: Rafaëlla Waasdorp / Unsplash · interface from the app" (TR: "Fotoğraf: … ·
+arayüz uygulamadan"). The HUD is `aria-hidden`; a visually hidden paragraph describes
+screen and scene.
 
-Motion (CSS only, inside `prefers-reduced-motion: no-preference`): the scene pulls focus
-on load; the chip counts held seconds in real time with an `@property` integer and a
-conic ring, then reads READY at 30, as the app does; the header readout ticks. With
-reduced motion the chip simply reads READY · 30s.
+Motion (CSS only, inside `prefers-reduced-motion: no-preference`): the photo pulls focus
+on load, then drifts very slightly like a hand-held camera (never a zoom effect); the
+chip counts held seconds in real time with an `@property` integer and a conic ring, then
+reads READY at 30, as the app does; the header readout ticks. With reduced motion the
+photo is still and the chip simply reads READY · 30s.
 
 ### Below the hero
 
@@ -381,7 +393,9 @@ reduced motion the chip simply reads READY · 30s.
 5. **Figures** — 30 s / 120 s / 0 / 11, `@property` counters that count up on a
    scroll-driven `view()` timeline; static final values everywhere else. The number is
    also in the DOM as text for assistive tech.
-6. Moments, privacy facts, spec + a two-voice price line ("Free to start." /
+6. Moments — three photo cards (4:3 crops, `saturate(0.86) brightness(0.94)` so they
+   sit in the anthracite system, a hairline where photo meets card, lazy-loaded), then
+   privacy facts, spec + a two-voice price line ("Free to start." /
    *Pro once. No subscription.*), FAQ, two-voice close.
 
 ### The signature: the replay timeline
@@ -398,10 +412,37 @@ then STOP lands. Everywhere else it is static and complete.
 ### Screenshots
 
 The tour shows six real captures in a CSS phone: READY, filling (`2/30`), SAVE→STOP,
-Clips, Settings, Quality. A native radio group switches them (`:has()`), so it is
-keyboard operable with no script; without `:has()` the first screen stays. Every
-description is visible text tied to its radio with `aria-describedby`. Sourcing, cropping
-and the honesty rules are in `docs/web/momentback-screenshot-slots.md`.
+Clips, Settings, Quality. The test captures had a dark viewfinder, so in the three camera
+stops a licensed photo sits *behind* the untouched interface (chips, rail, SAVE, STOP and
+toast are the screenshot's own pixels). Those stops carry a visible note — "Interface from
+the app · scene in the viewfinder is a stock photo" / "Arayüz uygulamadan · vizördeki
+sahne temsilîdir (stok fotoğraf)" — and their alt text says the same. Clips, Settings and
+Quality are plain screenshots. A native radio group switches the screens (`:has()`), so
+it is keyboard operable with no script; without `:has()` the first screen stays. Every
+description is visible text tied to its radio with `aria-describedby`. Sourcing,
+compositing and the honesty rules are in `docs/web/momentback-screenshot-slots.md`.
+
+### Photography
+
+Five photographs from Unsplash, used under the Unsplash License (free for commercial
+use, no permission needed; none is an Unsplash+ image). Credit is not required and is
+given anyway: on the hero frame, in the tour note, and as a "Photography" line in the
+home page footer with links to each photo page. The record of photographer and URL is
+`momentBackPhotos` in `src/content/momentback.ts`.
+
+| Use | Photo | Photographer |
+| --- | --- | --- |
+| Hero scene | Dog running through shallow water, golden hour | Rafaëlla Waasdorp — unsplash.com/photos/kyV6PvfJWik |
+| Tour viewfinder (01–03) | German shepherd jumping, backlit | Filip Mavrodiev — unsplash.com/photos/RR30mRqOgjo |
+| Moments: kids and pets | Corgi catching a frisbee | Alvan Nee — unsplash.com/photos/a8qRcuSZTsE |
+| Moments: sport and speed | Skater mid-air at sunset | Robson Hatsukami Morgan — unsplash.com/photos/ISkeH2SLqNU |
+| Moments: outdoors | Lightning at dusk over trees | Max LaRochelle — unsplash.com/photos/uu-Jw5SunYI |
+
+Rules: photographs show *situations the app is for*, never a fake app result; the only
+place a photo meets the interface (the tour) is labelled as such. People appear only as
+distant silhouettes. One retouch was made: a small teal lens-flare speck in the hero photo
+was removed, because teal is reserved for "held" in this system. Files live in
+`public/momentback/photos/` (AVIF + WebP); everything below the hero is lazy-loaded.
 
 ---
 

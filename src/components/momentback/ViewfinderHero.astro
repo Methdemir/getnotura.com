@@ -8,14 +8,17 @@
  * orange SAVE at the bottom. Nothing the app does not have is drawn — no REC
  * dot, no audio meters, no grid.
  *
- * The scene behind it is built from gradients: no stock image, no video, no
- * fake capture. It is labelled as a drawing, and links to the real screens.
+ * The scene behind it is a licensed photograph (Unsplash License), credited on
+ * the frame itself: "Photo: … · interface from the app". It is art-directed —
+ * a wide crop from 48rem up, a portrait crop below — and is the only eager,
+ * high-priority image on the page. Two scrims keep the HUD and the headline
+ * legible over it.
  *
  * Motion is CSS only. The chip counts held seconds in real time with an
  * @property integer and turns into READY when the window is full, the way the
  * app does. With reduced motion it simply reads READY.
  */
-import type { MomentBackCopy } from "../../content/momentback";
+import { momentBackPhotos, type MomentBackCopy } from "../../content/momentback";
 
 interface Props {
   home: MomentBackCopy["home"];
@@ -23,17 +26,30 @@ interface Props {
 
 const { home } = Astro.props;
 const hud = home.hud;
+const photo = momentBackPhotos.hero;
+const base = "/momentback/photos";
+const wide = [1280, 1920, 2400].map((w) => `${base}/hero-wide-${w}`);
+const tall = [640, 847].map((w) => `${base}/hero-tall-${w}`);
+const set = (files: string[], widths: number[], ext: string) =>
+  files.map((file, index) => `${file}.${ext} ${widths[index]}w`).join(", ");
 ---
 
 <section class="mb-vf" aria-labelledby="mb-hero-heading">
-  <div class="mb-vf__scene" aria-hidden="true">
-    <i class="mb-vf__sky"></i>
-    <i class="mb-vf__sun"></i>
-    <i class="mb-vf__ridge mb-vf__ridge--far"></i>
-    <i class="mb-vf__ridge mb-vf__ridge--near"></i>
-    <i class="mb-vf__bokeh"></i>
-    <i class="mb-vf__grain"></i>
-  </div>
+  <picture class="mb-vf__scene" aria-hidden="true">
+    <source media="(min-width: 48rem)" type="image/avif" srcset={set(wide, [1280, 1920, 2400], "avif")} sizes="100vw" />
+    <source media="(min-width: 48rem)" type="image/webp" srcset={set(wide, [1280, 1920, 2400], "webp")} sizes="100vw" />
+    <source type="image/avif" srcset={set(tall, [640, 847], "avif")} sizes="100vw" />
+    <source type="image/webp" srcset={set(tall, [640, 847], "webp")} sizes="100vw" />
+    <img
+      src={`${base}/hero-tall-640.webp`}
+      alt=""
+      width="640"
+      height="1143"
+      loading="eager"
+      fetchpriority="high"
+      decoding="async"
+    />
+  </picture>
 
   <div class="mb-vf__frame">
     <div class="mb-vf__top" aria-hidden="true">
@@ -95,7 +111,9 @@ const hud = home.hud;
       {hud.readouts.map((readout) => <li>{readout}</li>)}
     </ul>
 
-    <a class="mb-vf__tag" href="#tour">{hud.tag}</a>
+    <p class="mb-vf__tag">
+      {hud.credit.label}: <a href={photo.url} rel="noopener">{photo.photographer} / Unsplash</a> · {hud.credit.note}
+    </p>
     <p class="mb-sr-only">{hud.alt}</p>
 
     <i class="mb-vf__corner mb-vf__corner--tl" aria-hidden="true"></i>

@@ -8,7 +8,9 @@ import {
   momentBackLocaleMeta,
   momentBackLocales,
   momentBackPath,
+  momentBackPhotos,
   type MomentBackLocale,
+  type MomentBackPhotoKey,
   type MomentBackPage,
 } from "../content/momentback";
 import "../styles/momentback.css";
@@ -28,6 +30,7 @@ const absolute = (path: string) => new URL(path, siteOrigin).href;
 const canonicalPath = momentBackPath(locale, page);
 const alternates = momentBackAlternates(page);
 const home = momentBackPath(locale, "home");
+const photoKeys: MomentBackPhotoKey[] = ["hero", "tour", "pets", "sport", "weather"];
 
 const navigation =
   page === "home"
@@ -174,6 +177,18 @@ const navigation =
         </div>
         <div class="mb-foot__legal">
           <p>{copy.footer.rights}</p>
+          {
+            page === "home" && (
+              <p class="mb-foot__credits">
+                <span>{copy.footer.credits.label} · </span>
+                {copy.footer.credits.lead}{" "}
+                {/* One line per credit on purpose: JSX newlines would put spaces before the commas. */}
+                {photoKeys.map((key, index) => (
+                  <Fragment>{index > 0 && ", "}<a href={momentBackPhotos[key].url} rel="noopener">{momentBackPhotos[key].photographer}</a>{` (${copy.footer.credits.subjects[key]})`}{index === photoKeys.length - 1 && "."}</Fragment>
+                ))}
+              </p>
+            )
+          }
         </div>
       </div>
     </footer>
