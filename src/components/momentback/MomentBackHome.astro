@@ -1,7 +1,8 @@
 ---
 import { getMomentBackCopy, momentBackPath, type MomentBackLocale } from "../../content/momentback";
-import DeviceFrame from "./DeviceFrame.astro";
+import AppTour from "./AppTour.astro";
 import ReplayTimeline from "./ReplayTimeline.astro";
+import ViewfinderHero from "./ViewfinderHero.astro";
 
 interface Props {
   locale: MomentBackLocale;
@@ -10,10 +11,6 @@ interface Props {
 const { locale } = Astro.props;
 const copy = getMomentBackCopy(locale);
 const home = copy.home;
-
-/* SAVE is the product's one verb; it is set in the accent that means "time is
-   being committed to a file" wherever it appears in running text. */
-const beat = home.beat.split("SAVE");
 
 /* Line icons, not photographs: motion, speed, weather. One stroke weight. */
 const momentPaths = [
@@ -24,46 +21,24 @@ const momentPaths = [
 
 const moments = home.moments.items.map((moment, index) => ({
   ...moment,
+  index: String(index + 1).padStart(2, "0"),
   paths: momentPaths[index] ?? [],
 }));
 ---
 
-<section class="mb-hero mb-shell" aria-labelledby="mb-hero-heading">
-  <div class="mb-hero__copy">
-    <p class="mb-label"><span class="mb-dot"></span>{home.eyebrow}</p>
-    <h1 id="mb-hero-heading">{home.heading}</h1>
-    <p class="mb-hero__lede">{home.lede}</p>
-    <div class="mb-actions">
-      <span class="mb-cta"><span class="mb-dot"></span>{home.cta}</span>
-      <a class="mb-link" href="#how">{home.secondary}</a>
-    </div>
-    <p class="mb-note">{home.ctaNote}</p>
-    <p class="mb-beat">{beat.map((part, index) => (<Fragment>{index > 0 && <b>SAVE</b>}{part}</Fragment>))}</p>
-    <p class="mb-hero__meta">{home.platform}</p>
-  </div>
-  <DeviceFrame
-    caption={home.device.note}
-    state={home.device.state}
-    buffered={home.device.buffered}
-    save={home.device.save}
-    durations={home.device.durations}
-  />
-</section>
+<ViewfinderHero home={home} />
 
-<section id="how" class="mb-bay mb-bay--raised" aria-labelledby="mb-how-heading">
+<section class="mb-rail-sec" aria-labelledby="mb-rail-heading">
   <div class="mb-shell">
-    <div class="mb-intro">
-      <p class="mb-label"><span class="mb-dot"></span>{home.how.label}</p>
-      <h2 id="mb-how-heading">{home.how.heading}</h2>
-      <p>{home.how.body}</p>
-    </div>
-    <ReplayTimeline labels={home.how.timeline} />
-    <ol class="mb-steps">
+    <p class="mb-label mb-label--quiet">{home.rail.label}</p>
+    <h2 id="mb-rail-heading" class="mb-sr-only">{home.rail.heading}</h2>
+    <ol class="mb-verbs">
       {
-        home.how.steps.map((step) => (
-          <li>
-            <p class="mb-label">
-              {step.index} · {step.label}
+        home.rail.steps.map((step) => (
+          <li class={`mb-verb mb-verb--${step.tone}`}>
+            <p class="mb-verb__head">
+              <span class="mb-verb__index">{step.index}</span>
+              <span class="mb-verb__word">{step.verb}</span>
             </p>
             <h3>{step.title}</h3>
             <p>{step.body}</p>
@@ -74,7 +49,50 @@ const moments = home.moments.items.map((moment, index) => ({
   </div>
 </section>
 
-<section id="moments" class="mb-bay" aria-labelledby="mb-moments-heading">
+<section id="how" class="mb-bay mb-bay--raised" aria-labelledby="mb-how-heading">
+  <div class="mb-shell">
+    <div class="mb-intro">
+      <p class="mb-label"><span class="mb-dot"></span>{home.how.label}</p>
+      <h2 id="mb-how-heading">{home.how.heading}</h2>
+      <p>{home.how.body}</p>
+    </div>
+    <ReplayTimeline labels={home.how.timeline} />
+  </div>
+</section>
+
+<section id="tour" class="mb-bay" aria-labelledby="mb-tour-heading">
+  <div class="mb-shell">
+    <div class="mb-intro">
+      <p class="mb-label"><span class="mb-dot"></span>{home.tour.label}</p>
+      <h2 id="mb-tour-heading">{home.tour.heading}</h2>
+      <p>{home.tour.body}</p>
+    </div>
+    <AppTour tour={home.tour} />
+  </div>
+</section>
+
+<section class="mb-figures-sec" aria-labelledby="mb-figures-heading">
+  <div class="mb-shell">
+    <p class="mb-label mb-label--quiet">{home.figures.label}</p>
+    <h2 id="mb-figures-heading" class="mb-sr-only">{home.figures.heading}</h2>
+    <ul class="mb-figures">
+      {
+        home.figures.items.map((figure) => (
+          <li>
+            <p class="mb-figure__value">
+              <span class="mb-figure__count" style={`--to: ${figure.value}`} aria-hidden="true" />
+              <span class="mb-sr-only">{figure.value}</span>
+              {figure.unit && <span class="mb-figure__unit">{figure.unit}</span>}
+            </p>
+            <p class="mb-figure__label">{figure.label}</p>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
+
+<section id="moments" class="mb-bay mb-bay--raised" aria-labelledby="mb-moments-heading">
   <div class="mb-shell">
     <div class="mb-intro">
       <p class="mb-label"><span class="mb-dot"></span>{home.moments.label}</p>
@@ -85,6 +103,9 @@ const moments = home.moments.items.map((moment, index) => ({
       {
         moments.map((moment) => (
           <li>
+            <p class="mb-moments__index" aria-hidden="true">
+              {moment.index}
+            </p>
             <svg viewBox="0 0 24 24" aria-hidden="true">
               {moment.paths.map((d) => (
                 <path d={d} />
@@ -99,7 +120,7 @@ const moments = home.moments.items.map((moment, index) => ({
   </div>
 </section>
 
-<section id="privacy" class="mb-bay mb-bay--raised" aria-labelledby="mb-trust-heading">
+<section id="privacy" class="mb-bay" aria-labelledby="mb-trust-heading">
   <div class="mb-shell">
     <div class="mb-intro">
       <p class="mb-label"><span class="mb-dot"></span>{home.trust.label}</p>
@@ -116,13 +137,13 @@ const moments = home.moments.items.map((moment, index) => ({
         ))
       }
     </ul>
-    <p class="mb-actions mb-actions--after">
+    <p class="mb-actions--after">
       <a class="mb-link" href={momentBackPath(locale, "privacy")}>{home.trust.link}</a>
     </p>
   </div>
 </section>
 
-<section id="app" class="mb-bay" aria-labelledby="mb-spec-heading">
+<section id="app" class="mb-bay mb-bay--raised" aria-labelledby="mb-spec-heading">
   <div class="mb-shell">
     <div class="mb-intro">
       <p class="mb-label"><span class="mb-dot"></span>{home.spec.label}</p>
@@ -139,11 +160,19 @@ const moments = home.moments.items.map((moment, index) => ({
         ))
       }
     </dl>
-    <p class="mb-note mb-spec__note">{home.spec.note}</p>
+    <div class="mb-price">
+      <p class="mb-label mb-label--quiet">{home.pricing.label}</p>
+      <p class="mb-price__headline mb-two-voice">
+        <span class="mb-two-voice__plain">{home.pricing.headline.plain}</span>
+        <span class="mb-two-voice__serif">{home.pricing.headline.serif}</span>
+      </p>
+      <p class="mb-price__line">{home.pricing.line}</p>
+      <p class="mb-note">{home.pricing.note}</p>
+    </div>
   </div>
 </section>
 
-<section id="faq" class="mb-bay mb-bay--raised" aria-labelledby="mb-faq-heading">
+<section id="faq" class="mb-bay" aria-labelledby="mb-faq-heading">
   <div class="mb-shell">
     <div class="mb-intro">
       <p class="mb-label"><span class="mb-dot"></span>{home.faq.label}</p>
@@ -162,10 +191,13 @@ const moments = home.moments.items.map((moment, index) => ({
   </div>
 </section>
 
-<section class="mb-close mb-shell" aria-labelledby="mb-close-heading">
-  <h2 id="mb-close-heading">{home.close.heading}</h2>
-  <p>{home.close.body}</p>
-  <div class="mb-actions">
-    <span class="mb-cta"><span class="mb-dot"></span>{home.cta}</span>
+<section class="mb-close" aria-labelledby="mb-close-heading">
+  <div class="mb-shell">
+    <h2 id="mb-close-heading" class="mb-two-voice mb-two-voice--close">
+      <span class="mb-two-voice__plain">{home.close.heading.plain}</span>
+      <span class="mb-two-voice__serif">{home.close.heading.serif}</span>
+    </h2>
+    <p>{home.close.body}</p>
+    <p class="mb-status__store"><span class="mb-dot"></span>{home.cta}</p>
   </div>
 </section>

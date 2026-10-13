@@ -306,61 +306,102 @@ That separation is deliberate rather than drift, so the detector is configured t
 section is the design record for that file.
 
 **North star: "The viewfinder is already open."** MomentBack is a camera that holds the
-last seconds it has seen. The surface is the dark of a camera app because that is what
-the product is — a light mode would blow out night framing, so the app has none and
-neither does the site.
+last seconds it has seen. The visitor lands *inside* the camera screen: the hero is a
+viewfinder with the app's own HUD over a drawn scene. The surface is the dark of a camera
+app because that is what the product is — a light mode would blow out night framing, so
+the app has none and neither does the site.
 
 ### Palette
 
-Taken directly from the app (`lib/src/theme/momentback_theme.dart`), not reinterpreted:
+Taken from the app's current anthracite theme (`lib/src/theme/momentback_theme.dart`,
+`MB` and `SurfacePalette.dark`), not reinterpreted. The earlier teal-black `#0b1719`
+ground is gone from the app and from the site.
 
 | Token | Value | Meaning |
 | --- | --- | --- |
-| `--mb-ground` | `#0b1719` | The viewfinder ground. Fixed in every system theme. |
-| `--mb-raised` / `--mb-panel` | `#0f2124` / `#16292d` | Sheet and card grounds, in the app's two lifts. |
-| `--mb-cream` | `#fdf4ea` | Ink. `--mb-ink` and `--mb-ink-faint` are its 72% and 50% steps. |
-| `--mb-teal` | `#3fd8c4` | **The moment is being held.** Never decoration. |
-| `--mb-orange` | `#ff8a3d` | **Time is being committed to a file.** Never decoration. |
-| `--mb-on-orange` | `#331402` | Ink on a filled orange surface. |
+| `--mb-ground` | `#101214` | `MB.ground`, the viewfinder ground. |
+| `--mb-raised` / `--mb-panel` | `#191c20` / `#24282d` | `SurfacePalette.dark.ground` / `.elevated`: alternate bays, sheets, panels. |
+| `--mb-rule` | `#363b42` | `SurfacePalette.dark.rule`. |
+| `--mb-cream` | `#f3f4f5` | `MB.cream`, ink for headings and values. |
+| `--mb-muted` | `#acb2ba` | `SurfacePalette.dark.inkMuted`. `--mb-ink` (`#d3d7dc`) and `--mb-faint` (`#8d949d`) are the body and tertiary steps between and below cream and muted. |
+| `--mb-serif-ink` | `#e4ddcd` | The second voice of a two-voice headline. Warm off-cream, still neutral. |
+| `--mb-teal` / `--mb-on-teal` | `#3fd8c4` / `#062824` | **The moment is being held.** Buffer chip, selected duration, HOLD, held band. |
+| `--mb-orange` / `--mb-on-orange` | `#ff8a3d` / `#331402` | **Time is being committed to a file.** SAVE, STOP, the saved clip. |
 
-The two accents never swap roles, on the site or in the app: teal marks the rolling
-buffer and anything still recoverable, orange marks SAVE, STOP and the written clip.
-The low-alpha derivatives (`--mb-teal-dim`, `--mb-orange-dim`, `--mb-rule`,
-`--mb-rule-strong`, and the two hero glows) are tints of exactly these five values.
+The two accents never swap roles and are never decoration: section labels, links, focus
+rings and the nav are cream or muted. The only low-alpha derivatives are the timeline's
+band fills (`--mb-teal-dim`, `--mb-orange-dim`) and the HUD chip ground.
 
 ### What MomentBack does that Notura forbids
 
-Recorded here so the difference is legible as a decision, not an accident:
-
-- **Tracked mono eyebrows above headings.** The app's own chips and rails are instrument
-  readouts; the site's `ui-monospace` labels are the same voice. Notura bans eyebrows.
-- **Two low-opacity radial glows on the body.** A viewfinder is a lit surface. Notura
-  bans gradients and glows outright.
-- **Cards.** `.mb-moments` items are bordered panels. Notura uses hairline rows only.
-- **A second family.** The system mono stack carries every instrument label. No new font
-  file ships; `ui-monospace` costs nothing.
+- **Tracked mono instrument labels everywhere** (`0.64–0.78rem`, uppercase, `0.1–0.16em`):
+  section labels, the nav, HUD readouts, spec keys, figure captions. Even the header
+  carries a ticking `HOLD 00:00` readout on the home page.
+- **A drawn scene with gradients and grain** behind the hero HUD. It is a viewfinder.
+- **Cards** for the moments and the price panel. Notura uses hairline rows only.
+- **A second voice.** Headlines that matter are set in two voices: Plus Jakarta Sans
+  for the statement, an italic high-contrast serif for the answer ("Save the moment." /
+  *After it happens.*). The serif is a system stack — `"Bodoni 72", "Bodoni MT", Didot,
+  "Iowan Old Style", "Palatino Linotype", Georgia, serif` — so no font file ships for it.
 
 ### Type
 
-One family (Plus Jakarta Sans, the two weights already bundled) plus the system mono
-stack. Display `clamp(2.6rem, 1.5rem + 4.6vw, 5.1rem)` at `-0.042em` — tighter and
-slightly smaller than Notura's, because a dark ground makes the same size read heavier.
-Instrument labels are mono, `0.695rem`, `0.19em` tracking, uppercase.
+Plus Jakarta Sans (the two bundled weights), the system serif stack above for the second
+voice, and the system mono stack for instruments. Hero display is
+`clamp(2.6rem, min(1.35rem + 5.6vw, 10.5svh), 6.6rem)` at `-0.045em` — capped by the
+viewport height so SAVE stays in the first screen on a laptop. HUD text mirrors the app's
+`MBText` sizes (chip 10.5dp → `0.68rem`, SAVE 172×64dp → `10.75rem × 4rem`).
+
+### The hero: a viewfinder in the app's own words
+
+`ViewfinderHero.astro`. Layout follows the app's camera screen (`camera_chrome.dart`):
+Clips top-left, the buffer chip top-centre, flip and settings top-right, the
+15s/30s/60s/120s rail (60/120 with a lock), the orange SAVE and the first-run hint at the
+bottom. Every string is the app's string in that locale (`app_en.arb` / `app_tr.arb`:
+READY/HAZIR, SAVE/KAYDET, `{n}/30s`). It draws nothing the app lacks — no REC dot, no
+audio meters, no thirds grid. The focus square and `1.0×` pill stand for tap-to-focus and
+pinch-zoom, which ship. Corner brackets frame the drawing and are site chrome.
+
+The scene is gradients (dusk sky, two ridges, neutral bokeh, SVG-noise grain): no stock
+image, no video, no fake capture. A visible tag says it was drawn for the page and links
+to the real screens; the HUD is `aria-hidden` and a visually hidden paragraph describes it.
+
+Motion (CSS only, inside `prefers-reduced-motion: no-preference`): the scene pulls focus
+on load; the chip counts held seconds in real time with an `@property` integer and a
+conic ring, then reads READY at 30, as the app does; the header readout ticks. With
+reduced motion the chip simply reads READY · 30s.
+
+### Below the hero
+
+1. **Status strip** — store state as text ("Coming soon on Google Play", never a link
+   until `store` config says so), platform chips, a link to the real screens.
+2. **Verb rail** — HOLD (teal) → SAVE (orange) → SHARE (cream). Colour by role.
+3. **The replay timeline** (signature, below).
+4. **App tour** — `AppTour.astro`, see Screenshots.
+5. **Figures** — 30 s / 120 s / 0 / 11, `@property` counters that count up on a
+   scroll-driven `view()` timeline; static final values everywhere else. The number is
+   also in the DOM as text for assistive tech.
+6. Moments, privacy facts, spec + a two-voice price line ("Free to start." /
+   *Pro once. No subscription.*), FAQ, two-voice close.
 
 ### The signature: the replay timeline
 
-`ReplayTimeline.astro` is the one diagram the page has to land — a single press reaching
-backwards across the held seconds and forwards to STOP. It exists twice: an SVG time
-axis above 52rem and the same bands running down the page below it, because a horizontal
-axis on a phone shows a third of the idea. Both are `aria-hidden`; a visually hidden
-paragraph carries the text alternative for either.
+`ReplayTimeline.astro` — a single press reaching backwards across the held seconds and
+forwards to STOP. It exists twice: an SVG time axis above 52rem (capped at 54rem wide) and
+the same bands running down the page below it. Both are `aria-hidden`; a visually hidden
+paragraph carries the text alternative. Inside `@supports (animation-timeline: view())`
+and without reduced motion, the figure draws itself as it scrolls in (named
+`view-timeline: --mb-tl`): the held band fills, the event appears, SAVE drops, and the
+clip grows *out of the SAVE press in both directions* (`transform-origin` at the press),
+then STOP lands. Everywhere else it is static and complete.
 
-### Screenshot slots
+### Screenshots
 
-`DeviceFrame.astro` renders a real app screenshot when passed `src`, and a schematic
-viewfinder captioned "Interface diagram — not a screenshot" when not. The schematic is
-never dressed up as a product photograph. See
-`docs/web/momentback-screenshot-slots.md`.
+The tour shows six real captures in a CSS phone: READY, filling (`2/30`), SAVE→STOP,
+Clips, Settings, Quality. A native radio group switches them (`:has()`), so it is
+keyboard operable with no script; without `:has()` the first screen stays. Every
+description is visible text tied to its radio with `aria-describedby`. Sourcing, cropping
+and the honesty rules are in `docs/web/momentback-screenshot-slots.md`.
 
 ---
 

@@ -1,63 +1,75 @@
-# MomentBack screenshot slots
+# MomentBack screenshots
 
-The MomentBack landing page ships with no product screenshots. Every place one belongs
-is already built as a slot; adding the real images is dropping files in a directory and
-passing one prop. Nothing about the layout, the frame, or the page structure changes.
+The MomentBack landing page uses real app captures in one place, the app tour
+(`src/components/momentback/AppTour.astro`, section `#tour`). The hero is a drawn
+viewfinder, labelled as a drawing, and is not a screenshot slot.
 
-## Adding a screenshot
+## What ships today
 
-1. Put the file in `public/momentback/screens/`. PNG or JPEG, portrait, taken on a phone
-   at the app's real aspect ratio. Name it for the state it shows, e.g.
-   `camera-ready.png`, `camera-saving.png`, `clips.png`, `settings.png`.
-2. Pass `src` (and `alt`) to `DeviceFrame` in
-   `src/components/momentback/MomentBackHome.astro`:
+Six captures in `public/momentback/screens/`, each as `<name>-720.avif` and
+`<name>-720.webp` (720×1425):
 
-   ```astro
-   <DeviceFrame
-     src="/momentback/screens/camera-ready.png"
-     alt="MomentBack's camera screen, armed and holding the last 30 seconds."
-     caption="MomentBack, ready. The last 30 seconds are being held."
-     state={home.device.state}
-     buffered={home.device.buffered}
-     save={home.device.save}
-     durations={home.device.durations}
-   />
-   ```
-
-3. Replace the caption. Right now every slot is captioned "Interface diagram — not a
-   screenshot" (`home.device.note` in `src/content/momentback.ts`, both locales). Once a
-   real screenshot is in, that caption is wrong — change it to what the screenshot
-   actually shows, or drop it.
-
-`DeviceFrame` shows the schematic viewfinder only while `src` is absent, so the two never
-appear at once and there is no half-state to clean up.
-
-## The slots
-
-| Where | Component call | State to capture |
+| File | Source (apps/ReplayCamera/out/) | Shows |
 | --- | --- | --- |
-| Hero, right column | `MomentBackHome.astro`, the `<DeviceFrame>` in `.mb-hero` | The camera armed and holding — the READY chip, the duration rail, the SAVE button. This is the one that matters most. |
+| `camera-ready` | `final-polish/camera.png` | Camera screen, HAZIR · 30 sn chip, rail with locks on 60/120, KAYDET. |
+| `camera-filling` | `final-polish/camera-final.png` | Same screen moments after opening, chip at 2/30 sn. |
+| `clip-recording` | `final-polish/save-confirmation.png` | After SAVE: KLİP 0:31 chip, "last 30 seconds kept" confirmation, STOP. |
+| `clips` | `final-polish/clips.png` | Klipler sheet: date, size, length, share and delete per clip. |
+| `settings` | `final-polish/settings.png` | Ayarlar sheet: replay length, Record audio, quality, Pro (locked), restore, turn off camera and microphone. |
+| `quality` | `pro-quality/m21-high-picker.png` | Quality picker: 720p30 / 1080p30, 1080p60 "not supported by this camera", 4K30, Pro stars. |
 
-Only one slot is wired today, deliberately: one honest screenshot in the hero beats four
-placeholders. When the real images exist, the natural next two are a second `DeviceFrame`
-in the "How it works" section showing the SAVE→STOP morph, and one in "What is in the
-app" showing Clips.
+All were captured on the Samsung Galaxy M21 test phone (Android 12) from the 2–3 October
+2026 test builds, in the app's Turkish interface. The page says so under the phone, in
+both locales.
+
+### How they were cleaned
+
+- Cropped to `y = 76…2214` of the 1080×2340 original: the Android status bar (with
+  personal notification icons) and the navigation bar are removed. Nothing inside the
+  app's interface was retouched.
+- Resized to 720 px wide (about 2× the largest rendered phone) and encoded as AVIF
+  (q60) and WebP (q82). Each file is 7–42 KB.
+- **Excluded on purpose:** `final-polish/clips-loaded.png` and the older Clips captures
+  (thumbnails show a private home scene), `final-polish/pro.png` (predates the
+  1080p60/4K30 Pro line and shows a red "price unavailable" error), all frames of the
+  earlier teal-black UI (`m21-*.png`, `audio-live-fixes/m21/*`) and the emulator frames.
+
+## Adding or replacing a screen
+
+1. Crop off the status and navigation bars (same window as above if the device is the
+   M21), export `<name>-720.avif` and `<name>-720.webp` into `public/momentback/screens/`.
+2. Add or edit a stop in `home.tour.stops` in `src/content/momentback.ts` — **both
+   locales** — with `screen`, a title, a body that says what the frame really shows, and
+   alt text. The tour supports up to six stops (the `:has()` rules in
+   `src/styles/momentback.css` are written for six).
+3. If the frames are no longer Turkish or no longer from the M21, update `home.tour.note`.
+
+## Captures that would improve the page
+
+The viewfinder is dark in every current capture. A lit, people-free scene would let the
+tour (and possibly the hero) show the product doing its job. Wanted from the M21, in
+English *and* Turkish, current main build, nothing personal in frame, status/nav bars
+cropped afterwards:
+
+1. Camera, READY · 30s, pointed at a bright, empty outdoor scene (sky, street without
+   people, a plant) — the hero/tour "READY" frame.
+2. The same scene mid-fill (e.g. 18/30s).
+3. After SAVE: CLIP chip counting, the "last 30 seconds kept · recording continues" toast.
+4. Clips with real thumbnails of that same neutral scene only.
+5. The Pro sheet once the store product and price exist (shows the quality line).
+6. The notification shade with QUICK SAVE / STOP, cropped to the notification only.
 
 ## Rules for the images
 
 - **Real captures only.** No mockups presented as screenshots, no stock photography, no
-  composited scenes. The site's whole argument is that MomentBack is honest about what it
+  composited scenes. The site's argument is that MomentBack is honest about what it
   records; a faked screenshot spends that.
-- **Only shipped states.** Do not show the 60 s / 120 s rail positions as unlocked
-  features, a purchase screen, or anything else the build does not do.
-- **No identifiable people or private scenes** in whatever the viewfinder is pointed at.
-- Ship them at roughly 2× the rendered size (the frame is at most ~312 CSS px wide) and
-  keep each file small. `width`/`height` on the `<img>` are already set to a 1080×2340
-  ratio in `DeviceFrame.astro`; change those two numbers if the real captures differ, so
-  the frame does not shift while the image loads.
+- **Only shipped states.** Do not show 60 s / 120 s or 1080p60 / 4K30 as unlocked, a
+  price that does not exist, or anything the build does not do.
+- **No identifiable people, private scenes or personal notifications** in frame.
 
 ## What must not break
 
-`npm run validate` fails the build on a single emitted `.js` file, on any
-`play.google.com` or `apps.apple.com` URL, and on a broken internal link. Adding an image
-touches none of that, but run it before pushing anyway.
+`npm run validate` fails the build on a single emitted `.js` file or `<script>` tag, on
+any `play.google.com` or `apps.apple.com` URL while no store channel is available, and on
+a broken internal link. Run it before pushing.

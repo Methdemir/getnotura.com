@@ -57,11 +57,13 @@ export interface Meta {
   description: string;
 }
 
-interface Step {
+/** One verb of the HOLD → SAVE → SHARE rail. `tone` picks the accent by role. */
+interface RailStep {
   index: string;
-  label: string;
+  verb: string;
   title: string;
   body: string;
+  tone: "held" | "save" | "plain";
 }
 
 interface Moment {
@@ -84,6 +86,24 @@ interface Faq {
   answer: string;
 }
 
+interface Figure {
+  /** The number the counter lands on. Rendered as text for assistive tech. */
+  value: number;
+  unit: string;
+  label: string;
+}
+
+/** One stop of the app tour: a real, cropped screenshot and what it shows. */
+export interface TourStop {
+  id: string;
+  index: string;
+  title: string;
+  body: string;
+  /** Basename under /momentback/screens/, without width or extension. */
+  screen: string;
+  alt: string;
+}
+
 interface TimelineLabels {
   caption: string;
   held: string;
@@ -96,12 +116,26 @@ interface TimelineLabels {
   alt: string;
 }
 
-interface DeviceLabels {
-  state: string;
-  buffered: string;
+/**
+ * The hero viewfinder. Every word on it is the app's own string in that
+ * locale (lib/l10n/app_en.arb, app_tr.arb), so the drawing never invents UI.
+ */
+interface HudLabels {
+  /** "READY · 30s" — the chip once the window is full. */
+  ready: string;
+  /** Suffix after the live counter while the window fills: "/30s". */
+  fillSuffix: string;
   save: string;
+  hint: string;
   durations: string[];
-  note: string;
+  /** Spoken name of the lock on 60 s / 120 s. */
+  locked: string;
+  /** Instrument readouts along the bottom edge. */
+  readouts: string[];
+  zoom: string;
+  /** Honest tag that this is a drawing, linking to the real screens. */
+  tag: string;
+  alt: string;
 }
 
 export interface LegalSection {
@@ -125,28 +159,51 @@ export interface MomentBackCopy {
   nav: {
     label: string;
     how: string;
-    moments: string;
+    tour: string;
     privacy: string;
     faq: string;
     languageLabel: string;
+    /** Instrument readout beside the brand: "HOLD". */
+    readout: string;
   };
   home: {
     meta: Meta;
     eyebrow: string;
-    heading: string;
+    heading: {
+      /** Set in the grotesk. */
+      plain: string;
+      /** Set in the italic serif. */
+      serif: string;
+    };
     lede: string;
-    beat: string;
     cta: string;
     ctaNote: string;
     secondary: string;
-    platform: string;
-    device: DeviceLabels;
+    platform: string[];
+    hud: HudLabels;
+    rail: {
+      label: string;
+      heading: string;
+      steps: RailStep[];
+    };
     how: {
       label: string;
       heading: string;
       body: string;
-      steps: Step[];
       timeline: TimelineLabels;
+    };
+    tour: {
+      label: string;
+      heading: string;
+      body: string;
+      legend: string;
+      note: string;
+      stops: TourStop[];
+    };
+    figures: {
+      label: string;
+      heading: string;
+      items: Figure[];
     };
     moments: {
       label: string;
@@ -166,6 +223,14 @@ export interface MomentBackCopy {
       heading: string;
       body: string;
       rows: SpecRow[];
+    };
+    pricing: {
+      label: string;
+      headline: {
+        plain: string;
+        serif: string;
+      };
+      line: string;
       note: string;
     };
     faq: {
@@ -174,7 +239,10 @@ export interface MomentBackCopy {
       items: Faq[];
     };
     close: {
-      heading: string;
+      heading: {
+        plain: string;
+        serif: string;
+      };
       body: string;
     };
   };
@@ -201,63 +269,79 @@ const en: MomentBackCopy = {
   nav: {
     label: "MomentBack",
     how: "How it works",
-    moments: "Moments",
+    tour: "Inside the app",
     privacy: "Privacy",
     faq: "FAQ",
     languageLabel: "Language",
+    readout: "Hold",
   },
   home: {
     meta: {
       title: "MomentBack — Replay Camera for Android",
       description:
-        "MomentBack holds the last seconds your camera has already seen. Press SAVE after the moment happens and it becomes a clip in your Gallery. No account, no cloud, Android.",
+        "MomentBack holds the last seconds your camera has already seen. Press SAVE after the moment happens and it becomes a clip on your phone. No account, no cloud, Android.",
     },
     eyebrow: "Replay Camera · Android",
-    heading: "Save the moment. After it happens.",
+    heading: {
+      plain: "Save the moment.",
+      serif: "After it happens.",
+    },
     lede:
-      "You are always late to the record button. MomentBack keeps the last seconds of what the camera is already seeing, so the clip can start before you reacted.",
-    beat: "Camera open. Moment happens. Tap SAVE.",
+      "You are always late to the record button. MomentBack keeps the last seconds the camera has already seen, so the clip starts before you reacted.",
     cta: "Coming soon on Google Play",
     ctaNote: "Not published yet. This page goes live before the app does.",
-    secondary: "See how it works",
-    platform: "Android 10 and later · No account · Works offline",
-    device: {
-      state: "READY",
-      buffered: "30s held",
+    secondary: "See the real screens",
+    platform: ["Android 10+", "No account", "Works offline"],
+    hud: {
+      ready: "READY · 30s",
+      fillSuffix: "/30s",
       save: "SAVE",
+      hint: "Press SAVE after it happens; STOP finishes the clip.",
       durations: ["15s", "30s", "60s", "120s"],
-      note: "Interface diagram — not a screenshot.",
+      locked: "Pro",
+      readouts: ["1080p · 30 fps", "H.264 · AAC", "Audio on"],
+      zoom: "1.0×",
+      tag: "Drawn for this page · real screens below",
+      alt:
+        "Illustration of MomentBack's camera screen. A chip at the top counts the seconds being held up to 30, then reads READY · 30s. At the bottom, the replay lengths 15s and 30s, then 60s and 120s with a Pro lock, above the large orange SAVE button.",
     },
-    how: {
-      label: "How it works",
-      heading: "Open. Ready. Save.",
-      body:
-        "There is no session to start and no red button to remember. The camera arms itself, and the only decision left is whether the last few seconds were worth keeping.",
+    rail: {
+      label: "The whole app, in three verbs",
+      heading: "Hold, save, share",
       steps: [
         {
           index: "01",
-          label: "Open",
-          title: "The camera arms itself",
+          verb: "Hold",
+          title: "Open it. It is already holding.",
           body:
-            "Open MomentBack and capture begins. No mode to pick, no recording to start — point the phone at whatever you were going to watch anyway.",
+            "Opening MomentBack arms the camera. The last 15 or 30 seconds are kept on the device and continuously replaced by newer ones — not a file, not in your Gallery.",
+          tone: "held",
         },
         {
           index: "02",
-          label: "Ready",
-          title: "The last seconds are held",
+          verb: "Save",
+          title: "Press SAVE after the fact.",
           body:
-            "Your chosen replay length is kept on the device and continuously overwritten by newer seconds. It is not a file, it is not in your Gallery, and it belongs to no one but the app.",
+            "SAVE keeps everything already held and keeps filming until you press STOP. The clip starts before the thing you reacted to.",
+          tone: "save",
         },
         {
           index: "03",
-          label: "Save",
-          title: "Press SAVE after the fact",
+          verb: "Share",
+          title: "It is a normal video now.",
           body:
-            "SAVE keeps everything already held and carries on filming until you press STOP. The finished MP4 lands in your Gallery, starting before the thing you were reacting to.",
+            "One MP4 in Movies/MomentBack on your phone. Share it from Clips through Android's share sheet, or delete it there.",
+          tone: "plain",
         },
       ],
+    },
+    how: {
+      label: "How it works",
+      heading: "One press, two directions in time.",
+      body:
+        "There is no session to start and no red button to remember. The camera arms itself, and the only decision left is whether the last few seconds were worth keeping.",
       timeline: {
-        caption: "One press, two directions in time.",
+        caption: "SAVE reaches back across the held seconds and forward to STOP.",
         held: "Held on device · overwritten continuously",
         event: "The thing happens",
         save: "You press SAVE",
@@ -268,6 +352,87 @@ const en: MomentBackCopy = {
         alt:
           "A time axis. A band marks the last seconds continuously held on the device. A marker after the event marks the SAVE press, and the saved clip spans backwards across the held seconds and forwards to STOP.",
       },
+    },
+    tour: {
+      label: "Inside the app",
+      heading: "Six screens, exactly as they ship.",
+      body:
+        "Pick a label to switch the screen. These are real captures, not mockups.",
+      legend: "Choose a screen",
+      note:
+        "Captured on a Samsung Galaxy M21 (Android 12) from the 2–3 October 2026 test builds, in the app's Turkish interface — MomentBack ships in 11 languages. The phone's status and navigation bars are cropped out; nothing inside the app was altered. The viewfinder is dark in these frames — what they document is the interface.",
+      stops: [
+        {
+          id: "ready",
+          index: "01",
+          title: "READY",
+          body:
+            "The chip — READY · 30s, shown here in Turkish — means the last 30 seconds are held. 15s and 30s are free; 60s and 120s carry a Pro lock.",
+          screen: "camera-ready",
+          alt:
+            "MomentBack's camera screen in Turkish: a teal HAZIR · 30 sn chip at the top, the 15, 30, 60 and 120 second rail with locks on 60 and 120, and the orange KAYDET button.",
+        },
+        {
+          id: "filling",
+          index: "02",
+          title: "Filling",
+          body:
+            "Right after opening, the chip counts what is really held — 2/30 here. SAVE keeps whatever is already there; it never promises seconds it does not have.",
+          screen: "camera-filling",
+          alt:
+            "The camera screen moments after opening, with the chip reading 2/30 sn while the replay window fills.",
+        },
+        {
+          id: "recording",
+          index: "03",
+          title: "SAVE → STOP",
+          body:
+            "SAVE kept the last 30 seconds and recording carries on. The chip turns orange and counts the clip; the round STOP button finishes it.",
+          screen: "clip-recording",
+          alt:
+            "The camera screen after SAVE: an orange KLİP 0:31 chip, a confirmation reading that the last 30 seconds were kept and recording continues, and the round STOP button.",
+        },
+        {
+          id: "clips",
+          index: "04",
+          title: "Clips",
+          body:
+            "Everything MomentBack saved, with length, date and size. Share straight to another app, or delete.",
+          screen: "clips",
+          alt:
+            "The Klipler sheet listing saved clips with their date, size and length, each with share and delete buttons.",
+        },
+        {
+          id: "settings",
+          index: "05",
+          title: "Settings",
+          body:
+            "Replay length, sound on or off, video quality, Pro and restore — and one control that turns the camera and microphone off.",
+          screen: "settings",
+          alt:
+            "The Ayarlar sheet: replay length, a Record audio switch, video quality, MomentBack Pro marked locked, restore purchases, and turn off camera and microphone.",
+        },
+        {
+          id: "quality",
+          index: "06",
+          title: "Quality",
+          body:
+            "720p and 1080p at 30 fps for everyone. 1080p60 and 4K30 are Pro, and only where the active camera supports them — this one has no 60 fps, and the row says so.",
+          screen: "quality",
+          alt:
+            "The video quality sheet: Efficient 720p 30 fps selected, Standard 1080p 30 fps, Smooth 1080p 60 fps marked not supported by this camera, and High resolution 4K 30 fps, the last two with a Pro star.",
+        },
+      ],
+    },
+    figures: {
+      label: "By the numbers",
+      heading: "What the app keeps, and what it never asks for",
+      items: [
+        { value: 30, unit: "s", label: "held before you press, free" },
+        { value: 120, unit: "s", label: "longest replay, with Pro" },
+        { value: 0, unit: "", label: "accounts, analytics or ads" },
+        { value: 11, unit: "", label: "interface languages" },
+      ],
     },
     moments: {
       label: "Moments",
@@ -296,7 +461,7 @@ const en: MomentBackCopy = {
       label: "Privacy",
       heading: "Nothing leaves the phone",
       body:
-        "A camera that is always watching has to be honest about where the picture goes. Here is exactly what MomentBack does, taken from the app's own source and its Android manifest.",
+        "A camera that is always watching has to be honest about where the picture goes. This is what MomentBack does, taken from the app's own source.",
       items: [
         {
           title: "Nothing is saved until you press SAVE",
@@ -309,14 +474,14 @@ const en: MomentBackCopy = {
             "SAVE writes one MP4 into Movies/MomentBack in your Gallery. From there it is an ordinary video: yours to keep, share or delete.",
         },
         {
-          title: "No account, ever",
+          title: "No account, no server",
           body:
-            "There is no sign-in, no email address, no profile and no identifier. Settings are a handful of values in the app's private storage.",
+            "No sign-in, no profile, no identifier, and no MomentBack server to send anything to. There is no analytics SDK, no crash reporter and no advertising code. The one outside service is Google Play's billing, used only for the optional Pro purchase.",
         },
         {
-          title: "No internet permission at all",
+          title: "The microphone only when sound is on",
           body:
-            "The released Android build does not declare INTERNET. It cannot open a connection — not to us, not to anyone. There is no analytics SDK, no crash reporter and no advertising code in the app.",
+            "Record audio is a switch in Settings. Turn it off and MomentBack uses the camera alone: the microphone is never opened and saved clips carry no audio track.",
         },
       ],
       link: "Read the full privacy policy",
@@ -327,16 +492,26 @@ const en: MomentBackCopy = {
       body:
         "A camera-first utility with the controls a viewfinder needs and nothing else. No feed, no editor, no AI, no cloud library.",
       rows: [
-        { label: "Replay length", value: "15 s and 30 s, free" },
-        { label: "Longer replays", value: "60 s and 120 s, marked Pro — not for sale yet" },
-        { label: "Video", value: "1080p30 standard · 720p30 efficient" },
+        { label: "Replay length", value: "15 s and 30 s free · 60 s and 120 s with Pro" },
+        { label: "Video", value: "720p30 Efficient · 1080p30 Standard" },
+        { label: "Pro quality", value: "1080p60 and 4K30, only on cameras that support them" },
+        { label: "Sound", value: "On or off · off means no microphone at all" },
         { label: "Camera", value: "Front and back · tap to focus · pinch to zoom" },
-        { label: "Clips", value: "Everything MomentBack saved, in the app" },
+        { label: "Clips", value: "Length, date and size · share · delete" },
+        { label: "Quick Save", value: "From the notification, without opening the app" },
         { label: "Requires", value: "Android 10 or later, phone, portrait" },
-        { label: "Interface languages", value: "12" },
+        { label: "Interface languages", value: "11" },
       ],
-      note:
-        "60 s and 120 s appear in the app with a Pro mark. There is no price, no purchase screen and no subscription in MomentBack today; if that changes, it will be a one-time unlock and this page and the terms will say so first.",
+    },
+    pricing: {
+      label: "Price",
+      headline: {
+        plain: "Free to start.",
+        serif: "Pro once. No subscription.",
+      },
+      line:
+        "15 s and 30 s replays at 720p or 1080p are free; Pro is a one-time purchase, no subscription, that adds 60 s and 120 s replays and 1080p60 / 4K30 on supported cameras.",
+      note: "The price will be shown by Google Play when MomentBack launches there.",
     },
     faq: {
       label: "Questions",
@@ -350,7 +525,7 @@ const en: MomentBackCopy = {
         {
           question: "Do I need internet or an account?",
           answer:
-            "Neither. There is no sign-in of any kind, and the released Android build does not even hold the internet permission, so it has no way to send anything anywhere. Everything works in airplane mode.",
+            "No account, ever. Holding, saving, Clips and sharing all work offline, in airplane mode too. The only thing that needs a connection is buying or restoring Pro, which Google Play handles.",
         },
         {
           question: "Where are clips saved?",
@@ -358,19 +533,27 @@ const en: MomentBackCopy = {
             "In your device Gallery, in a Movies/MomentBack album, as standard MP4 files. The Clips screen inside the app lists the same files. MomentBack can only see the videos it created itself — it never asks to read your photo library.",
         },
         {
-          question: "Does keeping the camera open drain the battery?",
+          question: "Can I record without sound?",
           answer:
-            "Yes, and we would rather say so. Camera, microphone and a hardware video encoder run the whole time capture is armed, and the phone can get warm. Capture keeps running when you switch apps or lock the screen, with an ongoing notification that has a STOP action. When you are done, stop it.",
+            "Yes. Turn off Record audio in Settings. MomentBack then never opens the microphone, does not need microphone permission, and saved clips have no audio track.",
         },
         {
-          question: "Which replay lengths are available?",
+          question: "Does keeping the camera open drain the battery?",
           answer:
-            "15 seconds and 30 seconds are the free lengths. 60 and 120 seconds are shown with a Pro mark for a possible future one-time unlock; nothing is on sale in the app right now.",
+            "Yes, and we would rather say so. The camera and a hardware video encoder run the whole time capture is armed, and the phone can get warm; 1080p60 and 4K use more than 720p. Capture keeps running when you switch apps or lock the screen, with an ongoing notification that has STOP and QUICK SAVE actions. When you are done, stop it.",
+        },
+        {
+          question: "What does Pro cost, and what does it unlock?",
+          answer:
+            "Pro is a one-time purchase with no subscription. It unlocks 60 s and 120 s replays, and 1080p60 and 4K30 on cameras that support them. Its price will be shown by Google Play; MomentBack is not on sale anywhere yet.",
         },
       ],
     },
     close: {
-      heading: "The camera is already watching. You only have to notice.",
+      heading: {
+        plain: "The camera is already watching.",
+        serif: "You only have to notice.",
+      },
       body:
         "MomentBack is being prepared for Google Play. This page is the product's home; the store link will appear here the day it exists.",
     },
@@ -602,75 +785,170 @@ const tr: MomentBackCopy = {
   nav: {
     label: "MomentBack",
     how: "Nasıl çalışır",
-    moments: "Anlar",
+    tour: "Uygulamanın içi",
     privacy: "Gizlilik",
     faq: "SSS",
     languageLabel: "Dil",
+    readout: "Tut",
   },
   home: {
     meta: {
       title: "MomentBack — Android için Replay Camera",
       description:
-        "MomentBack, kameranın çoktan gördüğü son saniyeleri tutar. An yaşandıktan sonra SAVE'e basarsınız, klip Galeri'ye kaydedilir. Hesap yok, bulut yok, Android.",
+        "MomentBack, kameranın çoktan gördüğü son saniyeleri tutar. An yaşandıktan sonra KAYDET'e basarsınız, klip telefonunuza kaydedilir. Hesap yok, bulut yok, Android.",
     },
     // Already uppercase: these render through text-transform, and Turkish
     // casing would turn the English product names into ANDROİD / CLİPS.
     eyebrow: "REPLAY CAMERA · ANDROID",
-    heading: "Anı kaydet. Yaşandıktan sonra.",
+    heading: {
+      plain: "Anı kaydet.",
+      serif: "Yaşandıktan sonra.",
+    },
     lede:
-      "Kayıt tuşuna hep geç kalırsınız. MomentBack, kameranın zaten gördüğü son saniyeleri tutar; böylece klip siz tepki vermeden önce başlayabilir.",
-    beat: "Kamera açık. An yaşanır. SAVE'e dokun.",
+      "Kayıt tuşuna hep geç kalırsınız. MomentBack, kameranın zaten gördüğü son saniyeleri tutar; klip, siz tepki vermeden önce başlar.",
     cta: "Yakında Google Play'de",
     ctaNote: "Henüz yayında değil. Bu sayfa uygulamadan önce açılıyor.",
-    secondary: "Nasıl çalıştığına bak",
-    platform: "Android 10 ve üzeri · Hesap yok · Çevrimdışı çalışır",
-    device: {
-      state: "HAZIR",
-      buffered: "30 sn tutuluyor",
-      save: "SAVE",
+    secondary: "Gerçek ekranlara bak",
+    platform: ["Android 10+", "Hesap yok", "Çevrimdışı çalışır"],
+    hud: {
+      ready: "HAZIR · 30 sn",
+      fillSuffix: "/30 sn",
+      save: "KAYDET",
+      hint: "Olaydan sonra KAYDET; klibi bitirmek için DURDUR.",
       durations: ["15 sn", "30 sn", "60 sn", "120 sn"],
-      note: "Arayüz şeması — ekran görüntüsü değil.",
+      locked: "Pro",
+      readouts: ["1080p · 30 fps", "H.264 · AAC", "Ses açık"],
+      zoom: "1,0×",
+      tag: "Bu sayfa için çizildi · gerçek ekranlar aşağıda",
+      alt:
+        "MomentBack kamera ekranının çizimi. Üstteki çip tutulan saniyeleri 30'a kadar sayar, ardından HAZIR · 30 sn yazar. Altta 15 ve 30 saniyelik süreler, Pro kilitli 60 ve 120 saniye ve büyük turuncu KAYDET düğmesi var.",
     },
-    how: {
-      label: "Nasıl çalışır",
-      heading: "Aç. Hazır. Kaydet.",
-      body:
-        "Başlatılacak bir oturum, hatırlanması gereken kırmızı bir tuş yok. Kamera kendi kendine hazırlanır; geriye tek bir karar kalır: son birkaç saniye saklamaya değer miydi?",
+    rail: {
+      label: "Tüm uygulama, üç fiilde",
+      heading: "Tut, kaydet, paylaş",
       steps: [
         {
           index: "01",
-          label: "Aç",
-          title: "Kamera kendini hazırlar",
+          verb: "Tut",
+          title: "Açın. Zaten tutuyor.",
           body:
-            "MomentBack'i açarsınız, capture başlar. Seçilecek mod, başlatılacak kayıt yok — telefonu zaten izleyeceğiniz şeye doğrultun.",
+            "MomentBack'i açmak kamerayı hazırlar. Son 15 ya da 30 saniye cihazda tutulur ve sürekli yenileriyle değişir — dosya değildir, Galeri'de görünmez.",
+          tone: "held",
         },
         {
           index: "02",
-          label: "Hazır",
-          title: "Son saniyeler tutulur",
+          verb: "Kaydet",
+          title: "Olan bittikten sonra KAYDET.",
           body:
-            "Seçtiğiniz replay süresi cihazda tutulur ve sürekli olarak yeni saniyelerle değiştirilir. Bu bir dosya değildir, Galeri'de görünmez, uygulamanın kendi özel alanının dışına çıkmaz.",
+            "KAYDET, o ana kadar tutulan her şeyi saklar ve siz DURDUR'a basana dek çekmeye devam eder. Klip, tepki verdiğiniz olaydan önce başlar.",
+          tone: "save",
         },
         {
           index: "03",
-          label: "Kaydet",
-          title: "Olan bitenden sonra SAVE",
+          verb: "Paylaş",
+          title: "Artık sıradan bir video.",
           body:
-            "SAVE, o ana kadar tutulan her şeyi saklar ve siz STOP'a basana dek çekmeye devam eder. Biten MP4, tepki verdiğiniz olaydan önce başlayarak Galeri'ye düşer.",
+            "Telefonunuzda Movies/MomentBack içinde tek bir MP4. Klipler ekranından Android'in paylaşım menüsüyle gönderin ya da oradan silin.",
+          tone: "plain",
         },
       ],
+    },
+    how: {
+      label: "Nasıl çalışır",
+      heading: "Tek dokunuş, zamanda iki yön.",
+      body:
+        "Başlatılacak bir oturum, hatırlanması gereken kırmızı bir tuş yok. Kamera kendi kendine hazırlanır; geriye tek bir karar kalır: son birkaç saniye saklamaya değer miydi?",
       timeline: {
-        caption: "Tek bir dokunuş, zamanda iki yön.",
+        caption: "KAYDET, tutulan saniyelere geriye ve DURDUR'a kadar ileriye uzanır.",
         held: "Cihazda tutulur · sürekli üzerine yazılır",
         event: "Olay yaşanır",
-        save: "SAVE'e basarsınız",
-        stop: "STOP",
+        save: "KAYDET'e basarsınız",
+        stop: "DURDUR",
         clip: "Kaydedilen klip",
         now: "şimdi",
         past: "önce",
         alt:
-          "Bir zaman ekseni. Bir bant, cihazda sürekli tutulan son saniyeleri gösterir. Olaydan sonraki bir işaret SAVE anını gösterir; kaydedilen klip geriye doğru tutulan saniyeleri, ileriye doğru STOP'a kadarki bölümü kapsar.",
+          "Bir zaman ekseni. Bir bant, cihazda sürekli tutulan son saniyeleri gösterir. Olaydan sonraki bir işaret KAYDET anını gösterir; kaydedilen klip geriye doğru tutulan saniyeleri, ileriye doğru DURDUR'a kadarki bölümü kapsar.",
       },
+    },
+    tour: {
+      label: "Uygulamanın içi",
+      heading: "Altı ekran, olduğu gibi.",
+      body: "Ekranı değiştirmek için bir etiket seçin. Bunlar gerçek ekran görüntüleri, maket değil.",
+      legend: "Bir ekran seçin",
+      note:
+        "Samsung Galaxy M21'de (Android 12), 2–3 Ekim 2026 test sürümlerinden, uygulamanın Türkçe arayüzüyle alındı — MomentBack 11 dilde. Telefonun durum ve gezinme çubukları kırpıldı; uygulamanın içindeki hiçbir şey değiştirilmedi. Bu karelerde vizör karanlık — belgelenen şey arayüz.",
+      stops: [
+        {
+          id: "ready",
+          index: "01",
+          title: "HAZIR",
+          body:
+            "Çip HAZIR · 30 sn diyor: son 30 saniye tutuluyor. 15 sn ve 30 sn ücretsiz; 60 sn ve 120 sn Pro kilidi taşıyor.",
+          screen: "camera-ready",
+          alt:
+            "MomentBack kamera ekranı: üstte turkuaz HAZIR · 30 sn çipi, 60 ve 120'de kilit bulunan 15, 30, 60, 120 saniye seçimi ve turuncu KAYDET düğmesi.",
+        },
+        {
+          id: "filling",
+          index: "02",
+          title: "Doluyor",
+          body:
+            "Açtıktan hemen sonra çip gerçekten tutulanı sayar — burada 2/30. KAYDET o an ne varsa saklar; olmayan saniyeleri vaat etmez.",
+          screen: "camera-filling",
+          alt: "Açıldıktan birkaç an sonra kamera ekranı; replay penceresi dolarken çip 2/30 sn gösteriyor.",
+        },
+        {
+          id: "recording",
+          index: "03",
+          title: "KAYDET → DURDUR",
+          body:
+            "KAYDET son 30 saniyeyi korudu, çekim sürüyor. Çip turuncuya döner ve klibi sayar; yuvarlak DURDUR düğmesi klibi bitirir.",
+          screen: "clip-recording",
+          alt:
+            "KAYDET'ten sonra kamera ekranı: turuncu KLİP 0:31 çipi, son 30 saniyenin korunduğunu ve çekimin sürdüğünü söyleyen onay ve yuvarlak DURDUR düğmesi.",
+        },
+        {
+          id: "clips",
+          index: "04",
+          title: "Klipler",
+          body:
+            "MomentBack'in kaydettiği her şey; süre, tarih ve boyutla. Doğrudan başka bir uygulamaya paylaşın ya da silin.",
+          screen: "clips",
+          alt:
+            "Kaydedilen klipleri tarih, boyut ve süreyle listeleyen Klipler sayfası; her birinde paylaş ve sil düğmeleri.",
+        },
+        {
+          id: "settings",
+          index: "05",
+          title: "Ayarlar",
+          body:
+            "Geri kayıt süresi, ses açık ya da kapalı, video kalitesi, Pro ve geri yükleme — bir de kamerayı ve mikrofonu kapatan tek bir kontrol.",
+          screen: "settings",
+          alt:
+            "Ayarlar sayfası: geri kayıt süresi, Sesi kaydet anahtarı, video kalitesi, kilitli MomentBack Pro, satın alımları geri yükle ve kamera ile mikrofonu kapat.",
+        },
+        {
+          id: "quality",
+          index: "06",
+          title: "Kalite",
+          body:
+            "30 fps'de 720p ve 1080p herkese açık. 1080p60 ve 4K30 Pro'dur ve yalnızca etkin kamera destekliyorsa açılır — bu kamerada 60 fps yok, satır da bunu söylüyor.",
+          screen: "quality",
+          alt:
+            "Video kalitesi sayfası: seçili Verimli 720p 30 fps, Standart 1080p 30 fps, bu kamerada desteklenmiyor yazan Akıcı 1080p 60 fps ve Yüksek çözünürlük 4K 30 fps; son ikisinde Pro yıldızı.",
+        },
+      ],
+    },
+    figures: {
+      label: "Rakamlarla",
+      heading: "Uygulamanın tuttuğu ve hiç istemediği",
+      items: [
+        { value: 30, unit: "sn", label: "siz basmadan önce tutulur, ücretsiz" },
+        { value: 120, unit: "sn", label: "en uzun replay, Pro ile" },
+        { value: 0, unit: "", label: "hesap, analytics ya da reklam" },
+        { value: 11, unit: "", label: "arayüz dili" },
+      ],
     },
     moments: {
       label: "Anlar",
@@ -691,7 +969,7 @@ const tr: MomentBackCopy = {
         {
           title: "Dışarısı ve beklenmedik olan",
           body:
-            "Yıldırım, vahşi yaşam, bir dalga, devrilen bir şey. Anı tahmin edemezsiniz; etmeyi bırakın — kamerayı tutun, iş bittikten sonra SAVE'e uzanın.",
+            "Yıldırım, vahşi yaşam, bir dalga, devrilen bir şey. Anı tahmin edemezsiniz; etmeyi bırakın — kamerayı tutun, iş bittikten sonra KAYDET'e uzanın.",
         },
       ],
     },
@@ -699,27 +977,27 @@ const tr: MomentBackCopy = {
       label: "Gizlilik",
       heading: "Hiçbir şey telefondan çıkmaz",
       body:
-        "Sürekli izleyen bir kamera, görüntünün nereye gittiği konusunda dürüst olmak zorundadır. MomentBack'in tam olarak ne yaptığı aşağıda — uygulamanın kendi kaynak kodundan ve Android manifest'inden alındı.",
+        "Sürekli izleyen bir kamera, görüntünün nereye gittiği konusunda dürüst olmak zorundadır. MomentBack'in yaptığı aşağıda — uygulamanın kendi kaynak kodundan alındı.",
       items: [
         {
-          title: "SAVE'e basmadan hiçbir şey kaydedilmez",
+          title: "KAYDET'e basmadan hiçbir şey kaydedilmez",
           body:
             "Tutulan saniyeler uygulamanın özel alanında durur, sürekli üzerine yazılır ve capture durduğunda atılır. Galeri'de hiç görünmezler, başka hiçbir uygulama okuyamaz.",
         },
         {
           title: "Klipler telefonunuzdaki dosyalardır",
           body:
-            "SAVE, Galeri'nizdeki Movies/MomentBack klasörüne tek bir MP4 yazar. O andan itibaren sıradan bir videodur: saklamak, paylaşmak, silmek size kalmıştır.",
+            "KAYDET, Galeri'nizdeki Movies/MomentBack klasörüne tek bir MP4 yazar. O andan itibaren sıradan bir videodur: saklamak, paylaşmak, silmek size kalmıştır.",
         },
         {
-          title: "Hesap yok, hiç olmadı",
+          title: "Hesap yok, sunucu yok",
           body:
-            "Giriş, e-posta, profil, size verilen bir kimlik yok. Ayarlar yalnızca uygulamanın özel alanındaki birkaç değerden ibarettir.",
+            "Giriş, profil, kimlik ve bir şey gönderilecek MomentBack sunucusu yok. Analytics SDK'sı, çökme raporlayıcı veya reklam kodu bulunmaz. Kullanılan tek dış hizmet, yalnızca isteğe bağlı Pro satın alımı için Google Play'in ödeme sistemidir.",
         },
         {
-          title: "İnternet izni hiç yok",
+          title: "Mikrofon yalnızca ses açıkken",
           body:
-            "Yayınlanan Android sürümü INTERNET iznini hiç talep etmez. Bağlantı açamaz — ne bize, ne başkasına. Uygulamada analytics SDK'sı, çökme raporlayıcı veya reklam kodu bulunmaz.",
+            "Sesi kaydet, Ayarlar'da bir anahtardır. Kapatırsanız MomentBack yalnızca kamerayı kullanır: mikrofon hiç açılmaz, kaydedilen kliplerde ses izi olmaz.",
         },
       ],
       link: "Gizlilik politikasının tamamını oku",
@@ -730,16 +1008,26 @@ const tr: MomentBackCopy = {
       body:
         "Bir vizörün ihtiyaç duyduğu kontroller ve fazlası olmayan, kamera öncelikli bir araç. Akış yok, editör yok, yapay zekâ yok, bulut kitaplığı yok.",
       rows: [
-        { label: "Replay süresi", value: "15 sn ve 30 sn, ücretsiz" },
-        { label: "Uzun replay", value: "60 sn ve 120 sn, Pro işaretli — henüz satışta değil" },
-        { label: "Video", value: "1080p30 standart · 720p30 verimli" },
+        { label: "Replay süresi", value: "15 sn ve 30 sn ücretsiz · 60 sn ve 120 sn Pro ile" },
+        { label: "Video", value: "720p30 Verimli · 1080p30 Standart" },
+        { label: "Pro kalite", value: "1080p60 ve 4K30, yalnızca destekleyen kameralarda" },
+        { label: "Ses", value: "Açık ya da kapalı · kapalıyken mikrofon hiç kullanılmaz" },
         { label: "Kamera", value: "Ön ve arka · dokunarak odak · sıkıştırarak yakınlaştırma" },
-        { label: "CLIPS", value: "MomentBack'in kaydettiği her şey, uygulamanın içinde" },
+        { label: "Klipler", value: "Süre, tarih ve boyut · paylaş · sil" },
+        { label: "Hızlı Kaydet", value: "Bildirimden, uygulamayı açmadan" },
         { label: "Gereksinim", value: "Android 10 veya üzeri, telefon, dikey" },
-        { label: "Arayüz dili", value: "12" },
+        { label: "Arayüz dili", value: "11" },
       ],
-      note:
-        "60 sn ve 120 sn uygulamada Pro işaretiyle görünür. Bugün MomentBack'te fiyat, satın alma ekranı veya abonelik yoktur; bu değişirse tek seferlik bir açılım olacak ve önce bu sayfa ile kullanım koşulları bunu yazacak.",
+    },
+    pricing: {
+      label: "Fiyat",
+      headline: {
+        plain: "Ücretsiz başla.",
+        serif: "Pro tek sefer. Abonelik yok.",
+      },
+      line:
+        "720p veya 1080p'de 15 sn ve 30 sn replay ücretsiz; Pro tek seferlik bir satın almadır, abonelik yoktur ve 60 sn, 120 sn replay ile destekleyen kameralarda 1080p60 / 4K30 ekler.",
+      note: "Fiyatı, MomentBack orada yayınlandığında Google Play gösterecek.",
     },
     faq: {
       label: "Sorular",
@@ -748,32 +1036,40 @@ const tr: MomentBackCopy = {
         {
           question: "MomentBack sürekli Galeri'ye mi kaydeder?",
           answer:
-            "Hayır. Capture çalışırken son saniyeler uygulamanın kendi özel alanında tutulur ve sürekli üzerine yazılır. Galeri'de bir dosya ancak siz SAVE'e bastığınızda oluşur. Kaydetmeden durdurursanız tutulan saniyeler atılır.",
+            "Hayır. Capture çalışırken son saniyeler uygulamanın kendi özel alanında tutulur ve sürekli üzerine yazılır. Galeri'de bir dosya ancak siz KAYDET'e bastığınızda oluşur. Kaydetmeden durdurursanız tutulan saniyeler atılır.",
         },
         {
           question: "İnternet veya hesap gerekiyor mu?",
           answer:
-            "İkisi de gerekmiyor. Hiçbir giriş yöntemi yok; dahası yayınlanan Android sürümü internet iznine bile sahip değil, dolayısıyla hiçbir şeyi hiçbir yere gönderemez. Uçak modunda da her şey çalışır.",
+            "Hesap hiçbir zaman gerekmez. Tutma, kaydetme, Klipler ve paylaşım çevrimdışı, uçak modunda da çalışır. Bağlantı yalnızca Pro'yu satın alırken ya da geri yüklerken gerekir; bunu Google Play yürütür.",
         },
         {
           question: "Klipler nereye kaydedilir?",
           answer:
-            "Cihazınızın Galeri'sine, Movies/MomentBack albümüne, standart MP4 dosyaları olarak. Uygulamadaki Clips ekranı aynı dosyaları listeler. MomentBack yalnızca kendi oluşturduğu videoları görebilir; fotoğraf kitaplığınızı okumak için izin istemez.",
+            "Cihazınızın Galeri'sine, Movies/MomentBack albümüne, standart MP4 dosyaları olarak. Uygulamadaki Klipler ekranı aynı dosyaları listeler. MomentBack yalnızca kendi oluşturduğu videoları görebilir; fotoğraf kitaplığınızı okumak için izin istemez.",
+        },
+        {
+          question: "Sessiz kayıt yapabilir miyim?",
+          answer:
+            "Evet. Ayarlar'da Sesi kaydet'i kapatın. MomentBack bu durumda mikrofonu hiç açmaz, mikrofon izni gerekmez ve kaydedilen kliplerde ses izi olmaz.",
         },
         {
           question: "Kamera açıkken batarya tüketir mi?",
           answer:
-            "Evet, ve bunu söylemeyi tercih ederiz. Capture hazırken kamera, mikrofon ve donanımsal video kodlayıcı sürekli çalışır; telefon ısınabilir. Başka uygulamaya geçtiğinizde veya ekranı kilitlediğinizde capture devam eder ve bildirimde STOP eylemi bulunur. İşiniz bittiğinde durdurun.",
+            "Evet, ve bunu söylemeyi tercih ederiz. Capture hazırken kamera ve donanımsal video kodlayıcı sürekli çalışır, telefon ısınabilir; 1080p60 ve 4K, 720p'den fazla tüketir. Başka uygulamaya geçtiğinizde veya ekranı kilitlediğinizde capture devam eder; kalıcı bildirimde DURDUR ve HIZLI KAYDET eylemleri bulunur. İşiniz bittiğinde durdurun.",
         },
         {
-          question: "Hangi replay süreleri var?",
+          question: "Pro ne kadar, neyi açıyor?",
           answer:
-            "15 saniye ve 30 saniye ücretsiz sürelerdir. 60 ve 120 saniye, ileride olası tek seferlik bir açılım için Pro işaretiyle görünür; şu anda uygulamada satışta olan hiçbir şey yok.",
+            "Pro tek seferlik bir satın almadır, abonelik yoktur. 60 sn ve 120 sn replay'i, destekleyen kameralarda da 1080p60 ve 4K30'u açar. Fiyatını Google Play gösterecek; MomentBack henüz hiçbir yerde satışta değil.",
         },
       ],
     },
     close: {
-      heading: "Kamera zaten izliyor. Sizin yalnızca fark etmeniz gerekiyor.",
+      heading: {
+        plain: "Kamera zaten izliyor.",
+        serif: "Sizin yalnızca fark etmeniz gerekiyor.",
+      },
       body:
         "MomentBack, Google Play için hazırlanıyor. Bu sayfa ürünün evi; mağaza bağlantısı var olduğu gün burada belirecek.",
     },

@@ -1,0 +1,87 @@
+---
+/**
+ * The app tour: one phone, six real screens, six numbered labels.
+ *
+ * Zero JavaScript. The labels are a native radio group, so Tab reaches the
+ * group, the arrow keys move through it and Space selects; `:has()` swaps the
+ * screen in the phone. Without `:has()` the first screen stays and every label
+ * still reads correctly, so nothing is lost but the swap.
+ *
+ * Each screenshot is a real capture (docs/web/momentback-screenshot-slots.md):
+ * Android status and navigation bars cropped off, nothing inside the app
+ * touched. Every description is visible text, referenced by its radio through
+ * aria-describedby, so a screen reader hears what each screen shows.
+ */
+import type { MomentBackCopy } from "../../content/momentback";
+
+interface Props {
+  tour: MomentBackCopy["home"]["tour"];
+}
+
+const { tour } = Astro.props;
+const base = "/momentback/screens";
+---
+
+<div class="mb-tour">
+  <figure class="mb-tour__phone">
+    <div class="mb-tour__bezel">
+      <div class="mb-tour__screen">
+        {
+          tour.stops.map((stop, index) => (
+            <picture class="mb-tour__shot">
+              <source srcset={`${base}/${stop.screen}-720.avif`} type="image/avif" />
+              <img
+                src={`${base}/${stop.screen}-720.webp`}
+                alt={stop.alt}
+                width="720"
+                height="1425"
+                decoding="async"
+                loading={index === 0 ? "eager" : "lazy"}
+              />
+            </picture>
+          ))
+        }
+      </div>
+    </div>
+  </figure>
+
+  <fieldset class="mb-tour__list">
+    <legend class="mb-sr-only">{tour.legend}</legend>
+    {
+      tour.stops.map((stop, index) => (
+        <div class="mb-tour__stop">
+          <input
+            class="mb-tour__input"
+            type="radio"
+            name="mb-tour"
+            id={`mb-tour-${stop.id}`}
+            value={stop.id}
+            checked={index === 0}
+            aria-describedby={`mb-tour-${stop.id}-body`}
+          />
+          <label for={`mb-tour-${stop.id}`}>
+            <span class="mb-tour__index">{stop.index}</span>
+            <span class="mb-tour__title">{stop.title}</span>
+          </label>
+          <p class="mb-tour__body" id={`mb-tour-${stop.id}-body`}>
+            {stop.body}
+          </p>
+        </div>
+      ))
+    }
+  </fieldset>
+
+  <div class="mb-tour__side">
+    <p class="mb-tour__now" aria-hidden="true">
+      {
+        tour.stops.map((stop) => (
+          <span>
+            <b>{stop.index}</b>
+            <i>/ {String(tour.stops.length).padStart(2, "0")}</i>
+          </span>
+        ))
+      }
+    </p>
+    <p class="mb-tour__note">{tour.note}</p>
+  </div>
+</div>

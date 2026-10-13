@@ -33,7 +33,7 @@ const navigation =
   page === "home"
     ? [
         { href: "#how", label: copy.nav.how },
-        { href: "#moments", label: copy.nav.moments },
+        { href: "#tour", label: copy.nav.tour },
         { href: "#faq", label: copy.nav.faq },
         { href: momentBackPath(locale, "privacy"), label: copy.nav.privacy },
       ]
@@ -50,7 +50,7 @@ const navigation =
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="color-scheme" content="dark" />
-    <meta name="theme-color" content="#0B1719" />
+    <meta name="theme-color" content="#101214" />
     <title>{title}</title>
     <meta name="description" content={description} />
     <meta name="robots" content={momentBackRobotsPolicy} />
@@ -88,6 +88,15 @@ const navigation =
           MomentBack
           <span class="mb-brand__sub">Replay Camera</span>
         </a>
+        {
+          page === "home" && (
+            <span class="mb-head__tc" aria-hidden="true">
+              <i class="mb-dot" />
+              {copy.nav.readout}
+              <span class="mb-head__clock" />
+            </span>
+          )
+        }
         <nav class="mb-nav" aria-label={copy.nav.label}>
           <ul>
             {
