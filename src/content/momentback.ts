@@ -562,28 +562,28 @@ const en: MomentBackCopy = {
     meta: {
       title: "Privacy Policy — MomentBack",
       description:
-        "How MomentBack handles the camera, the microphone, the seconds it holds and the clips you save. No account, no cloud, and no internet permission in the released Android app.",
+        "How MomentBack handles the camera, the optional microphone, the seconds it holds, the clips you save and the one-time Pro purchase. No account, no cloud, no analytics.",
     },
     heading: "Privacy Policy",
     intro:
       "MomentBack is a camera that holds the last seconds of what it sees so that you can save them afterwards. That is an unusual thing for an app to do, so this notice is specific about it rather than generic.",
-    updated: "Last updated: 29 August 2026",
+    updated: "Last updated: 13 October 2026",
     contentsLabel: "On this page",
     sections: [
       {
         id: "summary",
         heading: "In short",
         paragraphs: [
-          "MomentBack runs on your phone. There is no account to create and no server behind it. The released Android app does not hold the internet permission, so it has no technical means to send a clip, a log or a setting anywhere.",
-          "The camera and microphone run while capture is armed, which is what makes a replay possible. Those seconds are held in the app's own private storage and are continuously overwritten. Nothing becomes a file you or anyone else can open until you press SAVE.",
+          "MomentBack runs on your phone. There is no account to create and no MomentBack server behind it. The app's own code makes no network connections and has no way to send a clip, a held second, a log or a setting anywhere. The only network traffic the app is involved in is Google Play's, when you buy or restore the optional Pro unlock.",
+          "The camera — and the microphone, if sound recording is on — run while capture is armed, which is what makes a replay possible. Those seconds are held in the app's own private storage and are continuously overwritten. Nothing becomes a file you or anyone else can open until you press SAVE.",
         ],
       },
       {
         id: "camera-microphone",
         heading: "Camera and microphone",
         paragraphs: [
-          "MomentBack asks for camera and microphone access before it can do anything. Both are required rather than optional: the product records video with sound, and a replay without the audio of the moment is not the moment.",
-          "Opening the app starts capture. Capture deliberately keeps running when you switch to another app or lock the screen, because the moments this app exists for do not wait for the screen to be on. Whenever it is running, Android shows an ongoing notification carrying a STOP action, and Android's own camera and microphone indicators are visible in the status bar.",
+          "MomentBack needs camera access before it can do anything. Microphone access is optional: it is used only while \"Record sound\" is on in Settings. With sound off, the microphone is never opened, saved clips carry no audio track, and capture works even if microphone access has been refused.",
+          "Opening the app starts capture. Capture deliberately keeps running when you switch to another app or lock the screen, because the moments this app exists for do not wait for the screen to be on. Whenever it is running, Android shows an ongoing notification carrying a STOP action, and Android's own camera indicator — and the microphone indicator when sound is on — is visible in the status bar.",
           "Capture ends when you press STOP in the app, use STOP in the notification, swipe MomentBack out of Recents, or force-stop it in Android settings. Nothing starts it again on its own: the app installs no boot receiver and sets no restart alarm.",
           "The notification permission is requested as well but is not required. Refusing it costs you the STOP button in the notification shade; it does not change what the camera does.",
         ],
@@ -611,8 +611,8 @@ const en: MomentBackCopy = {
         heading: "What MomentBack does not do",
         paragraphs: [
           "No account. There is no sign-in, no email address, no profile and no identifier issued to you or to your device.",
-          "No analytics, no crash-reporting service, no advertising or attribution SDK. The app's entire third-party dependency list is Flutter and its localisation package, the intl library, an icon font, and a small key-value store used for local settings.",
-          "No network. The released Android build does not declare the INTERNET permission, so the operating system will not let it open a connection at all. Development builds carry that permission because Flutter's developer tooling needs it; those builds are not what is published.",
+          "No analytics, no crash-reporting service, no advertising or attribution SDK. The app's entire third-party dependency list is Flutter and its localisation package, the intl library, an icon font, a small key-value store used for local settings, and Flutter's official in-app purchase plugin, which connects to Google Play Billing.",
+          "No network of its own. The released Android app declares the INTERNET and network-state permissions because Google's Play Billing Library requires them for purchases. MomentBack's own code never opens a connection: no clip, held second, setting or log leaves the phone. Links to this website and the support email open in your browser or mail app, outside MomentBack.",
           "Diagnostic messages from the capture engine are written to the device's own Android log. They stay on the phone, are visible only to someone using Android developer tools on that phone, and are not read, collected or transmitted by MomentBack.",
         ],
       },
@@ -620,14 +620,16 @@ const en: MomentBackCopy = {
         id: "settings",
         heading: "Settings kept on the device",
         paragraphs: [
-          "Your replay length, video quality and language choice are stored in a small file in the app's private storage. They are values you chose rather than information about you, and they are not attached to any identifier.",
+          "Your replay length, video quality, sound setting and language choice are stored in a small file in the app's private storage. Next to them the app keeps one more value: whether Google Play last reported Pro as owned (\"pro\" or \"free\") and when that was recorded, so Pro stays unlocked while you are offline. No purchase token, order number, price or account identifier is stored. These are values, not information about you, and they are not attached to any identifier.",
           "Android's own backup system may include app-private data such as that settings file in the device backup tied to your Google account. That backup is operated by Android and Google under your account settings, not by MomentBack. The folder where clips are staged before they reach your Gallery is deliberately excluded from it.",
         ],
       },
       {
         id: "store",
-        heading: "The app store",
+        heading: "Google Play and the Pro purchase",
         paragraphs: [
+          "MomentBack is free to use with 15-second and 30-second replays and the standard video qualities. Pro is an optional one-time purchase, with no subscription, that unlocks the 60-second and 120-second replays and, on cameras that support them, the 1080p 60 fps and 4K video qualities.",
+          "The purchase is handled entirely by Google Play. MomentBack never sees or stores your payment details, your Google account or your order. When you buy or restore Pro, and when the app checks at startup whether Pro is owned, the Play Billing Library talks to Google Play; the only answer MomentBack keeps is whether Pro is owned. Google processes that transaction under its own privacy policy and your Google account settings.",
           "MomentBack is being prepared for distribution on Google Play. Where you install an app from a store, that store records the installation and may collect platform-level information such as crash reports under its own policies and your account settings. That happens outside MomentBack, and the app neither requests nor receives it.",
         ],
       },
@@ -635,8 +637,8 @@ const en: MomentBackCopy = {
         id: "control",
         heading: "Retention and your control",
         paragraphs: [
-          "There is nothing for us to retain. No copy of any clip, any held second, any setting or any log exists anywhere other than on your phone.",
-          "You can revoke camera or microphone access in Android settings at any time, which stops capture. You can delete any clip from the Clips screen or from your Gallery. Uninstalling MomentBack removes the app and its private storage; clips already saved to Movies/MomentBack stay in your Gallery, because they are your files, not the app's.",
+          "There is nothing for us to retain. No copy of any clip, any held second, any setting or any log exists anywhere other than on your phone. The record of a Pro purchase is kept by Google Play, not by MomentBack.",
+          "You can revoke camera access in Android settings at any time, which stops capture. You can turn sound off in Settings or revoke microphone access; capture then continues without audio. You can delete any clip from the Clips screen or from your Gallery. Uninstalling MomentBack removes the app and its private storage; clips already saved to Movies/MomentBack stay in your Gallery, because they are your files, not the app's. A Pro purchase stays with your Google account and can be restored after reinstalling.",
         ],
       },
       {
@@ -650,7 +652,7 @@ const en: MomentBackCopy = {
         id: "changes-contact",
         heading: "Changes and contact",
         paragraphs: [
-          "If MomentBack's behaviour changes in a way that affects this notice — the most likely change being a one-time paid unlock, which would introduce a purchase handled by the app store — this page will be updated before that version ships, and the date at the top will change with it.",
+          "If MomentBack's behaviour changes in a way that affects this notice, this page will be updated before that version ships, and the date at the top will change with it.",
           `Questions about this notice can be sent to ${contactEmail}.`,
         ],
       },
@@ -665,7 +667,7 @@ const en: MomentBackCopy = {
     heading: "Terms of Use",
     intro:
       "These terms cover MomentBack, an Android camera app that holds the last seconds it sees so you can save them after the fact. They are written to be read, not to be scrolled past.",
-    updated: "Last updated: 29 August 2026",
+    updated: "Last updated: 13 October 2026",
     contentsLabel: "On this page",
     sections: [
       {
@@ -697,8 +699,8 @@ const en: MomentBackCopy = {
         id: "permissions",
         heading: "Camera, microphone and device permissions",
         paragraphs: [
-          "MomentBack needs camera and microphone access to work at all, and asks for notification access so it can show the ongoing capture notice and its STOP action. You grant these through Android and can withdraw them at any time in Android settings; withdrawing camera or microphone access stops capture.",
-          "While capture is armed, it continues when the app is in the background and when the screen is locked, until you stop it. The ongoing notification and Android's own camera and microphone indicators exist so that this is never invisible to you.",
+          "MomentBack needs camera access to work at all. Microphone access is needed only while sound recording is on, and notification access lets it show the ongoing capture notice and its STOP action. You grant these through Android and can withdraw them at any time in Android settings; withdrawing camera access stops capture, and without microphone access clips are recorded without sound.",
+          "While capture is armed, it continues when the app is in the background and when the screen is locked, until you stop it. The ongoing notification and Android's own camera indicator — and microphone indicator when sound is on — exist so that this is never invisible to you.",
         ],
       },
       {
@@ -714,7 +716,7 @@ const en: MomentBackCopy = {
         id: "battery",
         heading: "Battery and heat",
         paragraphs: [
-          "Holding a replay means the camera, the microphone and a hardware video encoder run continuously. That uses noticeably more battery than an idle phone and can make the device warm; Android's own thermal management may then reduce performance.",
+          "Holding a replay means the camera, the microphone when sound is on, and a hardware video encoder run continuously. That uses noticeably more battery than an idle phone and can make the device warm; Android's own thermal management may then reduce performance.",
           "This is inherent to what the app does, not a defect. Stop capture when you no longer need it.",
         ],
       },
@@ -730,7 +732,7 @@ const en: MomentBackCopy = {
         id: "your-content",
         heading: "Your clips are yours",
         paragraphs: [
-          "You keep every right in what you record. MomentBack claims no ownership of and no licence over your clips, and no copy of them reaches us: saved clips are written to your device's own media library and the app has no network access to send them anywhere.",
+          "You keep every right in what you record. MomentBack claims no ownership of and no licence over your clips, and no copy of them reaches us: saved clips are written to your device's own media library, and the app's own code makes no network connections that could send them anywhere.",
         ],
       },
       {
@@ -750,10 +752,11 @@ const en: MomentBackCopy = {
       },
       {
         id: "purchases",
-        heading: "Future paid features",
+        heading: "MomentBack Pro",
         paragraphs: [
-          "MomentBack currently sells nothing. There is no price, no subscription, no in-app purchase and no payment screen in the app, and no payment details are ever collected by it.",
-          "The 60-second and 120-second replay lengths are marked as Pro in the interface for a possible future one-time unlock. If purchasing is ever introduced, the price and the payment terms will be shown before any purchase, the transaction will be handled by the app store and governed by that store's purchase and refund rules, and these terms will be updated to cover it before that version ships.",
+          "MomentBack is free to use with 15-second and 30-second replays and the standard video qualities. MomentBack Pro is an optional one-time in-app purchase — not a subscription — that unlocks the 60-second and 120-second replays and, on cameras whose hardware supports them, the 1080p 60 fps and 4K video qualities. Which advanced qualities are available depends on your device and is shown in the app before you choose; a camera that does not support a quality does not gain it through Pro.",
+          "The price is shown in the app before you buy. The purchase is processed by Google Play under its terms and refund policy; MomentBack never receives your payment details. Pro is tied to the Google account you bought it with and can be restored on a reinstall or another device signed in to that account.",
+          "If Google Play reports a purchase as refunded or no longer owned, Pro features are locked again. While the store cannot be reached, the app keeps the last result Google Play confirmed.",
         ],
       },
       {
@@ -1056,7 +1059,7 @@ const tr: MomentBackCopy = {
         {
           question: "Kamera açıkken batarya tüketir mi?",
           answer:
-            "Evet, ve bunu söylemeyi tercih ederiz. Capture hazırken kamera ve donanımsal video kodlayıcı sürekli çalışır, telefon ısınabilir; 1080p60 ve 4K, 720p'den fazla tüketir. Başka uygulamaya geçtiğinizde veya ekranı kilitlediğinizde capture devam eder; kalıcı bildirimde DURDUR ve HIZLI KAYDET eylemleri bulunur. İşiniz bittiğinde durdurun.",
+            "Evet, ve bunu söylemeyi tercih ederiz. Kayıt hazırken kamera ve donanımsal video kodlayıcı sürekli çalışır, telefon ısınabilir; 1080p60 ve 4K, 720p'den fazla tüketir. Başka uygulamaya geçtiğinizde veya ekranı kilitlediğinizde kayıt devam eder; kalıcı bildirimde DURDUR ve HIZLI KAYDET eylemleri bulunur. İşiniz bittiğinde durdurun.",
         },
         {
           question: "Pro ne kadar, neyi açıyor?",
@@ -1078,48 +1081,48 @@ const tr: MomentBackCopy = {
     meta: {
       title: "Gizlilik Politikası — MomentBack",
       description:
-        "MomentBack'in kamerayı, mikrofonu, tuttuğu saniyeleri ve kaydettiğiniz klipleri nasıl ele aldığı. Hesap yok, bulut yok ve yayınlanan Android uygulamasında internet izni yok.",
+        "MomentBack'in kamerayı, isteğe bağlı mikrofonu, tuttuğu saniyeleri, kaydettiğiniz klipleri ve tek seferlik Pro satın alımını nasıl ele aldığı. Hesap yok, bulut yok, analitik yok.",
     },
     heading: "Gizlilik Politikası",
     intro:
       "MomentBack, gördüğü son saniyeleri tutan ve bunları sonradan kaydetmenizi sağlayan bir kameradır. Bir uygulama için alışılmadık bir davranış olduğundan, bu bildirim genel geçer değil, bu davranışa özgü yazılmıştır.",
-    updated: "Son güncelleme: 29 Ağustos 2026",
+    updated: "Son güncelleme: 13 Ekim 2026",
     contentsLabel: "Bu sayfada",
     sections: [
       {
         id: "summary",
         heading: "Kısaca",
         paragraphs: [
-          "MomentBack telefonunuzda çalışır. Oluşturulacak bir hesap ve arkasında bir sunucu yoktur. Yayınlanan Android uygulaması internet iznine sahip değildir; dolayısıyla bir klibi, bir günlüğü veya bir ayarı herhangi bir yere gönderecek teknik imkânı yoktur.",
-          "Capture hazırken kamera ve mikrofon çalışır; replay'i mümkün kılan şey budur. Bu saniyeler uygulamanın kendi özel alanında tutulur ve sürekli olarak üzerine yazılır. Siz SAVE'e basana kadar hiçbir şey, sizin ya da bir başkasının açabileceği bir dosyaya dönüşmez.",
+          "MomentBack telefonunuzda çalışır. Oluşturulacak bir hesap ve arkasında bir MomentBack sunucusu yoktur. Uygulamanın kendi kodu hiçbir ağ bağlantısı açmaz; bir klibi, tutulan bir saniyeyi, bir günlüğü veya bir ayarı herhangi bir yere gönderemez. Uygulamanın dahil olduğu tek ağ trafiği, isteğe bağlı Pro'yu satın aldığınızda veya geri yüklediğinizde Google Play'in trafiğidir.",
+          "Kayıt hazırken kamera — ses kaydı açıksa mikrofon da — çalışır; geriye dönük kaydı mümkün kılan şey budur. Bu saniyeler uygulamanın kendi özel alanında tutulur ve sürekli olarak üzerine yazılır. Siz KAYDET'e basana kadar hiçbir şey, sizin ya da bir başkasının açabileceği bir dosyaya dönüşmez.",
         ],
       },
       {
         id: "camera-microphone",
         heading: "Kamera ve mikrofon",
         paragraphs: [
-          "MomentBack, herhangi bir şey yapabilmek için önce kamera ve mikrofon erişimi ister. İkisi de isteğe bağlı değil, zorunludur: ürün sesli video kaydeder ve anın sesi olmayan bir replay, o an değildir.",
-          "Uygulamayı açmak capture'ı başlatır. Başka bir uygulamaya geçtiğinizde veya ekranı kilitlediğinizde capture bilerek çalışmaya devam eder; çünkü bu uygulamanın var olduğu anlar, ekranın açık olmasını beklemez. Çalıştığı sürece Android, STOP eylemi taşıyan kalıcı bir bildirim gösterir ve Android'in kendi kamera ile mikrofon göstergeleri durum çubuğunda görünür.",
-          "Capture; uygulamada STOP'a bastığınızda, bildirimdeki STOP'u kullandığınızda, MomentBack'i son kullanılanlardan kaydırıp attığınızda veya Android ayarlarından zorla durdurduğunuzda sona erer. Hiçbir şey onu kendiliğinden yeniden başlatmaz: uygulama açılışta çalışan bir bileşen kurmaz ve yeniden başlatma alarmı kurmaz.",
-          "Bildirim izni de istenir ama zorunlu değildir. Reddetmeniz size yalnızca bildirim panelindeki STOP düğmesine mal olur; kameranın davranışını değiştirmez.",
+          "MomentBack'in çalışması için kamera erişimi gerekir. Mikrofon erişimi isteğe bağlıdır ve yalnızca Ayarlar'da \"Sesi kaydet\" açıkken kullanılır. Ses kapalıyken mikrofon hiç açılmaz, kaydedilen kliplerde ses kanalı bulunmaz ve mikrofon izni reddedilmiş olsa da kayıt çalışır.",
+          "Uygulamayı açmak kaydı başlatır. Başka bir uygulamaya geçtiğinizde veya ekranı kilitlediğinizde kayıt bilerek çalışmaya devam eder; çünkü bu uygulamanın var olduğu anlar, ekranın açık olmasını beklemez. Çalıştığı sürece Android, DURDUR eylemi taşıyan kalıcı bir bildirim gösterir; Android'in kendi kamera göstergesi — ses açıksa mikrofon göstergesi de — durum çubuğunda görünür.",
+          "Kayıt; uygulamada DURDUR'a bastığınızda, bildirimdeki DURDUR'u kullandığınızda, MomentBack'i son kullanılanlardan kaydırıp attığınızda veya Android ayarlarından zorla durdurduğunuzda sona erer. Hiçbir şey onu kendiliğinden yeniden başlatmaz: uygulama açılışta çalışan bir bileşen kurmaz ve yeniden başlatma alarmı kurmaz.",
+          "Bildirim izni de istenir ama zorunlu değildir. Reddetmeniz size yalnızca bildirim panelindeki DURDUR düğmesine mal olur; kameranın davranışını değiştirmez.",
         ],
       },
       {
         id: "held-seconds",
         heading: "Tutulan saniyeler",
         paragraphs: [
-          "Capture çalışırken video ve ses kodlanır ve MomentBack'in özel uygulama alanındaki kısa parçalara yazılır — yalnızca uygulamaya ait olan, diğer uygulamaların ve Galeri'nin okuyamadığı bir dizindir.",
-          "Seçtiğiniz replay süresinden eski parçalar sürekli silinir, üstüne bir de boyut sınırı uygulanır; böylece tutulan şey son 15, 30, 60 veya 120 saniyeyle sınırlı kalır. Büyüyen bir arşiv yoktur.",
-          "Bu malzeme kendi başına hiçbir yere kaydedilmez. Capture durduğunda SAVE'e basmamışsanız tutulan her şey atılır. Uygulama zorla durdurulursa veya telefonun gücü kesilirse geriye kalan, uygulamaya özel geçici çalışma verisidir.",
+          "Kayıt çalışırken video (ses açıksa ses de) kodlanır ve MomentBack'in özel uygulama alanındaki kısa parçalara yazılır — yalnızca uygulamaya ait olan, diğer uygulamaların ve Galeri'nin okuyamadığı bir dizindir.",
+          "Seçtiğiniz geri kayıt süresinden eski parçalar sürekli silinir, üstüne bir de boyut sınırı uygulanır; böylece tutulan şey son 15, 30, 60 veya 120 saniyeyle sınırlı kalır. Büyüyen bir arşiv yoktur.",
+          "Bu malzeme kendi başına hiçbir yere kaydedilmez. Kayıt durduğunda KAYDET'e basmamışsanız tutulan her şey atılır. Uygulama zorla durdurulursa veya telefonun gücü kesilirse geriye kalan, uygulamaya özel geçici çalışma verisidir.",
         ],
       },
       {
         id: "saved-clips",
         heading: "Kaydettiğiniz klipler",
         paragraphs: [
-          "SAVE'e bastığınızda MomentBack tuttuğu saniyeleri mühürler ve siz STOP'a basana kadar çekmeye devam eder; iki yarı tek bir MP4 dosyasına yazılır. Biten dosya, cihazınızın kendi medya kitaplığına Movies/MomentBack altına kopyalanır, doğrulanır ve ancak ondan sonra özel çalışma kopyası silinir.",
+          "KAYDET'e bastığınızda MomentBack tuttuğu saniyeleri mühürler ve siz DURDUR'a basana kadar çekmeye devam eder; iki yarı tek bir MP4 dosyasına yazılır. Biten dosya, cihazınızın kendi medya kitaplığına Movies/MomentBack altına kopyalanır, doğrulanır ve ancak ondan sonra özel çalışma kopyası silinir.",
           "O andan itibaren klip, telefonunuzdaki sıradan bir videodur. Galeri'nizde görünür; Google veya cihaz üreticinizle kurduğunuz fotoğraf yedeklemesi kapsamına girer; diğer dosyalar gibi paylaşabilir veya silebilirsiniz. MomentBack'in o dosya üzerinde başka bir denetimi ve bir kopyası yoktur.",
-          "Uygulamadaki Clips ekranı yalnızca MomentBack'in kendi yazdığı Movies/MomentBack dosyalarını listeler. Android'in kapsamlı depolama modeli, bir uygulamaya kendi oluşturduğu medyaya izin gerekmeden erişim verir; MomentBack'in fotoğraf kitaplığınızı okumak için hiç izin istememesinin ve diğer videolarınızı görememesinin sebebi budur.",
+          "Uygulamadaki Klipler ekranı yalnızca MomentBack'in kendi yazdığı Movies/MomentBack dosyalarını listeler. Android'in kapsamlı depolama modeli, bir uygulamaya kendi oluşturduğu medyaya izin gerekmeden erişim verir; MomentBack'in fotoğraf kitaplığınızı okumak için hiç izin istememesinin ve diğer videolarınızı görememesinin sebebi budur.",
         ],
       },
       {
@@ -1127,23 +1130,25 @@ const tr: MomentBackCopy = {
         heading: "MomentBack'in yapmadıkları",
         paragraphs: [
           "Hesap yok. Giriş, e-posta adresi, profil ve size ya da cihazınıza verilmiş bir kimlik yoktur.",
-          "Analytics yok, çökme raporlama hizmeti yok, reklam veya atıf SDK'sı yok. Uygulamanın üçüncü taraf bağımlılıklarının tamamı Flutter ve yerelleştirme paketi, intl kütüphanesi, bir simge yazı tipi ve yerel ayarlar için kullanılan küçük bir anahtar-değer deposundan ibarettir.",
-          "Ağ yok. Yayınlanan Android sürümü INTERNET iznini bildirmez; bu yüzden işletim sistemi onun bağlantı açmasına izin vermez. Geliştirme sürümleri bu izni taşır çünkü Flutter'ın geliştirici araçları buna ihtiyaç duyar; yayınlanan sürüm o sürüm değildir.",
-          "Capture motorunun tanılama mesajları cihazın kendi Android günlüğüne yazılır. Telefonda kalır, yalnızca o telefonda Android geliştirici araçlarını kullanan birine görünür ve MomentBack tarafından okunmaz, toplanmaz, iletilmez.",
+          "Analitik yok, çökme raporlama hizmeti yok, reklam veya atıf SDK'sı yok. Uygulamanın üçüncü taraf bağımlılıklarının tamamı Flutter ve yerelleştirme paketi, intl kütüphanesi, bir simge yazı tipi, yerel ayarlar için kullanılan küçük bir anahtar-değer deposu ve Google Play Billing'e bağlanan, Flutter'ın resmî uygulama içi satın alma eklentisinden ibarettir.",
+          "Kendi ağ trafiği yok. Yayınlanan Android uygulaması INTERNET ve ağ durumu izinlerini bildirir, çünkü Google'ın Play Billing kütüphanesi satın alma için bunları gerektirir. MomentBack'in kendi kodu hiçbir bağlantı açmaz: hiçbir klip, tutulan saniye, ayar veya günlük telefondan çıkmaz. Bu web sitesine ve destek e-postasına giden bağlantılar MomentBack'in dışında, tarayıcınızda veya e-posta uygulamanızda açılır.",
+          "Kayıt motorunun tanılama mesajları cihazın kendi Android günlüğüne yazılır. Telefonda kalır, yalnızca o telefonda Android geliştirici araçlarını kullanan birine görünür ve MomentBack tarafından okunmaz, toplanmaz, iletilmez.",
         ],
       },
       {
         id: "settings",
         heading: "Cihazda tutulan ayarlar",
         paragraphs: [
-          "Replay süresi, video kalitesi ve dil tercihiniz uygulamanın özel alanındaki küçük bir dosyada saklanır. Bunlar sizin hakkınızdaki bilgiler değil, sizin seçtiğiniz değerlerdir ve hiçbir kimlikle ilişkilendirilmez.",
+          "Geri kayıt süresi, video kalitesi, ses ayarı ve dil tercihiniz uygulamanın özel alanındaki küçük bir dosyada saklanır. Bunların yanında uygulama tek bir değer daha tutar: Google Play'in Pro'yu en son sahip olunan olarak bildirip bildirmediği (\"pro\" ya da \"free\") ve bunun ne zaman kaydedildiği; böylece Pro çevrimdışıyken de açık kalır. Satın alma jetonu, sipariş numarası, fiyat veya hesap kimliği saklanmaz. Bunlar sizin hakkınızdaki bilgiler değil, değerlerdir ve hiçbir kimlikle ilişkilendirilmez.",
           "Android'in kendi yedekleme sistemi, bu ayar dosyası gibi uygulamaya özel verileri Google hesabınıza bağlı cihaz yedeklemesine dahil edebilir. Bu yedekleme, MomentBack tarafından değil, hesap ayarlarınız kapsamında Android ve Google tarafından yürütülür. Kliplerin Galeri'ye ulaşmadan önce beklediği klasör bu yedeklemenin dışında bırakılmıştır.",
         ],
       },
       {
         id: "store",
-        heading: "Uygulama mağazası",
+        heading: "Google Play ve Pro satın alımı",
         paragraphs: [
+          "MomentBack; 15 ve 30 saniyelik geri kayıt ile standart video kaliteleriyle ücretsiz kullanılır. Pro, abonelik olmayan, isteğe bağlı tek seferlik bir satın almadır; 60 ve 120 saniyelik geri kaydı ve destekleyen kameralarda 1080p 60 fps ile 4K video kalitelerini açar.",
+          "Satın alma tümüyle Google Play tarafından yürütülür. MomentBack ödeme bilgilerinizi, Google hesabınızı veya siparişinizi hiçbir zaman görmez ve saklamaz. Pro'yu satın aldığınızda veya geri yüklediğinizde ve uygulama açılışta Pro'ya sahip olup olmadığınızı kontrol ettiğinde Play Billing kütüphanesi Google Play ile iletişim kurar; MomentBack'in sakladığı tek sonuç Pro'ya sahip olunup olunmadığıdır. Google bu işlemi kendi gizlilik politikası ve Google hesap ayarlarınız kapsamında işler.",
           "MomentBack, Google Play üzerinden dağıtım için hazırlanmaktadır. Bir uygulamayı mağazadan kurduğunuzda, o mağaza kurulumu kaydeder ve kendi politikaları ile hesap ayarlarınız kapsamında çökme raporu gibi platform düzeyinde bilgiler toplayabilir. Bu, MomentBack'in dışında gerçekleşir; uygulama bunu ne talep eder ne de alır.",
         ],
       },
@@ -1151,8 +1156,8 @@ const tr: MomentBackCopy = {
         id: "control",
         heading: "Saklama ve sizin denetiminiz",
         paragraphs: [
-          "Bizim saklayacağımız bir şey yok. Hiçbir klibin, tutulan hiçbir saniyenin, hiçbir ayarın ve hiçbir günlüğün telefonunuz dışında bir kopyası bulunmuyor.",
-          "Kamera veya mikrofon erişimini Android ayarlarından istediğiniz zaman geri alabilirsiniz; bu capture'ı durdurur. Her klibi Clips ekranından veya Galeri'den silebilirsiniz. MomentBack'i kaldırmak uygulamayı ve özel alanını siler; Movies/MomentBack içine kaydedilmiş klipler Galeri'nizde kalır, çünkü onlar uygulamanın değil sizin dosyalarınızdır.",
+          "Bizim saklayacağımız bir şey yok. Hiçbir klibin, tutulan hiçbir saniyenin, hiçbir ayarın ve hiçbir günlüğün telefonunuz dışında bir kopyası bulunmuyor. Pro satın alımının kaydı MomentBack'te değil, Google Play'de tutulur.",
+          "Kamera erişimini Android ayarlarından istediğiniz zaman geri alabilirsiniz; bu kaydı durdurur. Sesi Ayarlar'dan kapatabilir veya mikrofon erişimini geri alabilirsiniz; kayıt bu durumda sessiz devam eder. Her klibi Klipler ekranından veya Galeri'den silebilirsiniz. MomentBack'i kaldırmak uygulamayı ve özel alanını siler; Movies/MomentBack içine kaydedilmiş klipler Galeri'nizde kalır, çünkü onlar uygulamanın değil sizin dosyalarınızdır. Pro satın alımı Google hesabınızda kalır ve yeniden kurulumdan sonra geri yüklenebilir.",
         ],
       },
       {
@@ -1166,7 +1171,7 @@ const tr: MomentBackCopy = {
         id: "changes-contact",
         heading: "Değişiklikler ve iletişim",
         paragraphs: [
-          "MomentBack'in davranışı bu bildirimi etkileyecek şekilde değişirse — en olası değişiklik, mağaza tarafından yürütülen tek seferlik ücretli bir açılım olurdu — bu sayfa o sürüm yayınlanmadan önce güncellenir ve üstteki tarih onunla birlikte değişir.",
+          "MomentBack'in davranışı bu bildirimi etkileyecek şekilde değişirse bu sayfa o sürüm yayınlanmadan önce güncellenir ve üstteki tarih onunla birlikte değişir.",
           `Bu bildirimle ilgili sorularınızı ${contactEmail} adresine iletebilirsiniz.`,
         ],
       },
@@ -1181,7 +1186,7 @@ const tr: MomentBackCopy = {
     heading: "Kullanım Koşulları",
     intro:
       "Bu koşullar, gördüğü son saniyeleri tutarak onları sonradan kaydetmenizi sağlayan Android kamera uygulaması MomentBack için geçerlidir. Kaydırılıp geçilsin diye değil, okunsun diye yazıldı.",
-    updated: "Son güncelleme: 29 Ağustos 2026",
+    updated: "Son güncelleme: 13 Ekim 2026",
     contentsLabel: "Bu sayfada",
     sections: [
       {
@@ -1213,8 +1218,8 @@ const tr: MomentBackCopy = {
         id: "permissions",
         heading: "Kamera, mikrofon ve cihaz izinleri",
         paragraphs: [
-          "MomentBack çalışabilmek için kamera ve mikrofon erişimine ihtiyaç duyar; kalıcı capture bildirimini ve STOP eylemini gösterebilmek için de bildirim izni ister. Bu izinleri Android üzerinden verirsiniz ve Android ayarlarından istediğiniz zaman geri alabilirsiniz; kamera veya mikrofon erişimini geri almak capture'ı durdurur.",
-          "Capture hazır olduğu sürece, uygulama arka plandayken ve ekran kilitliyken de siz durdurana kadar devam eder. Kalıcı bildirim ve Android'in kendi kamera ile mikrofon göstergeleri, bunun sizden hiçbir zaman gizli kalmaması içindir.",
+          "MomentBack'in çalışması için kamera erişimi gerekir. Mikrofon erişimi yalnızca ses kaydı açıkken gerekir; bildirim izni ise kalıcı kayıt bildirimini ve DURDUR eylemini gösterebilmek içindir. Bu izinleri Android üzerinden verirsiniz ve Android ayarlarından istediğiniz zaman geri alabilirsiniz; kamera erişimini geri almak kaydı durdurur, mikrofon erişimi yoksa klipler sessiz kaydedilir.",
+          "Kayıt hazır olduğu sürece, uygulama arka plandayken ve ekran kilitliyken de siz durdurana kadar devam eder. Kalıcı bildirim ve Android'in kendi kamera göstergesi — ses açıksa mikrofon göstergesi de — bunun sizden hiçbir zaman gizli kalmaması içindir.",
         ],
       },
       {
@@ -1223,15 +1228,15 @@ const tr: MomentBackCopy = {
         paragraphs: [
           "MomentBack Android 10 veya üzerini gerektirir ve dikey yönde telefonlar için geliştirilmiştir. Tabletler, katlanabilir geniş ekran düzenleri, televizyonlar veya masaüstü ortamları için sunulmaz.",
           "Uygulamanın gerçekte sunabildiği şey donanımınıza bağlıdır. Video kodlayıcılar telefondan telefona değişir; seçilen çözünürlüğü veya kare hızını sürdüremeyen bir cihaza daha düşüğü verilir. Uygulama, seçtiğiniz ayarı donanımın gerçekleştirdiği ayardan ayrı olarak bildirir; tercihinizi sessizce değiştirmez.",
-          "Bazı sınırlar cihazdan değil, video biçiminin kendisinden gelir. Tek bir klip tek bir yön taşır; bu yüzden oturum sırasında telefonu çevirmek replay'i o ana kadar kırpar. Boş depolama alanı da kesin bir sınırdır: cihaz alanı tükenmeye yaklaştığında, o sırada işlenen klip yine de yazılabilsin diye capture otomatik olarak sonlandırılabilir.",
+          "Bazı sınırlar cihazdan değil, video biçiminin kendisinden gelir. Tek bir klip tek bir yön taşır; bu yüzden oturum sırasında telefonu çevirmek geri kaydı o ana kadar kırpar. Boş depolama alanı da kesin bir sınırdır: cihaz alanı tükenmeye yaklaştığında, o sırada işlenen klip yine de yazılabilsin diye kayıt otomatik olarak sonlandırılabilir.",
         ],
       },
       {
         id: "battery",
         heading: "Batarya ve ısı",
         paragraphs: [
-          "Bir replay tutmak, kameranın, mikrofonun ve donanımsal video kodlayıcının sürekli çalışması demektir. Bu, boştaki bir telefona göre gözle görülür biçimde daha fazla batarya harcar ve cihazı ısıtabilir; Android'in kendi ısı yönetimi bu durumda performansı düşürebilir.",
-          "Bu, uygulamanın yaptığı işin doğasında vardır; bir kusur değildir. İhtiyacınız kalmadığında capture'ı durdurun.",
+          "Geri kayıt tutmak, kameranın, ses açıksa mikrofonun ve donanımsal video kodlayıcının sürekli çalışması demektir. Bu, boştaki bir telefona göre gözle görülür biçimde daha fazla batarya harcar ve cihazı ısıtabilir; Android'in kendi ısı yönetimi bu durumda performansı düşürebilir.",
+          "Bu, uygulamanın yaptığı işin doğasında vardır; bir kusur değildir. İhtiyacınız kalmadığında kaydı durdurun.",
         ],
       },
       {
@@ -1246,7 +1251,7 @@ const tr: MomentBackCopy = {
         id: "your-content",
         heading: "Klipleriniz size aittir",
         paragraphs: [
-          "Kaydettiğiniz şey üzerindeki bütün haklar sizde kalır. MomentBack klipleriniz üzerinde mülkiyet veya lisans iddia etmez ve bunların hiçbir kopyası bize ulaşmaz: kaydedilen klipler cihazınızın kendi medya kitaplığına yazılır ve uygulamanın onları herhangi bir yere gönderecek ağ erişimi yoktur.",
+          "Kaydettiğiniz şey üzerindeki bütün haklar sizde kalır. MomentBack klipleriniz üzerinde mülkiyet veya lisans iddia etmez ve bunların hiçbir kopyası bize ulaşmaz: kaydedilen klipler cihazınızın kendi medya kitaplığına yazılır ve uygulamanın kendi kodu onları herhangi bir yere gönderebilecek bir ağ bağlantısı açmaz.",
         ],
       },
       {
@@ -1266,10 +1271,11 @@ const tr: MomentBackCopy = {
       },
       {
         id: "purchases",
-        heading: "İleride eklenebilecek ücretli özellikler",
+        heading: "MomentBack Pro",
         paragraphs: [
-          "MomentBack şu anda hiçbir şey satmıyor. Uygulamada fiyat, abonelik, uygulama içi satın alma ve ödeme ekranı yoktur; uygulama hiçbir zaman ödeme bilgisi toplamaz.",
-          "60 saniyelik ve 120 saniyelik replay süreleri, ileride olası tek seferlik bir açılım için arayüzde Pro olarak işaretlenmiştir. Satın alma bir gün eklenirse fiyat ve ödeme koşulları satın almadan önce gösterilecek, işlem uygulama mağazası tarafından yürütülecek ve o mağazanın satın alma ile iade kurallarına tabi olacaktır; bu koşullar da o sürüm yayınlanmadan önce bunu kapsayacak şekilde güncellenecektir.",
+          "MomentBack; 15 ve 30 saniyelik geri kayıt ile standart video kaliteleriyle ücretsiz kullanılır. MomentBack Pro, abonelik değil, isteğe bağlı tek seferlik bir uygulama içi satın almadır; 60 ve 120 saniyelik geri kaydı ve donanımı destekleyen kameralarda 1080p 60 fps ile 4K video kalitelerini açar. Hangi ileri kalitelerin kullanılabildiği cihazınıza bağlıdır ve seçimden önce uygulamada gösterilir; bir kaliteyi desteklemeyen kamera Pro ile o kaliteyi kazanmaz.",
+          "Fiyat, satın almadan önce uygulamada gösterilir. Satın alma, Google Play tarafından kendi koşulları ve iade politikası kapsamında işlenir; MomentBack ödeme bilgilerinizi hiçbir zaman almaz. Pro, satın aldığınız Google hesabına bağlıdır ve yeniden kurulumda ya da aynı hesapla oturum açılmış başka bir cihazda geri yüklenebilir.",
+          "Google Play bir satın almayı iade edilmiş veya artık sahip olunmayan olarak bildirirse Pro özellikleri yeniden kilitlenir. Mağazaya ulaşılamadığı sürece uygulama, Google Play'in en son onayladığı sonucu korur.",
         ],
       },
       {
