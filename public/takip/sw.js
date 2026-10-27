@@ -1,0 +1,4 @@
+// Network-only: shared project records must never be presented as saved offline.
+self.addEventListener('install',()=>self.skipWaiting());
+self.addEventListener('activate',event=>event.waitUntil(self.clients.claim()));
+self.addEventListener('fetch',event=>{if(event.request.mode==='navigate'&&new URL(event.request.url).pathname.startsWith('/takip/'))event.respondWith(fetch(event.request).catch(()=>new Response('<!doctype html><html lang="tr"><meta charset="utf-8"><meta name="viewport" content="width=device-width"><title>Takip</title><body style="background:#131614;color:#d8df9d;font:16px system-ui;padding:40px"><h1>Bağlantı bekleniyor</h1><p>Ortak panoyu açmak için internete bağlan.</p><a style="color:inherit" href="/takip/">Tekrar dene</a></body></html>',{headers:{'Content-Type':'text/html; charset=utf-8'}})))});

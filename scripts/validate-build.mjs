@@ -196,12 +196,13 @@ const walk = async (directory) => {
   return nested.flat();
 };
 const files = await walk(dist);
-const scriptFiles = files.filter((file) => file.endsWith(".js"));
+const isTracker = (file) => file.startsWith(path.join(dist, "takip") + path.sep);
+const scriptFiles = files.filter((file) => file.endsWith(".js") && !isTracker(file));
 if (scriptFiles.length) {
   throw new Error(`W1 client JavaScript budget exceeded: ${scriptFiles.join(", ")}`);
 }
 
-const inspectableFiles = files.filter((file) => /\.(?:html|css)$/i.test(file));
+const inspectableFiles = files.filter((file) => /\.(?:html|css)$/i.test(file) && !isTracker(file));
 const inspectableText = (
   await Promise.all(inspectableFiles.map((file) => readFile(file, "utf8")))
 ).join("\n");
@@ -568,3 +569,14 @@ console.log(
     `no unpublished store URLs, zero client JavaScript, the Notura legacy redirects, the studio root, ` +
     `the Vergi Hesabım, 999KB Arcade, Jutsu and MERGEKIN pages (with the verbatim MERGEKIN policy text) and app-ads.txt.`,
 );
+
+// The unlisted tracker may use JavaScript only within its own PWA scope.
+const trackerHtml = await readFile(pageFile("/takip/"), "utf8");
+if (!trackerHtml.includes('content="noindex,nofollow,noarchive"')) throw new Error("Tracker must be noindex.");
+if (sitemapPaths.has("/takip/")) throw new Error("Tracker must not appear in sitemap.");
+for (const file of files.filter(f=>f.endsWith(".html")&&!isTracker(f))) {
+  if (/href=["'][^"']*\/takip(?:\/|["'])/.test(await readFile(file,"utf8"))) throw new Error("Public page links to tracker.");
+}
+const trackerScripts = files.filter(f=>f.endsWith(".js")&&isTracker(f));
+if (trackerScripts.length !== 2 || trackerScripts.some(f=>!["install.js","sw.js"].includes(path.basename(f)))) throw new Error("Unexpected tracker scripts.");
+console.log("Unlisted tracker: no public links, no sitemap entry, noindex, scoped PWA scripts verified.");
