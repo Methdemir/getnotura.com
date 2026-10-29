@@ -613,7 +613,7 @@ const en: MomentBackCopy = {
     heading: "Privacy Policy",
     intro:
       "MomentBack is a camera that holds the last seconds of what it sees so that you can save them afterwards. That is an unusual thing for an app to do, so this notice is specific about it rather than generic.",
-    updated: "Last updated: 13 October 2026",
+    updated: "Last updated: 27 October 2026",
     contentsLabel: "On this page",
     sections: [
       {
@@ -629,8 +629,8 @@ const en: MomentBackCopy = {
         heading: "Camera and microphone",
         paragraphs: [
           "MomentBack needs camera access before it can do anything. Microphone access is optional: it is used only while \"Record sound\" is on in Settings. With sound off, the microphone is never opened, saved clips carry no audio track, and capture works even if microphone access has been refused.",
-          "Opening the app starts capture. Capture deliberately keeps running when you switch to another app or lock the screen, because the moments this app exists for do not wait for the screen to be on. Whenever it is running, Android shows an ongoing notification carrying a STOP action, and Android's own camera indicator — and the microphone indicator when sound is on — is visible in the status bar.",
-          "Capture ends when you press STOP in the app, use STOP in the notification, swipe MomentBack out of Recents, or force-stop it in Android settings. Nothing starts it again on its own: the app installs no boot receiver and sets no restart alarm.",
+          "Opening the app starts capture after the required permissions have been granted. Capture deliberately keeps running when you switch to another app or lock the screen, because the moments this app exists for do not wait for the screen to be on. With notification permission granted, Android shows an ongoing capture notification carrying a STOP action. Android also provides its camera and microphone privacy indicators while those resources are in use.",
+          "STOP on the camera screen finishes and saves the current clip, then starts a fresh replay buffer; it does not turn the camera off. To end capture, use Settings > Turn off camera and microphone, STOP in the notification, dismiss MomentBack from Recents, or force-stop it in Android settings. After capture is explicitly turned off, the app installs no boot receiver or restart alarm to resume it automatically.",
           "The notification permission is requested as well but is not required. Refusing it costs you the STOP button in the notification shade; it does not change what the camera does.",
         ],
       },
@@ -683,8 +683,8 @@ const en: MomentBackCopy = {
         id: "control",
         heading: "Retention and your control",
         paragraphs: [
-          "There is nothing for us to retain. No copy of any clip, any held second, any setting or any log exists anywhere other than on your phone. The record of a Pro purchase is kept by Google Play, not by MomentBack.",
-          "You can revoke camera access in Android settings at any time, which stops capture. You can turn sound off in Settings or revoke microphone access; capture then continues without audio. You can delete any clip from the Clips screen or from your Gallery. Uninstalling MomentBack removes the app and its private storage; clips already saved to Movies/MomentBack stay in your Gallery, because they are your files, not the app's. A Pro purchase stays with your Google account and can be restored after reinstalling.",
+          "MomentBack does not retain copies of your clips, held seconds, settings or logs on a server. Device or Gallery backups you enable may hold copies under your backup provider's policies and account settings. The record of a Pro purchase is kept by Google Play, not by MomentBack.",
+          "You can revoke camera or microphone access in Android settings at any time; Android may interrupt capture or restart the app when permissions change. To capture without microphone access, turn Record sound off in MomentBack Settings. You can delete any clip from the Clips screen or from your Gallery. Uninstalling MomentBack removes the app and its private storage; clips already saved to Movies/MomentBack stay in your Gallery, because they are your files, not the app's. A Pro purchase stays with your Google account and can be restored after reinstalling.",
         ],
       },
       {
@@ -713,7 +713,7 @@ const en: MomentBackCopy = {
     heading: "Terms of Use",
     intro:
       "These terms cover MomentBack, an Android camera app that holds the last seconds it sees so you can save them after the fact. They are written to be read, not to be scrolled past.",
-    updated: "Last updated: 13 October 2026",
+    updated: "Last updated: 27 October 2026",
     contentsLabel: "On this page",
     sections: [
       {
@@ -745,8 +745,8 @@ const en: MomentBackCopy = {
         id: "permissions",
         heading: "Camera, microphone and device permissions",
         paragraphs: [
-          "MomentBack needs camera access to work at all. Microphone access is needed only while sound recording is on, and notification access lets it show the ongoing capture notice and its STOP action. You grant these through Android and can withdraw them at any time in Android settings; withdrawing camera access stops capture, and without microphone access clips are recorded without sound.",
-          "While capture is armed, it continues when the app is in the background and when the screen is locked, until you stop it. The ongoing notification and Android's own camera indicator — and microphone indicator when sound is on — exist so that this is never invisible to you.",
+          "MomentBack needs camera access to work at all. Microphone access is needed only while sound recording is on, and notification access lets it show the ongoing capture notice and its STOP action. You grant these through Android and can withdraw them at any time in Android settings. Changing permissions may interrupt capture. Turn Record sound off in MomentBack Settings to capture without microphone access.",
+          "While capture is armed, it continues when the app is in the background and when the screen is locked. STOP on the camera screen finishes a clip and starts a fresh replay buffer. To turn capture off, use Settings > Turn off camera and microphone or STOP in the notification. The capture notification is shown when notification permission is granted; Android also provides camera and microphone privacy indicators.",
         ],
       },
       {
@@ -1157,7 +1157,7 @@ const tr: MomentBackCopy = {
     heading: "Gizlilik Politikası",
     intro:
       "MomentBack, gördüğü son saniyeleri tutan ve bunları sonradan kaydetmenizi sağlayan bir kameradır. Bir uygulama için alışılmadık bir davranış olduğundan, bu bildirim genel geçer değil, bu davranışa özgü yazılmıştır.",
-    updated: "Son güncelleme: 13 Ekim 2026",
+    updated: "Son güncelleme: 27 Ekim 2026",
     contentsLabel: "Bu sayfada",
     sections: [
       {
@@ -1173,8 +1173,8 @@ const tr: MomentBackCopy = {
         heading: "Kamera ve mikrofon",
         paragraphs: [
           "MomentBack'in çalışması için kamera erişimi gerekir. Mikrofon erişimi isteğe bağlıdır ve yalnızca Ayarlar'da \"Sesi kaydet\" açıkken kullanılır. Ses kapalıyken mikrofon hiç açılmaz, kaydedilen kliplerde ses kanalı bulunmaz ve mikrofon izni reddedilmiş olsa da kayıt çalışır.",
-          "Uygulamayı açmak kaydı başlatır. Başka bir uygulamaya geçtiğinizde veya ekranı kilitlediğinizde kayıt bilerek çalışmaya devam eder; çünkü bu uygulamanın var olduğu anlar, ekranın açık olmasını beklemez. Çalıştığı sürece Android, DURDUR eylemi taşıyan kalıcı bir bildirim gösterir; Android'in kendi kamera göstergesi — ses açıksa mikrofon göstergesi de — durum çubuğunda görünür.",
-          "Kayıt; uygulamada DURDUR'a bastığınızda, bildirimdeki DURDUR'u kullandığınızda, MomentBack'i son kullanılanlardan kaydırıp attığınızda veya Android ayarlarından zorla durdurduğunuzda sona erer. Hiçbir şey onu kendiliğinden yeniden başlatmaz: uygulama açılışta çalışan bir bileşen kurmaz ve yeniden başlatma alarmı kurmaz.",
+          "Gerekli izinler verildikten sonra uygulamayı açmak kaydı başlatır. Başka bir uygulamaya geçtiğinizde veya ekranı kilitlediğinizde kayıt bilerek çalışmaya devam eder; çünkü bu uygulamanın var olduğu anlar, ekranın açık olmasını beklemez. Bildirim izni verildiğinde Android, DURDUR eylemi taşıyan kalıcı kayıt bildirimini gösterir. Android ayrıca kamera ve mikrofon kullanılırken kendi gizlilik göstergelerini sunar.",
+          "Kamera ekranındaki DURDUR, mevcut klibi bitirip kaydeder ve yeni bir geri kayıt tamponu başlatır; kamerayı kapatmaz. Çekimi bitirmek için Ayarlar > Kamera ve mikrofonu kapat işlemini, bildirimdeki DURDUR'u, MomentBack'i son kullanılanlardan kaydırıp kapatmayı veya Android ayarlarından zorla durdurmayı kullanın. Çekim açıkça kapatıldıktan sonra uygulama onu otomatik başlatacak bir açılış bileşeni veya yeniden başlatma alarmı kurmaz.",
           "Bildirim izni de istenir ama zorunlu değildir. Reddetmeniz size yalnızca bildirim panelindeki DURDUR düğmesine mal olur; kameranın davranışını değiştirmez.",
         ],
       },
@@ -1227,8 +1227,8 @@ const tr: MomentBackCopy = {
         id: "control",
         heading: "Saklama ve sizin denetiminiz",
         paragraphs: [
-          "Bizim saklayacağımız bir şey yok. Hiçbir klibin, tutulan hiçbir saniyenin, hiçbir ayarın ve hiçbir günlüğün telefonunuz dışında bir kopyası bulunmuyor. Pro satın alımının kaydı MomentBack'te değil, Google Play'de tutulur.",
-          "Kamera erişimini Android ayarlarından istediğiniz zaman geri alabilirsiniz; bu kaydı durdurur. Sesi Ayarlar'dan kapatabilir veya mikrofon erişimini geri alabilirsiniz; kayıt bu durumda sessiz devam eder. Her klibi Klipler ekranından veya Galeri'den silebilirsiniz. MomentBack'i kaldırmak uygulamayı ve özel alanını siler; Movies/MomentBack içine kaydedilmiş klipler Galeri'nizde kalır, çünkü onlar uygulamanın değil sizin dosyalarınızdır. Pro satın alımı Google hesabınızda kalır ve yeniden kurulumdan sonra geri yüklenebilir.",
+          "MomentBack kliplerinizin, tutulan saniyelerin, ayarların veya günlüklerin kopyalarını bir sunucuda saklamaz. Açtığınız cihaz veya Galeri yedeklemeleri, yedekleme sağlayıcınızın politikaları ve hesap ayarlarınız kapsamında kopyalar tutabilir. Pro satın alımının kaydı MomentBack'te değil, Google Play'de tutulur.",
+          "Kamera veya mikrofon erişimini Android ayarlarından istediğiniz zaman geri alabilirsiniz; izin değiştiğinde Android çekimi kesebilir veya uygulamayı yeniden başlatabilir. Mikrofon izni olmadan çekim yapmak için MomentBack Ayarlar'ında Sesi kaydet seçeneğini kapatın. Her klibi Klipler ekranından veya Galeri'den silebilirsiniz. MomentBack'i kaldırmak uygulamayı ve özel alanını siler; Movies/MomentBack içine kaydedilmiş klipler Galeri'nizde kalır, çünkü onlar uygulamanın değil sizin dosyalarınızdır. Pro satın alımı Google hesabınızda kalır ve yeniden kurulumdan sonra geri yüklenebilir.",
         ],
       },
       {
@@ -1257,7 +1257,7 @@ const tr: MomentBackCopy = {
     heading: "Kullanım Koşulları",
     intro:
       "Bu koşullar, gördüğü son saniyeleri tutarak onları sonradan kaydetmenizi sağlayan Android kamera uygulaması MomentBack için geçerlidir. Kaydırılıp geçilsin diye değil, okunsun diye yazıldı.",
-    updated: "Son güncelleme: 13 Ekim 2026",
+    updated: "Son güncelleme: 27 Ekim 2026",
     contentsLabel: "Bu sayfada",
     sections: [
       {
@@ -1289,8 +1289,8 @@ const tr: MomentBackCopy = {
         id: "permissions",
         heading: "Kamera, mikrofon ve cihaz izinleri",
         paragraphs: [
-          "MomentBack'in çalışması için kamera erişimi gerekir. Mikrofon erişimi yalnızca ses kaydı açıkken gerekir; bildirim izni ise kalıcı kayıt bildirimini ve DURDUR eylemini gösterebilmek içindir. Bu izinleri Android üzerinden verirsiniz ve Android ayarlarından istediğiniz zaman geri alabilirsiniz; kamera erişimini geri almak kaydı durdurur, mikrofon erişimi yoksa klipler sessiz kaydedilir.",
-          "Kayıt hazır olduğu sürece, uygulama arka plandayken ve ekran kilitliyken de siz durdurana kadar devam eder. Kalıcı bildirim ve Android'in kendi kamera göstergesi — ses açıksa mikrofon göstergesi de — bunun sizden hiçbir zaman gizli kalmaması içindir.",
+          "MomentBack'in çalışması için kamera erişimi gerekir. Mikrofon erişimi yalnızca ses kaydı açıkken gerekir; bildirim izni ise kalıcı kayıt bildirimini ve DURDUR eylemini gösterebilmek içindir. Bu izinleri Android üzerinden verirsiniz ve Android ayarlarından istediğiniz zaman geri alabilirsiniz. İzin değişiklikleri çekimi kesebilir. Mikrofon izni olmadan çekim yapmak için MomentBack Ayarlar'ında Sesi kaydet seçeneğini kapatın.",
+          "Kayıt hazır olduğu sürece uygulama arka plandayken ve ekran kilitliyken de devam eder. Kamera ekranındaki DURDUR klibi bitirip yeni bir geri kayıt tamponu başlatır. Çekimi kapatmak için Ayarlar > Kamera ve mikrofonu kapat işlemini veya bildirimdeki DURDUR'u kullanın. Kayıt bildirimi, bildirim izni verildiğinde görünür; Android ayrıca kamera ve mikrofon gizlilik göstergelerini sunar.",
         ],
       },
       {
