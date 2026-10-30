@@ -613,7 +613,7 @@ const en: MomentBackCopy = {
     heading: "Privacy Policy",
     intro:
       "MomentBack is a camera that holds the last seconds of what it sees so that you can save them afterwards. That is an unusual thing for an app to do, so this notice is specific about it rather than generic.",
-    updated: "Last updated: 27 October 2026",
+    updated: "Last updated: 30 October 2026",
     contentsLabel: "On this page",
     sections: [
       {
@@ -622,6 +622,7 @@ const en: MomentBackCopy = {
         paragraphs: [
           "MomentBack runs on your phone. There is no account to create and no MomentBack server behind it. The app's own code makes no network connections and has no way to send a clip, a held second, a log or a setting anywhere. The only network traffic the app is involved in is Google Play's, when you buy or restore the optional Pro unlock.",
           "The camera — and the microphone, if sound recording is on — run while capture is armed, which is what makes a replay possible. Those seconds are held in the app's own private storage and are continuously overwritten. Nothing becomes a file you or anyone else can open until you press SAVE.",
+          "MomentBack does not read or browse your Gallery. It asks for no photo or video library permission; it only adds the clips you save to Movies/MomentBack, and lists or deletes those clips alone. Your other photos and videos are invisible to it.",
         ],
       },
       {
@@ -649,7 +650,7 @@ const en: MomentBackCopy = {
         paragraphs: [
           "When you press SAVE, MomentBack seals the seconds it was holding and keeps filming until you press STOP; both halves are written into a single MP4. The finished file is copied into your device's own media library under Movies/MomentBack, verified, and only then is the private working copy deleted.",
           "From that point the clip is an ordinary video on your phone. It appears in your Gallery, it is covered by whatever photo backup you have set up with Google or your device maker, and you can share or delete it like any other file. MomentBack has no further control over it and no copy of it.",
-          "The Clips screen inside the app lists only the files MomentBack itself wrote to Movies/MomentBack. Android's scoped storage gives an app access to media it created without a media permission, which is why MomentBack never asks to read your photo library and cannot see any of your other videos.",
+          "The Clips screen inside the app lists only the files MomentBack itself wrote to Movies/MomentBack. Android's scoped storage gives an app access to media it created without a media permission, which is why MomentBack never asks to read your photo library and cannot see any of your other videos. For the same reason, after MomentBack is reinstalled, clips saved by the earlier installation stay in your Gallery but may no longer appear on the Clips screen.",
         ],
       },
       {
@@ -1157,7 +1158,7 @@ const tr: MomentBackCopy = {
     heading: "Gizlilik Politikası",
     intro:
       "MomentBack, gördüğü son saniyeleri tutan ve bunları sonradan kaydetmenizi sağlayan bir kameradır. Bir uygulama için alışılmadık bir davranış olduğundan, bu bildirim genel geçer değil, bu davranışa özgü yazılmıştır.",
-    updated: "Son güncelleme: 27 Ekim 2026",
+    updated: "Son güncelleme: 30 Ekim 2026",
     contentsLabel: "Bu sayfada",
     sections: [
       {
@@ -1166,6 +1167,7 @@ const tr: MomentBackCopy = {
         paragraphs: [
           "MomentBack telefonunuzda çalışır. Oluşturulacak bir hesap ve arkasında bir MomentBack sunucusu yoktur. Uygulamanın kendi kodu hiçbir ağ bağlantısı açmaz; bir klibi, tutulan bir saniyeyi, bir günlüğü veya bir ayarı herhangi bir yere gönderemez. Uygulamanın dahil olduğu tek ağ trafiği, isteğe bağlı Pro'yu satın aldığınızda veya geri yüklediğinizde Google Play'in trafiğidir.",
           "Kayıt hazırken kamera — ses kaydı açıksa mikrofon da — çalışır; geriye dönük kaydı mümkün kılan şey budur. Bu saniyeler uygulamanın kendi özel alanında tutulur ve sürekli olarak üzerine yazılır. Siz KAYDET'e basana kadar hiçbir şey, sizin ya da bir başkasının açabileceği bir dosyaya dönüşmez.",
+          "MomentBack Galeri'nizi okumaz ve taramaz. Fotoğraf veya video kitaplığı izni istemez; yalnızca kaydettiğiniz klipleri Movies/MomentBack içine ekler ve yalnızca bu klipleri listeler ya da siler. Diğer fotoğraf ve videolarınızı göremez.",
         ],
       },
       {
@@ -1193,7 +1195,7 @@ const tr: MomentBackCopy = {
         paragraphs: [
           "KAYDET'e bastığınızda MomentBack tuttuğu saniyeleri mühürler ve siz DURDUR'a basana kadar çekmeye devam eder; iki yarı tek bir MP4 dosyasına yazılır. Biten dosya, cihazınızın kendi medya kitaplığına Movies/MomentBack altına kopyalanır, doğrulanır ve ancak ondan sonra özel çalışma kopyası silinir.",
           "O andan itibaren klip, telefonunuzdaki sıradan bir videodur. Galeri'nizde görünür; Google veya cihaz üreticinizle kurduğunuz fotoğraf yedeklemesi kapsamına girer; diğer dosyalar gibi paylaşabilir veya silebilirsiniz. MomentBack'in o dosya üzerinde başka bir denetimi ve bir kopyası yoktur.",
-          "Uygulamadaki Klipler ekranı yalnızca MomentBack'in kendi yazdığı Movies/MomentBack dosyalarını listeler. Android'in kapsamlı depolama modeli, bir uygulamaya kendi oluşturduğu medyaya izin gerekmeden erişim verir; MomentBack'in fotoğraf kitaplığınızı okumak için hiç izin istememesinin ve diğer videolarınızı görememesinin sebebi budur.",
+          "Uygulamadaki Klipler ekranı yalnızca MomentBack'in kendi yazdığı Movies/MomentBack dosyalarını listeler. Android'in kapsamlı depolama modeli, bir uygulamaya kendi oluşturduğu medyaya izin gerekmeden erişim verir; MomentBack'in fotoğraf kitaplığınızı okumak için hiç izin istememesinin ve diğer videolarınızı görememesinin sebebi budur. Aynı nedenle MomentBack yeniden kurulduğunda önceki kurulumun kaydettiği klipler Galeri'de kalır, ancak Klipler ekranında artık görünmeyebilir.",
         ],
       },
       {
