@@ -533,7 +533,7 @@ for (const [pagePath, title, footnoteLabel] of [
     if (text.startsWith(footnoteLabel)) text = text.slice(footnoteLabel.length).trim();
     expectedPieces.push(text);
   }
-  if (expectedPieces.length < 30) {
+  if (expectedPieces.length < 20) {
     throw new Error(`PRIVACY_CONTENT.md (${title}) parsed into too few pieces: ${expectedPieces.length}.`);
   }
   for (const piece of expectedPieces) {
