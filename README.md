@@ -2,6 +2,8 @@
 
 Static website for Sarper Studios and its apps, built with Astro and deployed to GitHub Pages.
 
+Served from two domains: `sarperstudios.com` (Cloudflare, canonical, the one that stays) and `getnotura.com` (GitHub Pages, `public/CNAME`, to be retired or redirected later). Canonicals, the sitemap and `robots.txt` point at `sarperstudios.com` on both.
+
 | Path | Surface |
 |---|---|
 | `/` | Sarper Studios (publisher page) |

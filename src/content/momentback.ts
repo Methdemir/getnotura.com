@@ -294,7 +294,7 @@ export const momentBackPhotos: Record<MomentBackPhotoKey, { photographer: string
   weather: { photographer: "Max LaRochelle", url: "https://unsplash.com/photos/uu-Jw5SunYI" },
 };
 
-const contactEmail = "support@getnotura.com";
+const contactEmail = "support@sarperstudios.com";
 
 const en: MomentBackCopy = {
   localeName: "English",

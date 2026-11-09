@@ -22,7 +22,7 @@ export const mergekin = {
   name: "MERGEKIN: Echo Defense",
   shortName: "MERGEKIN",
   publisher: "Sarper Studios",
-  email: "sarperstudiosapp@gmail.com",
+  email: "support@sarperstudios.com",
   paths: {
     home: "/mergekin/",
     privacy: "/mergekin/privacy/",

@@ -24,7 +24,7 @@
 
 export const studio = {
   name: "Sarper Studios",
-  email: "sarperstudiosapp@gmail.com",
+  email: "support@sarperstudios.com",
   location: "Türkiye",
 } as const;
 

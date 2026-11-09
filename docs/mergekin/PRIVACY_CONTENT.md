@@ -5,7 +5,7 @@ rewrite it. Facts must stay true to the shipped Android build. If the build chan
 Firebase at launch), Claude updates this file first.
 
 - Product: **MERGEKIN: Echo Defense** (Android). Publisher: **Sarper Studios**, Türkiye.
-- Contact: **sarperstudiosapp@gmail.com**
+- Contact: **support@sarperstudios.com**
 - Effective date: **11 October 2026** / **11 Ekim 2026** (Claude updates it on release day).
 - Languages: English page at `/mergekin/privacy/`, Turkish page at `/mergekin/gizlilik/`
   (same content; each links to the other).
@@ -100,7 +100,7 @@ also be shown in the game.
 
 ### 10. Contact
 
-Sarper Studios — sarperstudiosapp@gmail.com
+Sarper Studios — support@sarperstudios.com
 
 Footnote: This policy covers the MERGEKIN: Echo Defense Android app. Google AdMob and Firebase are
 operated by Google under Google's own terms and privacy policy.
@@ -197,7 +197,7 @@ gösterilir.
 
 ### 10. İletişim
 
-Sarper Studios — sarperstudiosapp@gmail.com
+Sarper Studios — support@sarperstudios.com
 
 Dipnot: Bu politika MERGEKIN: Echo Defense Android uygulamasını kapsar. Google AdMob ve Firebase,
 Google'ın kendi koşulları ve gizlilik politikası altında Google tarafından işletilir.

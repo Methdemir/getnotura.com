@@ -22,7 +22,7 @@ import {
  * Jutsu, MERGEKIN and Kim O?. `/momentback/` is published on its own schedule and is deliberately
  * not enumerated here.
  */
-const ORIGIN = "https://getnotura.com";
+const ORIGIN = "https://sarperstudios.com";
 
 interface Entry {
   path: string;

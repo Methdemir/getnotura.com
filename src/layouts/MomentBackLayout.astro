@@ -25,7 +25,7 @@ interface Props {
 const { locale, page, title, description } = Astro.props;
 const copy = getMomentBackCopy(locale);
 const meta = momentBackLocaleMeta[locale];
-const siteOrigin = Astro.site ?? new URL("https://getnotura.com");
+const siteOrigin = Astro.site ?? new URL("https://sarperstudios.com");
 const absolute = (path: string) => new URL(path, siteOrigin).href;
 const canonicalPath = momentBackPath(locale, page);
 const alternates = momentBackAlternates(page);

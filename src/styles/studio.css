@@ -476,14 +476,28 @@ main:focus {
   }
 }
 
-.ss-studio-figure {
-  display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
-  gap: clamp(0.5rem, 0.3rem + 1vw, 1rem);
-  max-width: 28rem;
+.ss-hero--studio .ss-hero__grid {
+  align-items: end;
 }
 
-.ss-studio-figure img {
+/* One row at every width: the set of apps is the shelf, so it never wraps. */
+.ss-shelf {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 6rem));
+  justify-content: space-between;
+  gap: clamp(0.35rem, 0.1rem + 1.2vw, 1.25rem);
+  margin-top: clamp(2.5rem, 1.5rem + 4vw, 4.5rem) !important;
+  padding-bottom: clamp(0.75rem, 0.5rem + 1vw, 1.25rem);
+  border-bottom: 1px solid var(--ss-rule-strong);
+  list-style: none;
+}
+
+.ss-shelf a {
+  display: block;
+  border-radius: 22%;
+}
+
+.ss-shelf img {
   width: 100%;
   height: auto;
   aspect-ratio: 1;
@@ -492,11 +506,19 @@ main:focus {
   box-shadow: 0 0 0 1px var(--ss-rule);
 }
 
-.ss-studio-figure figcaption {
-  grid-column: 1 / -1;
-  margin-top: 0.4rem;
-  color: var(--ss-ink-soft);
-  font-size: var(--ss-xs);
+.ss--studio ::selection {
+  background: var(--ss-ink);
+  color: var(--ss-ground);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .ss-shelf a {
+    transition: transform 160ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .ss-shelf a:hover {
+    transform: translateY(-0.25rem);
+  }
 }
 
 .ss-rows {

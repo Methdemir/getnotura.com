@@ -8,6 +8,6 @@ import type { APIRoute } from "astro";
  */
 export const GET: APIRoute = () =>
   new Response(
-    `User-agent: *\nAllow: /\n\nSitemap: https://getnotura.com/sitemap.xml\n`,
+    `User-agent: *\nAllow: /\n\nSitemap: https://sarperstudios.com/sitemap.xml\n`,
     { headers: { "Content-Type": "text/plain; charset=utf-8" } },
   );

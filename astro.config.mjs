@@ -28,7 +28,7 @@ const legacyNoturaRedirects = Object.fromEntries(
 );
 
 export default defineConfig({
-  site: "https://getnotura.com",
+  site: "https://sarperstudios.com",
   output: "static",
   trailingSlash: "always",
   compressHTML: true,

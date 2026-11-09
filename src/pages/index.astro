@@ -32,8 +32,8 @@ const principles = [
 >
   <section class="ss-hero ss-hero--studio" aria-labelledby="hero-title">
     <div class="ss-shell ss-hero__grid">
+      <h1 id="hero-title">Small apps that do one job properly.</h1>
       <div>
-        <h1 id="hero-title">Small apps that do one job properly.</h1>
         <p class="ss-lede">
           {studio.name} is an independent developer in {studio.location} making focused mobile apps: a
           nutrition tracker, a replay camera, a tax calculator, a pocket arcade, a hand-sign camera and two
@@ -44,10 +44,19 @@ const principles = [
           Seven apps, none in the stores yet. Each one's product page and privacy policy is published here.
         </p>
       </div>
-      <figure class="ss-studio-figure">
-        {studioApps.map((app) => <img src={app.mark} width="96" height="96" alt={app.name} />)}
-        <figcaption>{studioApps.map((app) => app.name).join(", ")}.</figcaption>
-      </figure>
+    </div>
+    <div class="ss-shell">
+      <ul class="ss-shelf" aria-label="Our apps">
+        {
+          studioApps.map((app) => (
+            <li>
+              <a href={app.href}>
+                <img src={app.mark} width="96" height="96" alt={app.name} />
+              </a>
+            </li>
+          ))
+        }
+      </ul>
     </div>
   </section>
 
@@ -69,8 +78,10 @@ const principles = [
               </div>
               <p class="ss-app__line">{app.line}</p>
               <ul class="ss-app__links" aria-label={app.name}>
-                <li><a href={app.href}>Product page</a></li>
-                {app.privacyHref && <li><a href={app.privacyHref}>Privacy policy</a></li>}
+                <li><a href={app.href} aria-label={`${app.name} product page`}>Product page</a></li>
+                {app.privacyHref && (
+                  <li><a href={app.privacyHref} aria-label={`${app.name} privacy policy`}>Privacy policy</a></li>
+                )}
               </ul>
             </li>
           ))
@@ -95,15 +106,12 @@ const principles = [
     </div>
   </section>
 
-  <section class="ss-bay ss-bay--raised" aria-labelledby="contact-title">
+  <section class="ss-bay ss-bay--raised" id="contact" aria-labelledby="contact-title">
     <div class="ss-shell ss-split">
       <h2 id="contact-title">Contact</h2>
       <div class="ss-prose">
         <p class="ss-contact"><a href={mailto}>{studio.email}</a></p>
-        <p>
-          For support, privacy questions and business enquiries about any of our apps. MomentBack
-          also lists its own support address on its pages.
-        </p>
+        <p>For support, privacy questions and business enquiries about any of our apps.</p>
       </div>
     </div>
   </section>

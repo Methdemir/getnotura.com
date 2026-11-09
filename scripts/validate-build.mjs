@@ -5,7 +5,7 @@ import path from "node:path";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const dist = path.join(root, "dist");
-const siteOrigin = "https://getnotura.com";
+const siteOrigin = "https://sarperstudios.com";
 const locales = JSON.parse(await readFile(path.join(root, "src/i18n/locales.json"), "utf8"));
 const routes = JSON.parse(await readFile(path.join(root, "src/i18n/routes.json"), "utf8"));
 const published = locales.filter((locale) => locale.publicationStatus === "published");
@@ -243,7 +243,7 @@ for (const pattern of storeHosts) {
   }
 }
 
-if (/href="(?:https:\/\/getnotura\.com)?\/pt\/"/i.test(inspectableText)) {
+if (/href="(?:https:\/\/sarperstudios\.com)?\/pt\/"/i.test(inspectableText)) {
   throw new Error("European Portuguese was substituted for Brazilian Portuguese.");
 }
 
@@ -453,7 +453,7 @@ for (const [pagePath, lang] of [
   ["/mergekin/gizlilik/", "tr"],
 ]) {
   const html = await singlePage(pagePath, lang);
-  if (!/<meta\b[^>]*property="og:image"[^>]*content="https:\/\/getnotura\.com\/mergekin\/og\.jpg"/i.test(html)) {
+  if (!/<meta\b[^>]*property="og:image"[^>]*content="https:\/\/sarperstudios\.com\/mergekin\/og\.jpg"/i.test(html)) {
     throw new Error(`${pagePath} must carry the MERGEKIN og:image.`);
   }
   if (!sitemapPaths.has(pagePath)) {

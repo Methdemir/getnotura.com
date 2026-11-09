@@ -35,7 +35,7 @@ const {
   colorScheme = "light",
   ogImage,
 } = Astro.props;
-const siteOrigin = Astro.site ?? new URL("https://getnotura.com");
+const siteOrigin = Astro.site ?? new URL("https://sarperstudios.com");
 const absoluteUrl = (path: string) => new URL(path, siteOrigin).href;
 const canonicalUrl = canonicalPath ? absoluteUrl(canonicalPath) : undefined;
 ---

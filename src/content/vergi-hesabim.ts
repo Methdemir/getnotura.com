@@ -16,7 +16,7 @@
 export const vergiHesabim = {
   name: "Vergi Hesabım",
   publisher: "Sarper Studios",
-  supportEmail: "sarperstudiosapp@gmail.com",
+  supportEmail: "support@sarperstudios.com",
   androidPackage: "com.taxai.vergi_hesabi",
   effectiveDate: "6 Ekim 2026",
   effectiveDateIso: "2026-10-06",
