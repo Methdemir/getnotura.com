@@ -1,7 +1,8 @@
 ---
 /**
- * 999KB product page. No client JavaScript: clips are muted, looping videos
- * recorded from the real app on a Galaxy M21, and the list of games is
+ * 999KB product page. Design decisions: "999KB product page" in DESIGN.md.
+ * No client JavaScript: clips are muted looping videos recorded from the real
+ * app on a Galaxy M21, the FAQ is native <details>, and the list of games is
  * generated from the app's own registry (src/content/kb999-games.ts).
  */
 import { appPath, studio, type AppLocale, type AppPage } from "../../content/studio";
@@ -13,49 +14,84 @@ interface Props {
 }
 
 const { app, locale } = Astro.props;
-const copy = app.copy[locale].home;
 const tr = locale === "tr";
 const privacy = appPath(app, locale, "privacy");
 const name = (game: (typeof kb999Games)[number]) => (tr ? game.tr : game.en);
 const byId = (id: string) => kb999Games.find((game) => game.id === id)!;
+const mail = `mailto:${studio.email}`;
 
 const t = tr
   ? {
-      h1a: "Yüz oyun.",
-      h1b: "Bir megabaytın altında.",
-      recorded: "Gerçek oynanış, Galaxy M21'de kaydedildi.",
-      moreHeading: "Bir dakikan mı var, bir saatin mi?",
-      catalogHeading: "Yüzü de burada. Say istersen.",
+      h1a: "Android için 100 oyun.",
+      h1b: "1 MB'ın altında.",
+      support: "Bulmaca, arcade, spor ve iki kişilik düellolar tek bir internetsiz uygulamada. Telefonundaki bir fotoğraftan küçük.",
+      cta: "100 oyunun hepsini gör",
+      soon: "Yakında Google Play'de",
+      sizeHeading: "Oyun başına 9 KB'tan az.",
+      sizeBody: "Android sürümünün tamamı, menüler dahil 863 KB. Her oyun kodla çiziliyor; resim dosyası, ses dosyası ve kurulumdan sonra indirme yok.",
+      barApp: "999KB, 100 oyunun tamamı",
+      barAppValue: "863 KB",
+      barPhoto: "Telefonla çekilmiş bir fotoğraf",
+      barPhotoValue: "yaklaşık 3 MB",
+      recorded: "Yukarıdaki klipler Galaxy M21'de gerçek oynanıştan kaydedildi.",
+      catalogHeading: "Yüzü de burada.",
       notHeading: "Kutuda olmayanlar",
       notItems: ["Reklam", "Uygulama içi satın alma", "Hesap", "İnternet izni"],
-      notLine: "Bir kez öde, gerisi senin.",
+      notLine: "Bir kez öde, senin olsun.",
+      faqHeading: "Sorular",
+      faq: [
+        { q: "100 oyun 1 MB'a nasıl sığıyor?", a: "Görseller ve sesler dosya olarak taşınmıyor, oyun oynanırken kodla üretiliyor." },
+        { q: "İnternet gerekiyor mu?", a: "Hayır. Uygulama internet izni istemez, ilk açılıştan itibaren çevrimdışı çalışır." },
+        { q: "Telefonumda çalışır mı?", a: "Android 5.0 veya üzeri gerekir. iPhone sürümü yok." },
+        { q: "Fiyatı ne kadar, ne zaman çıkıyor?", a: "Google Play'de tek seferlik ücretli olacak. Fiyat ve tarih henüz belli değil." },
+        { q: "Kaldığım yerden devam edebilir miyim?", a: "Kaydı destekleyen oyunlarda evet. Rekorların, kayıtların ve favorilerin telefonunda kalır." },
+        { q: "Hangi dillerde?", a: "Türkçe, İngilizce, İspanyolca, Portekizce, Almanca, Fransızca, Rusça, Endonezce, Japonca, Korece, Hintçe ve Arapça." },
+      ],
+      privacyLink: "Gizlilik politikasını oku",
       supportHeading: "Destek",
-      supportBody: "Takılan bir oyun, bir fikir ya da soru için yaz. Ödeme ve iadeleri Google Play yürütür.",
+      supportBody: "Takılan bir oyun, bir soru ya da fikir için yaz. Ödeme ve iadeleri Google Play yürütür.",
     }
   : {
-      h1a: "One hundred games.",
-      h1b: "Under one megabyte.",
-      recorded: "Real gameplay, recorded on a Galaxy M21.",
-      moreHeading: "Got a minute? Got an hour?",
-      catalogHeading: "All hundred of them. Go on, count.",
+      h1a: "100 games for Android.",
+      h1b: "Under 1 MB.",
+      support: "Puzzles, arcade, sports and two-player duels in one offline app. Smaller than a photo on your phone.",
+      cta: "See all 100 games",
+      soon: "Coming soon to Google Play",
+      sizeHeading: "Under 9 KB a game.",
+      sizeBody: "The whole Android build is 863 KB, menus included. Every game is drawn in code, so there are no image files, no sound files and nothing to download after install.",
+      barApp: "999KB, all 100 games",
+      barAppValue: "863 KB",
+      barPhoto: "One photo from a phone",
+      barPhotoValue: "about 3 MB",
+      recorded: "The clips above are real gameplay, recorded on a Galaxy M21.",
+      catalogHeading: "All 100, by name.",
       notHeading: "Not in the box",
       notItems: ["Ads", "In-app purchases", "Accounts", "Internet permission"],
-      notLine: "Pay once. The rest is yours.",
+      notLine: "Pay once and it's yours.",
+      faqHeading: "Questions",
+      faq: [
+        { q: "How do 100 games fit in under 1 MB?", a: "Graphics and sounds are not stored as files. The code generates them while you play." },
+        { q: "Do I need the internet?", a: "No. The app has no internet permission and works offline from the first launch." },
+        { q: "Will it run on my phone?", a: "It needs Android 5.0 or newer. There is no iPhone version." },
+        { q: "How much is it, and when?", a: "It will be a one-time paid download on Google Play. The price and date are not set yet." },
+        { q: "Can I carry on where I left off?", a: "Yes, in games that support saving. Your scores, saves and favourites stay on your phone." },
+        { q: "What languages does it speak?", a: "English, Turkish, Spanish, Portuguese, German, French, Russian, Indonesian, Japanese, Korean, Hindi and Arabic." },
+      ],
+      privacyLink: "Read the privacy policy",
       supportHeading: "Support",
-      supportBody: "A game misbehaving, an idea, a question: write to us. Payments and refunds are handled by Google Play.",
+      supportBody: "A game misbehaving, a question or an idea: write to us. Payments and refunds are handled by Google Play.",
     };
 
-const heroClips = [
-  { clip: "tower", id: "stack", color: "#00E5A0" },
-  { clip: "merge", id: "mergedrop", color: "#FFC928" },
-  { clip: "bubble", id: "bubbleshot", color: "#FF4F8B" },
-];
-const moreClips = [
-  { clip: "penalty", id: "penalty", color: "#35C3F5" },
-  { clip: "bowling", id: "bowling", color: "#FF8A3D" },
-  { clip: "claim", id: "claim", color: "#B48CFF" },
+const clips = [
+  { clip: "tower", id: "stack" },
+  { clip: "merge", id: "mergedrop" },
+  { clip: "bubble", id: "bubbleshot" },
+  { clip: "penalty", id: "penalty" },
+  { clip: "bowling", id: "bowling" },
+  { clip: "claim", id: "claim" },
 ];
 
+let index = 0;
 const groups = [
   { label: tr ? "Bulmaca" : "Puzzle", cats: ["PUZZLE"] },
   { label: "Arcade", cats: ["ARCADE"] },
@@ -65,37 +101,34 @@ const groups = [
 ].map((group) => ({
   ...group,
   games: kb999Games
-    .filter((game) => group.cats.includes(game.cat))
-    .sort((a, b) => name(a).localeCompare(name(b), locale)),
+    .filter((game) => (group.cats as string[]).includes(game.cat))
+    .sort((a, b) => name(a).localeCompare(name(b), locale))
+    .map((game) => ({ game, number: String(++index).padStart(3, "0") })),
 }));
 ---
 
 <div class="k9">
   <section class="k9-hero" aria-labelledby="hero-title">
-    <div class="ss-shell k9-hero__grid">
-      <div class="k9-hero__copy">
-        <img class="k9-logo" src="/999kb/icon-512.png" width="512" height="512" alt="999KB" />
+    <div class="ss-shell">
+      <div class="k9-hero__top">
         <h1 id="hero-title">{t.h1a} <span>{t.h1b}</span></h1>
-        <p class="k9-lede">{copy.lede}</p>
-        <p class="k9-soon">{copy.status}</p>
-        <ul class="k9-facts" aria-label={copy.factsHeading}>
-          {
-            copy.facts.map((fact) => (
-              <li>
-                <strong>{fact.value}</strong> {fact.label}
-              </li>
-            ))
-          }
-        </ul>
+        <div class="k9-hero__side">
+          <img class="k9-logo" src="/999kb/icon-512.png" width="512" height="512" alt="" />
+          <p>{t.support}</p>
+          <div class="k9-actions">
+            <a class="k9-button" href="#features">{t.cta}</a>
+            <span class="k9-soon">{t.soon}</span>
+          </div>
+        </div>
       </div>
-      <ul class="k9-clips k9-clips--hero">
+      <ul class="k9-shelf">
         {
-          heroClips.map(({ clip, id, color }) => (
-            <li style={`--c:${color}`}>
+          clips.map(({ clip, id }, i) => (
+            <li>
               <figure>
                 <div class="k9-screen">
                   <img src={`/999kb/clips/${clip}.webp`} width="540" height="1000" alt="" />
-                  <video autoplay muted loop playsinline preload="auto" width="540" height="1000" aria-hidden="true">
+                  <video autoplay muted loop playsinline preload={i < 3 ? "auto" : "metadata"} width="540" height="1000" aria-hidden="true">
                     <source src={`/999kb/clips/${clip}.mp4`} type="video/mp4" />
                   </video>
                 </div>
@@ -108,47 +141,39 @@ const groups = [
     </div>
   </section>
 
-  <section class="k9-band" aria-labelledby="more-title">
-    <div class="ss-shell k9-more">
+  <section class="k9-size" aria-labelledby="size-title">
+    <div class="ss-shell k9-size__grid">
       <div>
-        <h2 id="more-title">{t.moreHeading}</h2>
+        <h2 id="size-title">{t.sizeHeading}</h2>
+        <p>{t.sizeBody}</p>
+      </div>
+      <div class="k9-bars">
+        <div>
+          <p><span>{t.barApp}</span><strong>{t.barAppValue}</strong></p>
+          <i class="k9-bar k9-bar--app"></i>
+        </div>
+        <div>
+          <p><span>{t.barPhoto}</span><strong>{t.barPhotoValue}</strong></p>
+          <i class="k9-bar"></i>
+        </div>
         <p class="k9-note">{t.recorded}</p>
       </div>
-      <ul class="k9-clips">
-        {
-          moreClips.map(({ clip, id, color }) => (
-            <li style={`--c:${color}`}>
-              <figure>
-                <div class="k9-screen">
-                  <img src={`/999kb/clips/${clip}.webp`} width="540" height="1000" alt="" loading="lazy" />
-                  <video autoplay muted loop playsinline preload="metadata" width="540" height="1000" aria-hidden="true">
-                    <source src={`/999kb/clips/${clip}.mp4`} type="video/mp4" />
-                  </video>
-                </div>
-                <figcaption>{name(byId(id))}</figcaption>
-              </figure>
-            </li>
-          ))
-        }
-      </ul>
     </div>
   </section>
 
-  <section class="k9-band" id="features" aria-labelledby="catalog-title">
+  <section class="k9-list" id="features" aria-labelledby="catalog-title">
     <div class="ss-shell">
       <h2 id="catalog-title">{t.catalogHeading}</h2>
-      <div class="k9-catalog">
+      <div class="k9-columns">
         {
           groups.map((group) => (
             <section>
-              <h3>
-                {group.label} <span>{group.games.length}</span>
-              </h3>
-              <ul>
-                {group.games.map((game) => (
-                  <li style={`--c:${game.color}`}>{name(game)}</li>
+              <h3>{group.label}</h3>
+              <ol>
+                {group.games.map(({ game, number }) => (
+                  <li><span aria-hidden="true">{number}</span>{name(game)}</li>
                 ))}
-              </ul>
+              </ol>
             </section>
           ))
         }
@@ -156,44 +181,40 @@ const groups = [
     </div>
   </section>
 
-  <section class="k9-band k9-not" aria-labelledby="not-title">
-    <div class="ss-shell k9-not__grid">
-      <div>
-        <h2 id="not-title">{t.notHeading}</h2>
-        <ul>
-          {t.notItems.map((item) => <li><s>{item}</s></li>)}
-        </ul>
-        <p class="k9-punch">{t.notLine}</p>
-      </div>
-      <dl class="k9-points">
-        {
-          copy.features.map((feature) => (
-            <div>
-              <dt>{feature.heading}</dt>
-              <dd>{feature.body}</dd>
-            </div>
-          ))
-        }
-      </dl>
+  <section class="k9-not" aria-labelledby="not-title">
+    <div class="ss-shell">
+      <h2 id="not-title">{t.notHeading}</h2>
+      <ul>
+        {t.notItems.map((item) => <li><s>{item}</s></li>)}
+      </ul>
+      <p>{t.notLine}</p>
     </div>
   </section>
 
-  <section class="k9-band" aria-labelledby="privacy-title">
-    <div class="ss-shell k9-end">
+  <section class="k9-faq" aria-labelledby="faq-title">
+    <div class="ss-shell k9-faq__grid">
+      <h2 id="faq-title">{t.faqHeading}</h2>
       <div>
-        <h2 id="privacy-title">{copy.privacyHeading}</h2>
-        {copy.privacyBody.map((paragraph) => <p>{paragraph}</p>)}
-        <p><a href={privacy}>{copy.privacyLink}</a></p>
+        {
+          t.faq.map((item) => (
+            <details>
+              <summary>{item.q}</summary>
+              <p>{item.a}</p>
+            </details>
+          ))
+        }
+        <p class="k9-privacy"><a href={privacy}>{t.privacyLink}</a></p>
       </div>
-      <div id="support">
-        <h2>{t.supportHeading}</h2>
+    </div>
+  </section>
+
+  <section class="k9-support" id="support" aria-labelledby="support-title">
+    <div class="ss-shell k9-support__grid">
+      <div>
+        <h2 id="support-title">{t.supportHeading}</h2>
         <p>{t.supportBody}</p>
-        <p><a class="k9-mail" href={`mailto:${studio.email}`}>{studio.email}</a></p>
-        <dl class="k9-dev">
-          <div><dt>{copy.developer.publisher}</dt><dd><a href="/">{studio.name}</a></dd></div>
-          <div><dt>{copy.developer.platform}</dt><dd>{copy.developer.platformValue}</dd></div>
-        </dl>
       </div>
+      <a class="k9-mail" href={mail}>{studio.email}</a>
     </div>
   </section>
 </div>
@@ -203,95 +224,101 @@ const groups = [
     --ss-ground: #0a0c1e;
     --ss-raised: #0a0c1e;
     --ss-paper: #10132a;
-    --ss-ink: #f2f4ff;
-    --ss-ink-soft: #a9aecb;
-    --ss-rule: #23274a;
+    --ss-ink: #fffdf5;
+    --ss-ink-soft: #b9bdd6;
+    --ss-rule: #2a2e52;
     --ss-link: #ffc928;
     --ss-accent-ink: #ffc928;
   }
-  .k9 { background: #0a0c1e; color: #f2f4ff; }
-  .k9 h2 {
-    font-size: clamp(1.9rem, 1.3rem + 2.6vw, 3.25rem);
-    line-height: 1.08;
-    letter-spacing: -0.02em;
-    font-weight: 800;
+  .k9 {
+    --k9-yellow: #ffc928;
+    --k9-navy: #0a0c1e;
+    --k9-paper: #fbf7ea;
+    --k9-pink: #ff5c93;
+    --k9-soft: #b9bdd6;
+    --k9-line: rgba(10, 12, 30, 0.2);
+    --k9-section: clamp(4rem, 3rem + 5vw, 8rem);
+    --k9-radius: 0.875rem;
+    color: var(--k9-navy);
+    background: var(--k9-paper);
   }
-  .k9 p { max-width: 38rem; }
-  .k9 a { color: #ffc928; }
+  .k9 h1, .k9 h2, .k9 strong { font-weight: 600; }
+  .k9 h2 { font-size: clamp(2.5rem, 1.6rem + 4vw, 5rem); line-height: 1; letter-spacing: -0.035em; }
+  .k9 p { max-width: 36rem; }
+  .k9 a:focus-visible, .k9 summary:focus-visible { outline-color: var(--k9-navy); }
 
-  .k9-hero { padding-block: clamp(2rem, 1rem + 4vw, 4.5rem) clamp(3rem, 2rem + 4vw, 5.5rem); overflow: clip; }
-  .k9-hero__grid { display: grid; gap: clamp(2.5rem, 2rem + 2vw, 4rem); align-items: center; }
-  .k9-logo { width: clamp(5rem, 4rem + 4vw, 7.5rem); height: auto; border-radius: 22%; margin-bottom: 1.5rem; }
-  .k9-hero h1 {
-    font-size: clamp(2.7rem, 1.6rem + 5vw, 5.25rem);
-    line-height: 1;
-    letter-spacing: -0.035em;
-    font-weight: 800;
+  .k9-hero { background: var(--k9-yellow); padding-block: clamp(2.25rem, 1.5rem + 3vw, 4rem); }
+  .k9-hero__top { display: grid; gap: 1.75rem; align-items: end; }
+  .k9-hero h1 { font-size: clamp(3rem, 1.3rem + 7.4vw, 7rem); line-height: 0.95; letter-spacing: -0.05em; }
+  .k9-hero h1 span { display: block; }
+  .k9-hero__side { display: grid; grid-template-columns: auto 1fr; gap: 0.5rem 1.1rem; align-items: start; font-size: 1.1rem; line-height: 1.45; }
+  .k9-logo { width: 4.75rem; height: auto; border-radius: 22%; }
+  .k9-actions { grid-column: 1 / -1; display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem 1.25rem; margin-top: 0.75rem; }
+  .k9 .k9-button {
+    display: inline-flex; align-items: center; min-height: 3.25rem; padding: 0 1.5rem;
+    border-radius: var(--k9-radius); background: var(--k9-navy); color: var(--k9-paper);
+    font-weight: 600; text-decoration: none;
   }
-  .k9-hero h1 span { display: block; color: #ffc928; }
-  .k9-lede { margin-top: 1.25rem !important; font-size: 1.2rem; color: #c9cde6; }
-  .k9-soon {
-    display: inline-block;
-    margin-top: 1.5rem !important;
-    padding: 0.55rem 1rem;
-    background: #00e5a0;
-    color: #06231a;
-    font-weight: 800;
-    border-radius: 0.6rem;
-    transform: rotate(-1.2deg);
-  }
-  .k9-facts { list-style: none; display: flex; flex-wrap: wrap; gap: 0.4rem 1.5rem; margin-top: 1.75rem !important; color: #a9aecb; font-size: 0.95rem; }
-  .k9-facts strong { color: #f2f4ff; }
+  .k9 .k9-button:hover { background: #23274a; }
+  .k9-soon { font-weight: 600; font-size: 1rem; }
 
-  .k9-clips { list-style: none; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(0.7rem, 0.3rem + 1.6vw, 1.6rem); }
-  .k9-clips figure { margin: 0; }
-  .k9-screen {
-    position: relative;
-    aspect-ratio: 540 / 1000;
-    border-radius: clamp(0.7rem, 0.5rem + 0.8vw, 1.25rem);
-    overflow: hidden;
-    background: #090e20;
-    box-shadow: clamp(4px, 0.6vw, 9px) clamp(4px, 0.6vw, 9px) 0 var(--c);
-  }
-  .k9-screen img, .k9-screen video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
-  .k9-clips figcaption { margin-top: 0.9rem; font-size: 0.92rem; font-weight: 700; color: var(--c); }
-  .k9-clips--hero li:nth-child(1) { transform: rotate(-2deg); }
-  .k9-clips--hero li:nth-child(2) { transform: translateY(1.5rem) rotate(1deg); }
-  .k9-clips--hero li:nth-child(3) { transform: rotate(2.2deg); }
+  .k9-shelf { list-style: none; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem 0.625rem; margin-top: clamp(1.75rem, 1rem + 2.5vw, 3rem) !important; }
+  .k9-shelf figure { margin: 0; }
+  .k9-screen { position: relative; aspect-ratio: 540 / 1000; border-radius: var(--k9-radius); overflow: hidden; background: var(--k9-navy); }
+  .k9-screen img, .k9-screen video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .k9-shelf figcaption { margin-top: 0.5rem; font-size: 0.9rem; font-weight: 600; line-height: 1.2; }
 
-  .k9-band { padding-block: clamp(3.5rem, 2.4rem + 4.5vw, 6.5rem); border-top: 1px solid #23274a; }
-  .k9-more { display: grid; gap: 2rem; align-items: center; }
-  .k9-note { margin-top: 0.9rem; color: #a9aecb; }
+  .k9-size { background: var(--k9-navy); color: var(--k9-paper); padding-block: var(--k9-section); }
+  .k9-size__grid { display: grid; gap: 3rem; align-items: center; }
+  .k9-size h2 { color: var(--k9-yellow); }
+  .k9 .k9-size h2 + p { margin-top: 1.25rem; font-size: 1.15rem; color: var(--k9-soft); }
+  .k9-bars { display: grid; gap: 1.75rem; }
+  .k9 .k9-bars p { display: flex; justify-content: space-between; gap: 1rem; max-width: none; margin-bottom: 0.5rem; }
+  .k9-bars span { color: var(--k9-soft); }
+  .k9-bar { display: block; height: 1.5rem; border-radius: 0.25rem; background: #2a2e52; }
+  .k9-bar--app { width: 29%; background: var(--k9-yellow); }
+  .k9-bars .k9-note { display: block; margin: 0; color: var(--k9-soft); font-size: 0.92rem; }
 
-  .k9-catalog { margin-top: 2.5rem; display: grid; gap: 2.25rem; }
-  .k9-catalog h3 { font-size: 1.05rem; font-weight: 800; padding-bottom: 0.6rem; border-bottom: 2px solid #f2f4ff; display: flex; justify-content: space-between; }
-  .k9-catalog h3 span { color: #ffc928; font-variant-numeric: tabular-nums; }
-  .k9-catalog ul { list-style: none; margin-top: 0.85rem !important; display: flex; flex-wrap: wrap; gap: 0.35rem 1.15rem; }
-  .k9-catalog li { display: inline-flex; align-items: center; gap: 0.45rem; font-size: 1rem; color: #dfe2f5; }
-  .k9-catalog li::before { content: ""; width: 0.6rem; height: 0.6rem; border-radius: 0.15rem; background: var(--c); flex: none; }
+  .k9-list { padding-block: var(--k9-section); }
+  .k9-columns { margin-top: clamp(2rem, 1.5rem + 2vw, 3.5rem); columns: 2; column-gap: 1.25rem; }
+  .k9-columns > section { margin-bottom: 2rem; }
+  .k9-columns h3 { font-size: 1.05rem; font-weight: 600; padding-bottom: 0.45rem; border-bottom: 2px solid var(--k9-navy); break-after: avoid; }
+  .k9-columns ol { list-style: none; margin-top: 0.4rem !important; }
+  .k9-columns li { display: flex; gap: 0.6rem; padding-block: 0.22rem; font-size: 0.98rem; line-height: 1.3; break-inside: avoid; }
+  .k9-columns li span { flex: none; color: #5d6078; font-size: 0.82rem; line-height: 1.55; font-variant-numeric: tabular-nums; }
 
-  .k9-not__grid, .k9-end { display: grid; gap: 3rem; }
+  .k9-not { background: var(--k9-pink); padding-block: var(--k9-section); }
   .k9-not ul { list-style: none; margin-top: 1.5rem !important; }
-  .k9-not li { font-size: clamp(1.5rem, 1.1rem + 2vw, 2.5rem); font-weight: 800; line-height: 1.35; letter-spacing: -0.015em; }
-  .k9-not s { text-decoration-color: #ff4f8b; text-decoration-thickness: 0.12em; color: #c9cde6; }
-  .k9-punch { margin-top: 1.5rem; font-weight: 800; font-size: 1.2rem; color: #00e5a0; }
-  .k9-points { margin: 0; display: grid; gap: 1.75rem; align-content: center; }
-  .k9-points dt { font-weight: 800; font-size: 1.1rem; }
-  .k9-points dd { margin: 0.3rem 0 0; color: #a9aecb; }
+  .k9-not li { font-size: clamp(2rem, 1.1rem + 4.4vw, 5rem); font-weight: 600; line-height: 1.12; letter-spacing: -0.035em; }
+  .k9-not s { text-decoration-thickness: 0.09em; }
+  .k9 .k9-not p { margin-top: 2rem; font-size: 1.35rem; font-weight: 600; }
 
-  .k9-end h2 { font-size: clamp(1.6rem, 1.3rem + 1.4vw, 2.3rem) !important; margin-bottom: 1rem; }
-  .k9-end p { color: #c9cde6; margin-top: 0.8rem; }
-  .k9-mail { font-size: clamp(1.1rem, 0.95rem + 0.9vw, 1.5rem); font-weight: 800; overflow-wrap: anywhere; }
-  .k9-dev { margin: 1.5rem 0 0; display: grid; gap: 0.6rem; font-size: 0.95rem; }
-  .k9-dev dt { color: #a9aecb; }
-  .k9-dev dd { margin: 0; }
+  .k9-faq { padding-block: var(--k9-section); }
+  .k9-faq__grid { display: grid; gap: 2rem; }
+  .k9-faq details { border-top: 1px solid var(--k9-line); }
+  .k9-faq summary { display: flex; justify-content: space-between; align-items: center; gap: 1rem; min-height: 3.5rem; padding-block: 0.75rem; font-size: 1.15rem; font-weight: 600; cursor: pointer; list-style: none; }
+  .k9-faq summary::-webkit-details-marker { display: none; }
+  .k9-faq summary::after { content: "+"; font-size: 1.6rem; line-height: 1; flex: none; }
+  .k9-faq details[open] summary::after { content: "\2212"; }
+  .k9 .k9-faq details p { padding-bottom: 1.25rem; color: #3b3e58; }
+  .k9 .k9-privacy { padding-top: 1.25rem; border-top: 1px solid var(--k9-line); }
+  .k9 .k9-privacy a { color: var(--k9-navy); }
 
-  @media (min-width: 58rem) {
-    .k9-hero__grid { grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); }
-    .k9-more { grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr); }
-    .k9-catalog { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 2.75rem 4rem; }
-    .k9-catalog > section:nth-child(n + 3) { align-self: start; }
-    .k9-not__grid, .k9-end { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 5rem; }
+  .k9-support { background: var(--k9-yellow); padding-block: clamp(3rem, 2.4rem + 3vw, 5.5rem); }
+  .k9-support__grid { display: grid; gap: 1.75rem; align-items: end; }
+  .k9 .k9-support p { margin-top: 0.9rem; font-size: 1.1rem; }
+  .k9 .k9-mail { color: var(--k9-navy); font-size: clamp(1.3rem, 0.85rem + 2.2vw, 2.5rem); font-weight: 600; letter-spacing: -0.02em; overflow-wrap: anywhere; }
+
+  @media (min-width: 48rem) {
+    .k9-columns { columns: 3; column-gap: 2rem; }
+    .k9-shelf { grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 0.875rem; }
+  }
+  @media (min-width: 62rem) {
+    .k9-hero__top { grid-template-columns: minmax(0, 1fr) 24rem; gap: 3rem; }
+    .k9-columns { columns: 4; }
+    .k9-size__grid { grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 5rem; }
+    .k9-faq__grid { grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr); gap: 5rem; }
+    .k9-support__grid { grid-template-columns: minmax(0, 1fr) auto; }
   }
   @media (prefers-reduced-motion: reduce) {
     .k9-screen video { display: none; }

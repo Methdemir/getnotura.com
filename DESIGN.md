@@ -538,3 +538,13 @@ reading ground follows the system theme.
 
 The public name of the hand-sign app is **Jutsu**. The franchise name and its
 iconography stay off the site until the store name is decided.
+
+## 999KB product page (`/999kb/`, rebuilt 9 November 2026)
+
+Supersedes the 10 × 10 tile signature above for 999KB. Direction comes from the app logo; it was not derived from reference sites.
+
+- **Color:** yellow `#FFC928` hero and support fields (the logo's 999); navy `#0A0C1E` ink and size band; paper `#FBF7EA` reading ground; pink `#FF5C93` for the "Not in the box" band only. One scheme in light and dark: the fields are the brand.
+- **Type:** Plus Jakarta Sans 400 and 600 only. Headings are tight, large and left-aligned; no gradient text.
+- **Shape:** one radius (`0.875rem`), no shadows, no rotated frames, no cards.
+- **Signature:** the six-clip shelf of real gameplay; the numbered 001–100 list generated from the app registry.
+- **Rules:** clips are real recordings; no store badge until a listing exists; zero client JavaScript (FAQ is `<details>`); clips drop to posters under reduced motion.
