@@ -10,7 +10,7 @@ Served from two domains: `sarperstudios.com` (Cloudflare, canonical, the one tha
 | `/notura/` | Notura, seven locales (old root URLs such as `/tr/privacy/` redirect here) |
 | `/momentback/` | MomentBack |
 | `/vergi-hesabim/` | Vergi Hesabım |
-| `/999kb/` | 999KB Arcade (English, Turkish under `tr/`) |
+| `/999kb/` | 999KB, canonical at sarperstudios.com/999kb/ (English, Turkish under `tr/`) |
 | `/jutsu/` | Jutsu (English, Turkish under `tr/`) |
 | `/mergekin/` | MERGEKIN: Echo Defense (English; privacy at `privacy/`, Turkish at `gizlilik/`, text from `docs/mergekin/PRIVACY_CONTENT.md`) |
 | `/kimo/` | Kim O? (placeholder) |

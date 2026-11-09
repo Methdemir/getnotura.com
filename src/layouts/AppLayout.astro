@@ -27,7 +27,7 @@ const alternates = [
 const navigation = [
   { href: page === "home" ? "#features" : `${home}#features`, label: copy.nav.features },
   { href: privacy, label: copy.nav.privacy },
-  { href: mailto, label: copy.nav.contact },
+  { href: app.id === "999kb" ? `${home}#support` : mailto, label: copy.nav.contact },
 ];
 ---
 
@@ -45,6 +45,7 @@ const navigation = [
       iconHref={app.icon}
       themeColor={app.themeColor}
       colorScheme="light dark"
+      ogImage={app.ogImage}
     />
   </head>
   <body class={`ss ss--${app.id}`}>

@@ -1,0 +1,299 @@
+---
+/**
+ * 999KB product page. No client JavaScript: clips are muted, looping videos
+ * recorded from the real app on a Galaxy M21, and the list of games is
+ * generated from the app's own registry (src/content/kb999-games.ts).
+ */
+import { appPath, studio, type AppLocale, type AppPage } from "../../content/studio";
+import { kb999Games } from "../../content/kb999-games";
+
+interface Props {
+  app: AppPage;
+  locale: AppLocale;
+}
+
+const { app, locale } = Astro.props;
+const copy = app.copy[locale].home;
+const tr = locale === "tr";
+const privacy = appPath(app, locale, "privacy");
+const name = (game: (typeof kb999Games)[number]) => (tr ? game.tr : game.en);
+const byId = (id: string) => kb999Games.find((game) => game.id === id)!;
+
+const t = tr
+  ? {
+      h1a: "Yüz oyun.",
+      h1b: "Bir megabaytın altında.",
+      recorded: "Gerçek oynanış, Galaxy M21'de kaydedildi.",
+      moreHeading: "Bir dakikan mı var, bir saatin mi?",
+      catalogHeading: "Yüzü de burada. Say istersen.",
+      notHeading: "Kutuda olmayanlar",
+      notItems: ["Reklam", "Uygulama içi satın alma", "Hesap", "İnternet izni"],
+      notLine: "Bir kez öde, gerisi senin.",
+      supportHeading: "Destek",
+      supportBody: "Takılan bir oyun, bir fikir ya da soru için yaz. Ödeme ve iadeleri Google Play yürütür.",
+    }
+  : {
+      h1a: "One hundred games.",
+      h1b: "Under one megabyte.",
+      recorded: "Real gameplay, recorded on a Galaxy M21.",
+      moreHeading: "Got a minute? Got an hour?",
+      catalogHeading: "All hundred of them. Go on, count.",
+      notHeading: "Not in the box",
+      notItems: ["Ads", "In-app purchases", "Accounts", "Internet permission"],
+      notLine: "Pay once. The rest is yours.",
+      supportHeading: "Support",
+      supportBody: "A game misbehaving, an idea, a question: write to us. Payments and refunds are handled by Google Play.",
+    };
+
+const heroClips = [
+  { clip: "tower", id: "stack", color: "#00E5A0" },
+  { clip: "merge", id: "mergedrop", color: "#FFC928" },
+  { clip: "bubble", id: "bubbleshot", color: "#FF4F8B" },
+];
+const moreClips = [
+  { clip: "penalty", id: "penalty", color: "#35C3F5" },
+  { clip: "bowling", id: "bowling", color: "#FF8A3D" },
+  { clip: "claim", id: "claim", color: "#B48CFF" },
+];
+
+const groups = [
+  { label: tr ? "Bulmaca" : "Puzzle", cats: ["PUZZLE"] },
+  { label: "Arcade", cats: ["ARCADE"] },
+  { label: tr ? "Beceri ve refleks" : "Skill and reflex", cats: ["SKILL", "REFLEX", "EYE"] },
+  { label: tr ? "Hafıza ve matematik" : "Memory and maths", cats: ["MEMORY", "MATH"] },
+  { label: tr ? "İki kişilik" : "Two players", cats: ["DUO"] },
+].map((group) => ({
+  ...group,
+  games: kb999Games
+    .filter((game) => group.cats.includes(game.cat))
+    .sort((a, b) => name(a).localeCompare(name(b), locale)),
+}));
+---
+
+<div class="k9">
+  <section class="k9-hero" aria-labelledby="hero-title">
+    <div class="ss-shell k9-hero__grid">
+      <div class="k9-hero__copy">
+        <img class="k9-logo" src="/999kb/icon-512.png" width="512" height="512" alt="999KB" />
+        <h1 id="hero-title">{t.h1a} <span>{t.h1b}</span></h1>
+        <p class="k9-lede">{copy.lede}</p>
+        <p class="k9-soon">{copy.status}</p>
+        <ul class="k9-facts" aria-label={copy.factsHeading}>
+          {
+            copy.facts.map((fact) => (
+              <li>
+                <strong>{fact.value}</strong> {fact.label}
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+      <ul class="k9-clips k9-clips--hero">
+        {
+          heroClips.map(({ clip, id, color }) => (
+            <li style={`--c:${color}`}>
+              <figure>
+                <div class="k9-screen">
+                  <img src={`/999kb/clips/${clip}.webp`} width="540" height="1000" alt="" />
+                  <video autoplay muted loop playsinline preload="auto" width="540" height="1000" aria-hidden="true">
+                    <source src={`/999kb/clips/${clip}.mp4`} type="video/mp4" />
+                  </video>
+                </div>
+                <figcaption>{name(byId(id))}</figcaption>
+              </figure>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <section class="k9-band" aria-labelledby="more-title">
+    <div class="ss-shell k9-more">
+      <div>
+        <h2 id="more-title">{t.moreHeading}</h2>
+        <p class="k9-note">{t.recorded}</p>
+      </div>
+      <ul class="k9-clips">
+        {
+          moreClips.map(({ clip, id, color }) => (
+            <li style={`--c:${color}`}>
+              <figure>
+                <div class="k9-screen">
+                  <img src={`/999kb/clips/${clip}.webp`} width="540" height="1000" alt="" loading="lazy" />
+                  <video autoplay muted loop playsinline preload="metadata" width="540" height="1000" aria-hidden="true">
+                    <source src={`/999kb/clips/${clip}.mp4`} type="video/mp4" />
+                  </video>
+                </div>
+                <figcaption>{name(byId(id))}</figcaption>
+              </figure>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <section class="k9-band" id="features" aria-labelledby="catalog-title">
+    <div class="ss-shell">
+      <h2 id="catalog-title">{t.catalogHeading}</h2>
+      <div class="k9-catalog">
+        {
+          groups.map((group) => (
+            <section>
+              <h3>
+                {group.label} <span>{group.games.length}</span>
+              </h3>
+              <ul>
+                {group.games.map((game) => (
+                  <li style={`--c:${game.color}`}>{name(game)}</li>
+                ))}
+              </ul>
+            </section>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="k9-band k9-not" aria-labelledby="not-title">
+    <div class="ss-shell k9-not__grid">
+      <div>
+        <h2 id="not-title">{t.notHeading}</h2>
+        <ul>
+          {t.notItems.map((item) => <li><s>{item}</s></li>)}
+        </ul>
+        <p class="k9-punch">{t.notLine}</p>
+      </div>
+      <dl class="k9-points">
+        {
+          copy.features.map((feature) => (
+            <div>
+              <dt>{feature.heading}</dt>
+              <dd>{feature.body}</dd>
+            </div>
+          ))
+        }
+      </dl>
+    </div>
+  </section>
+
+  <section class="k9-band" aria-labelledby="privacy-title">
+    <div class="ss-shell k9-end">
+      <div>
+        <h2 id="privacy-title">{copy.privacyHeading}</h2>
+        {copy.privacyBody.map((paragraph) => <p>{paragraph}</p>)}
+        <p><a href={privacy}>{copy.privacyLink}</a></p>
+      </div>
+      <div id="support">
+        <h2>{t.supportHeading}</h2>
+        <p>{t.supportBody}</p>
+        <p><a class="k9-mail" href={`mailto:${studio.email}`}>{studio.email}</a></p>
+        <dl class="k9-dev">
+          <div><dt>{copy.developer.publisher}</dt><dd><a href="/">{studio.name}</a></dd></div>
+          <div><dt>{copy.developer.platform}</dt><dd>{copy.developer.platformValue}</dd></div>
+        </dl>
+      </div>
+    </div>
+  </section>
+</div>
+
+<style is:global>
+  .ss--999kb:has(.k9) {
+    --ss-ground: #0a0c1e;
+    --ss-raised: #0a0c1e;
+    --ss-paper: #10132a;
+    --ss-ink: #f2f4ff;
+    --ss-ink-soft: #a9aecb;
+    --ss-rule: #23274a;
+    --ss-link: #ffc928;
+    --ss-accent-ink: #ffc928;
+  }
+  .k9 { background: #0a0c1e; color: #f2f4ff; }
+  .k9 h2 {
+    font-size: clamp(1.9rem, 1.3rem + 2.6vw, 3.25rem);
+    line-height: 1.08;
+    letter-spacing: -0.02em;
+    font-weight: 800;
+  }
+  .k9 p { max-width: 38rem; }
+  .k9 a { color: #ffc928; }
+
+  .k9-hero { padding-block: clamp(2rem, 1rem + 4vw, 4.5rem) clamp(3rem, 2rem + 4vw, 5.5rem); overflow: clip; }
+  .k9-hero__grid { display: grid; gap: clamp(2.5rem, 2rem + 2vw, 4rem); align-items: center; }
+  .k9-logo { width: clamp(5rem, 4rem + 4vw, 7.5rem); height: auto; border-radius: 22%; margin-bottom: 1.5rem; }
+  .k9-hero h1 {
+    font-size: clamp(2.7rem, 1.6rem + 5vw, 5.25rem);
+    line-height: 1;
+    letter-spacing: -0.035em;
+    font-weight: 800;
+  }
+  .k9-hero h1 span { display: block; color: #ffc928; }
+  .k9-lede { margin-top: 1.25rem !important; font-size: 1.2rem; color: #c9cde6; }
+  .k9-soon {
+    display: inline-block;
+    margin-top: 1.5rem !important;
+    padding: 0.55rem 1rem;
+    background: #00e5a0;
+    color: #06231a;
+    font-weight: 800;
+    border-radius: 0.6rem;
+    transform: rotate(-1.2deg);
+  }
+  .k9-facts { list-style: none; display: flex; flex-wrap: wrap; gap: 0.4rem 1.5rem; margin-top: 1.75rem !important; color: #a9aecb; font-size: 0.95rem; }
+  .k9-facts strong { color: #f2f4ff; }
+
+  .k9-clips { list-style: none; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(0.7rem, 0.3rem + 1.6vw, 1.6rem); }
+  .k9-clips figure { margin: 0; }
+  .k9-screen {
+    position: relative;
+    aspect-ratio: 540 / 1000;
+    border-radius: clamp(0.7rem, 0.5rem + 0.8vw, 1.25rem);
+    overflow: hidden;
+    background: #090e20;
+    box-shadow: clamp(4px, 0.6vw, 9px) clamp(4px, 0.6vw, 9px) 0 var(--c);
+  }
+  .k9-screen img, .k9-screen video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+  .k9-clips figcaption { margin-top: 0.9rem; font-size: 0.92rem; font-weight: 700; color: var(--c); }
+  .k9-clips--hero li:nth-child(1) { transform: rotate(-2deg); }
+  .k9-clips--hero li:nth-child(2) { transform: translateY(1.5rem) rotate(1deg); }
+  .k9-clips--hero li:nth-child(3) { transform: rotate(2.2deg); }
+
+  .k9-band { padding-block: clamp(3.5rem, 2.4rem + 4.5vw, 6.5rem); border-top: 1px solid #23274a; }
+  .k9-more { display: grid; gap: 2rem; align-items: center; }
+  .k9-note { margin-top: 0.9rem; color: #a9aecb; }
+
+  .k9-catalog { margin-top: 2.5rem; display: grid; gap: 2.25rem; }
+  .k9-catalog h3 { font-size: 1.05rem; font-weight: 800; padding-bottom: 0.6rem; border-bottom: 2px solid #f2f4ff; display: flex; justify-content: space-between; }
+  .k9-catalog h3 span { color: #ffc928; font-variant-numeric: tabular-nums; }
+  .k9-catalog ul { list-style: none; margin-top: 0.85rem !important; display: flex; flex-wrap: wrap; gap: 0.35rem 1.15rem; }
+  .k9-catalog li { display: inline-flex; align-items: center; gap: 0.45rem; font-size: 1rem; color: #dfe2f5; }
+  .k9-catalog li::before { content: ""; width: 0.6rem; height: 0.6rem; border-radius: 0.15rem; background: var(--c); flex: none; }
+
+  .k9-not__grid, .k9-end { display: grid; gap: 3rem; }
+  .k9-not ul { list-style: none; margin-top: 1.5rem !important; }
+  .k9-not li { font-size: clamp(1.5rem, 1.1rem + 2vw, 2.5rem); font-weight: 800; line-height: 1.35; letter-spacing: -0.015em; }
+  .k9-not s { text-decoration-color: #ff4f8b; text-decoration-thickness: 0.12em; color: #c9cde6; }
+  .k9-punch { margin-top: 1.5rem; font-weight: 800; font-size: 1.2rem; color: #00e5a0; }
+  .k9-points { margin: 0; display: grid; gap: 1.75rem; align-content: center; }
+  .k9-points dt { font-weight: 800; font-size: 1.1rem; }
+  .k9-points dd { margin: 0.3rem 0 0; color: #a9aecb; }
+
+  .k9-end h2 { font-size: clamp(1.6rem, 1.3rem + 1.4vw, 2.3rem) !important; margin-bottom: 1rem; }
+  .k9-end p { color: #c9cde6; margin-top: 0.8rem; }
+  .k9-mail { font-size: clamp(1.1rem, 0.95rem + 0.9vw, 1.5rem); font-weight: 800; overflow-wrap: anywhere; }
+  .k9-dev { margin: 1.5rem 0 0; display: grid; gap: 0.6rem; font-size: 0.95rem; }
+  .k9-dev dt { color: #a9aecb; }
+  .k9-dev dd { margin: 0; }
+
+  @media (min-width: 58rem) {
+    .k9-hero__grid { grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); }
+    .k9-more { grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr); }
+    .k9-catalog { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 2.75rem 4rem; }
+    .k9-catalog > section:nth-child(n + 3) { align-self: start; }
+    .k9-not__grid, .k9-end { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 5rem; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .k9-screen video { display: none; }
+  }
+</style>

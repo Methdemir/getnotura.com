@@ -1,5 +1,5 @@
 ---
-import AppHome from "../../components/studio/AppHome.astro";
+import Kb999Home from "../../components/studio/Kb999Home.astro";
 import { appPages } from "../../content/studio";
 import AppLayout from "../../layouts/AppLayout.astro";
 
@@ -8,5 +8,5 @@ const copy = app.copy.en.home;
 ---
 
 <AppLayout app={app} locale="en" page="home" title={copy.title} description={copy.description}>
-  <AppHome app={app} locale="en" />
+  <Kb999Home app={app} locale="en" />
 </AppLayout>

@@ -78,13 +78,13 @@ export const studioApps: StudioApp[] = [
   },
   {
     id: "999kb",
-    name: "999KB Arcade",
+    name: "999KB",
     href: "/999kb/",
     privacyHref: "/999kb/privacy/",
     line: "One hundred games in an app smaller than one megabyte. Offline, no ads.",
     kind: "Games · Android",
     status: "Coming soon",
-    mark: "/999kb/mark.svg",
+    mark: "/999kb/icon-192.png",
   },
   {
     id: "jutsu",
@@ -178,6 +178,7 @@ export interface AppPage {
   /** `/999kb/` style base; Turkish lives under `${base}tr/`. */
   base: string;
   icon: string;
+  ogImage?: { src: string; width: number; height: number; alt: string };
   themeColor: string;
   copy: Record<AppLocale, AppCopy>;
 }
@@ -189,25 +190,26 @@ export const appPath = (app: AppPage, locale: AppLocale, page: "home" | "privacy
 
 const kb999: AppPage = {
   id: "999kb",
-  name: "999KB Arcade",
+  name: "999KB",
   base: "/999kb/",
-  icon: "/999kb/mark.svg",
+  icon: "/999kb/icon-192.png",
+  ogImage: { src: "/999kb/og.jpg", width: 1024, height: 500, alt: "999KB: 100 games in one Android app" },
   themeColor: "#0A0C1E",
   copy: {
     en: {
       htmlLang: "en",
       ogLocale: "en_US",
       skip: "Skip to main content",
-      nav: { features: "Games", privacy: "Privacy", contact: "Contact", studio: "Sarper Studios" },
+      nav: { features: "Games", privacy: "Privacy", contact: "Support", studio: "Sarper Studios" },
       languageSwitch: { label: "Türkçe", href: "/999kb/tr/", hreflang: "tr", lang: "tr" },
       home: {
-        title: "999KB Arcade — 100 games under one megabyte | Sarper Studios",
+        title: "999KB: 100 Games in 1, under one megabyte | Sarper Studios",
         description:
-          "999KB Arcade is an Android collection of 100 offline mini games in an app smaller than one megabyte. No ads, no in-app purchases, no account, no internet permission.",
+          "999KB is an Android collection of 100 offline mini games in an app smaller than one megabyte. No ads, no in-app purchases, no account, no internet permission.",
         heading: "One hundred games. Under one megabyte.",
         lede:
-          "999KB Arcade is a collection of 100 mini games for Android, drawn in code with no image or sound files, in a release build that stays under 1,000,000 bytes. It works offline from the first launch.",
-        status: "Not in the store yet. The Google Play link will appear here when the listing opens.",
+          "100 mini games for Android, drawn entirely in code. No image files, no sound files, no downloads after install. The whole app is smaller than one photo on your phone.",
+        status: "Coming soon to Google Play",
         factsHeading: "At a glance",
         facts: [
           { label: "Games", value: "100" },
@@ -218,11 +220,6 @@ const kb999: AppPage = {
         ],
         featuresHeading: "What is inside",
         features: [
-          {
-            heading: "Arcade, puzzle and board games",
-            body:
-              "Block Drop, Reversi, Connect Four, Parking Exit, Micro Drift, Pocket Defense, a 12-room dungeon crawler and many more, plus verified Sokoban, Nonogram, Sudoku and Hanoi puzzles.",
-          },
           {
             heading: "Find, favourite, continue",
             body:
@@ -241,7 +238,7 @@ const kb999: AppPage = {
         ],
         privacyHeading: "Your games stay on your phone.",
         privacyBody: [
-          "999KB Arcade does not ask for internet access, so it cannot send anything anywhere. High scores, saves, favourites and your language and sound settings are stored on the device.",
+          "999KB does not ask for internet access, so it cannot send anything anywhere. High scores, saves, favourites and your language and sound settings are stored on the device.",
           "If Android backup is turned on, Android may include that one settings file in your Google account backup, so your progress survives a phone change.",
         ],
         privacyLink: "Read the full privacy policy",
@@ -249,21 +246,21 @@ const kb999: AppPage = {
         developer: {
           publisher: "Publisher",
           platform: "Platform",
-          platformValue: "Android · store listing not open yet",
-          contact: "Contact",
+          platformValue: "Android 5.0 or newer · coming soon to Google Play",
+          contact: "Support",
           privacy: "Privacy",
         },
       },
       privacy: {
-        title: "Privacy Policy — 999KB Arcade | Sarper Studios",
+        title: "Privacy Policy — 999KB | Sarper Studios",
         description:
-          "Privacy policy for the 999KB Arcade Android app: no internet permission, no ads, no account; game progress stays on the device.",
+          "Privacy policy for the 999KB Android app: no internet permission, no ads, no account; game progress stays on the device.",
         heading: "Privacy Policy",
         effectiveLabel: "Effective",
-        effectiveDate: "7 October 2026",
-        effectiveDateIso: "2026-10-07",
+        effectiveDate: "9 November 2026",
+        effectiveDateIso: "2026-11-09",
         intro:
-          "This policy explains how 999KB Arcade, an Android app published by Sarper Studios, handles information. The short version: the app has no internet permission, shows no ads, has no account and collects nothing about you.",
+          "This policy explains how 999KB, an Android app published by Sarper Studios, handles information. The short version: the app has no internet permission, shows no ads, has no account and collects nothing about you.",
         glanceHeading: "At a glance: where is your information?",
         glance: [
           { what: "High scores, saves and favourites", where: "On your phone", local: true },
@@ -278,7 +275,7 @@ const kb999: AppPage = {
             id: "collect",
             heading: "What we collect",
             paragraphs: [
-              "Nothing. Sarper Studios does not receive any information from 999KB Arcade. The app does not request the Android internet permission, so it has no way to send data to us or to anyone else.",
+              "Nothing. Sarper Studios does not receive any information from 999KB. The app does not request the Android internet permission, so it has no way to send data to us or to anyone else.",
               "The app contains no advertising SDK, no analytics, no crash reporting service and no account system.",
             ],
           },
@@ -312,7 +309,7 @@ const kb999: AppPage = {
             id: "play",
             heading: "Google Play",
             paragraphs: [
-              "999KB Arcade is sold as a one-time paid download through Google Play. Payment and download are handled by Google under Google's own privacy policy; Sarper Studios does not receive your payment details.",
+              "999KB is sold as a one-time paid download through Google Play. Payment and download are handled by Google under Google's own privacy policy; Sarper Studios does not receive your payment details.",
             ],
           },
           {
@@ -342,7 +339,7 @@ const kb999: AppPage = {
             paragraphs: ["Questions about this policy can be sent to Sarper Studios:"],
           },
         ],
-        footnote: "This policy applies to 999KB Arcade for Android, package com.kb999.game.",
+        footnote: "This policy applies to 999KB for Android, package com.kb999.game.",
       },
       footer: {
         line: "One hundred offline games in under one megabyte.",
@@ -354,16 +351,16 @@ const kb999: AppPage = {
       htmlLang: "tr",
       ogLocale: "tr_TR",
       skip: "İçeriğe geç",
-      nav: { features: "Oyunlar", privacy: "Gizlilik", contact: "İletişim", studio: "Sarper Studios" },
+      nav: { features: "Oyunlar", privacy: "Gizlilik", contact: "Destek", studio: "Sarper Studios" },
       languageSwitch: { label: "English", href: "/999kb/", hreflang: "en", lang: "en" },
       home: {
-        title: "999KB Arcade — bir megabaytın altında 100 oyun | Sarper Studios",
+        title: "999KB: Bir uygulamada 100 oyun, 1 MB altında | Sarper Studios",
         description:
-          "999KB Arcade, bir megabayttan küçük bir uygulamada 100 çevrimdışı mini oyun sunan Android koleksiyonudur. Reklam, uygulama içi satın alma, hesap ve internet izni yok.",
+          "999KB, bir megabayttan küçük bir uygulamada 100 çevrimdışı mini oyun sunan Android koleksiyonudur. Reklam, uygulama içi satın alma, hesap ve internet izni yok.",
         heading: "Yüz oyun. Bir megabaytın altında.",
         lede:
-          "999KB Arcade, Android için 100 mini oyunluk bir koleksiyondur. Oyunlar görsel veya ses dosyası olmadan kodla çizilir; yayın sürümü 1.000.000 baytın altında kalır. İlk açılıştan itibaren internetsiz çalışır.",
-        status: "Henüz mağazada değil. Google Play sayfası açıldığında bağlantısı burada yer alacak.",
+          "Android için 100 mini oyun, tamamı kodla çizilmiş. Resim dosyası yok, ses dosyası yok, kurulumdan sonra indirme yok. Uygulamanın tamamı telefonundaki tek bir fotoğraftan küçük.",
+        status: "Yakında Google Play'de",
         factsHeading: "Bir bakışta",
         facts: [
           { label: "Oyun", value: "100" },
@@ -374,11 +371,6 @@ const kb999: AppPage = {
         ],
         featuresHeading: "İçinde ne var",
         features: [
-          {
-            heading: "Arcade, bulmaca ve masa oyunları",
-            body:
-              "Block Drop, Reversi, Connect Four, Parking Exit, Micro Drift, Pocket Defense, 12 odalı bir zindan oyunu ve daha fazlası; ayrıca doğrulanmış Sokoban, Nonogram, Sudoku ve Hanoi bulmacaları.",
-          },
           {
             heading: "Bul, favorile, devam et",
             body:
@@ -397,7 +389,7 @@ const kb999: AppPage = {
         ],
         privacyHeading: "Oyunların telefonunda kalır.",
         privacyBody: [
-          "999KB Arcade internet izni istemez; bu yüzden hiçbir yere bir şey gönderemez. Rekorlar, kayıtlar, favoriler, dil ve ses ayarların cihazda saklanır.",
+          "999KB internet izni istemez; bu yüzden hiçbir yere bir şey gönderemez. Rekorlar, kayıtlar, favoriler, dil ve ses ayarların cihazda saklanır.",
           "Android yedeklemesi açıksa Android bu tek ayar dosyasını Google hesabındaki yedeğe ekleyebilir; böylece telefon değiştirince ilerlemen kaybolmaz.",
         ],
         privacyLink: "Gizlilik politikasının tamamını okuyun",
@@ -405,21 +397,21 @@ const kb999: AppPage = {
         developer: {
           publisher: "Yayıncı",
           platform: "Platform",
-          platformValue: "Android · mağaza sayfası henüz yok",
-          contact: "İletişim",
+          platformValue: "Android 5.0 veya üzeri · yakında Google Play'de",
+          contact: "Destek",
           privacy: "Gizlilik",
         },
       },
       privacy: {
-        title: "Gizlilik Politikası — 999KB Arcade | Sarper Studios",
+        title: "Gizlilik Politikası — 999KB | Sarper Studios",
         description:
-          "999KB Arcade Android uygulamasının gizlilik politikası: internet izni, reklam ve hesap yok; oyun ilerlemesi cihazda kalır.",
+          "999KB Android uygulamasının gizlilik politikası: internet izni, reklam ve hesap yok; oyun ilerlemesi cihazda kalır.",
         heading: "Gizlilik Politikası",
         effectiveLabel: "Yürürlük tarihi",
-        effectiveDate: "7 Ekim 2026",
-        effectiveDateIso: "2026-10-07",
+        effectiveDate: "9 Kasım 2026",
+        effectiveDateIso: "2026-11-09",
         intro:
-          "Bu politika, Sarper Studios tarafından yayımlanan 999KB Arcade Android uygulamasının bilgileri nasıl ele aldığını açıklar. Kısaca: uygulamanın internet izni yoktur, reklam göstermez, hesap istemez ve sizinle ilgili hiçbir bilgi toplamaz.",
+          "Bu politika, Sarper Studios tarafından yayımlanan 999KB Android uygulamasının bilgileri nasıl ele aldığını açıklar. Kısaca: uygulamanın internet izni yoktur, reklam göstermez, hesap istemez ve sizinle ilgili hiçbir bilgi toplamaz.",
         glanceHeading: "Bir bakışta: bilgileriniz nerede?",
         glance: [
           { what: "Rekorlar, kayıtlar ve favoriler", where: "Telefonunuzda", local: true },
@@ -434,7 +426,7 @@ const kb999: AppPage = {
             id: "toplanan",
             heading: "Ne topluyoruz",
             paragraphs: [
-              "Hiçbir şey. Sarper Studios, 999KB Arcade'den hiçbir bilgi almaz. Uygulama Android internet iznini istemez; bu nedenle bize veya başka birine veri gönderemez.",
+              "Hiçbir şey. Sarper Studios, 999KB'den hiçbir bilgi almaz. Uygulama Android internet iznini istemez; bu nedenle bize veya başka birine veri gönderemez.",
               "Uygulamada reklam SDK'sı, analiz aracı, çökme raporlama servisi veya hesap sistemi yoktur.",
             ],
           },
@@ -466,7 +458,7 @@ const kb999: AppPage = {
             id: "play",
             heading: "Google Play",
             paragraphs: [
-              "999KB Arcade, Google Play üzerinden tek seferlik ücretli indirme olarak satılır. Ödeme ve indirme Google tarafından, Google'ın kendi gizlilik politikasına göre yürütülür; Sarper Studios ödeme bilgilerinizi almaz.",
+              "999KB, Google Play üzerinden tek seferlik ücretli indirme olarak satılır. Ödeme ve indirme Google tarafından, Google'ın kendi gizlilik politikasına göre yürütülür; Sarper Studios ödeme bilgilerinizi almaz.",
             ],
           },
           {
@@ -494,7 +486,7 @@ const kb999: AppPage = {
             paragraphs: ["Bu politikayla ilgili sorularınızı Sarper Studios'a gönderebilirsiniz:"],
           },
         ],
-        footnote: "Bu politika, Android için 999KB Arcade uygulamasına (paket com.kb999.game) uygulanır.",
+        footnote: "Bu politika, Android için 999KB uygulamasına (paket com.kb999.game) uygulanır.",
       },
       footer: {
         line: "Bir megabaytın altında yüz çevrimdışı oyun.",
