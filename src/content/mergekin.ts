@@ -1,5 +1,5 @@
 /**
- * MERGEKIN: Echo Defense — Sarper Studios' merge + tower-defense game, a
+ * Mergekin: Rune Legion — Sarper Studios' merge + tower-defense game, a
  * sub-brand surface at /mergekin/ with its own look (src/styles/mergekin.css).
  *
  * Product facts are sourced from the game's working tree
@@ -19,7 +19,7 @@
 import privacySource from "../../docs/mergekin/PRIVACY_CONTENT.md?raw";
 
 export const mergekin = {
-  name: "MERGEKIN: Echo Defense",
+  name: "Mergekin: Rune Legion",
   shortName: "MERGEKIN",
   publisher: "Sarper Studios",
   email: "support@sarperstudios.com",
