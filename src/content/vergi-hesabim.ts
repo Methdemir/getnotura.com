@@ -18,8 +18,8 @@ export const vergiHesabim = {
   publisher: "Sarper Studios",
   supportEmail: "support@sarperstudios.com",
   androidPackage: "com.taxai.vergi_hesabi",
-  effectiveDate: "6 Ekim 2026",
-  effectiveDateIso: "2026-10-06",
+  effectiveDate: "9 Kasım 2026",
+  effectiveDateIso: "2026-11-09",
   paths: {
     home: "/vergi-hesabim/",
     privacy: "/vergi-hesabim/privacy/",
@@ -97,7 +97,7 @@ export const privacySections: PolicySection[] = [
     heading: "Yazarak ve sesle yardım (isteğe bağlı)",
     paragraphs: [
       "Durumunuzu yazarak veya sesle anlatma özelliğini kullanırsanız, yazdığınız metin ve konuşmadaki bilgiler yalnızca ilgili vergi alanlarını çıkarmak için sunucumuz (Supabase Edge Function) üzerinden OpenAI servisine iletilir ve orada işlenir. OpenAI'nin sunucuları yurt dışında, örneğin ABD'de bulunabilir.",
-      "Sunucumuz metni kaydetmez. Kötüye kullanımı önlemek için yalnızca telefonunuza verilen anonim bir kimlikle günlük istek sayısını tutar. Adınız, e-postanız veya telefon numaranız istenmez.",
+      "Sunucumuz metni kaydetmez. Uygulamaya özel oturum ve günlük kullanım sayısını tutar; diğer uygulamalarımızda kullanıcı profili oluşturulmaz. Oturum açma sınırı için IP adresinin anahtarlı özeti kullanılır; ham IP uygulamanın tablolarına yazılmaz. Adınız, e-postanız veya telefon numaranız istenmez.",
       "Hesabı her zaman telefonunuzdaki kod yapar; yapay zekâ yalnızca form alanlarını doldurmaya yardım eder. Bu alana T.C. kimlik numarası, tam ad, adres veya banka hesap numarası gibi bilgileri yazmamanızı öneririz; yalnızca hesabın gerektirdiği tutar ve tarihler yeterlidir.",
       "Bu özelliği hiç kullanmazsanız hiçbir metniniz telefonunuzdan çıkmaz.",
     ],
