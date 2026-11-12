@@ -1,6 +1,6 @@
 /**
  * Sarper Studios — the publisher. The domain root `/` is its page, and every
- * product owns one top-level path under it (`/notura/`, `/momentback/`,
+ * product owns one top-level path under it (`/momentback/`,
  * `/vergi-hesabim/`, `/999kb/`, `/jutsu/`). When the studio moves to its own
  * domain, the paths move with it unchanged.
  *
@@ -49,8 +49,8 @@ export const studioApps: StudioApp[] = [
   {
     id: "notura",
     name: "Notura",
-    href: "/notura/",
-    privacyHref: "/notura/en/privacy/",
+    href: "https://getnotura.com/",
+    privacyHref: "https://getnotura.com/en/privacy/",
     line: "A nutrition tracker that shows what it could not determine.",
     kind: "Health · Android, iOS",
     status: "Coming soon",

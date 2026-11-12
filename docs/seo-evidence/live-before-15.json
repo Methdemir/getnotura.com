@@ -1,0 +1,630 @@
+{
+  "checkedAt": "2026-11-12",
+  "source": "Search Console CAMYFyAC report, displayed last update 2026-11-09; all 15 example rows read in authenticated UI",
+  "results": [
+    {
+      "path": "/momentback/tr/terms/",
+      "url": "https://sarperstudios.com/momentback/tr/terms/",
+      "status": 200,
+      "final": "https://sarperstudios.com/momentback/tr/terms/",
+      "xRobots": null,
+      "robots": [
+        "index,follow"
+      ],
+      "canonical": [
+        "https://sarperstudios.com/momentback/tr/terms/"
+      ],
+      "alternates": [
+        {
+          "lang": "en",
+          "href": "https://sarperstudios.com/momentback/terms/"
+        },
+        {
+          "lang": "tr",
+          "href": "https://sarperstudios.com/momentback/tr/terms/"
+        },
+        {
+          "lang": "x-default",
+          "href": "https://sarperstudios.com/momentback/terms/"
+        }
+      ],
+      "lang": "tr",
+      "visibleCharacters": 8018,
+      "internalLinks": [
+        "/momentback/tr/",
+        "/momentback/tr/#how",
+        "/momentback/tr/privacy/",
+        "/momentback/tr/terms/",
+        "/momentback/terms/",
+        "/cdn-cgi/l/email-protection",
+        "/momentback/tr/",
+        "/momentback/tr/privacy/",
+        "/momentback/tr/terms/",
+        "/cdn-cgi/l/email-protection#2d5e585d5d425f596d5e4c5f5d485f5e59584944425e034e4240",
+        "/notura/"
+      ],
+      "soft404Text": false,
+      "inSitemap": false,
+      "inboundFromAuditedPages": 3
+    },
+    {
+      "path": "/999kb/tr/",
+      "url": "https://sarperstudios.com/999kb/tr/",
+      "status": 200,
+      "final": "https://sarperstudios.com/999kb/tr/",
+      "xRobots": null,
+      "robots": [
+        "index,follow"
+      ],
+      "canonical": [
+        "https://sarperstudios.com/999kb/tr/"
+      ],
+      "alternates": [
+        {
+          "lang": "en",
+          "href": "https://sarperstudios.com/999kb/"
+        },
+        {
+          "lang": "tr",
+          "href": "https://sarperstudios.com/999kb/tr/"
+        },
+        {
+          "lang": "x-default",
+          "href": "https://sarperstudios.com/999kb/"
+        }
+      ],
+      "lang": "tr",
+      "visibleCharacters": 3721,
+      "internalLinks": [
+        "/999kb/tr/",
+        "/999kb/tr/privacy/",
+        "/999kb/tr/#support",
+        "/999kb/",
+        "/999kb/tr/privacy/",
+        "/cdn-cgi/l/email-protection#51222421213e23251122302321342322252435383e227f323e3c",
+        "/999kb/tr/privacy/",
+        "/cdn-cgi/l/email-protection#3c4f494c4c534e487c4f5d4e4c594e4f48495855534f125f5351",
+        "/"
+      ],
+      "soft404Text": false,
+      "inSitemap": true,
+      "inboundFromAuditedPages": 2
+    },
+    {
+      "path": "/jutsu/tr/privacy/",
+      "url": "https://sarperstudios.com/jutsu/tr/privacy/",
+      "status": 200,
+      "final": "https://sarperstudios.com/jutsu/tr/privacy/",
+      "xRobots": null,
+      "robots": [
+        "index,follow"
+      ],
+      "canonical": [
+        "https://sarperstudios.com/jutsu/tr/privacy/"
+      ],
+      "alternates": [
+        {
+          "lang": "en",
+          "href": "https://sarperstudios.com/jutsu/privacy/"
+        },
+        {
+          "lang": "tr",
+          "href": "https://sarperstudios.com/jutsu/tr/privacy/"
+        },
+        {
+          "lang": "x-default",
+          "href": "https://sarperstudios.com/jutsu/privacy/"
+        }
+      ],
+      "lang": "tr",
+      "visibleCharacters": 3874,
+      "internalLinks": [
+        "/jutsu/tr/",
+        "/jutsu/tr/#features",
+        "/jutsu/tr/privacy/",
+        "/cdn-cgi/l/email-protection#c0b3b5b0b0afb2b480b3a1b2b0a5b2b3b4b5a4a9afb3eea3afad",
+        "/jutsu/privacy/",
+        "/cdn-cgi/l/email-protection#b9caccc9c9d6cbcdf9cad8cbc9dccbcacdccddd0d6ca97dad6d4",
+        "/jutsu/tr/privacy/",
+        "/cdn-cgi/l/email-protection#e0939590908f9294a093819290859293949584898f93ce838f8d",
+        "/"
+      ],
+      "soft404Text": false,
+      "inSitemap": true,
+      "inboundFromAuditedPages": 2
+    },
+    {
+      "path": "/999kb/tr/privacy/",
+      "url": "https://sarperstudios.com/999kb/tr/privacy/",
+      "status": 200,
+      "final": "https://sarperstudios.com/999kb/tr/privacy/",
+      "xRobots": null,
+      "robots": [
+        "index,follow"
+      ],
+      "canonical": [
+        "https://sarperstudios.com/999kb/tr/privacy/"
+      ],
+      "alternates": [
+        {
+          "lang": "en",
+          "href": "https://sarperstudios.com/999kb/privacy/"
+        },
+        {
+          "lang": "tr",
+          "href": "https://sarperstudios.com/999kb/tr/privacy/"
+        },
+        {
+          "lang": "x-default",
+          "href": "https://sarperstudios.com/999kb/privacy/"
+        }
+      ],
+      "lang": "tr",
+      "visibleCharacters": 2987,
+      "internalLinks": [
+        "/999kb/tr/",
+        "/999kb/tr/#features",
+        "/999kb/tr/privacy/",
+        "/999kb/tr/#support",
+        "/999kb/privacy/",
+        "/cdn-cgi/l/email-protection#fd8e888d8d928f89bd8e9c8f8d988f8e89889994928ed39e9290",
+        "/999kb/tr/privacy/",
+        "/cdn-cgi/l/email-protection#1a696f6a6a75686e5a697b686a7f68696e6f7e73756934797577",
+        "/"
+      ],
+      "soft404Text": false,
+      "inSitemap": true,
+      "inboundFromAuditedPages": 3
+    },
+    {
+      "path": "/momentback/privacy/",
+      "url": "https://sarperstudios.com/momentback/privacy/",
+      "status": 200,
+      "final": "https://sarperstudios.com/momentback/privacy/",
+      "xRobots": null,
+      "robots": [
+        "index,follow"
+      ],
+      "canonical": [
+        "https://sarperstudios.com/momentback/privacy/"
+      ],
+      "alternates": [
+        {
+          "lang": "en",
+          "href": "https://sarperstudios.com/momentback/privacy/"
+        },
+        {
+          "lang": "tr",
+          "href": "https://sarperstudios.com/momentback/tr/privacy/"
+        },
+        {
+          "lang": "x-default",
+          "href": "https://sarperstudios.com/momentback/privacy/"
+        }
+      ],
+      "lang": "en",
+      "visibleCharacters": 9448,
+      "internalLinks": [
+        "/momentback/",
+        "/momentback/#how",
+        "/momentback/privacy/",
+        "/momentback/terms/",
+        "/momentback/tr/privacy/",
+        "/cdn-cgi/l/email-protection",
+        "/momentback/",
+        "/momentback/privacy/",
+        "/momentback/terms/",
+        "/cdn-cgi/l/email-protection#42313732322d303602312330322730313637262b2d316c212d2f",
+        "/notura/"
+      ],
+      "soft404Text": false,
+      "inSitemap": false,
+      "inboundFromAuditedPages": 4
+    },
+    {
+      "path": "/momentback/terms/",
+      "url": "https://sarperstudios.com/momentback/terms/",
+      "status": 200,
+      "final": "https://sarperstudios.com/momentback/terms/",
+      "xRobots": null,
+      "robots": [
+        "index,follow"
+      ],
+      "canonical": [
+        "https://sarperstudios.com/momentback/terms/"
+      ],
+      "alternates": [
+        {
+          "lang": "en",
+          "href": "https://sarperstudios.com/momentback/terms/"
+        },
+        {
+          "lang": "tr",
+          "href": "https://sarperstudios.com/momentback/tr/terms/"
+        },
+        {
+          "lang": "x-default",
+          "href": "https://sarperstudios.com/momentback/terms/"
+        }
+      ],
+      "lang": "en",
+      "visibleCharacters": 7904,
+      "internalLinks": [
+        "/momentback/",
+        "/momentback/#how",
+        "/momentback/privacy/",
+        "/momentback/terms/",
+        "/momentback/tr/terms/",
+        "/cdn-cgi/l/email-protection",
+        "/momentback/",
+        "/momentback/privacy/",
+        "/momentback/terms/",
+        "/cdn-cgi/l/email-protection#2f5c5a5f5f405d5b6f5c4e5d5f4a5d5c5b5a4b46405c014c4042",
+        "/notura/"
+      ],
+      "soft404Text": false,
+      "inSitemap": false,
+      "inboundFromAuditedPages": 4
+    },
+    {
+      "path": "/999kb/privacy/",
+      "url": "https://sarperstudios.com/999kb/privacy/",
+      "status": 200,
+      "final": "https://sarperstudios.com/999kb/privacy/",
+      "xRobots": null,
+      "robots": [
+        "index,follow"
+      ],
+      "canonical": [
+        "https://sarperstudios.com/999kb/privacy/"
+      ],
+      "alternates": [
+        {
+          "lang": "en",
+          "href": "https://sarperstudios.com/999kb/privacy/"
+        },
+        {
+          "lang": "tr",
+          "href": "https://sarperstudios.com/999kb/tr/privacy/"
+        },
+        {
+          "lang": "x-default",
+          "href": "https://sarperstudios.com/999kb/privacy/"
+        }
+      ],
+      "lang": "en",
+      "visibleCharacters": 3092,
+      "internalLinks": [
+        "/999kb/",
+        "/999kb/#features",
+        "/999kb/privacy/",
+        "/999kb/#support",
+        "/999kb/tr/privacy/",
+        "/cdn-cgi/l/email-protection#c0b3b5b0b0afb2b480b3a1b2b0a5b2b3b4b5a4a9afb3eea3afad",
+        "/999kb/privacy/",
+        "/cdn-cgi/l/email-protection#0f7c7a7f7f607d7b4f7c6e7d7f6a7d7c7b7a6b66607c216c6062",
+        "/"
+      ],
+      "soft404Text": false,
+      "inSitemap": true,
+      "inboundFromAuditedPages": 3
+    },
+    {
+      "path": "/momentback/tr/",
+      "url": "https://sarperstudios.com/momentback/tr/",
+      "status": 200,
+      "final": "https://sarperstudios.com/momentback/tr/",
+      "xRobots": null,
+      "robots": [
+        "index,follow"
+      ],
+      "canonical": [
+        "https://sarperstudios.com/momentback/tr/"
+      ],
+      "alternates": [
+        {
+          "lang": "en",
+          "href": "https://sarperstudios.com/momentback/"
+        },
+        {
+          "lang": "tr",
+          "href": "https://sarperstudios.com/momentback/tr/"
+        },
+        {
+          "lang": "x-default",
+          "href": "https://sarperstudios.com/momentback/"
+        }
+      ],
+      "lang": "tr",
+      "visibleCharacters": 9913,
+      "internalLinks": [
+        "/momentback/tr/",
+        "/momentback/tr/privacy/",
+        "/momentback/",
+        "/momentback/tr/privacy/",
+        "/momentback/tr/",
+        "/momentback/tr/privacy/",
+        "/momentback/tr/terms/",
+        "/cdn-cgi/l/email-protection#15666065657a676155667467657067666160717c7a663b767a78",
+        "/notura/"
+      ],
+      "soft404Text": false,
+      "inSitemap": false,
+      "inboundFromAuditedPages": 3
+    },
+    {
+      "path": "/jutsu/privacy/",
+      "url": "https://sarperstudios.com/jutsu/privacy/",
+      "status": 200,
+      "final": "https://sarperstudios.com/jutsu/privacy/",
+      "xRobots": null,
+      "robots": [
+        "index,follow"
+      ],
+      "canonical": [
+        "https://sarperstudios.com/jutsu/privacy/"
+      ],
+      "alternates": [
+        {
+          "lang": "en",
+          "href": "https://sarperstudios.com/jutsu/privacy/"
+        },
+        {
+          "lang": "tr",
+          "href": "https://sarperstudios.com/jutsu/tr/privacy/"
+        },
+        {
+          "lang": "x-default",
+          "href": "https://sarperstudios.com/jutsu/privacy/"
+        }
+      ],
+      "lang": "en",
+      "visibleCharacters": 3860,
+      "internalLinks": [
+        "/jutsu/",
+        "/jutsu/#features",
+        "/jutsu/privacy/",
+        "/cdn-cgi/l/email-protection#562523262639242216253724263324252223323f39257835393b",
+        "/jutsu/tr/privacy/",
+        "/cdn-cgi/l/email-protection#80f3f5f0f0eff2f4c0f3e1f2f0e5f2f3f4f5e4e9eff3aee3efed",
+        "/jutsu/privacy/",
+        "/cdn-cgi/l/email-protection#364543464659444276455744465344454243525f59451855595b",
+        "/"
+      ],
+      "soft404Text": false,
+      "inSitemap": true,
+      "inboundFromAuditedPages": 4
+    },
+    {
+      "path": "/vergi-hesabim/",
+      "url": "https://sarperstudios.com/vergi-hesabim/",
+      "status": 200,
+      "final": "https://sarperstudios.com/vergi-hesabim/",
+      "xRobots": null,
+      "robots": [
+        "index,follow"
+      ],
+      "canonical": [
+        "https://sarperstudios.com/vergi-hesabim/"
+      ],
+      "alternates": [],
+      "lang": "tr",
+      "visibleCharacters": 2877,
+      "internalLinks": [
+        "/vergi-hesabim/",
+        "/vergi-hesabim/privacy/",
+        "/cdn-cgi/l/email-protection#572422272738252317243625273225242322333e38247934383a",
+        "/vergi-hesabim/privacy/",
+        "/cdn-cgi/l/email-protection#93e0e6e3e3fce1e7d3e0f2e1e3f6e1e0e7e6f7fafce0bdf0fcfe",
+        "/vergi-hesabim/privacy/",
+        "/vergi-hesabim/",
+        "/vergi-hesabim/privacy/",
+        "/cdn-cgi/l/email-protection#a1d2d4d1d1ced3d5e1d2c0d3d1c4d3d2d5d4c5c8ced28fc2cecc"
+      ],
+      "soft404Text": false,
+      "inSitemap": true,
+      "inboundFromAuditedPages": 3
+    },
+    {
+      "path": "/momentback/",
+      "url": "https://sarperstudios.com/momentback/",
+      "status": 200,
+      "final": "https://sarperstudios.com/momentback/",
+      "xRobots": null,
+      "robots": [
+        "index,follow"
+      ],
+      "canonical": [
+        "https://sarperstudios.com/momentback/"
+      ],
+      "alternates": [
+        {
+          "lang": "en",
+          "href": "https://sarperstudios.com/momentback/"
+        },
+        {
+          "lang": "tr",
+          "href": "https://sarperstudios.com/momentback/tr/"
+        },
+        {
+          "lang": "x-default",
+          "href": "https://sarperstudios.com/momentback/"
+        }
+      ],
+      "lang": "en",
+      "visibleCharacters": 10082,
+      "internalLinks": [
+        "/momentback/",
+        "/momentback/privacy/",
+        "/momentback/tr/",
+        "/momentback/privacy/",
+        "/momentback/",
+        "/momentback/privacy/",
+        "/momentback/terms/",
+        "/cdn-cgi/l/email-protection#8bf8fefbfbe4f9ffcbf8eaf9fbeef9f8fffeefe2e4f8a5e8e4e6",
+        "/notura/"
+      ],
+      "soft404Text": false,
+      "inSitemap": false,
+      "inboundFromAuditedPages": 5
+    },
+    {
+      "path": "/jutsu/",
+      "url": "https://sarperstudios.com/jutsu/",
+      "status": 200,
+      "final": "https://sarperstudios.com/jutsu/",
+      "xRobots": null,
+      "robots": [
+        "index,follow"
+      ],
+      "canonical": [
+        "https://sarperstudios.com/jutsu/"
+      ],
+      "alternates": [
+        {
+          "lang": "en",
+          "href": "https://sarperstudios.com/jutsu/"
+        },
+        {
+          "lang": "tr",
+          "href": "https://sarperstudios.com/jutsu/tr/"
+        },
+        {
+          "lang": "x-default",
+          "href": "https://sarperstudios.com/jutsu/"
+        }
+      ],
+      "lang": "en",
+      "visibleCharacters": 2418,
+      "internalLinks": [
+        "/jutsu/",
+        "/jutsu/privacy/",
+        "/cdn-cgi/l/email-protection#bccfc9ccccd3cec8fccfddceccd9cecfc8c9d8d5d3cf92dfd3d1",
+        "/jutsu/tr/",
+        "/jutsu/privacy/",
+        "/",
+        "/cdn-cgi/l/email-protection#80f3f5f0f0eff2f4c0f3e1f2f0e5f2f3f4f5e4e9eff3aee3efed",
+        "/jutsu/privacy/",
+        "/jutsu/privacy/",
+        "/cdn-cgi/l/email-protection#c3b0b6b3b3acb1b783b0a2b1b3a6b1b0b7b6a7aaacb0eda0acae",
+        "/"
+      ],
+      "soft404Text": false,
+      "inSitemap": true,
+      "inboundFromAuditedPages": 3
+    },
+    {
+      "path": "/kimo/",
+      "url": "https://sarperstudios.com/kimo/",
+      "status": 200,
+      "final": "https://sarperstudios.com/kimo/",
+      "xRobots": null,
+      "robots": [
+        "index,follow"
+      ],
+      "canonical": [
+        "https://sarperstudios.com/kimo/"
+      ],
+      "alternates": [],
+      "lang": "en",
+      "visibleCharacters": 411,
+      "internalLinks": [
+        "/",
+        "/#apps",
+        "/#contact",
+        "/cdn-cgi/l/email-protection#aad9dfdadac5d8deead9cbd8dacfd8d9dedfcec3c5d984c9c5c7",
+        "/",
+        "/#apps",
+        "/cdn-cgi/l/email-protection#86f5f3f6f6e9f4f2c6f5e7f4f6e3f4f5f2f3e2efe9f5a8e5e9eb",
+        "/app-ads.txt"
+      ],
+      "soft404Text": false,
+      "inSitemap": true,
+      "inboundFromAuditedPages": 1
+    },
+    {
+      "path": "/vergi-hesabim/privacy/",
+      "url": "https://sarperstudios.com/vergi-hesabim/privacy/",
+      "status": 200,
+      "final": "https://sarperstudios.com/vergi-hesabim/privacy/",
+      "xRobots": null,
+      "robots": [
+        "index,follow"
+      ],
+      "canonical": [
+        "https://sarperstudios.com/vergi-hesabim/privacy/"
+      ],
+      "alternates": [],
+      "lang": "tr",
+      "visibleCharacters": 7214,
+      "internalLinks": [
+        "/vergi-hesabim/",
+        "/vergi-hesabim/#hesaplar",
+        "/vergi-hesabim/privacy/",
+        "/cdn-cgi/l/email-protection#f0838580809f8284b083918280958283848594999f83de939f9d",
+        "/cdn-cgi/l/email-protection#c7b4b2b7b7a8b5b387b4a6b5b7a2b5b4b3b2a3aea8b4e9a4a8aa",
+        "/vergi-hesabim/",
+        "/vergi-hesabim/privacy/",
+        "/cdn-cgi/l/email-protection#b3c0c6c3c3dcc1c7f3c0d2c1c3d6c1c0c7c6d7dadcc09dd0dcde"
+      ],
+      "soft404Text": false,
+      "inSitemap": true,
+      "inboundFromAuditedPages": 3
+    },
+    {
+      "path": "/",
+      "url": "https://sarperstudios.com/",
+      "status": 200,
+      "final": "https://sarperstudios.com/",
+      "xRobots": null,
+      "robots": [
+        "index,follow"
+      ],
+      "canonical": [
+        "https://sarperstudios.com/"
+      ],
+      "alternates": [],
+      "lang": "en",
+      "visibleCharacters": 2538,
+      "internalLinks": [
+        "/",
+        "/#apps",
+        "/#contact",
+        "/notura/",
+        "/momentback/",
+        "/vergi-hesabim/",
+        "/999kb/",
+        "/jutsu/",
+        "/mergekin/",
+        "/kimo/",
+        "/notura/",
+        "/notura/",
+        "/notura/en/privacy/",
+        "/momentback/",
+        "/momentback/",
+        "/momentback/privacy/",
+        "/vergi-hesabim/",
+        "/vergi-hesabim/",
+        "/vergi-hesabim/privacy/",
+        "/999kb/",
+        "/999kb/",
+        "/999kb/privacy/",
+        "/jutsu/",
+        "/jutsu/",
+        "/jutsu/privacy/",
+        "/mergekin/",
+        "/mergekin/",
+        "/mergekin/privacy/",
+        "/kimo/",
+        "/kimo/",
+        "/cdn-cgi/l/email-protection#53202623233c212713203221233621202726373a3c207d303c3e",
+        "/#apps",
+        "/cdn-cgi/l/email-protection#aedddbdedec1dcdaeeddcfdcdecbdcdddadbcac7c1dd80cdc1c3",
+        "/app-ads.txt"
+      ],
+      "soft404Text": false,
+      "inSitemap": true,
+      "inboundFromAuditedPages": 8
+    }
+  ]
+}

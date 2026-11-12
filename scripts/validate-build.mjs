@@ -1,5 +1,7 @@
 import { access, readFile, readdir } from "node:fs/promises";
 import { constants } from "node:fs";
+import { createHash } from "node:crypto";
+import { noturaRedirects, redirectsText } from "./notura-redirects.mjs";
 import { fileURLToPath } from "node:url";
 import path from "node:path";
 
@@ -7,8 +9,6 @@ const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const dist = path.join(root, "dist");
 const siteOrigin = "https://sarperstudios.com";
 const locales = JSON.parse(await readFile(path.join(root, "src/i18n/locales.json"), "utf8"));
-const routes = JSON.parse(await readFile(path.join(root, "src/i18n/routes.json"), "utf8"));
-const published = locales.filter((locale) => locale.publicationStatus === "published");
 const reservedPrefixes = new Set(
   locales.filter((locale) => locale.publicationStatus === "reserved").map((locale) => locale.urlPrefix),
 );
@@ -33,139 +33,6 @@ const linkTags = (html, rel) =>
     .map((match) => match[0])
     .filter((tag) => getAttribute(tag, "rel") === rel);
 
-const publishedDestinations = ["home", "product", "howItWorks", "features", "privacy", "terms"];
-const metaTitleKeys = {
-  home: "metaHomeTitle",
-  product: "metaProductTitle",
-  howItWorks: "metaHowTitle",
-  features: "metaFeaturesTitle",
-  privacy: "metaPrivacyTitle",
-  terms: "metaTermsTitle",
-};
-const noturaBase = "/notura";
-const legacyPath = (locale, destination) => {
-  const suffix = routes[destination].path;
-  return suffix ? `/${locale.urlPrefix}/${suffix}/` : `/${locale.urlPrefix}/`;
-};
-const destinationPath = (locale, destination) => `${noturaBase}${legacyPath(locale, destination)}`;
-const dictionaries = new Map(
-  await Promise.all(
-    published.map(async (locale) => [
-      locale.id,
-      JSON.parse(
-        await readFile(path.join(root, "src/i18n/translations", locale.translationFile), "utf8"),
-      ),
-    ]),
-  ),
-);
-const expectedPages = [
-  // Notura's neutral root is the x-default entry and serves the English home,
-  // so it carries the English home title rather than a title of its own.
-  {
-    path: `${noturaBase}/`,
-    lang: "en",
-    selfHreflang: "x-default",
-    destination: "home",
-    title: dictionaries.get("en").metaHomeTitle,
-  },
-  ...published.flatMap((locale) =>
-    publishedDestinations.map((destination) => ({
-      path: destinationPath(locale, destination),
-      lang: locale.htmlLang,
-      selfHreflang: locale.hreflang,
-      destination,
-      title: dictionaries.get(locale.id)[metaTitleKeys[destination]],
-    })),
-  ),
-];
-const pageRecords = [];
-
-for (const expected of expectedPages) {
-  const file = pageFile(expected.path);
-  if (!(await exists(file))) {
-    throw new Error(`Missing generated page: ${expected.path}`);
-  }
-
-  const html = await readFile(file, "utf8");
-  const htmlLang = html.match(/<html\b[^>]*lang="([^"]+)"/i)?.[1];
-  if (htmlLang !== expected.lang) {
-    throw new Error(`Incorrect HTML lang for ${expected.path}: ${htmlLang ?? "missing"}`);
-  }
-
-  const title = html
-    .match(/<title>([^<]+)<\/title>/i)?.[1]
-    ?.replaceAll("&#39;", "'")
-    .replaceAll("&amp;", "&");
-  if (title !== expected.title) {
-    throw new Error(`Incorrect localized title for ${expected.path}: ${title ?? "missing"}`);
-  }
-
-  const canonicals = linkTags(html, "canonical");
-  if (canonicals.length !== 1) {
-    throw new Error(`${expected.path} must contain exactly one canonical link.`);
-  }
-
-  const canonical = getAttribute(canonicals[0], "href");
-  if (canonical !== absolute(expected.path)) {
-    throw new Error(`Incorrect self-canonical for ${expected.path}: ${canonical}`);
-  }
-
-  const alternates = new Map(
-    linkTags(html, "alternate").map((tag) => [
-      getAttribute(tag, "hreflang"),
-      getAttribute(tag, "href"),
-    ]),
-  );
-  const expectedAlternates = new Map(
-    published.map((locale) => [
-      locale.hreflang,
-      absolute(destinationPath(locale, expected.destination)),
-    ]),
-  );
-  if (expected.destination === "home") {
-    expectedAlternates.set("x-default", absolute(`${noturaBase}/`));
-  }
-
-  if (alternates.size !== expectedAlternates.size) {
-    throw new Error(`Incomplete hreflang set for ${expected.path}.`);
-  }
-
-  for (const [hreflang, href] of expectedAlternates) {
-    if (alternates.get(hreflang) !== href) {
-      throw new Error(`Invalid ${hreflang} alternate on ${expected.path}.`);
-    }
-  }
-
-  if (alternates.get(expected.selfHreflang) !== canonical) {
-    throw new Error(`Missing self hreflang on ${expected.path}.`);
-  }
-
-  pageRecords.push({ ...expected, html, canonical, alternates });
-}
-
-const canonicalToPage = new Map();
-for (const page of pageRecords) {
-  if (canonicalToPage.has(page.canonical)) {
-    throw new Error(`Duplicate canonical: ${page.canonical}`);
-  }
-  canonicalToPage.set(page.canonical, page);
-}
-
-for (const source of pageRecords) {
-  for (const [targetHreflang, targetCanonical] of source.alternates) {
-    const target = canonicalToPage.get(targetCanonical);
-    if (!target) {
-      throw new Error(`Unknown hreflang target ${targetCanonical} on ${source.path}.`);
-    }
-
-    if (target.alternates.get(source.selfHreflang) !== source.canonical) {
-      throw new Error(
-        `Non-reciprocal hreflang: ${source.path} -> ${targetHreflang} ${target.path}.`,
-      );
-    }
-  }
-}
-
 for (const reservedPrefix of reservedPrefixes) {
   if (await exists(path.join(dist, reservedPrefix))) {
     throw new Error(`Reserved locale was accidentally published: /${reservedPrefix}/`);
@@ -173,7 +40,7 @@ for (const reservedPrefix of reservedPrefixes) {
 }
 
 const cname = (await readFile(path.join(dist, "CNAME"), "utf8")).trim();
-if (cname !== "getnotura.com") {
+if (cname !== "sarperstudios.com") {
   throw new Error(`Invalid built CNAME: ${cname}`);
 }
 
@@ -292,12 +159,6 @@ for (const loc of sitemapLocs) {
     throw new Error(`Sitemap lists a page that was not built: ${loc}`);
   }
 }
-for (const page of pageRecords) {
-  if (!sitemapPaths.has(page.path)) {
-    throw new Error(`Canonical page missing from sitemap: ${page.path}`);
-  }
-}
-
 const robotsPath = path.join(dist, "robots.txt");
 if (!(await exists(robotsPath))) {
   throw new Error("Missing generated robots.txt.");
@@ -341,26 +202,21 @@ for (const vergiPath of vergiPages) {
   }
 }
 
-/**
- * Notura moved from the domain root to /notura/. Every old published URL must
- * still exist as a static redirect page pointing at its new home, so the
- * Notura app's links and anyone's bookmarks keep working.
- */
-for (const locale of published) {
-  for (const destination of publishedDestinations) {
-    const oldPath = legacyPath(locale, destination);
-    const newPath = destinationPath(locale, destination);
-    const file = pageFile(oldPath);
-    if (!(await exists(file))) {
-      throw new Error(`Missing legacy redirect page: ${oldPath}`);
-    }
-    const html = await readFile(file, "utf8");
-    if (!html.includes(`http-equiv="refresh" content="0;url=${newPath}"`)) {
-      throw new Error(`Legacy page ${oldPath} does not redirect to ${newPath}.`);
-    }
-    if (!/<meta\b[^>]*name="robots"[^>]*content="noindex"/i.test(html)) {
-      throw new Error(`Legacy redirect ${oldPath} must be noindex.`);
-    }
+/** HTTP rules replace every former Notura HTML page, including root-locale aliases. */
+const builtRedirects = await readFile(path.join(dist, "_redirects"), "utf8");
+if (builtRedirects !== redirectsText) throw new Error("Built HTTP redirect rules have drifted from config.");
+const redirectSources = new Set();
+for (const line of builtRedirects.split("\n").filter((line) => line && !line.startsWith("#"))) {
+  const [source, destination, status, extra] = line.split(/\s+/);
+  if (extra || status !== "301" || !destination.startsWith("https://getnotura.com/")) throw new Error(`Invalid HTTP redirect: ${line}`);
+  if (redirectSources.has(source)) throw new Error(`Duplicate redirect source: ${source}`);
+  redirectSources.add(source);
+}
+for (const { source, destination } of noturaRedirects) {
+  if (await exists(pageFile(source))) throw new Error(`Old Notura content or HTML redirect remains: ${source}`);
+  if (sitemapPaths.has(source)) throw new Error(`Redirect source remains in sitemap: ${source}`);
+  for (const variant of [source, source.slice(0, -1)]) {
+    if (!builtRedirects.includes(`${variant} ${destination} 301\n`)) throw new Error(`Missing HTTP 301: ${variant}`);
   }
 }
 
@@ -564,9 +420,9 @@ if (/^\s*Disallow:\s*\/app-ads\.txt/im.test(robotsTxt)) {
 }
 
 console.log(
-  `Build validation passed for ${expectedPages.length} canonical pages, localized titles, 404, CNAME, ` +
+  `Build validation passed for the studio pages, 404, CNAME, ` +
     `reciprocal hreflang, internal links, ${sitemapLocs.length} sitemap entries, robots.txt, ` +
-    `no unpublished store URLs, zero client JavaScript, the Notura legacy redirects, the studio root, ` +
+    `no unpublished store URLs, zero client JavaScript, ${noturaRedirects.length} Notura HTTP 301 mappings, the studio root, ` +
     `the Vergi Hesabım, 999KB Arcade, Jutsu and MERGEKIN pages (with the verbatim MERGEKIN policy text) and app-ads.txt.`,
 );
 
@@ -580,3 +436,35 @@ for (const file of files.filter(f=>f.endsWith(".html")&&!isTracker(f))) {
 const trackerScripts = files.filter(f=>f.endsWith(".js")&&isTracker(f));
 if (trackerScripts.length !== 2 || trackerScripts.some(f=>!["install.js","sw.js"].includes(path.basename(f)))) throw new Error("Unexpected tracker scripts.");
 console.log("Unlisted tracker: no public links, no sitemap entry, noindex, scoped PWA scripts verified.");
+
+// Every public HTML page is a self-canonical, crawlable document represented in the sitemap.
+const canonicalSet = new Set();
+for (const file of files.filter((f) => f.endsWith(".html") && !isTracker(f) && f !== notFoundPath)) {
+  const html = await readFile(file, "utf8");
+  const relative = path.relative(dist, file).replaceAll(path.sep, "/");
+  const urlPath = "/" + relative.replace(/index\.html$/, "");
+  const canonical = linkTags(html, "canonical");
+  if (canonical.length !== 1 || getAttribute(canonical[0], "href") !== absolute(urlPath)) throw new Error(`Incorrect canonical: ${urlPath}`);
+  if (canonicalSet.has(absolute(urlPath))) throw new Error(`Duplicate canonical: ${urlPath}`);
+  canonicalSet.add(absolute(urlPath));
+  if (!sitemapPaths.has(urlPath)) throw new Error(`Public HTML missing from sitemap: ${urlPath}`);
+  if (!/<meta\b[^>]*name="robots"[^>]*content="index,follow"/i.test(html)) throw new Error(`Public page is not indexable: ${urlPath}`);
+  if (/http-equiv="refresh"/i.test(html)) throw new Error(`Unexpected HTML redirect: ${urlPath}`);
+  const alternates = linkTags(html, "alternate");
+  for (const alternate of alternates) {
+    const targetUrl = getAttribute(alternate, "href");
+    const target = new URL(targetUrl);
+    if (target.origin !== siteOrigin || !(await exists(pageFile(target.pathname)))) throw new Error(`Broken alternate: ${targetUrl}`);
+    const targetHtml = await readFile(pageFile(target.pathname), "utf8");
+    const reciprocal = linkTags(targetHtml, "alternate").some((tag) => getAttribute(tag, "href") === absolute(urlPath));
+    if (!reciprocal) throw new Error(`Nonreciprocal alternate from ${urlPath} to ${target.pathname}`);
+  }
+}
+if (canonicalSet.size !== sitemapPaths.size || sitemapPaths.size !== sitemapLocs.length) throw new Error("Sitemap must list each public canonical exactly once.");
+if (!studioHtml.includes('href="https://getnotura.com/"') || !studioHtml.includes('href="https://getnotura.com/en/privacy/"')) throw new Error("Notura card links must use the standalone domain.");
+const baseline = JSON.parse(await readFile(path.join(root, "docs/seo-domain-split/studio-baseline-hashes.json"), "utf8"));
+for (const [relative, hash] of Object.entries(baseline.hashes)) {
+  const actual = createHash("sha256").update(await readFile(path.join(dist, relative))).digest("hex");
+  if (actual !== (baseline.allowedLinkMigrationHashes?.[relative] ?? hash)) throw new Error(`Preserved product/tracker content changed: ${relative}`);
+}
+console.log(`All ${canonicalSet.size} public canonical pages, reciprocal alternates and ${Object.keys(baseline.hashes).length} unchanged product/tracker/ad-file hashes verified.`);

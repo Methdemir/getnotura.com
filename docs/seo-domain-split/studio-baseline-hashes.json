@@ -1,0 +1,37 @@
+{
+  "sourceCommit": "0967f7205517beaff977f791b87ef11e44b5dfb3",
+  "hashes": {
+    "999kb/index.html": "e29555bc3164f12e419c1c0661c857cfa8fbe0b601e57026368c2be53b7ccdf0",
+    "999kb/privacy/index.html": "7c75134381d6f42c05fb20aac10fa50d5c98fe7d119af086ec8e781af36bebe2",
+    "999kb/tr/index.html": "2f26a04b5a5abbeffb51720a91971a12a64567c614c6b9349596ab4011b8bb10",
+    "999kb/tr/privacy/index.html": "802576a0def5b971e6e8f29a188b3dfcec362353506299635c06899ce1db8ac0",
+    "jutsu/index.html": "9e9691f7f2eae7f6f52f78c5047f8390f7fb1fab378dd58fcb282aeb3300ce67",
+    "jutsu/privacy/index.html": "a73d299df152241da2bd1df6eb644bb80f2963b9ee35ef785fe4db4dee8071a9",
+    "jutsu/tr/index.html": "a87ba806fdff3d952b83cd87c36bff7c3418b185dfc04792a89deb4553439276",
+    "jutsu/tr/privacy/index.html": "7a848fbcdd8279b19e2ecde5526620a7d45630fe08e9a882c5099cb867c10f87",
+    "kimo/index.html": "dd9f84f995d819983d09016d3f4446d96a9d6b0292be6e08793df25cb1304447",
+    "mergekin/gizlilik/index.html": "36c31e03bc7f2eb7ab373ee84d48df3fb26f5381a8a4bbadc994b60ef4ad3467",
+    "mergekin/index.html": "a42d14ac11f12122da5325143ec033813903fe271ae2757617897b4c2108d9b9",
+    "mergekin/privacy/index.html": "026cf6560edb2108315a2bd6d4f20e2cbf275c970291e7997290e89213ba9a88",
+    "momentback/index.html": "76bb075e6695c62ca1194602cf72419c5dbb2f3b52ef9a915feacf052a0c9a2f",
+    "momentback/privacy/index.html": "539e7f98b6afae5161a9b732d95c56171767cd6ea384f270a8bc24cbac92b708",
+    "momentback/terms/index.html": "bcdd32da570f251b8d8b02674b5d84e0a7f4824d0b115a07d410a4059cc8bbab",
+    "momentback/tr/index.html": "9daa4762e215766167bab5e4ddf078b49f3407d93db60c66bfd3b8d60ea0c0d5",
+    "momentback/tr/privacy/index.html": "0715402f6dfce1ae4b18acbea96e92cea67d70c3713c6df6a3079767639ffe92",
+    "momentback/tr/terms/index.html": "ed89513d898cdd653633f5a8d4d0ccbca11c3944e7a1126acbc4ebac7284ef1f",
+    "vergi-hesabim/index.html": "38f17c023866fb082ab1d36130a2f5a7435ea5c8352fa8e468abaf6a8970beac",
+    "vergi-hesabim/privacy/index.html": "8cab973b6102a42cceb701fbdd17fa913b91a57cf42ea458bed22eeecf380e0a",
+    "takip/index.html": "4fb1c016a5b4c2c1e27408ad51b851838b05f72ad45370b0f5fd1a878e33b606",
+    "app-ads.txt": "e16eb956f2576d7dee40d2795f717ffc33bd526c982604fe65df7d8575cd5821"
+  },
+  "allowedLinkMigration": "Only MomentBack footer href=\"/notura/\" becomes href=\"https://getnotura.com/\"; all other bytes stay identical.",
+  "allowedLinkMigrationHashes": {
+    "momentback/index.html": "8f433db024c635acb0ba32f5b1170870c7debf0143d79ec68245b5b1dde4bea2",
+    "momentback/privacy/index.html": "66472bce445caf188d48b0da03ff997d2abeaf02accb0e36e2fcf6ff7c990605",
+    "momentback/terms/index.html": "1addb4ee16d7ff2b5b2c54ce6b412447bc291a0d7eb439ef2fb74047b3a73bc8",
+    "momentback/tr/index.html": "09659b523ae40227aec893795b9f6c831184a6d524ed8c3613e73c75940c8978",
+    "momentback/tr/privacy/index.html": "4667e6c9c2ae0f7f4a46558047aba8275f46db8bffc05a5ab0f8de360b8c004a",
+    "momentback/tr/terms/index.html": "a715aa607cc62c6b14d18154e74ee5a9837bed0b5e0d89c6894fa26a83495b20"
+  },
+  "adFileBaseline": "app-ads.txt SHA is computed from the sourceCommit Git blob (LF), enforced by .gitattributes; the initial Windows checkout used CRLF."
+}

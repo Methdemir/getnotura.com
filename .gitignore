@@ -24,3 +24,6 @@ npm-debug.log*
 .claude/settings.local.json
 .impeccable/config.local.json
 .impeccable/questions/
+
+# Local Cloudflare emulator state
+.wrangler/

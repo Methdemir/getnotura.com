@@ -1,0 +1,1142 @@
+{
+  "base": "http://127.0.0.1:8792",
+  "commit": "8cecfb8a67deac7cdb6c5dd7662e4c8a432cba05",
+  "checkedAt": "2026-11-12T06:51:28.813Z",
+  "passed": 175,
+  "failed": 0,
+  "results": [
+    {
+      "path": "/notura/",
+      "status": 301,
+      "location": "https://getnotura.com/",
+      "expectedLocation": "https://getnotura.com/",
+      "pass": true
+    },
+    {
+      "path": "/notura",
+      "status": 301,
+      "location": "https://getnotura.com/",
+      "expectedLocation": "https://getnotura.com/",
+      "pass": true
+    },
+    {
+      "path": "/notura/en/",
+      "status": 301,
+      "location": "https://getnotura.com/en/",
+      "expectedLocation": "https://getnotura.com/en/",
+      "pass": true
+    },
+    {
+      "path": "/notura/en",
+      "status": 301,
+      "location": "https://getnotura.com/en/",
+      "expectedLocation": "https://getnotura.com/en/",
+      "pass": true
+    },
+    {
+      "path": "/notura/en/product/",
+      "status": 301,
+      "location": "https://getnotura.com/en/product/",
+      "expectedLocation": "https://getnotura.com/en/product/",
+      "pass": true
+    },
+    {
+      "path": "/notura/en/product",
+      "status": 301,
+      "location": "https://getnotura.com/en/product/",
+      "expectedLocation": "https://getnotura.com/en/product/",
+      "pass": true
+    },
+    {
+      "path": "/notura/en/how-it-works/",
+      "status": 301,
+      "location": "https://getnotura.com/en/how-it-works/",
+      "expectedLocation": "https://getnotura.com/en/how-it-works/",
+      "pass": true
+    },
+    {
+      "path": "/notura/en/how-it-works",
+      "status": 301,
+      "location": "https://getnotura.com/en/how-it-works/",
+      "expectedLocation": "https://getnotura.com/en/how-it-works/",
+      "pass": true
+    },
+    {
+      "path": "/notura/en/features/",
+      "status": 301,
+      "location": "https://getnotura.com/en/features/",
+      "expectedLocation": "https://getnotura.com/en/features/",
+      "pass": true
+    },
+    {
+      "path": "/notura/en/features",
+      "status": 301,
+      "location": "https://getnotura.com/en/features/",
+      "expectedLocation": "https://getnotura.com/en/features/",
+      "pass": true
+    },
+    {
+      "path": "/notura/en/privacy/",
+      "status": 301,
+      "location": "https://getnotura.com/en/privacy/",
+      "expectedLocation": "https://getnotura.com/en/privacy/",
+      "pass": true
+    },
+    {
+      "path": "/notura/en/privacy",
+      "status": 301,
+      "location": "https://getnotura.com/en/privacy/",
+      "expectedLocation": "https://getnotura.com/en/privacy/",
+      "pass": true
+    },
+    {
+      "path": "/notura/en/terms/",
+      "status": 301,
+      "location": "https://getnotura.com/en/terms/",
+      "expectedLocation": "https://getnotura.com/en/terms/",
+      "pass": true
+    },
+    {
+      "path": "/notura/en/terms",
+      "status": 301,
+      "location": "https://getnotura.com/en/terms/",
+      "expectedLocation": "https://getnotura.com/en/terms/",
+      "pass": true
+    },
+    {
+      "path": "/notura/tr/",
+      "status": 301,
+      "location": "https://getnotura.com/tr/",
+      "expectedLocation": "https://getnotura.com/tr/",
+      "pass": true
+    },
+    {
+      "path": "/notura/tr",
+      "status": 301,
+      "location": "https://getnotura.com/tr/",
+      "expectedLocation": "https://getnotura.com/tr/",
+      "pass": true
+    },
+    {
+      "path": "/notura/tr/product/",
+      "status": 301,
+      "location": "https://getnotura.com/tr/product/",
+      "expectedLocation": "https://getnotura.com/tr/product/",
+      "pass": true
+    },
+    {
+      "path": "/notura/tr/product",
+      "status": 301,
+      "location": "https://getnotura.com/tr/product/",
+      "expectedLocation": "https://getnotura.com/tr/product/",
+      "pass": true
+    },
+    {
+      "path": "/notura/tr/how-it-works/",
+      "status": 301,
+      "location": "https://getnotura.com/tr/how-it-works/",
+      "expectedLocation": "https://getnotura.com/tr/how-it-works/",
+      "pass": true
+    },
+    {
+      "path": "/notura/tr/how-it-works",
+      "status": 301,
+      "location": "https://getnotura.com/tr/how-it-works/",
+      "expectedLocation": "https://getnotura.com/tr/how-it-works/",
+      "pass": true
+    },
+    {
+      "path": "/notura/tr/features/",
+      "status": 301,
+      "location": "https://getnotura.com/tr/features/",
+      "expectedLocation": "https://getnotura.com/tr/features/",
+      "pass": true
+    },
+    {
+      "path": "/notura/tr/features",
+      "status": 301,
+      "location": "https://getnotura.com/tr/features/",
+      "expectedLocation": "https://getnotura.com/tr/features/",
+      "pass": true
+    },
+    {
+      "path": "/notura/tr/privacy/",
+      "status": 301,
+      "location": "https://getnotura.com/tr/privacy/",
+      "expectedLocation": "https://getnotura.com/tr/privacy/",
+      "pass": true
+    },
+    {
+      "path": "/notura/tr/privacy",
+      "status": 301,
+      "location": "https://getnotura.com/tr/privacy/",
+      "expectedLocation": "https://getnotura.com/tr/privacy/",
+      "pass": true
+    },
+    {
+      "path": "/notura/tr/terms/",
+      "status": 301,
+      "location": "https://getnotura.com/tr/terms/",
+      "expectedLocation": "https://getnotura.com/tr/terms/",
+      "pass": true
+    },
+    {
+      "path": "/notura/tr/terms",
+      "status": 301,
+      "location": "https://getnotura.com/tr/terms/",
+      "expectedLocation": "https://getnotura.com/tr/terms/",
+      "pass": true
+    },
+    {
+      "path": "/notura/de/",
+      "status": 301,
+      "location": "https://getnotura.com/de/",
+      "expectedLocation": "https://getnotura.com/de/",
+      "pass": true
+    },
+    {
+      "path": "/notura/de",
+      "status": 301,
+      "location": "https://getnotura.com/de/",
+      "expectedLocation": "https://getnotura.com/de/",
+      "pass": true
+    },
+    {
+      "path": "/notura/de/product/",
+      "status": 301,
+      "location": "https://getnotura.com/de/product/",
+      "expectedLocation": "https://getnotura.com/de/product/",
+      "pass": true
+    },
+    {
+      "path": "/notura/de/product",
+      "status": 301,
+      "location": "https://getnotura.com/de/product/",
+      "expectedLocation": "https://getnotura.com/de/product/",
+      "pass": true
+    },
+    {
+      "path": "/notura/de/how-it-works/",
+      "status": 301,
+      "location": "https://getnotura.com/de/how-it-works/",
+      "expectedLocation": "https://getnotura.com/de/how-it-works/",
+      "pass": true
+    },
+    {
+      "path": "/notura/de/how-it-works",
+      "status": 301,
+      "location": "https://getnotura.com/de/how-it-works/",
+      "expectedLocation": "https://getnotura.com/de/how-it-works/",
+      "pass": true
+    },
+    {
+      "path": "/notura/de/features/",
+      "status": 301,
+      "location": "https://getnotura.com/de/features/",
+      "expectedLocation": "https://getnotura.com/de/features/",
+      "pass": true
+    },
+    {
+      "path": "/notura/de/features",
+      "status": 301,
+      "location": "https://getnotura.com/de/features/",
+      "expectedLocation": "https://getnotura.com/de/features/",
+      "pass": true
+    },
+    {
+      "path": "/notura/de/privacy/",
+      "status": 301,
+      "location": "https://getnotura.com/de/privacy/",
+      "expectedLocation": "https://getnotura.com/de/privacy/",
+      "pass": true
+    },
+    {
+      "path": "/notura/de/privacy",
+      "status": 301,
+      "location": "https://getnotura.com/de/privacy/",
+      "expectedLocation": "https://getnotura.com/de/privacy/",
+      "pass": true
+    },
+    {
+      "path": "/notura/de/terms/",
+      "status": 301,
+      "location": "https://getnotura.com/de/terms/",
+      "expectedLocation": "https://getnotura.com/de/terms/",
+      "pass": true
+    },
+    {
+      "path": "/notura/de/terms",
+      "status": 301,
+      "location": "https://getnotura.com/de/terms/",
+      "expectedLocation": "https://getnotura.com/de/terms/",
+      "pass": true
+    },
+    {
+      "path": "/notura/es/",
+      "status": 301,
+      "location": "https://getnotura.com/es/",
+      "expectedLocation": "https://getnotura.com/es/",
+      "pass": true
+    },
+    {
+      "path": "/notura/es",
+      "status": 301,
+      "location": "https://getnotura.com/es/",
+      "expectedLocation": "https://getnotura.com/es/",
+      "pass": true
+    },
+    {
+      "path": "/notura/es/product/",
+      "status": 301,
+      "location": "https://getnotura.com/es/product/",
+      "expectedLocation": "https://getnotura.com/es/product/",
+      "pass": true
+    },
+    {
+      "path": "/notura/es/product",
+      "status": 301,
+      "location": "https://getnotura.com/es/product/",
+      "expectedLocation": "https://getnotura.com/es/product/",
+      "pass": true
+    },
+    {
+      "path": "/notura/es/how-it-works/",
+      "status": 301,
+      "location": "https://getnotura.com/es/how-it-works/",
+      "expectedLocation": "https://getnotura.com/es/how-it-works/",
+      "pass": true
+    },
+    {
+      "path": "/notura/es/how-it-works",
+      "status": 301,
+      "location": "https://getnotura.com/es/how-it-works/",
+      "expectedLocation": "https://getnotura.com/es/how-it-works/",
+      "pass": true
+    },
+    {
+      "path": "/notura/es/features/",
+      "status": 301,
+      "location": "https://getnotura.com/es/features/",
+      "expectedLocation": "https://getnotura.com/es/features/",
+      "pass": true
+    },
+    {
+      "path": "/notura/es/features",
+      "status": 301,
+      "location": "https://getnotura.com/es/features/",
+      "expectedLocation": "https://getnotura.com/es/features/",
+      "pass": true
+    },
+    {
+      "path": "/notura/es/privacy/",
+      "status": 301,
+      "location": "https://getnotura.com/es/privacy/",
+      "expectedLocation": "https://getnotura.com/es/privacy/",
+      "pass": true
+    },
+    {
+      "path": "/notura/es/privacy",
+      "status": 301,
+      "location": "https://getnotura.com/es/privacy/",
+      "expectedLocation": "https://getnotura.com/es/privacy/",
+      "pass": true
+    },
+    {
+      "path": "/notura/es/terms/",
+      "status": 301,
+      "location": "https://getnotura.com/es/terms/",
+      "expectedLocation": "https://getnotura.com/es/terms/",
+      "pass": true
+    },
+    {
+      "path": "/notura/es/terms",
+      "status": 301,
+      "location": "https://getnotura.com/es/terms/",
+      "expectedLocation": "https://getnotura.com/es/terms/",
+      "pass": true
+    },
+    {
+      "path": "/notura/fr/",
+      "status": 301,
+      "location": "https://getnotura.com/fr/",
+      "expectedLocation": "https://getnotura.com/fr/",
+      "pass": true
+    },
+    {
+      "path": "/notura/fr",
+      "status": 301,
+      "location": "https://getnotura.com/fr/",
+      "expectedLocation": "https://getnotura.com/fr/",
+      "pass": true
+    },
+    {
+      "path": "/notura/fr/product/",
+      "status": 301,
+      "location": "https://getnotura.com/fr/product/",
+      "expectedLocation": "https://getnotura.com/fr/product/",
+      "pass": true
+    },
+    {
+      "path": "/notura/fr/product",
+      "status": 301,
+      "location": "https://getnotura.com/fr/product/",
+      "expectedLocation": "https://getnotura.com/fr/product/",
+      "pass": true
+    },
+    {
+      "path": "/notura/fr/how-it-works/",
+      "status": 301,
+      "location": "https://getnotura.com/fr/how-it-works/",
+      "expectedLocation": "https://getnotura.com/fr/how-it-works/",
+      "pass": true
+    },
+    {
+      "path": "/notura/fr/how-it-works",
+      "status": 301,
+      "location": "https://getnotura.com/fr/how-it-works/",
+      "expectedLocation": "https://getnotura.com/fr/how-it-works/",
+      "pass": true
+    },
+    {
+      "path": "/notura/fr/features/",
+      "status": 301,
+      "location": "https://getnotura.com/fr/features/",
+      "expectedLocation": "https://getnotura.com/fr/features/",
+      "pass": true
+    },
+    {
+      "path": "/notura/fr/features",
+      "status": 301,
+      "location": "https://getnotura.com/fr/features/",
+      "expectedLocation": "https://getnotura.com/fr/features/",
+      "pass": true
+    },
+    {
+      "path": "/notura/fr/privacy/",
+      "status": 301,
+      "location": "https://getnotura.com/fr/privacy/",
+      "expectedLocation": "https://getnotura.com/fr/privacy/",
+      "pass": true
+    },
+    {
+      "path": "/notura/fr/privacy",
+      "status": 301,
+      "location": "https://getnotura.com/fr/privacy/",
+      "expectedLocation": "https://getnotura.com/fr/privacy/",
+      "pass": true
+    },
+    {
+      "path": "/notura/fr/terms/",
+      "status": 301,
+      "location": "https://getnotura.com/fr/terms/",
+      "expectedLocation": "https://getnotura.com/fr/terms/",
+      "pass": true
+    },
+    {
+      "path": "/notura/fr/terms",
+      "status": 301,
+      "location": "https://getnotura.com/fr/terms/",
+      "expectedLocation": "https://getnotura.com/fr/terms/",
+      "pass": true
+    },
+    {
+      "path": "/notura/it/",
+      "status": 301,
+      "location": "https://getnotura.com/it/",
+      "expectedLocation": "https://getnotura.com/it/",
+      "pass": true
+    },
+    {
+      "path": "/notura/it",
+      "status": 301,
+      "location": "https://getnotura.com/it/",
+      "expectedLocation": "https://getnotura.com/it/",
+      "pass": true
+    },
+    {
+      "path": "/notura/it/product/",
+      "status": 301,
+      "location": "https://getnotura.com/it/product/",
+      "expectedLocation": "https://getnotura.com/it/product/",
+      "pass": true
+    },
+    {
+      "path": "/notura/it/product",
+      "status": 301,
+      "location": "https://getnotura.com/it/product/",
+      "expectedLocation": "https://getnotura.com/it/product/",
+      "pass": true
+    },
+    {
+      "path": "/notura/it/how-it-works/",
+      "status": 301,
+      "location": "https://getnotura.com/it/how-it-works/",
+      "expectedLocation": "https://getnotura.com/it/how-it-works/",
+      "pass": true
+    },
+    {
+      "path": "/notura/it/how-it-works",
+      "status": 301,
+      "location": "https://getnotura.com/it/how-it-works/",
+      "expectedLocation": "https://getnotura.com/it/how-it-works/",
+      "pass": true
+    },
+    {
+      "path": "/notura/it/features/",
+      "status": 301,
+      "location": "https://getnotura.com/it/features/",
+      "expectedLocation": "https://getnotura.com/it/features/",
+      "pass": true
+    },
+    {
+      "path": "/notura/it/features",
+      "status": 301,
+      "location": "https://getnotura.com/it/features/",
+      "expectedLocation": "https://getnotura.com/it/features/",
+      "pass": true
+    },
+    {
+      "path": "/notura/it/privacy/",
+      "status": 301,
+      "location": "https://getnotura.com/it/privacy/",
+      "expectedLocation": "https://getnotura.com/it/privacy/",
+      "pass": true
+    },
+    {
+      "path": "/notura/it/privacy",
+      "status": 301,
+      "location": "https://getnotura.com/it/privacy/",
+      "expectedLocation": "https://getnotura.com/it/privacy/",
+      "pass": true
+    },
+    {
+      "path": "/notura/it/terms/",
+      "status": 301,
+      "location": "https://getnotura.com/it/terms/",
+      "expectedLocation": "https://getnotura.com/it/terms/",
+      "pass": true
+    },
+    {
+      "path": "/notura/it/terms",
+      "status": 301,
+      "location": "https://getnotura.com/it/terms/",
+      "expectedLocation": "https://getnotura.com/it/terms/",
+      "pass": true
+    },
+    {
+      "path": "/notura/pt-br/",
+      "status": 301,
+      "location": "https://getnotura.com/pt-br/",
+      "expectedLocation": "https://getnotura.com/pt-br/",
+      "pass": true
+    },
+    {
+      "path": "/notura/pt-br",
+      "status": 301,
+      "location": "https://getnotura.com/pt-br/",
+      "expectedLocation": "https://getnotura.com/pt-br/",
+      "pass": true
+    },
+    {
+      "path": "/notura/pt-br/product/",
+      "status": 301,
+      "location": "https://getnotura.com/pt-br/product/",
+      "expectedLocation": "https://getnotura.com/pt-br/product/",
+      "pass": true
+    },
+    {
+      "path": "/notura/pt-br/product",
+      "status": 301,
+      "location": "https://getnotura.com/pt-br/product/",
+      "expectedLocation": "https://getnotura.com/pt-br/product/",
+      "pass": true
+    },
+    {
+      "path": "/notura/pt-br/how-it-works/",
+      "status": 301,
+      "location": "https://getnotura.com/pt-br/how-it-works/",
+      "expectedLocation": "https://getnotura.com/pt-br/how-it-works/",
+      "pass": true
+    },
+    {
+      "path": "/notura/pt-br/how-it-works",
+      "status": 301,
+      "location": "https://getnotura.com/pt-br/how-it-works/",
+      "expectedLocation": "https://getnotura.com/pt-br/how-it-works/",
+      "pass": true
+    },
+    {
+      "path": "/notura/pt-br/features/",
+      "status": 301,
+      "location": "https://getnotura.com/pt-br/features/",
+      "expectedLocation": "https://getnotura.com/pt-br/features/",
+      "pass": true
+    },
+    {
+      "path": "/notura/pt-br/features",
+      "status": 301,
+      "location": "https://getnotura.com/pt-br/features/",
+      "expectedLocation": "https://getnotura.com/pt-br/features/",
+      "pass": true
+    },
+    {
+      "path": "/notura/pt-br/privacy/",
+      "status": 301,
+      "location": "https://getnotura.com/pt-br/privacy/",
+      "expectedLocation": "https://getnotura.com/pt-br/privacy/",
+      "pass": true
+    },
+    {
+      "path": "/notura/pt-br/privacy",
+      "status": 301,
+      "location": "https://getnotura.com/pt-br/privacy/",
+      "expectedLocation": "https://getnotura.com/pt-br/privacy/",
+      "pass": true
+    },
+    {
+      "path": "/notura/pt-br/terms/",
+      "status": 301,
+      "location": "https://getnotura.com/pt-br/terms/",
+      "expectedLocation": "https://getnotura.com/pt-br/terms/",
+      "pass": true
+    },
+    {
+      "path": "/notura/pt-br/terms",
+      "status": 301,
+      "location": "https://getnotura.com/pt-br/terms/",
+      "expectedLocation": "https://getnotura.com/pt-br/terms/",
+      "pass": true
+    },
+    {
+      "path": "/momentback/",
+      "status": 301,
+      "location": "https://sarperstudios.com/momentback/",
+      "expectedLocation": "https://sarperstudios.com/momentback/",
+      "pass": true
+    },
+    {
+      "path": "/momentback",
+      "status": 301,
+      "location": "https://sarperstudios.com/momentback/",
+      "expectedLocation": "https://sarperstudios.com/momentback/",
+      "pass": true
+    },
+    {
+      "path": "/momentback/privacy/",
+      "status": 301,
+      "location": "https://sarperstudios.com/momentback/privacy/",
+      "expectedLocation": "https://sarperstudios.com/momentback/privacy/",
+      "pass": true
+    },
+    {
+      "path": "/momentback/privacy",
+      "status": 301,
+      "location": "https://sarperstudios.com/momentback/privacy/",
+      "expectedLocation": "https://sarperstudios.com/momentback/privacy/",
+      "pass": true
+    },
+    {
+      "path": "/momentback/terms/",
+      "status": 301,
+      "location": "https://sarperstudios.com/momentback/terms/",
+      "expectedLocation": "https://sarperstudios.com/momentback/terms/",
+      "pass": true
+    },
+    {
+      "path": "/momentback/terms",
+      "status": 301,
+      "location": "https://sarperstudios.com/momentback/terms/",
+      "expectedLocation": "https://sarperstudios.com/momentback/terms/",
+      "pass": true
+    },
+    {
+      "path": "/momentback/tr/",
+      "status": 301,
+      "location": "https://sarperstudios.com/momentback/tr/",
+      "expectedLocation": "https://sarperstudios.com/momentback/tr/",
+      "pass": true
+    },
+    {
+      "path": "/momentback/tr",
+      "status": 301,
+      "location": "https://sarperstudios.com/momentback/tr/",
+      "expectedLocation": "https://sarperstudios.com/momentback/tr/",
+      "pass": true
+    },
+    {
+      "path": "/momentback/tr/privacy/",
+      "status": 301,
+      "location": "https://sarperstudios.com/momentback/tr/privacy/",
+      "expectedLocation": "https://sarperstudios.com/momentback/tr/privacy/",
+      "pass": true
+    },
+    {
+      "path": "/momentback/tr/privacy",
+      "status": 301,
+      "location": "https://sarperstudios.com/momentback/tr/privacy/",
+      "expectedLocation": "https://sarperstudios.com/momentback/tr/privacy/",
+      "pass": true
+    },
+    {
+      "path": "/momentback/tr/terms/",
+      "status": 301,
+      "location": "https://sarperstudios.com/momentback/tr/terms/",
+      "expectedLocation": "https://sarperstudios.com/momentback/tr/terms/",
+      "pass": true
+    },
+    {
+      "path": "/momentback/tr/terms",
+      "status": 301,
+      "location": "https://sarperstudios.com/momentback/tr/terms/",
+      "expectedLocation": "https://sarperstudios.com/momentback/tr/terms/",
+      "pass": true
+    },
+    {
+      "path": "/vergi-hesabim/",
+      "status": 301,
+      "location": "https://sarperstudios.com/vergi-hesabim/",
+      "expectedLocation": "https://sarperstudios.com/vergi-hesabim/",
+      "pass": true
+    },
+    {
+      "path": "/vergi-hesabim",
+      "status": 301,
+      "location": "https://sarperstudios.com/vergi-hesabim/",
+      "expectedLocation": "https://sarperstudios.com/vergi-hesabim/",
+      "pass": true
+    },
+    {
+      "path": "/vergi-hesabim/privacy/",
+      "status": 301,
+      "location": "https://sarperstudios.com/vergi-hesabim/privacy/",
+      "expectedLocation": "https://sarperstudios.com/vergi-hesabim/privacy/",
+      "pass": true
+    },
+    {
+      "path": "/vergi-hesabim/privacy",
+      "status": 301,
+      "location": "https://sarperstudios.com/vergi-hesabim/privacy/",
+      "expectedLocation": "https://sarperstudios.com/vergi-hesabim/privacy/",
+      "pass": true
+    },
+    {
+      "path": "/999kb/",
+      "status": 301,
+      "location": "https://sarperstudios.com/999kb/",
+      "expectedLocation": "https://sarperstudios.com/999kb/",
+      "pass": true
+    },
+    {
+      "path": "/999kb",
+      "status": 301,
+      "location": "https://sarperstudios.com/999kb/",
+      "expectedLocation": "https://sarperstudios.com/999kb/",
+      "pass": true
+    },
+    {
+      "path": "/999kb/privacy/",
+      "status": 301,
+      "location": "https://sarperstudios.com/999kb/privacy/",
+      "expectedLocation": "https://sarperstudios.com/999kb/privacy/",
+      "pass": true
+    },
+    {
+      "path": "/999kb/privacy",
+      "status": 301,
+      "location": "https://sarperstudios.com/999kb/privacy/",
+      "expectedLocation": "https://sarperstudios.com/999kb/privacy/",
+      "pass": true
+    },
+    {
+      "path": "/999kb/tr/",
+      "status": 301,
+      "location": "https://sarperstudios.com/999kb/tr/",
+      "expectedLocation": "https://sarperstudios.com/999kb/tr/",
+      "pass": true
+    },
+    {
+      "path": "/999kb/tr",
+      "status": 301,
+      "location": "https://sarperstudios.com/999kb/tr/",
+      "expectedLocation": "https://sarperstudios.com/999kb/tr/",
+      "pass": true
+    },
+    {
+      "path": "/999kb/tr/privacy/",
+      "status": 301,
+      "location": "https://sarperstudios.com/999kb/tr/privacy/",
+      "expectedLocation": "https://sarperstudios.com/999kb/tr/privacy/",
+      "pass": true
+    },
+    {
+      "path": "/999kb/tr/privacy",
+      "status": 301,
+      "location": "https://sarperstudios.com/999kb/tr/privacy/",
+      "expectedLocation": "https://sarperstudios.com/999kb/tr/privacy/",
+      "pass": true
+    },
+    {
+      "path": "/jutsu/",
+      "status": 301,
+      "location": "https://sarperstudios.com/jutsu/",
+      "expectedLocation": "https://sarperstudios.com/jutsu/",
+      "pass": true
+    },
+    {
+      "path": "/jutsu",
+      "status": 301,
+      "location": "https://sarperstudios.com/jutsu/",
+      "expectedLocation": "https://sarperstudios.com/jutsu/",
+      "pass": true
+    },
+    {
+      "path": "/jutsu/privacy/",
+      "status": 301,
+      "location": "https://sarperstudios.com/jutsu/privacy/",
+      "expectedLocation": "https://sarperstudios.com/jutsu/privacy/",
+      "pass": true
+    },
+    {
+      "path": "/jutsu/privacy",
+      "status": 301,
+      "location": "https://sarperstudios.com/jutsu/privacy/",
+      "expectedLocation": "https://sarperstudios.com/jutsu/privacy/",
+      "pass": true
+    },
+    {
+      "path": "/jutsu/tr/",
+      "status": 301,
+      "location": "https://sarperstudios.com/jutsu/tr/",
+      "expectedLocation": "https://sarperstudios.com/jutsu/tr/",
+      "pass": true
+    },
+    {
+      "path": "/jutsu/tr",
+      "status": 301,
+      "location": "https://sarperstudios.com/jutsu/tr/",
+      "expectedLocation": "https://sarperstudios.com/jutsu/tr/",
+      "pass": true
+    },
+    {
+      "path": "/jutsu/tr/privacy/",
+      "status": 301,
+      "location": "https://sarperstudios.com/jutsu/tr/privacy/",
+      "expectedLocation": "https://sarperstudios.com/jutsu/tr/privacy/",
+      "pass": true
+    },
+    {
+      "path": "/jutsu/tr/privacy",
+      "status": 301,
+      "location": "https://sarperstudios.com/jutsu/tr/privacy/",
+      "expectedLocation": "https://sarperstudios.com/jutsu/tr/privacy/",
+      "pass": true
+    },
+    {
+      "path": "/mergekin/",
+      "status": 301,
+      "location": "https://sarperstudios.com/mergekin/",
+      "expectedLocation": "https://sarperstudios.com/mergekin/",
+      "pass": true
+    },
+    {
+      "path": "/mergekin",
+      "status": 301,
+      "location": "https://sarperstudios.com/mergekin/",
+      "expectedLocation": "https://sarperstudios.com/mergekin/",
+      "pass": true
+    },
+    {
+      "path": "/mergekin/privacy/",
+      "status": 301,
+      "location": "https://sarperstudios.com/mergekin/privacy/",
+      "expectedLocation": "https://sarperstudios.com/mergekin/privacy/",
+      "pass": true
+    },
+    {
+      "path": "/mergekin/privacy",
+      "status": 301,
+      "location": "https://sarperstudios.com/mergekin/privacy/",
+      "expectedLocation": "https://sarperstudios.com/mergekin/privacy/",
+      "pass": true
+    },
+    {
+      "path": "/mergekin/gizlilik/",
+      "status": 301,
+      "location": "https://sarperstudios.com/mergekin/gizlilik/",
+      "expectedLocation": "https://sarperstudios.com/mergekin/gizlilik/",
+      "pass": true
+    },
+    {
+      "path": "/mergekin/gizlilik",
+      "status": 301,
+      "location": "https://sarperstudios.com/mergekin/gizlilik/",
+      "expectedLocation": "https://sarperstudios.com/mergekin/gizlilik/",
+      "pass": true
+    },
+    {
+      "path": "/kimo/",
+      "status": 301,
+      "location": "https://sarperstudios.com/kimo/",
+      "expectedLocation": "https://sarperstudios.com/kimo/",
+      "pass": true
+    },
+    {
+      "path": "/kimo",
+      "status": 301,
+      "location": "https://sarperstudios.com/kimo/",
+      "expectedLocation": "https://sarperstudios.com/kimo/",
+      "pass": true
+    },
+    {
+      "path": "/takip/",
+      "status": 301,
+      "location": "https://sarperstudios.com/takip/",
+      "expectedLocation": "https://sarperstudios.com/takip/",
+      "pass": true
+    },
+    {
+      "path": "/takip",
+      "status": 301,
+      "location": "https://sarperstudios.com/takip/",
+      "expectedLocation": "https://sarperstudios.com/takip/",
+      "pass": true
+    },
+    {
+      "path": "/takip/manifest.webmanifest",
+      "status": 301,
+      "location": "https://sarperstudios.com/takip/manifest.webmanifest",
+      "expectedLocation": "https://sarperstudios.com/takip/manifest.webmanifest",
+      "pass": true
+    },
+    {
+      "path": "/",
+      "status": 200,
+      "pass": true
+    },
+    {
+      "path": "/en/",
+      "status": 200,
+      "pass": true
+    },
+    {
+      "path": "/en/product/",
+      "status": 200,
+      "pass": true
+    },
+    {
+      "path": "/en/how-it-works/",
+      "status": 200,
+      "pass": true
+    },
+    {
+      "path": "/en/features/",
+      "status": 200,
+      "pass": true
+    },
+    {
+      "path": "/en/privacy/",
+      "status": 200,
+      "pass": true
+    },
+    {
+      "path": "/en/terms/",
+      "status": 200,
+      "pass": true
+    },
+    {
+      "path": "/tr/",
+      "status": 200,
+      "pass": true
+    },
+    {
+      "path": "/tr/product/",
+      "status": 200,
+      "pass": true
+    },
+    {
+      "path": "/tr/how-it-works/",
+      "status": 200,
+      "pass": true
+    },
+    {
+      "path": "/tr/features/",
+      "status": 200,
+      "pass": true
+    },
+    {
+      "path": "/tr/privacy/",
+      "status": 200,
+      "pass": true
+    },
+    {
+      "path": "/tr/terms/",
+      "status": 200,
+      "pass": true
+    },
+    {
+      "path": "/de/",
+      "status": 200,
+      "pass": true
+    },
+    {
+      "path": "/de/product/",
+      "status": 200,
+      "pass": true
+    },
+    {
+      "path": "/de/how-it-works/",
+      "status": 200,
+      "pass": true
+    },
+    {
+      "path": "/de/features/",
+      "status": 200,
+      "pass": true
+    },
+    {
+      "path": "/de/privacy/",
+      "status": 200,
+      "pass": true
+    },
+    {
+      "path": "/de/terms/",
+      "status": 200,
+      "pass": true
+    },
+    {
+      "path": "/es/",
+      "status": 200,
+      "pass": true
+    },
+    {
+      "path": "/es/product/",
+      "status": 200,
+      "pass": true
+    },
+    {
+      "path": "/es/how-it-works/",
+      "status": 200,
+      "pass": true
+    },
+    {
+      "path": "/es/features/",
+      "status": 200,
+      "pass": true
+    },
+    {
+      "path": "/es/privacy/",
+      "status": 200,
+      "pass": true
+    },
+    {
+      "path": "/es/terms/",
+      "status": 200,
+      "pass": true
+    },
+    {
+      "path": "/fr/",
+      "status": 200,
+      "pass": true
+    },
+    {
+      "path": "/fr/product/",
+      "status": 200,
+      "pass": true
+    },
+    {
+      "path": "/fr/how-it-works/",
+      "status": 200,
+      "pass": true
+    },
+    {
+      "path": "/fr/features/",
+      "status": 200,
+      "pass": true
+    },
+    {
+      "path": "/fr/privacy/",
+      "status": 200,
+      "pass": true
+    },
+    {
+      "path": "/fr/terms/",
+      "status": 200,
+      "pass": true
+    },
+    {
+      "path": "/it/",
+      "status": 200,
+      "pass": true
+    },
+    {
+      "path": "/it/product/",
+      "status": 200,
+      "pass": true
+    },
+    {
+      "path": "/it/how-it-works/",
+      "status": 200,
+      "pass": true
+    },
+    {
+      "path": "/it/features/",
+      "status": 200,
+      "pass": true
+    },
+    {
+      "path": "/it/privacy/",
+      "status": 200,
+      "pass": true
+    },
+    {
+      "path": "/it/terms/",
+      "status": 200,
+      "pass": true
+    },
+    {
+      "path": "/pt-br/",
+      "status": 200,
+      "pass": true
+    },
+    {
+      "path": "/pt-br/product/",
+      "status": 200,
+      "pass": true
+    },
+    {
+      "path": "/pt-br/how-it-works/",
+      "status": 200,
+      "pass": true
+    },
+    {
+      "path": "/pt-br/features/",
+      "status": 200,
+      "pass": true
+    },
+    {
+      "path": "/pt-br/privacy/",
+      "status": 200,
+      "pass": true
+    },
+    {
+      "path": "/pt-br/terms/",
+      "status": 200,
+      "pass": true
+    },
+    {
+      "path": "/unknown/",
+      "status": 404,
+      "pass": true
+    },
+    {
+      "path": "/notura/unknown/",
+      "status": 404,
+      "pass": true
+    },
+    {
+      "path": "/app-ads.txt",
+      "status": 200,
+      "pass": true
+    }
+  ]
+}

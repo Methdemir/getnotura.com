@@ -1,0 +1,2 @@
+# Keep ad-network verification bytes identical on Windows and Linux.
+public/app-ads.txt text eol=lf
