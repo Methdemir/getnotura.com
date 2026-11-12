@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="referrer" content="no-referrer">
+<meta name="robots" content="noindex,nofollow,noarchive">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; script-src 'self'; connect-src https://mkabqygeatrgiparxqsx.supabase.co; img-src 'self' data:; base-uri 'none'; form-action 'none'; frame-ancestors 'none'">
+<title>Servis Teklifi</title>
+<style>
+  :root { --bg:#f6f5fb; --card:#fff; --text:#1f1b2e; --muted:#6b6780; --border:#e6e3f0; --primary:#5b3fd6; --primary-soft:#efeafe;
+          --success:#1f8a4c; --success-soft:#e5f5ec; --danger:#c0392b; --danger-soft:#fbe9e7; --warning:#b36b00; --warning-soft:#fff3e0; }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--bg); color:var(--text); font:15px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif; }
+  main { max-width:560px; margin:0 auto; padding:16px; }
+  h1 { font-size:20px; margin:8px 0 2px; }
+  .muted { color:var(--muted); font-size:13px; }
+  .card { background:var(--card); border:1px solid var(--border); border-radius:16px; padding:16px; margin-top:12px; }
+  .card h2 { font-size:15px; margin:0 0 8px; }
+  .row { display:flex; justify-content:space-between; gap:12px; padding:6px 0; border-top:1px solid var(--border); }
+  .row:first-of-type { border-top:0; }
+  .row .l { flex:1; min-width:0; overflow-wrap:anywhere; }
+  .row .r { white-space:nowrap; font-variant-numeric:tabular-nums; }
+  .sub { color:var(--muted); font-size:12px; }
+  .total { font-size:18px; font-weight:700; }
+  .badge { display:inline-block; padding:4px 10px; border-radius:999px; font-size:13px; font-weight:600; }
+  .ok { background:var(--success-soft); color:var(--success); }
+  .no { background:var(--danger-soft); color:var(--danger); }
+  .warn { background:var(--warning-soft); color:var(--warning); }
+  .actions { display:flex; gap:12px; margin-top:16px; }
+  button { flex:1; min-height:52px; border-radius:14px; border:0; font:inherit; font-weight:700; cursor:pointer; }
+  .approve { background:var(--primary); color:#fff; }
+  .reject { background:var(--card); color:var(--danger); border:1px solid var(--border); }
+  button:disabled { opacity:.5; cursor:default; }
+  .plate { display:inline-block; border:2px solid var(--text); border-radius:6px; padding:2px 8px; font-weight:700; letter-spacing:1px; }
+  .hidden { display:none; }
+</style>
+</head>
+<body>
+<main>
+  <p class="muted" id="service"></p>
+  <h1>Servis Teklifi</h1>
+  <p class="muted" id="vehicle"></p>
+  <div id="status" class="card"><p>Teklif yükleniyor…</p></div>
+  <div id="quote" class="hidden">
+    <div class="card"><h2>Yapılacak işlemler</h2><div id="ops"></div></div>
+    <div class="card" id="partsCard"><h2>Parçalar</h2><div id="parts"></div></div>
+    <div class="card"><h2>Toplam</h2><div id="totals"></div></div>
+    <div id="decide" class="actions hidden">
+      <button class="reject" id="btnReject" type="button">Reddet</button>
+      <button class="approve" id="btnApprove" type="button">Teklifi Onayla</button>
+    </div>
+    <p class="muted">Onayınız tarih, saat ve bu teklif sürümüyle birlikte servise iletilir. Bu sayfa iletişim izni veya
+      pazarlama onayı değildir.</p>
+  </div>
+</main>
+<script src="/hmm/onay/onay.js" defer></script>
+</body>
+</html>

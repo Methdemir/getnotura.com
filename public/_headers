@@ -1,0 +1,7 @@
+# HMM Garaj müşteri teklif onayı: arama motoru dışı, önbelleksiz, yönlendiren adresi göndermez.
+/hmm/onay/*
+  X-Robots-Tag: noindex, nofollow, noarchive
+  Cache-Control: no-store
+  Referrer-Policy: no-referrer
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: DENY

@@ -64,12 +64,14 @@ const walk = async (directory) => {
 };
 const files = await walk(dist);
 const isTracker = (file) => file.startsWith(path.join(dist, "takip") + path.sep);
-const scriptFiles = files.filter((file) => file.endsWith(".js") && !isTracker(file));
+// HMM Garaj customer quote approval: unlisted, noindex, one scoped script (checked below).
+const isQuote = (file) => file.startsWith(path.join(dist, "hmm", "onay") + path.sep);
+const scriptFiles = files.filter((file) => file.endsWith(".js") && !isTracker(file) && !isQuote(file));
 if (scriptFiles.length) {
   throw new Error(`W1 client JavaScript budget exceeded: ${scriptFiles.join(", ")}`);
 }
 
-const inspectableFiles = files.filter((file) => /\.(?:html|css)$/i.test(file) && !isTracker(file));
+const inspectableFiles = files.filter((file) => /\.(?:html|css)$/i.test(file) && !isTracker(file) && !isQuote(file));
 const inspectableText = (
   await Promise.all(inspectableFiles.map((file) => readFile(file, "utf8")))
 ).join("\n");
@@ -430,16 +432,29 @@ console.log(
 const trackerHtml = await readFile(pageFile("/takip/"), "utf8");
 if (!trackerHtml.includes('content="noindex,nofollow,noarchive"')) throw new Error("Tracker must be noindex.");
 if (sitemapPaths.has("/takip/")) throw new Error("Tracker must not appear in sitemap.");
-for (const file of files.filter(f=>f.endsWith(".html")&&!isTracker(f))) {
+for (const file of files.filter(f=>f.endsWith(".html")&&!isTracker(f)&&!isQuote(f))) {
   if (/href=["'][^"']*\/takip(?:\/|["'])/.test(await readFile(file,"utf8"))) throw new Error("Public page links to tracker.");
 }
 const trackerScripts = files.filter(f=>f.endsWith(".js")&&isTracker(f));
 if (trackerScripts.length !== 2 || trackerScripts.some(f=>!["install.js","sw.js"].includes(path.basename(f)))) throw new Error("Unexpected tracker scripts.");
 console.log("Unlisted tracker: no public links, no sitemap entry, noindex, scoped PWA scripts verified.");
 
+// HMM Garaj quote approval page: same unlisted rules, one script, strict CSP, no public links.
+const quoteHtml = await readFile(pageFile("/hmm/onay/"), "utf8");
+if (!quoteHtml.includes('content="noindex,nofollow,noarchive"')) throw new Error("Quote page must be noindex.");
+if (!/script-src 'self';/.test(quoteHtml) || /unsafe-inline'; connect/.test(quoteHtml)) throw new Error("Quote page CSP must forbid inline script.");
+if (/<script\b(?![^>]*\bsrc="\/hmm\/onay\/onay\.js")/i.test(quoteHtml)) throw new Error("Quote page may only load its own script.");
+if ([...sitemapPaths].some((p) => p.startsWith("/hmm/"))) throw new Error("Quote page must not appear in sitemap.");
+for (const file of files.filter((f) => f.endsWith(".html") && !isQuote(f))) {
+  if (/href=["'][^"']*\/hmm\/onay/.test(await readFile(file, "utf8"))) throw new Error("Public page links to quote page.");
+}
+const quoteFiles = files.filter(isQuote).map((f) => path.basename(f)).sort();
+if (quoteFiles.join(",") !== "index.html,onay.js") throw new Error(`Unexpected quote page files: ${quoteFiles}`);
+console.log("HMM quote page: unlisted, noindex, strict CSP, single scoped script verified.");
+
 // Every public HTML page is a self-canonical, crawlable document represented in the sitemap.
 const canonicalSet = new Set();
-for (const file of files.filter((f) => f.endsWith(".html") && !isTracker(f) && f !== notFoundPath)) {
+for (const file of files.filter((f) => f.endsWith(".html") && !isTracker(f) && !isQuote(f) && f !== notFoundPath)) {
   const html = await readFile(file, "utf8");
   const relative = path.relative(dist, file).replaceAll(path.sep, "/");
   const urlPath = "/" + relative.replace(/index\.html$/, "");
