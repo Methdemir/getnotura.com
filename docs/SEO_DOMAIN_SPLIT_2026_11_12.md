@@ -120,3 +120,7 @@ MomentBack sitemap eksikliği giderildi; bu Google'ın “Tarandı” kararını
 - Salt okunur bağımsız inceleme, ilk Notura sürümündeki eski-link404 riskini buldu; yukarıdaki uyumluluk commit'iyle giderildi. Studio203e741 ayrıca bağımsız incelendi, engelleyici kod bulgusu yok; validate:build tekrarPASS.
 - Eski Takip installedPWA serviceworker/manifest origin göçü ayrıca canlı kullanıcı kabulü ister. Tracker backend'i ayrı iframe origininde olduğundan veri taşıma yapılmadı.
 - Bu ek testler yereldir; gerçek pages.dev/domain/SSL doğrulamasının yerini tutmaz. Canlı301sonucu hâlâ0/43 başlangıç durumundadır; bitiş kriteri henüz karşılanmadı.
+
+## Linux CI düzeltmesi
+
+DraftPR https://github.com/Methdemir/getnotura.com/pull/1 açıldı. İlkLinuxCI app-ads.txt WindowsCRLF baseline farkını yakaladı. Dosyanın başlangıç0967f72Gitblob(LF) baytları çalışma alanına geri yazıldı, public/app-ads.txt için .gitattributes eol=lf sabitlendi ve fixture hash kaynakGitblobundan yeniden hesaplandı. İçerik/satıcı değişikliği yapılmadı. Nihai kod SHA gitlog/PR head üzerinden okunmalıdır; ilk203e741 commit'ine ek çaprazplatform düzeltme commit'i vardır.

@@ -22,7 +22,7 @@
     "vergi-hesabim/index.html": "38f17c023866fb082ab1d36130a2f5a7435ea5c8352fa8e468abaf6a8970beac",
     "vergi-hesabim/privacy/index.html": "8cab973b6102a42cceb701fbdd17fa913b91a57cf42ea458bed22eeecf380e0a",
     "takip/index.html": "4fb1c016a5b4c2c1e27408ad51b851838b05f72ad45370b0f5fd1a878e33b606",
-    "app-ads.txt": "20a66a8a955dd3a1b2931435c56900f9a7d9a68e187677eaa0b58a7899ae607c"
+    "app-ads.txt": "e16eb956f2576d7dee40d2795f717ffc33bd526c982604fe65df7d8575cd5821"
   },
   "allowedLinkMigration": "Only MomentBack footer href=\"/notura/\" becomes href=\"https://getnotura.com/\"; all other bytes stay identical.",
   "allowedLinkMigrationHashes": {
@@ -32,5 +32,6 @@
     "momentback/tr/index.html": "09659b523ae40227aec893795b9f6c831184a6d524ed8c3613e73c75940c8978",
     "momentback/tr/privacy/index.html": "4667e6c9c2ae0f7f4a46558047aba8275f46db8bffc05a5ab0f8de360b8c004a",
     "momentback/tr/terms/index.html": "a715aa607cc62c6b14d18154e74ee5a9837bed0b5e0d89c6894fa26a83495b20"
-  }
+  },
+  "adFileBaseline": "app-ads.txt SHA is computed from the sourceCommit Git blob (LF), enforced by .gitattributes; the initial Windows checkout used CRLF."
 }
