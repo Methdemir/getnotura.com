@@ -124,3 +124,9 @@ MomentBack sitemap eksikliği giderildi; bu Google'ın “Tarandı” kararını
 ## Linux CI düzeltmesi
 
 DraftPR https://github.com/Methdemir/getnotura.com/pull/1 açıldı. İlkLinuxCI app-ads.txt WindowsCRLF baseline farkını yakaladı. Dosyanın başlangıç0967f72Gitblob(LF) baytları çalışma alanına geri yazıldı, public/app-ads.txt için .gitattributes eol=lf sabitlendi ve fixture hash kaynakGitblobundan yeniden hesaplandı. İçerik/satıcı değişikliği yapılmadı. Nihai kod SHA gitlog/PR head üzerinden okunmalıdır; ilk203e741 commit'ine ek çaprazplatform düzeltme commit'i vardır.
+
+## Nihai kod commitleri ve GitHub CI
+
+- Studio nihai kod SHA: `851eb0c9c245ed9e0deb627b9b57b3612847a9c1` (draftPR#1, main'e merge edilmedi). [Linux CI43171401982: success](https://github.com/Methdemir/getnotura.com/actions/runs/43171401982). CRLF düzeltmesi sonrası tamvalidate yeniden yerelde veLinuxCI'da geçti.
+- Notura nihai kod SHA: `8cecfb8a67deac7cdb6c5dd7662e4c8a432cba05` (main). [Linux CI43170804529: success](https://github.com/Methdemir/getnotura.com2/actions/runs/43170804529).
+- Bu sonuçların kaydı ayrı dokümantasyon commit'inde tutulur; yukarıdakiSHA'lar doğrulanan kod sürümleridir.
