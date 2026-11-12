@@ -1,0 +1,303 @@
+[
+  {
+    "path": "/notura/",
+    "status": 200,
+    "location": null,
+    "noindex": true,
+    "expectedLocation": "https://getnotura.com/"
+  },
+  {
+    "path": "/notura/en/",
+    "status": 200,
+    "location": null,
+    "noindex": true,
+    "expectedLocation": "https://getnotura.com/en/"
+  },
+  {
+    "path": "/notura/en/product/",
+    "status": 200,
+    "location": null,
+    "noindex": true,
+    "expectedLocation": "https://getnotura.com/en/product/"
+  },
+  {
+    "path": "/notura/en/how-it-works/",
+    "status": 200,
+    "location": null,
+    "noindex": true,
+    "expectedLocation": "https://getnotura.com/en/how-it-works/"
+  },
+  {
+    "path": "/notura/en/features/",
+    "status": 200,
+    "location": null,
+    "noindex": true,
+    "expectedLocation": "https://getnotura.com/en/features/"
+  },
+  {
+    "path": "/notura/en/privacy/",
+    "status": 200,
+    "location": null,
+    "noindex": true,
+    "expectedLocation": "https://getnotura.com/en/privacy/"
+  },
+  {
+    "path": "/notura/en/terms/",
+    "status": 200,
+    "location": null,
+    "noindex": true,
+    "expectedLocation": "https://getnotura.com/en/terms/"
+  },
+  {
+    "path": "/notura/tr/",
+    "status": 200,
+    "location": null,
+    "noindex": true,
+    "expectedLocation": "https://getnotura.com/tr/"
+  },
+  {
+    "path": "/notura/tr/product/",
+    "status": 200,
+    "location": null,
+    "noindex": true,
+    "expectedLocation": "https://getnotura.com/tr/product/"
+  },
+  {
+    "path": "/notura/tr/how-it-works/",
+    "status": 200,
+    "location": null,
+    "noindex": true,
+    "expectedLocation": "https://getnotura.com/tr/how-it-works/"
+  },
+  {
+    "path": "/notura/tr/features/",
+    "status": 200,
+    "location": null,
+    "noindex": true,
+    "expectedLocation": "https://getnotura.com/tr/features/"
+  },
+  {
+    "path": "/notura/tr/privacy/",
+    "status": 200,
+    "location": null,
+    "noindex": true,
+    "expectedLocation": "https://getnotura.com/tr/privacy/"
+  },
+  {
+    "path": "/notura/tr/terms/",
+    "status": 200,
+    "location": null,
+    "noindex": true,
+    "expectedLocation": "https://getnotura.com/tr/terms/"
+  },
+  {
+    "path": "/notura/de/",
+    "status": 200,
+    "location": null,
+    "noindex": true,
+    "expectedLocation": "https://getnotura.com/de/"
+  },
+  {
+    "path": "/notura/de/product/",
+    "status": 200,
+    "location": null,
+    "noindex": true,
+    "expectedLocation": "https://getnotura.com/de/product/"
+  },
+  {
+    "path": "/notura/de/how-it-works/",
+    "status": 200,
+    "location": null,
+    "noindex": true,
+    "expectedLocation": "https://getnotura.com/de/how-it-works/"
+  },
+  {
+    "path": "/notura/de/features/",
+    "status": 200,
+    "location": null,
+    "noindex": true,
+    "expectedLocation": "https://getnotura.com/de/features/"
+  },
+  {
+    "path": "/notura/de/privacy/",
+    "status": 200,
+    "location": null,
+    "noindex": true,
+    "expectedLocation": "https://getnotura.com/de/privacy/"
+  },
+  {
+    "path": "/notura/de/terms/",
+    "status": 200,
+    "location": null,
+    "noindex": true,
+    "expectedLocation": "https://getnotura.com/de/terms/"
+  },
+  {
+    "path": "/notura/es/",
+    "status": 200,
+    "location": null,
+    "noindex": true,
+    "expectedLocation": "https://getnotura.com/es/"
+  },
+  {
+    "path": "/notura/es/product/",
+    "status": 200,
+    "location": null,
+    "noindex": true,
+    "expectedLocation": "https://getnotura.com/es/product/"
+  },
+  {
+    "path": "/notura/es/how-it-works/",
+    "status": 200,
+    "location": null,
+    "noindex": true,
+    "expectedLocation": "https://getnotura.com/es/how-it-works/"
+  },
+  {
+    "path": "/notura/es/features/",
+    "status": 200,
+    "location": null,
+    "noindex": true,
+    "expectedLocation": "https://getnotura.com/es/features/"
+  },
+  {
+    "path": "/notura/es/privacy/",
+    "status": 200,
+    "location": null,
+    "noindex": true,
+    "expectedLocation": "https://getnotura.com/es/privacy/"
+  },
+  {
+    "path": "/notura/es/terms/",
+    "status": 200,
+    "location": null,
+    "noindex": true,
+    "expectedLocation": "https://getnotura.com/es/terms/"
+  },
+  {
+    "path": "/notura/fr/",
+    "status": 200,
+    "location": null,
+    "noindex": true,
+    "expectedLocation": "https://getnotura.com/fr/"
+  },
+  {
+    "path": "/notura/fr/product/",
+    "status": 200,
+    "location": null,
+    "noindex": true,
+    "expectedLocation": "https://getnotura.com/fr/product/"
+  },
+  {
+    "path": "/notura/fr/how-it-works/",
+    "status": 200,
+    "location": null,
+    "noindex": true,
+    "expectedLocation": "https://getnotura.com/fr/how-it-works/"
+  },
+  {
+    "path": "/notura/fr/features/",
+    "status": 200,
+    "location": null,
+    "noindex": true,
+    "expectedLocation": "https://getnotura.com/fr/features/"
+  },
+  {
+    "path": "/notura/fr/privacy/",
+    "status": 200,
+    "location": null,
+    "noindex": true,
+    "expectedLocation": "https://getnotura.com/fr/privacy/"
+  },
+  {
+    "path": "/notura/fr/terms/",
+    "status": 200,
+    "location": null,
+    "noindex": true,
+    "expectedLocation": "https://getnotura.com/fr/terms/"
+  },
+  {
+    "path": "/notura/it/",
+    "status": 200,
+    "location": null,
+    "noindex": true,
+    "expectedLocation": "https://getnotura.com/it/"
+  },
+  {
+    "path": "/notura/it/product/",
+    "status": 200,
+    "location": null,
+    "noindex": true,
+    "expectedLocation": "https://getnotura.com/it/product/"
+  },
+  {
+    "path": "/notura/it/how-it-works/",
+    "status": 200,
+    "location": null,
+    "noindex": true,
+    "expectedLocation": "https://getnotura.com/it/how-it-works/"
+  },
+  {
+    "path": "/notura/it/features/",
+    "status": 200,
+    "location": null,
+    "noindex": true,
+    "expectedLocation": "https://getnotura.com/it/features/"
+  },
+  {
+    "path": "/notura/it/privacy/",
+    "status": 200,
+    "location": null,
+    "noindex": true,
+    "expectedLocation": "https://getnotura.com/it/privacy/"
+  },
+  {
+    "path": "/notura/it/terms/",
+    "status": 200,
+    "location": null,
+    "noindex": true,
+    "expectedLocation": "https://getnotura.com/it/terms/"
+  },
+  {
+    "path": "/notura/pt-br/",
+    "status": 200,
+    "location": null,
+    "noindex": true,
+    "expectedLocation": "https://getnotura.com/pt-br/"
+  },
+  {
+    "path": "/notura/pt-br/product/",
+    "status": 200,
+    "location": null,
+    "noindex": true,
+    "expectedLocation": "https://getnotura.com/pt-br/product/"
+  },
+  {
+    "path": "/notura/pt-br/how-it-works/",
+    "status": 200,
+    "location": null,
+    "noindex": true,
+    "expectedLocation": "https://getnotura.com/pt-br/how-it-works/"
+  },
+  {
+    "path": "/notura/pt-br/features/",
+    "status": 200,
+    "location": null,
+    "noindex": true,
+    "expectedLocation": "https://getnotura.com/pt-br/features/"
+  },
+  {
+    "path": "/notura/pt-br/privacy/",
+    "status": 200,
+    "location": null,
+    "noindex": true,
+    "expectedLocation": "https://getnotura.com/pt-br/privacy/"
+  },
+  {
+    "path": "/notura/pt-br/terms/",
+    "status": 200,
+    "location": null,
+    "noindex": true,
+    "expectedLocation": "https://getnotura.com/pt-br/terms/"
+  }
+]
