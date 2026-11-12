@@ -14,7 +14,8 @@
     "validate:translations": "node scripts/validate-translations.mjs",
     "validate:locales": "node scripts/validate-locales.mjs",
     "validate:build": "node scripts/validate-build.mjs",
-    "validate": "npm run validate:translations && npm run validate:locales && npm run check && npm run build && npm run validate:build"
+    "validate": "npm run validate:translations && npm run validate:locales && npm run check && npm run build && npm run validate:build",
+    "prebuild": "node scripts/generate-redirects.mjs"
   },
   "devDependencies": {
     "@astrojs/check": "0.9.6",
