@@ -44,7 +44,10 @@ function render(d) {
     }
     $("partsCard").classList.toggle("hidden", !(q.parts || []).length);
     const t = q.totals, tot = $("totals"); tot.replaceChildren();
-    if (q.labor_total_kurus != null) tot.appendChild(row("İşçilik", null, tl(q.labor_total_kurus)));
+    const opSum = (q.operations || []).reduce((s, o) => s + (o.total_kurus != null ? Number(o.total_kurus) : 0), 0);
+    const labor = q.labor_total_kurus != null ? Number(q.labor_total_kurus) : opSum;
+    // Eski usul (kalem başına işçilik) tekliflerde de işçilik toplamı görünsün.
+    if (labor > 0 || q.labor_total_kurus != null) tot.appendChild(row("İşçilik", null, tl(labor)));
     if ((q.parts || []).length) tot.appendChild(row("Parçalar", null, tl((q.parts || []).reduce((s, p) => s + Number(p.total_kurus), 0))));
     if (Number(t.discount_kurus) > 0) tot.appendChild(row("İndirim", null, "−" + tl(t.discount_kurus)));
     if (Number(t.vat_rate_bps) > 0) tot.appendChild(row("KDV (%" + (Number(t.vat_rate_bps) / 100).toLocaleString("tr-TR") + ")", null, tl(t.vat_kurus)));
