@@ -267,8 +267,6 @@ export interface MomentBackCopy {
     terms: string;
     contactLabel: string;
     contactNote: string;
-    noturaLabel: string;
-    noturaLink: string;
     rights: string;
     credits: {
       label: string;
@@ -823,8 +821,6 @@ const en: MomentBackCopy = {
     terms: "Terms of Use",
     contactLabel: "Contact",
     contactNote: "Support and privacy questions",
-    noturaLabel: "Also from us",
-    noturaLink: "Notura",
     rights: "© 2026 MomentBack. All rights reserved.",
     credits: {
       label: "Photography",
@@ -1368,8 +1364,6 @@ const tr: MomentBackCopy = {
     terms: "Kullanım Koşulları",
     contactLabel: "İletişim",
     contactNote: "Destek ve gizlilik soruları",
-    noturaLabel: "Bizden ayrıca",
-    noturaLink: "Notura",
     rights: "© 2026 MomentBack. Tüm hakları saklıdır.",
     credits: {
       label: "Fotoğraflar",

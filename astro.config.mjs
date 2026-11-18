@@ -5,5 +5,5 @@ export default defineConfig({
   output: "static",
   trailingSlash: "always",
   compressHTML: true,
-  // Cloudflare serves real HTTP 301s from public/_redirects. No HTML redirects.
+  // No redirects: every former Notura address simply answers 404.
 });

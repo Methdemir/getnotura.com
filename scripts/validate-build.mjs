@@ -1,7 +1,6 @@
 import { access, readFile, readdir } from "node:fs/promises";
 import { constants } from "node:fs";
 import { createHash } from "node:crypto";
-import { noturaRedirects, redirectsText } from "./notura-redirects.mjs";
 import { fileURLToPath } from "node:url";
 import path from "node:path";
 
@@ -204,22 +203,15 @@ for (const vergiPath of vergiPages) {
   }
 }
 
-/** HTTP rules replace every former Notura HTML page, including root-locale aliases. */
-const builtRedirects = await readFile(path.join(dist, "_redirects"), "utf8");
-if (builtRedirects !== redirectsText) throw new Error("Built HTTP redirect rules have drifted from config.");
-const redirectSources = new Set();
-for (const line of builtRedirects.split("\n").filter((line) => line && !line.startsWith("#"))) {
-  const [source, destination, status, extra] = line.split(/\s+/);
-  if (extra || status !== "301" || !destination.startsWith("https://getnotura.com/")) throw new Error(`Invalid HTTP redirect: ${line}`);
-  if (redirectSources.has(source)) throw new Error(`Duplicate redirect source: ${source}`);
-  redirectSources.add(source);
-}
-for (const { source, destination } of noturaRedirects) {
-  if (await exists(pageFile(source))) throw new Error(`Old Notura content or HTML redirect remains: ${source}`);
-  if (sitemapPaths.has(source)) throw new Error(`Redirect source remains in sitemap: ${source}`);
-  for (const variant of [source, source.slice(0, -1)]) {
-    if (!builtRedirects.includes(`${variant} ${destination} 301\n`)) throw new Error(`Missing HTTP 301: ${variant}`);
-  }
+/**
+ * Notura no longer belongs to this site: no page, no redirect rule, no link. Every former
+ * Notura address (the /notura/ prefix and the root-locale aliases) must answer 404.
+ */
+if (await exists(path.join(dist, "_redirects"))) throw new Error("_redirects must not exist: the studio site publishes no redirects.");
+const retiredNoturaPaths = ["/notura/", "/notura/en/", "/notura/tr/privacy/", "/en/", "/tr/", "/en/privacy/", "/de/terms/"];
+for (const retired of retiredNoturaPaths) {
+  if (await exists(pageFile(retired))) throw new Error(`Retired Notura page remains: ${retired}`);
+  if (sitemapPaths.has(retired)) throw new Error(`Retired Notura path remains in sitemap: ${retired}`);
 }
 
 /**
@@ -424,7 +416,7 @@ if (/^\s*Disallow:\s*\/app-ads\.txt/im.test(robotsTxt)) {
 console.log(
   `Build validation passed for the studio pages, 404, CNAME, ` +
     `reciprocal hreflang, internal links, ${sitemapLocs.length} sitemap entries, robots.txt, ` +
-    `no unpublished store URLs, zero client JavaScript, ${noturaRedirects.length} Notura HTTP 301 mappings, the studio root, ` +
+    `no unpublished store URLs, zero client JavaScript, no Notura content or redirect, the studio root, ` +
     `the Vergi Hesabım, 999KB Arcade, Jutsu and MERGEKIN pages (with the verbatim MERGEKIN policy text) and app-ads.txt.`,
 );
 
@@ -476,7 +468,7 @@ for (const file of files.filter((f) => f.endsWith(".html") && !isTracker(f) && !
   }
 }
 if (canonicalSet.size !== sitemapPaths.size || sitemapPaths.size !== sitemapLocs.length) throw new Error("Sitemap must list each public canonical exactly once.");
-if (!studioHtml.includes('href="https://getnotura.com/"') || !studioHtml.includes('href="https://getnotura.com/en/privacy/"')) throw new Error("Notura card links must use the standalone domain.");
+if (/notura/i.test(studioHtml)) throw new Error("The studio root must not mention Notura.");
 const baseline = JSON.parse(await readFile(path.join(root, "docs/seo-domain-split/studio-baseline-hashes.json"), "utf8"));
 for (const [relative, hash] of Object.entries(baseline.hashes)) {
   const actual = createHash("sha256").update(await readFile(path.join(dist, relative))).digest("hex");
