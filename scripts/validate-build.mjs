@@ -58,26 +58,8 @@ const dictionaries = new Map(
     ]),
   ),
 );
-const expectedPages = [
-  // Notura's neutral root is the x-default entry and serves the English home,
-  // so it carries the English home title rather than a title of its own.
-  {
-    path: `${noturaBase}/`,
-    lang: "en",
-    selfHreflang: "x-default",
-    destination: "home",
-    title: dictionaries.get("en").metaHomeTitle,
-  },
-  ...published.flatMap((locale) =>
-    publishedDestinations.map((destination) => ({
-      path: destinationPath(locale, destination),
-      lang: locale.htmlLang,
-      selfHreflang: locale.hreflang,
-      destination,
-      title: dictionaries.get(locale.id)[metaTitleKeys[destination]],
-    })),
-  ),
-];
+// Notura no longer belongs to this site: there are no localized Notura pages to expect.
+const expectedPages = [];
 const pageRecords = [];
 
 for (const expected of expectedPages) {
@@ -341,27 +323,10 @@ for (const vergiPath of vergiPages) {
   }
 }
 
-/**
- * Notura moved from the domain root to /notura/. Every old published URL must
- * still exist as a static redirect page pointing at its new home, so the
- * Notura app's links and anyone's bookmarks keep working.
- */
-for (const locale of published) {
-  for (const destination of publishedDestinations) {
-    const oldPath = legacyPath(locale, destination);
-    const newPath = destinationPath(locale, destination);
-    const file = pageFile(oldPath);
-    if (!(await exists(file))) {
-      throw new Error(`Missing legacy redirect page: ${oldPath}`);
-    }
-    const html = await readFile(file, "utf8");
-    if (!html.includes(`http-equiv="refresh" content="0;url=${newPath}"`)) {
-      throw new Error(`Legacy page ${oldPath} does not redirect to ${newPath}.`);
-    }
-    if (!/<meta\b[^>]*name="robots"[^>]*content="noindex"/i.test(html)) {
-      throw new Error(`Legacy redirect ${oldPath} must be noindex.`);
-    }
-  }
+/** Notura left this site: no page, no redirect page, no sitemap entry under any former address. */
+for (const retired of ["/notura/", "/notura/en/", "/notura/tr/privacy/", "/en/", "/tr/", "/en/privacy/", "/de/terms/"]) {
+  if (await exists(pageFile(retired))) throw new Error(`Retired Notura page remains: ${retired}`);
+  if (sitemapPaths.has(retired)) throw new Error(`Retired Notura path remains in sitemap: ${retired}`);
 }
 
 /**
@@ -566,7 +531,7 @@ if (/^\s*Disallow:\s*\/app-ads\.txt/im.test(robotsTxt)) {
 console.log(
   `Build validation passed for ${expectedPages.length} canonical pages, localized titles, 404, CNAME, ` +
     `reciprocal hreflang, internal links, ${sitemapLocs.length} sitemap entries, robots.txt, ` +
-    `no unpublished store URLs, zero client JavaScript, the Notura legacy redirects, the studio root, ` +
+    `no unpublished store URLs, zero client JavaScript, no Notura content, the studio root, ` +
     `the Vergi Hesabım, 999KB Arcade, Jutsu and MERGEKIN pages (with the verbatim MERGEKIN policy text) and app-ads.txt.`,
 );
 

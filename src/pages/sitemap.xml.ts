@@ -2,13 +2,6 @@ import type { APIRoute } from "astro";
 import { appPages, appPath, type AppLocale } from "../content/studio";
 import { mergekin } from "../content/mergekin";
 import { vergiHesabim } from "../content/vergi-hesabim";
-import { publishedLocales } from "../i18n/locales";
-import {
-  alternateLinks,
-  localizedPath,
-  publishedDestinations,
-  type Destination,
-} from "../i18n/routes";
 
 /**
  * The sitemap, generated from the same route config the pages and the build
@@ -18,39 +11,13 @@ import {
  * Each URL carries its full `xhtml:link` alternate set, so the language
  * relationships a crawler sees here match the `hreflang` tags on the pages.
  *
- * Scope: the Sarper Studios root, Notura, Vergi Hesabım, 999KB Arcade,
+ * Scope: the Sarper Studios root, Vergi Hesabım, 999KB Arcade,
  * Jutsu, MERGEKIN and Kim O?. `/momentback/` is published on its own schedule and is deliberately
  * not enumerated here.
  */
 const ORIGIN = "https://sarperstudios.com";
 
-interface Entry {
-  path: string;
-  destination: Destination;
-}
-
-const entries: Entry[] = [
-  { path: "/notura/", destination: "home" },
-  ...publishedLocales.flatMap((locale) =>
-    publishedDestinations.map((destination) => ({
-      path: localizedPath(locale.id, destination),
-      destination: destination as Destination,
-    })),
-  ),
-];
-
 const absolute = (path: string) => new URL(path, ORIGIN).href;
-
-const urlEntry = ({ path, destination }: Entry) => {
-  const alternates = alternateLinks(destination)
-    .map(
-      (alternate) =>
-        `    <xhtml:link rel="alternate" hreflang="${alternate.hreflang}" href="${absolute(alternate.href)}" />`,
-    )
-    .join("\n");
-
-  return `  <url>\n    <loc>${absolute(path)}</loc>\n${alternates}\n  </url>`;
-};
 
 const plainEntry = (path: string) => `  <url>\n    <loc>${absolute(path)}</loc>\n  </url>`;
 
@@ -98,7 +65,6 @@ ${[
   plainEntry("/"),
   ...mergekinEntries,
   plainEntry("/kimo/"),
-  ...entries.map(urlEntry),
   ...Object.values(vergiHesabim.paths).map(plainEntry),
   ...appEntries,
 ].join("\n")}

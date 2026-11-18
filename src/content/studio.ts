@@ -47,16 +47,6 @@ export interface StudioApp {
 /** Every product the studio publishes, in the order the index lists them. */
 export const studioApps: StudioApp[] = [
   {
-    id: "notura",
-    name: "Notura",
-    href: "/notura/",
-    privacyHref: "/notura/en/privacy/",
-    line: "A nutrition tracker that shows what it could not determine.",
-    kind: "Health · Android, iOS",
-    status: "Coming soon",
-    mark: "/favicon/notura-symbol.png",
-  },
-  {
     id: "momentback",
     name: "MomentBack",
     href: "/momentback/",
