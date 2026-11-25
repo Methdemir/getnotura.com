@@ -24,7 +24,7 @@
     "takip/index.html": "4fb1c016a5b4c2c1e27408ad51b851838b05f72ad45370b0f5fd1a878e33b606",
     "app-ads.txt": "e16eb956f2576d7dee40d2795f717ffc33bd526c982604fe65df7d8575cd5821"
   },
-  "allowedLinkMigration": "Only the MomentBack footer \"Also from us / Notura\" block was removed on 2026-11-18 (Notura left this site); all other bytes stay identical.",
+  "allowedLinkMigration": "Only the MomentBack footer cross-link block was removed on 2026-11-18; all other bytes stay identical.",
   "allowedLinkMigrationHashes": {},
   "adFileBaseline": "app-ads.txt SHA is computed from the sourceCommit Git blob (LF), enforced by .gitattributes; the initial Windows checkout used CRLF.",
   "storeLinkUpdate": {

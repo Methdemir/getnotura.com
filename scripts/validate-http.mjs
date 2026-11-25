@@ -10,7 +10,7 @@ for (const match of sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)) {
   const body = await response.text();
   results.push({ path, status: response.status, pass: response.status === 200 && body.includes(match[1]) && !body.includes('http-equiv="refresh"') });
 }
-for (const path of ["/this-page-does-not-exist/", "/notura/", "/notura/en/", "/notura/tr/privacy/", "/en/", "/tr/", "/en/privacy/", "/de/terms/"]) {
+for (const path of ["/this-page-does-not-exist/"]) {
   const response = await fetch(new URL(path, base), { redirect: "manual" });
   results.push({ path, status: response.status, pass: response.status === 404 });
   await response.body?.cancel();

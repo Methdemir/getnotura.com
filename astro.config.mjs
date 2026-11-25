@@ -5,5 +5,5 @@ export default defineConfig({
   output: "static",
   trailingSlash: "always",
   compressHTML: true,
-  // No redirects: every former Notura address simply answers 404.
+  // No redirects: an address the site does not publish answers 404.
 });

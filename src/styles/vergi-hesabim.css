@@ -1,8 +1,7 @@
 /*
  * Vergi Hesabım — Sarper Studios' tax calculator, a sub-brand surface.
  *
- * Standalone like momentback.css: it does not extend Notura's global.css and
- * nothing here reaches /[locale]/ or /momentback/. Every rule is scoped under
+ * Standalone like momentback.css: nothing here reaches another product. Every rule is scoped under
  * the `vh` body class or a `vh-` component class.
  *
  * The palette is the app's, not a website reading of it: AppColors.brand

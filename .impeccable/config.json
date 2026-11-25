@@ -9,7 +9,7 @@
         "rule": "overused-font",
         "value": "plus jakarta sans",
         "createdAt": "2026-08-11T06:49:43.783Z",
-        "reason": "Brand commitment inherited from the Notura mobile app; bundled OFL TTFs, recorded in PRODUCT.md"
+        "reason": "Shared product font; bundled OFL TTFs in public/fonts"
       },
       {
         "rule": "design-system-font",
@@ -18,7 +18,7 @@
           "src/styles/vergi-hesabim.css"
         ],
         "createdAt": "2026-10-06T11:38:14.628Z",
-        "reason": "Claude decision: standalone Vergi Hesabım sub-brand stylesheet, tokens from the app's theme, documented in DESIGN.md 'Sub-brand: Vergi Hesabım'; Notura's ramp does not apply (same as momentback.css)"
+        "reason": "Claude decision: standalone Vergi Hesabım sub-brand stylesheet, tokens from the app's theme, documented in DESIGN.md 'Sub-brand: Vergi Hesabım' (same as momentback.css)"
       },
       {
         "rule": "design-system-radius",
@@ -27,7 +27,7 @@
           "src/styles/vergi-hesabim.css"
         ],
         "createdAt": "2026-10-06T11:38:14.730Z",
-        "reason": "Claude decision: standalone Vergi Hesabım sub-brand stylesheet, tokens from the app's theme, documented in DESIGN.md 'Sub-brand: Vergi Hesabım'; Notura's ramp does not apply (same as momentback.css)"
+        "reason": "Claude decision: standalone Vergi Hesabım sub-brand stylesheet, tokens from the app's theme, documented in DESIGN.md 'Sub-brand: Vergi Hesabım' (same as momentback.css)"
       },
       {
         "rule": "design-system-color",
@@ -36,7 +36,7 @@
           "src/styles/vergi-hesabim.css"
         ],
         "createdAt": "2026-10-06T11:38:14.841Z",
-        "reason": "Claude decision: standalone Vergi Hesabım sub-brand stylesheet, tokens from the app's theme, documented in DESIGN.md 'Sub-brand: Vergi Hesabım'; Notura's ramp does not apply (same as momentback.css)"
+        "reason": "Claude decision: standalone Vergi Hesabım sub-brand stylesheet, tokens from the app's theme, documented in DESIGN.md 'Sub-brand: Vergi Hesabım' (same as momentback.css)"
       },
       {
         "rule": "design-system-font-size",
@@ -45,7 +45,7 @@
           "src/styles/vergi-hesabim.css"
         ],
         "createdAt": "2026-10-06T11:38:14.977Z",
-        "reason": "Claude decision: standalone Vergi Hesabım sub-brand stylesheet, tokens from the app's theme, documented in DESIGN.md 'Sub-brand: Vergi Hesabım'; Notura's ramp does not apply (same as momentback.css)"
+        "reason": "Claude decision: standalone Vergi Hesabım sub-brand stylesheet, tokens from the app's theme, documented in DESIGN.md 'Sub-brand: Vergi Hesabım' (same as momentback.css)"
       },
       {
         "rule": "design-system-font",
@@ -54,7 +54,7 @@
           "src/styles/studio.css"
         ],
         "createdAt": "2026-10-07T11:36:04.516Z",
-        "reason": "Claude decision: standalone Sarper Studios / 999KB / Jutsu stylesheet, tokens from the studio and the apps' own themes, documented in DESIGN.md 'Sub-brand: Sarper Studios'; Notura's ramp does not apply (same as vergi-hesabim.css)"
+        "reason": "Claude decision: standalone Sarper Studios / 999KB / Jutsu stylesheet, tokens from the studio and the apps' own themes, documented in DESIGN.md 'Sub-brand: Sarper Studios' (same as vergi-hesabim.css)"
       },
       {
         "rule": "design-system-radius",
@@ -63,7 +63,7 @@
           "src/styles/studio.css"
         ],
         "createdAt": "2026-10-07T11:36:04.645Z",
-        "reason": "Claude decision: standalone Sarper Studios / 999KB / Jutsu stylesheet, tokens from the studio and the apps' own themes, documented in DESIGN.md 'Sub-brand: Sarper Studios'; Notura's ramp does not apply (same as vergi-hesabim.css)"
+        "reason": "Claude decision: standalone Sarper Studios / 999KB / Jutsu stylesheet, tokens from the studio and the apps' own themes, documented in DESIGN.md 'Sub-brand: Sarper Studios' (same as vergi-hesabim.css)"
       },
       {
         "rule": "design-system-color",
@@ -72,7 +72,7 @@
           "src/styles/studio.css"
         ],
         "createdAt": "2026-10-07T11:36:04.768Z",
-        "reason": "Claude decision: standalone Sarper Studios / 999KB / Jutsu stylesheet, tokens from the studio and the apps' own themes, documented in DESIGN.md 'Sub-brand: Sarper Studios'; Notura's ramp does not apply (same as vergi-hesabim.css)"
+        "reason": "Claude decision: standalone Sarper Studios / 999KB / Jutsu stylesheet, tokens from the studio and the apps' own themes, documented in DESIGN.md 'Sub-brand: Sarper Studios' (same as vergi-hesabim.css)"
       },
       {
         "rule": "design-system-font-size",
@@ -81,7 +81,7 @@
           "src/styles/studio.css"
         ],
         "createdAt": "2026-10-07T11:36:04.909Z",
-        "reason": "Claude decision: standalone Sarper Studios / 999KB / Jutsu stylesheet, tokens from the studio and the apps' own themes, documented in DESIGN.md 'Sub-brand: Sarper Studios'; Notura's ramp does not apply (same as vergi-hesabim.css)"
+        "reason": "Claude decision: standalone Sarper Studios / 999KB / Jutsu stylesheet, tokens from the studio and the apps' own themes, documented in DESIGN.md 'Sub-brand: Sarper Studios' (same as vergi-hesabim.css)"
       }
     ]
   }

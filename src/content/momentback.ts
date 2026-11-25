@@ -2,9 +2,7 @@
  * Every word on the MomentBack surface.
  *
  * MomentBack is a sub-brand with its own dark identity and its own two-locale
- * routing (`/momentback/` and `/momentback/tr/`); it deliberately does not use
- * Notura's `src/i18n` translation dictionaries, because those are keyed for a
- * different product and a different locale set. Adding a third MomentBack
+ * routing (`/momentback/` and `/momentback/tr/`). Adding a third MomentBack
  * locale is one entry in `momentbackCopy` plus three thin page files.
  *
  * Product claims here are load-bearing: the privacy and terms text is written

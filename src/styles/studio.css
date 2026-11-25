@@ -2,8 +2,8 @@
  * Sarper Studios — the publisher page at `/` and the 999KB Arcade and Jutsu
  * product pages.
  *
- * Standalone like momentback.css and vergi-hesabim.css: it does not extend
- * Notura's global.css and nothing here reaches another product. Every rule is
+ * Standalone like momentback.css and vergi-hesabim.css: nothing here reaches
+ * another product. Every rule is
  * scoped under the `ss` body class or an `ss-` component class.
  *
  * The studio itself is quiet: warm paper, near-black ink, hairline rules, no

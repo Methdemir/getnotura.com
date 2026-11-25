@@ -1,8 +1,7 @@
 /*
  * MomentBack — the dark sub-brand surface.
  *
- * Deliberately standalone: it does not extend Notura's global.css. Nothing here
- * leaks into /[locale]/ and nothing there leaks in.
+ * Deliberately standalone: nothing here reaches another product's pages.
  *
  * The palette is the app's current anthracite palette, not a website
  * interpretation of it (apps/ReplayCamera/lib/src/theme/momentback_theme.dart:

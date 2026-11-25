@@ -1,6 +1,8 @@
 ---
-import type { AlternateLink } from "../i18n/routes";
-import { defaultRobotsPolicy } from "../config/site-release";
+export interface AlternateLink {
+  hreflang: string;
+  href: string;
+}
 
 interface Props {
   title: string;
@@ -10,9 +12,8 @@ interface Props {
   ogLocale?: string | undefined;
   robots?: string | undefined;
   /**
-   * Sub-brand overrides. Notura pages pass none of these, so their head output
-   * is unchanged; a separate product published under this domain (Vergi
-   * Hesabım) names itself, its icon and its own chrome colors here.
+   * Product overrides: each product on this domain names itself, its icon and
+   * its own chrome colors here. Defaults are the studio's.
    */
   siteName?: string | undefined;
   iconHref?: string | undefined;
@@ -28,7 +29,7 @@ const {
   canonicalPath,
   alternates = [],
   ogLocale,
-  robots = defaultRobotsPolicy,
+  robots = "index,follow",
   siteName = "Sarper Studios",
   iconHref = "/studio/mark.svg",
   themeColor = "#F7F1E6",

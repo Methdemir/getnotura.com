@@ -4,7 +4,7 @@ import { mergekin } from "../content/mergekin";
 import { vergiHesabim } from "../content/vergi-hesabim";
 import { momentBackLocales, momentBackPath, momentBackAlternates, type MomentBackPage } from "../content/momentback";
 
-/** Only Sarper Studios pages belong here; Notura is hosted independently. */
+/** Every public Sarper Studios page, one canonical URL each. */
 const ORIGIN = "https://sarperstudios.com";
 
 const absolute = (path: string) => new URL(path, ORIGIN).href;

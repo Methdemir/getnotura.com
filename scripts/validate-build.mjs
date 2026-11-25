@@ -7,10 +7,6 @@ import path from "node:path";
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const dist = path.join(root, "dist");
 const siteOrigin = "https://sarperstudios.com";
-const locales = JSON.parse(await readFile(path.join(root, "src/i18n/locales.json"), "utf8"));
-const reservedPrefixes = new Set(
-  locales.filter((locale) => locale.publicationStatus === "reserved").map((locale) => locale.urlPrefix),
-);
 
 const exists = async (filePath) => {
   try {
@@ -31,12 +27,6 @@ const linkTags = (html, rel) =>
   [...html.matchAll(/<link\b[^>]*>/gi)]
     .map((match) => match[0])
     .filter((tag) => getAttribute(tag, "rel") === rel);
-
-for (const reservedPrefix of reservedPrefixes) {
-  if (await exists(path.join(dist, reservedPrefix))) {
-    throw new Error(`Reserved locale was accidentally published: /${reservedPrefix}/`);
-  }
-}
 
 const cname = (await readFile(path.join(dist, "CNAME"), "utf8")).trim();
 if (cname !== "sarperstudios.com") {
@@ -178,8 +168,7 @@ if (/^\s*Disallow:\s*\/\s*$/m.test(robotsTxt)) {
 }
 
 /**
- * Vergi Hesabım is a Turkish-only product surface outside the Notura locale
- * matrix, so it is checked on its own: each page exists, is Turkish, carries
+ * Vergi Hesabım is a Turkish-only product surface, so it is checked on its own: each page exists, is Turkish, carries
  * exactly one self-canonical and no hreflang set, and is indexable so store and
  * ad-network reviewers can read the privacy policy.
  */
@@ -208,16 +197,8 @@ for (const vergiPath of vergiPages) {
   }
 }
 
-/**
- * Notura no longer belongs to this site: no page, no redirect rule, no link. Every former
- * Notura address (the /notura/ prefix and the root-locale aliases) must answer 404.
- */
+/** The studio site publishes no redirect rules. */
 if (await exists(path.join(dist, "_redirects"))) throw new Error("_redirects must not exist: the studio site publishes no redirects.");
-const retiredNoturaPaths = ["/notura/", "/notura/en/", "/notura/tr/privacy/", "/en/", "/tr/", "/en/privacy/", "/de/terms/"];
-for (const retired of retiredNoturaPaths) {
-  if (await exists(pageFile(retired))) throw new Error(`Retired Notura page remains: ${retired}`);
-  if (sitemapPaths.has(retired)) throw new Error(`Retired Notura path remains in sitemap: ${retired}`);
-}
 
 /**
  * The domain root is the Sarper Studios page, and 999KB Arcade and Jutsu are
@@ -421,7 +402,7 @@ if (/^\s*Disallow:\s*\/app-ads\.txt/im.test(robotsTxt)) {
 console.log(
   `Build validation passed for the studio pages, 404, CNAME, ` +
     `reciprocal hreflang, internal links, ${sitemapLocs.length} sitemap entries, robots.txt, ` +
-    `only published Play listings, zero client JavaScript, no Notura content or redirect, the studio root, ` +
+    `only published Play listings, zero client JavaScript, no redirect rules, the studio root, ` +
     `the Vergi Hesabım, 999KB Arcade, Jutsu and MERGEKIN pages (with the verbatim MERGEKIN policy text) and app-ads.txt.`,
 );
 
@@ -473,7 +454,6 @@ for (const file of files.filter((f) => f.endsWith(".html") && !isTracker(f) && !
   }
 }
 if (canonicalSet.size !== sitemapPaths.size || sitemapPaths.size !== sitemapLocs.length) throw new Error("Sitemap must list each public canonical exactly once.");
-if (/notura/i.test(studioHtml)) throw new Error("The studio root must not mention Notura.");
 const baseline = JSON.parse(await readFile(path.join(root, "docs/seo-domain-split/studio-baseline-hashes.json"), "utf8"));
 for (const [relative, hash] of Object.entries(baseline.hashes)) {
   const actual = createHash("sha256").update(await readFile(path.join(dist, relative))).digest("hex");
