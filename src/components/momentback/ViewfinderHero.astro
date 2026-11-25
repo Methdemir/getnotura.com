@@ -19,6 +19,7 @@
  * app does. With reduced motion it simply reads READY.
  */
 import { momentBackPhotos, type MomentBackCopy } from "../../content/momentback";
+import PlayLink from "../PlayLink.astro";
 
 interface Props {
   home: MomentBackCopy["home"];
@@ -125,7 +126,7 @@ const set = (files: string[], widths: number[], ext: string) =>
 
 <div class="mb-status">
   <div class="mb-shell mb-status__inner">
-    <p class="mb-status__store"><span class="mb-dot"></span>{home.cta}</p>
+    <PlayLink app="momentback" label={home.cta} class="mb-play" />
     <ul class="mb-status__facts">
       {home.platform.map((fact) => <li>{fact}</li>)}
     </ul>

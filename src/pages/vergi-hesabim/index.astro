@@ -1,4 +1,5 @@
 ---
+import PlayLink from "../../components/PlayLink.astro";
 import Receipt from "../../components/vergi-hesabim/Receipt.astro";
 import { vergiHesabim, vergiModules, vergiPath } from "../../content/vergi-hesabim";
 import VergiHesabimLayout from "../../layouts/VergiHesabimLayout.astro";
@@ -20,10 +21,10 @@ const moduleRows = vergiModules.map((module) => ({ label: module.title, value: m
           Vergi Hesabım; maaş, KDV, araç vergisi, tapu harcı, kira geliri ve gecikme zammını Türkiye'deki
           kurallara göre hesaplayan bir Android uygulamasıdır. Hesap için internet gerekmez.
         </p>
-        <p class="vh-status">
-          <span class="vh-status__dot" aria-hidden="true"></span>
-          Henüz mağazada değil. Google Play sayfası açıldığında bağlantısı burada yer alacak.
-        </p>
+        <div class="vh-store">
+          <PlayLink app="vergi-hesabim" locale="tr" class="vh-play" />
+          <p class="vh-store__note">Ücretsiz · Android</p>
+        </div>
       </div>
       <div class="vh-hero__figure">
         <Receipt
@@ -109,7 +110,7 @@ const moduleRows = vergiModules.map((module) => ({ label: module.title, value: m
         </div>
         <div>
           <dt>Platform</dt>
-          <dd>Android · mağaza sayfası henüz yok</dd>
+          <dd>Android · Google Play'de</dd>
         </div>
         <div>
           <dt>Paket adı</dt>

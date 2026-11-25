@@ -1,9 +1,9 @@
 {
   "sourceCommit": "0967f7205517beaff977f791b87ef11e44b5dfb3",
   "hashes": {
-    "999kb/index.html": "e29555bc3164f12e419c1c0661c857cfa8fbe0b601e57026368c2be53b7ccdf0",
+    "999kb/index.html": "d80c8e2bf4425cebd3a51cd7fa97c469a0ac004af6161e01bee3b63060e831c7",
     "999kb/privacy/index.html": "7c75134381d6f42c05fb20aac10fa50d5c98fe7d119af086ec8e781af36bebe2",
-    "999kb/tr/index.html": "2f26a04b5a5abbeffb51720a91971a12a64567c614c6b9349596ab4011b8bb10",
+    "999kb/tr/index.html": "f9ed952208932544bbda63b08d61c058ed18a52ac061b511d9c505920afba58a",
     "999kb/tr/privacy/index.html": "802576a0def5b971e6e8f29a188b3dfcec362353506299635c06899ce1db8ac0",
     "jutsu/index.html": "9e9691f7f2eae7f6f52f78c5047f8390f7fb1fab378dd58fcb282aeb3300ce67",
     "jutsu/privacy/index.html": "a73d299df152241da2bd1df6eb644bb80f2963b9ee35ef785fe4db4dee8071a9",
@@ -11,27 +11,37 @@
     "jutsu/tr/privacy/index.html": "7a848fbcdd8279b19e2ecde5526620a7d45630fe08e9a882c5099cb867c10f87",
     "kimo/index.html": "dd9f84f995d819983d09016d3f4446d96a9d6b0292be6e08793df25cb1304447",
     "mergekin/gizlilik/index.html": "36c31e03bc7f2eb7ab373ee84d48df3fb26f5381a8a4bbadc994b60ef4ad3467",
-    "mergekin/index.html": "a42d14ac11f12122da5325143ec033813903fe271ae2757617897b4c2108d9b9",
+    "mergekin/index.html": "22a1f367d4a3b7e7b81b68b4a5015dc153960ca138e0ba42acdd58f7ffa221b2",
     "mergekin/privacy/index.html": "026cf6560edb2108315a2bd6d4f20e2cbf275c970291e7997290e89213ba9a88",
-    "momentback/index.html": "76bb075e6695c62ca1194602cf72419c5dbb2f3b52ef9a915feacf052a0c9a2f",
-    "momentback/privacy/index.html": "539e7f98b6afae5161a9b732d95c56171767cd6ea384f270a8bc24cbac92b708",
-    "momentback/terms/index.html": "bcdd32da570f251b8d8b02674b5d84e0a7f4824d0b115a07d410a4059cc8bbab",
-    "momentback/tr/index.html": "9daa4762e215766167bab5e4ddf078b49f3407d93db60c66bfd3b8d60ea0c0d5",
-    "momentback/tr/privacy/index.html": "0715402f6dfce1ae4b18acbea96e92cea67d70c3713c6df6a3079767639ffe92",
-    "momentback/tr/terms/index.html": "ed89513d898cdd653633f5a8d4d0ccbca11c3944e7a1126acbc4ebac7284ef1f",
-    "vergi-hesabim/index.html": "38f17c023866fb082ab1d36130a2f5a7435ea5c8352fa8e468abaf6a8970beac",
-    "vergi-hesabim/privacy/index.html": "8cab973b6102a42cceb701fbdd17fa913b91a57cf42ea458bed22eeecf380e0a",
+    "momentback/index.html": "1e542aab4bd207a2a86dacce73ae72a4cbf5d0497c7131bde5d8efd9a4754376",
+    "momentback/privacy/index.html": "4b3f3ffb48f7dd5008900d87347c0d2afba6c7aa6b488e7e711bf46949560bc6",
+    "momentback/terms/index.html": "c001625c7ef4b3fa4950a0f2211ff07a9aac7de55c7efe05b437a97c844a0f8a",
+    "momentback/tr/index.html": "8254ab24c9027cb3752a490c2b10070ccd5d0618059339ecd4084e44d200023b",
+    "momentback/tr/privacy/index.html": "392a5f939dae8989cdec16cf5bdd6889c3d95bac2583dcd534f24db1197ae24a",
+    "momentback/tr/terms/index.html": "29a9804e12791a4ee3db33a8b808361c16626c933af50e88f2a2312f1092f379",
+    "vergi-hesabim/index.html": "78013bfc2452b54c802ab9ada4eefe87ece506a54f85046345a049d81afddafd",
+    "vergi-hesabim/privacy/index.html": "8e65820db6ea631a90ce8a45f4185d44f07c11a7c7a6da7e7b53f592b6737cac",
     "takip/index.html": "4fb1c016a5b4c2c1e27408ad51b851838b05f72ad45370b0f5fd1a878e33b606",
     "app-ads.txt": "e16eb956f2576d7dee40d2795f717ffc33bd526c982604fe65df7d8575cd5821"
   },
   "allowedLinkMigration": "Only the MomentBack footer \"Also from us / Notura\" block was removed on 2026-11-18 (Notura left this site); all other bytes stay identical.",
-  "allowedLinkMigrationHashes": {
-    "momentback/index.html": "5be57105201c57a1d7681497a359810896694f0a039f166c715d850bbc70fbc9",
-    "momentback/privacy/index.html": "f47a7bfbab4c5a1c39a0048996e4b4e5469e8237a8c988d246a1046f43fc978d",
-    "momentback/terms/index.html": "d81834e31b826bdc918ca848afa4a9a330368396f7b959b1b7e2af3d01d77890",
-    "momentback/tr/index.html": "1fbf67c4586753ea205a559e24eb07e58c30f11b36027960e6504c3669053409",
-    "momentback/tr/privacy/index.html": "a051b0714bec4f838b1046f93b193b76ef388a3332bc9dae29499bd6076ff92b",
-    "momentback/tr/terms/index.html": "5485b6541acb6a509ab88102d3c0d2121f18ffd2174ae4472f1f0109e6ceeba4"
-  },
-  "adFileBaseline": "app-ads.txt SHA is computed from the sourceCommit Git blob (LF), enforced by .gitattributes; the initial Windows checkout used CRLF."
+  "allowedLinkMigrationHashes": {},
+  "adFileBaseline": "app-ads.txt SHA is computed from the sourceCommit Git blob (LF), enforced by .gitattributes; the initial Windows checkout used CRLF.",
+  "storeLinkUpdate": {
+    "date": "2026-11-25",
+    "note": "Google Play links added for the four published apps (MomentBack, Vergi Hesabım, 999KB, Mergekin) and their \"coming soon\" copy replaced; other listed pages changed only by their shared CSS bundle name.",
+    "files": [
+      "999kb/index.html",
+      "999kb/tr/index.html",
+      "mergekin/index.html",
+      "momentback/index.html",
+      "momentback/privacy/index.html",
+      "momentback/terms/index.html",
+      "momentback/tr/index.html",
+      "momentback/tr/privacy/index.html",
+      "momentback/tr/terms/index.html",
+      "vergi-hesabim/index.html",
+      "vergi-hesabim/privacy/index.html"
+    ]
+  }
 }

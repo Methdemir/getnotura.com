@@ -53,7 +53,7 @@ export const studioApps: StudioApp[] = [
     privacyHref: "/momentback/privacy/",
     line: "A replay camera that keeps the last moments, so you save what already happened.",
     kind: "Camera · Android",
-    status: "Coming soon",
+    status: "On Google Play",
     mark: "/momentback/mark.svg",
   },
   {
@@ -63,7 +63,7 @@ export const studioApps: StudioApp[] = [
     privacyHref: "/vergi-hesabim/privacy/",
     line: "Salary, VAT, vehicle tax and title-deed fees for Türkiye, worked out on your phone.",
     kind: "Finance · Android · Turkish",
-    status: "Coming soon",
+    status: "On Google Play",
     mark: "/vergi-hesabim/icon-64.png",
   },
   {
@@ -73,7 +73,7 @@ export const studioApps: StudioApp[] = [
     privacyHref: "/999kb/privacy/",
     line: "One hundred games in an app smaller than one megabyte. Offline, no ads.",
     kind: "Games · Android",
-    status: "Coming soon",
+    status: "On Google Play",
     mark: "/999kb/icon-192.png",
   },
   {
@@ -88,12 +88,12 @@ export const studioApps: StudioApp[] = [
   },
   {
     id: "mergekin",
-    name: "MERGEKIN: Echo Defense",
+    name: "Mergekin: Rune Legion",
     href: "/mergekin/",
     privacyHref: "/mergekin/privacy/",
     line: "Place heroes, merge them stronger and hold the road across sixteen hand-built battlefields.",
     kind: "Games · Android",
-    status: "In development",
+    status: "On Google Play",
     mark: "/mergekin/icon-192.png",
   },
   {
@@ -199,7 +199,7 @@ const kb999: AppPage = {
         heading: "One hundred games. Under one megabyte.",
         lede:
           "100 mini games for Android, drawn entirely in code. No image files, no sound files, no downloads after install. The whole app is smaller than one photo on your phone.",
-        status: "Coming soon to Google Play",
+        status: "On Google Play",
         factsHeading: "At a glance",
         facts: [
           { label: "Games", value: "100" },
@@ -236,7 +236,7 @@ const kb999: AppPage = {
         developer: {
           publisher: "Publisher",
           platform: "Platform",
-          platformValue: "Android 5.0 or newer · coming soon to Google Play",
+          platformValue: "Android 5.0 or newer · on Google Play",
           contact: "Support",
           privacy: "Privacy",
         },
@@ -350,7 +350,7 @@ const kb999: AppPage = {
         heading: "Yüz oyun. Bir megabaytın altında.",
         lede:
           "Android için 100 mini oyun, tamamı kodla çizilmiş. Resim dosyası yok, ses dosyası yok, kurulumdan sonra indirme yok. Uygulamanın tamamı telefonundaki tek bir fotoğraftan küçük.",
-        status: "Yakında Google Play'de",
+        status: "Google Play'de",
         factsHeading: "Bir bakışta",
         facts: [
           { label: "Oyun", value: "100" },
@@ -387,7 +387,7 @@ const kb999: AppPage = {
         developer: {
           publisher: "Yayıncı",
           platform: "Platform",
-          platformValue: "Android 5.0 veya üzeri · yakında Google Play'de",
+          platformValue: "Android 5.0 veya üzeri · Google Play'de",
           contact: "Destek",
           privacy: "Gizlilik",
         },

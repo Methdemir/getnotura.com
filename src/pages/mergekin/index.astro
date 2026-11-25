@@ -3,6 +3,7 @@
  * Mergekin: Rune Legion — product page. English only; the privacy policy is
  * published in English and Turkish. Facts: src/content/mergekin.ts.
  */
+import PlayLink from "../../components/PlayLink.astro";
 import Art from "../../components/mergekin/Art.astro";
 import { heroes, mergekin, regions, runes, screenshots } from "../../content/mergekin";
 import MergekinLayout from "../../layouts/MergekinLayout.astro";
@@ -26,7 +27,7 @@ const facts = [
 <MergekinLayout
   page="home"
   title="Mergekin: Rune Legion — merge heroes, hold the road | Sarper Studios"
-  description="Mergekin: Rune Legion is a casual merge and tower-defense strategy game for Android. Place six heroes on plinths, merge twins into stronger tiers, choose Ember, Frost or Storm runes and defend 16 hand-built maps. Coming soon to Google Play."
+  description="Mergekin: Rune Legion is a casual merge and tower-defense strategy game for Android. Place six heroes on plinths, merge twins into stronger tiers, choose Ember, Frost or Storm runes and defend 16 hand-built maps. Free on Google Play."
 >
   <section class="mk-hero" aria-labelledby="hero-title">
     <div class="mk-hero__backdrop" aria-hidden="true">
@@ -63,10 +64,7 @@ const facts = [
         A casual merge and tower-defense strategy game for Android. Sixteen hand-built battlefields, six heroes,
         three runes, and a crystal gate that must not break.
       </p>
-      <p class="mk-status">
-        <span class="mk-status__pip" aria-hidden="true"></span>
-        <span class="mk-status__text"><strong>Coming soon to Google Play</strong> <span class="mk-status__sub">In development</span></span>
-      </p>
+      <PlayLink app="mergekin" class="mk-button mk-play" />
     </div>
 
     <div class="mk-hero__roster">

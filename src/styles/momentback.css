@@ -1856,11 +1856,28 @@ ol {
   color: var(--mb-muted);
 }
 
-.mb-close .mb-status__store {
-  margin-block-start: 0.5rem;
-  padding: 0.7rem 1.1rem;
-  border: 1px solid var(--mb-rule);
+.mb-play {
+  min-height: 3rem;
+  padding: 0 1.25rem;
   border-radius: 999px;
+  background: var(--mb-teal);
+  color: var(--mb-on-teal);
+  font-family: var(--mb-sans);
+  font-size: var(--mb-sm);
+  font-weight: 600;
+}
+
+.mb-play:hover {
+  background: #66e3d2;
+}
+
+.mb-play:focus-visible {
+  outline: 2px solid var(--mb-cream);
+  outline-offset: 3px;
+}
+
+.mb-close .mb-play {
+  margin-block-start: 0.5rem;
 }
 
 /* ---------------------------------------------------------------- motion

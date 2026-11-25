@@ -1,5 +1,6 @@
 ---
 import { getMomentBackCopy, momentBackPath, type MomentBackLocale } from "../../content/momentback";
+import PlayLink from "../PlayLink.astro";
 import AppTour from "./AppTour.astro";
 import ReplayTimeline from "./ReplayTimeline.astro";
 import ViewfinderHero from "./ViewfinderHero.astro";
@@ -207,6 +208,6 @@ const moments = home.moments.items.map((moment, index) => ({
       <span class="mb-two-voice__serif">{home.close.heading.serif}</span>
     </h2>
     <p>{home.close.body}</p>
-    <p class="mb-status__store"><span class="mb-dot"></span>{home.cta}</p>
+    <PlayLink app="momentback" label={home.cta} class="mb-play" />
   </div>
 </section>

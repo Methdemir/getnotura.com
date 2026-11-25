@@ -319,8 +319,8 @@ const en: MomentBackCopy = {
     },
     lede:
       "You are always late to the record button. MomentBack keeps the last seconds the camera has already seen, so the clip starts before you reacted.",
-    cta: "Coming soon on Google Play",
-    ctaNote: "Not published yet. This page goes live before the app does.",
+    cta: "Get it on Google Play",
+    ctaNote: "Free to download. Pro is an optional one-time purchase.",
     secondary: "See the real screens",
     platform: ["Android 10+", "No account", "Works offline"],
     hud: {
@@ -555,7 +555,7 @@ const en: MomentBackCopy = {
       },
       line:
         "15 s and 30 s replays at 720p or 1080p are free; Pro is a one-time purchase, no subscription, that adds 60 s and 120 s replays and 1080p60 / 4K30 on supported cameras.",
-      note: "The price will be shown by Google Play when MomentBack launches there.",
+      note: "Google Play shows the Pro price for your country, in the app and on the listing.",
     },
     faq: {
       label: "Questions",
@@ -589,7 +589,7 @@ const en: MomentBackCopy = {
         {
           question: "What does Pro cost, and what does it unlock?",
           answer:
-            "Pro is a one-time purchase with no subscription. It unlocks 60 s and 120 s replays, and 1080p60 and 4K30 on cameras that support them. Its price will be shown by Google Play; MomentBack is not on sale anywhere yet.",
+            "Pro is a one-time purchase with no subscription. It unlocks 60 s and 120 s replays, and 1080p60 and 4K30 on cameras that support them. Google Play shows its price for your country before you buy.",
         },
       ],
     },
@@ -599,7 +599,7 @@ const en: MomentBackCopy = {
         serif: "You only have to notice.",
       },
       body:
-        "MomentBack is being prepared for Google Play. This page is the product's home; the store link will appear here the day it exists.",
+        "MomentBack is on Google Play. Install it free; the 15 s and 30 s replays need nothing else.",
     },
   },
   privacy: {
@@ -611,7 +611,7 @@ const en: MomentBackCopy = {
     heading: "Privacy Policy",
     intro:
       "MomentBack is a camera that holds the last seconds of what it sees so that you can save them afterwards. That is an unusual thing for an app to do, so this notice is specific about it rather than generic.",
-    updated: "Last updated: 30 October 2026",
+    updated: "Last updated: 25 November 2026",
     contentsLabel: "On this page",
     sections: [
       {
@@ -675,7 +675,7 @@ const en: MomentBackCopy = {
         paragraphs: [
           "MomentBack is free to use with 15-second and 30-second replays and the standard video qualities. Pro is an optional one-time purchase, with no subscription, that unlocks the 60-second and 120-second replays and, on cameras that support them, the 1080p 60 fps and 4K video qualities.",
           "The purchase is handled entirely by Google Play. MomentBack never sees or stores your payment details, your Google account or your order. When you buy or restore Pro, and when the app checks at startup whether Pro is owned, the Play Billing Library talks to Google Play; the only answer MomentBack keeps is whether Pro is owned. Google processes that transaction under its own privacy policy and your Google account settings.",
-          "MomentBack is being prepared for distribution on Google Play. Where you install an app from a store, that store records the installation and may collect platform-level information such as crash reports under its own policies and your account settings. That happens outside MomentBack, and the app neither requests nor receives it.",
+          "MomentBack is distributed on Google Play. Where you install an app from a store, that store records the installation and may collect platform-level information such as crash reports under its own policies and your account settings. That happens outside MomentBack, and the app neither requests nor receives it.",
         ],
       },
       {
@@ -863,8 +863,8 @@ const tr: MomentBackCopy = {
     },
     lede:
       "Kayıt tuşuna hep geç kalırsınız. MomentBack, kameranın zaten gördüğü son saniyeleri tutar; klip, siz tepki vermeden önce başlar.",
-    cta: "Yakında Google Play'de",
-    ctaNote: "Henüz yayında değil. Bu sayfa uygulamadan önce açılıyor.",
+    cta: "Google Play'den indir",
+    ctaNote: "Ücretsiz indirilir. Pro, isteğe bağlı tek seferlik bir satın almadır.",
     secondary: "Gerçek ekranlara bak",
     platform: ["Android 10+", "Hesap yok", "Çevrimdışı çalışır"],
     hud: {
@@ -1098,7 +1098,7 @@ const tr: MomentBackCopy = {
       },
       line:
         "720p veya 1080p'de 15 sn ve 30 sn replay ücretsiz; Pro tek seferlik bir satın almadır, abonelik yoktur ve 60 sn, 120 sn replay ile destekleyen kameralarda 1080p60 / 4K30 ekler.",
-      note: "Fiyatı, MomentBack orada yayınlandığında Google Play gösterecek.",
+      note: "Pro'nun ülkenizdeki fiyatını uygulamada ve mağaza sayfasında Google Play gösterir.",
     },
     faq: {
       label: "Sorular",
@@ -1132,7 +1132,7 @@ const tr: MomentBackCopy = {
         {
           question: "Pro ne kadar, neyi açıyor?",
           answer:
-            "Pro tek seferlik bir satın almadır, abonelik yoktur. 60 sn ve 120 sn replay'i, destekleyen kameralarda da 1080p60 ve 4K30'u açar. Fiyatını Google Play gösterecek; MomentBack henüz hiçbir yerde satışta değil.",
+            "Pro tek seferlik bir satın almadır, abonelik yoktur. 60 sn ve 120 sn replay'i, destekleyen kameralarda da 1080p60 ve 4K30'u açar. Ülkenizdeki fiyatını satın almadan önce Google Play gösterir.",
         },
       ],
     },
@@ -1142,7 +1142,7 @@ const tr: MomentBackCopy = {
         serif: "Sizin yalnızca fark etmeniz gerekiyor.",
       },
       body:
-        "MomentBack, Google Play için hazırlanıyor. Bu sayfa ürünün evi; mağaza bağlantısı var olduğu gün burada belirecek.",
+        "MomentBack Google Play'de. Ücretsiz kurun; 15 sn ve 30 sn replay için başka bir şey gerekmez.",
     },
   },
   privacy: {
@@ -1154,7 +1154,7 @@ const tr: MomentBackCopy = {
     heading: "Gizlilik Politikası",
     intro:
       "MomentBack, gördüğü son saniyeleri tutan ve bunları sonradan kaydetmenizi sağlayan bir kameradır. Bir uygulama için alışılmadık bir davranış olduğundan, bu bildirim genel geçer değil, bu davranışa özgü yazılmıştır.",
-    updated: "Son güncelleme: 30 Ekim 2026",
+    updated: "Son güncelleme: 25 Kasım 2026",
     contentsLabel: "Bu sayfada",
     sections: [
       {
@@ -1218,7 +1218,7 @@ const tr: MomentBackCopy = {
         paragraphs: [
           "MomentBack; 15 ve 30 saniyelik geri kayıt ile standart video kaliteleriyle ücretsiz kullanılır. Pro, abonelik olmayan, isteğe bağlı tek seferlik bir satın almadır; 60 ve 120 saniyelik geri kaydı ve destekleyen kameralarda 1080p 60 fps ile 4K video kalitelerini açar.",
           "Satın alma tümüyle Google Play tarafından yürütülür. MomentBack ödeme bilgilerinizi, Google hesabınızı veya siparişinizi hiçbir zaman görmez ve saklamaz. Pro'yu satın aldığınızda veya geri yüklediğinizde ve uygulama açılışta Pro'ya sahip olup olmadığınızı kontrol ettiğinde Play Billing kütüphanesi Google Play ile iletişim kurar; MomentBack'in sakladığı tek sonuç Pro'ya sahip olunup olunmadığıdır. Google bu işlemi kendi gizlilik politikası ve Google hesap ayarlarınız kapsamında işler.",
-          "MomentBack, Google Play üzerinden dağıtım için hazırlanmaktadır. Bir uygulamayı mağazadan kurduğunuzda, o mağaza kurulumu kaydeder ve kendi politikaları ile hesap ayarlarınız kapsamında çökme raporu gibi platform düzeyinde bilgiler toplayabilir. Bu, MomentBack'in dışında gerçekleşir; uygulama bunu ne talep eder ne de alır.",
+          "MomentBack, Google Play üzerinden dağıtılır. Bir uygulamayı mağazadan kurduğunuzda, o mağaza kurulumu kaydeder ve kendi politikaları ile hesap ayarlarınız kapsamında çökme raporu gibi platform düzeyinde bilgiler toplayabilir. Bu, MomentBack'in dışında gerçekleşir; uygulama bunu ne talep eder ne de alır.",
         ],
       },
       {

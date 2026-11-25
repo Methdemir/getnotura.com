@@ -7,6 +7,7 @@
  */
 import { studio, studioApps } from "../content/studio";
 import StudioLayout from "../layouts/StudioLayout.astro";
+import { playListing } from "../config/store-availability";
 
 const mailto = `mailto:${studio.email}`;
 const principles = [
@@ -27,7 +28,7 @@ const principles = [
 
 <StudioLayout
   title="Sarper Studios — independent mobile apps"
-  description="Sarper Studios is an independent mobile app developer in Türkiye. MomentBack, Vergi Hesabım, 999KB, Jutsu, MERGEKIN and Kim O?: product pages, privacy policies and contact."
+  description="Sarper Studios is an independent mobile app developer in Türkiye. MomentBack, Vergi Hesabım, 999KB, Mergekin, Jutsu and Kim O?: product pages, privacy policies and contact."
   canonicalPath="/"
 >
   <section class="ss-hero ss-hero--studio" aria-labelledby="hero-title">
@@ -81,6 +82,9 @@ const principles = [
                 <li><a href={app.href} aria-label={`${app.name} product page`}>Product page</a></li>
                 {app.privacyHref && (
                   <li><a href={app.privacyHref} aria-label={`${app.name} privacy policy`}>Privacy policy</a></li>
+                )}
+                {playListing(app.id) && (
+                  <li><a href={playListing(app.id)} rel="noopener" aria-label={`${app.name} on Google Play`}>Google Play</a></li>
                 )}
               </ul>
             </li>

@@ -90,25 +90,30 @@ for (const pattern of bannedOutput) {
 }
 
 /**
- * Store URLs are banned for exactly as long as nothing is published.
+ * Store URLs may only point at listings that genuinely exist.
  *
- * The rule used to be absolute, which meant release day would have required
- * editing this validator as well as the store config — two edits in two places,
- * one of them easy to forget. Now the single source of truth is
- * `src/config/store-availability.ts`: a store hostname may appear in the output
- * only once a channel there is genuinely marked available. A half-finished flip,
- * where a badge links out but the config still says nothing is published, still
- * fails the build.
+ * `src/config/store-availability.ts` holds the Play listing of every published
+ * Sarper Studios app (`playListings`). Any play.google.com URL in the output
+ * must be one of those, so an app in development or in review cannot ship a
+ * dead store link. The App Store is not used by any app yet and stays banned.
  */
 const storeConfig = await readFile(path.join(root, "src/config/store-availability.ts"), "utf8");
-const declaresAvailableChannel = /state:\s*"available"/.test(storeConfig);
-const storeHosts = [/play\.google\.com/i, /apps\.apple\.com/i];
-for (const pattern of storeHosts) {
-  if (pattern.test(inspectableText) && !declaresAvailableChannel) {
-    throw new Error(
-      `Output contains ${pattern} but no channel in store-availability.ts is marked available.`,
-    );
+const allowedPlayUrls = new Set(
+  [...storeConfig.matchAll(/"(https:\/\/play\.google\.com\/store\/apps\/details\?id=[\w.]+)"/g)].map((m) => m[1]),
+);
+if (allowedPlayUrls.size === 0) {
+  throw new Error("store-availability.ts declares no Play listings.");
+}
+const playUrlsInOutput = new Set(
+  [...inspectableText.matchAll(/https?:\/\/play\.google\.com[^"'\s<>)]*/gi)].map((m) => m[0].replaceAll("&amp;", "&")),
+);
+for (const url of playUrlsInOutput) {
+  if (!allowedPlayUrls.has(url)) {
+    throw new Error(`Output links to ${url}, which is not a listing in store-availability.ts.`);
   }
+}
+if (/apps\.apple\.com/i.test(inspectableText)) {
+  throw new Error("Output contains an App Store URL, but no app is published there.");
 }
 
 if (/href="(?:https:\/\/sarperstudios\.com)?\/pt\/"/i.test(inspectableText)) {
@@ -416,7 +421,7 @@ if (/^\s*Disallow:\s*\/app-ads\.txt/im.test(robotsTxt)) {
 console.log(
   `Build validation passed for the studio pages, 404, CNAME, ` +
     `reciprocal hreflang, internal links, ${sitemapLocs.length} sitemap entries, robots.txt, ` +
-    `no unpublished store URLs, zero client JavaScript, no Notura content or redirect, the studio root, ` +
+    `only published Play listings, zero client JavaScript, no Notura content or redirect, the studio root, ` +
     `the Vergi Hesabım, 999KB Arcade, Jutsu and MERGEKIN pages (with the verbatim MERGEKIN policy text) and app-ads.txt.`,
 );
 
